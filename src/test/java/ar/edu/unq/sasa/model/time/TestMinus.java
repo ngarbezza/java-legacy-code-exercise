@@ -1,0 +1,121 @@
+package ar.edu.unq.sasa.model.time;
+
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+
+import java.util.Calendar;
+
+import junit.framework.TestCase;
+
+/**
+ * Test Case para la clase {@link Minus}.
+ * 
+ * @author Nahuel
+ *
+ */
+public class TestMinus extends TestCase {
+
+	private Minus minusUnderTest;
+	private Period mockLeftOp, mockRightOp;
+	
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	protected void setUp() throws Exception {
+		this.mockLeftOp = createMock(Period.class);
+		this.mockRightOp= createMock(Period.class);
+		this.minusUnderTest = new Minus(mockLeftOp, mockRightOp);
+	}
+	
+	/**
+	 * Test method for {@link Minus#Minus(LogicalDateFulfiller, LogicalDateFulfiller)}.
+	 */
+	public void test_constructor() {
+		assertSame(mockLeftOp, minusUnderTest.getLeftPeriod());
+		assertSame(mockRightOp, minusUnderTest.getRightPeriod());
+	}
+	
+	/**
+	 * Test method for {@link Minus#contains(Calendar)}.
+	 * @throws Exception 
+	 */
+	public void test_containsCalendar() throws Exception {
+		Calendar calendarMock= createMock(Calendar.class);
+		expect(mockLeftOp.contains(calendarMock))
+			.andReturn(false).andReturn(false)
+			.andReturn(true).andReturn(true);
+		expect(mockRightOp.contains(calendarMock))
+			.andReturn(false).andReturn(true)
+			.andReturn(false).andReturn(true);
+		replay(mockLeftOp, mockRightOp);
+		assertFalse(minusUnderTest.contains(calendarMock));
+		assertFalse(minusUnderTest.contains(calendarMock));
+		assertTrue(minusUnderTest.contains(calendarMock));
+		assertFalse(minusUnderTest.contains(calendarMock));
+		verify(mockLeftOp); 
+		// no puedo verificar el right porque a veces no se evalua,
+		// ya que el Or que se asume Short-circuit
+	}
+	
+	/**
+	 * Test method for {@link Minus#contains(LogicalDateFulfiller)}.
+	 * @throws Exception 
+	 */
+	public void test_containsLogicalDateFulfiller() throws Exception {
+		Period ldfMock = createMock(Period.class);
+		expect(mockLeftOp.contains(ldfMock))
+			.andReturn(false).andReturn(false)
+			.andReturn(true).andReturn(true);
+		expect(mockRightOp.contains(ldfMock))
+			.andReturn(false).andReturn(true)
+			.andReturn(false).andReturn(true);
+		replay(mockLeftOp, mockRightOp);
+		assertFalse(minusUnderTest.contains(ldfMock));
+		assertFalse(minusUnderTest.contains(ldfMock));
+		assertTrue(minusUnderTest.contains(ldfMock));
+		assertFalse(minusUnderTest.contains(ldfMock));
+		verify(mockLeftOp);
+	}
+	
+	/**
+	 * Test method for {@link Minus#isIn(SimpleDateFulfiller)}.
+	 * @throws Exception 
+	 */
+	public void test_isIn() throws Exception {
+		SimplePeriod sdfMock = createMock(SimplePeriod.class);
+		expect(mockLeftOp.isIn(sdfMock))
+			.andReturn(false).andReturn(false)
+			.andReturn(true).andReturn(true);
+		expect(mockRightOp.isIn(sdfMock))
+			.andReturn(false).andReturn(true)
+			.andReturn(false).andReturn(true);
+		replay(mockLeftOp, mockRightOp);
+		assertFalse(minusUnderTest.isIn(sdfMock));
+		assertFalse(minusUnderTest.isIn(sdfMock));
+		assertTrue(minusUnderTest.isIn(sdfMock));
+		assertFalse(minusUnderTest.isIn(sdfMock));
+		verify(mockLeftOp);
+	}
+	
+	/**
+	 * Test method for {@link Minus#intersectsWith(LogicalDateFulfiller)}.
+	 * @throws Exception 
+	 */
+	public void test_intersectsWith() throws Exception {
+		Period ldfMock = createMock(Period.class);
+		expect(mockLeftOp.intersectsWith(ldfMock))
+			.andReturn(false).andReturn(false)
+			.andReturn(true).andReturn(true);
+		expect(mockRightOp.intersectsWith(ldfMock))
+			.andReturn(false).andReturn(true)
+			.andReturn(false).andReturn(true);
+		replay(mockLeftOp, mockRightOp);
+		assertFalse(minusUnderTest.intersectsWith(ldfMock));
+		assertFalse(minusUnderTest.intersectsWith(ldfMock));
+		assertTrue(minusUnderTest.intersectsWith(ldfMock));
+		assertFalse(minusUnderTest.intersectsWith(ldfMock));
+		verify(mockLeftOp);
+	}
+}
