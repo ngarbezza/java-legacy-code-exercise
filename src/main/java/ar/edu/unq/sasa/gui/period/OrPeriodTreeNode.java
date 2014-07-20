@@ -6,10 +6,6 @@ import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.Or;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * @author Nahuel Garbezza
- *
- */
 public class OrPeriodTreeNode extends CompositePeriodTreeNode {
 
 	public OrPeriodTreeNode(PeriodTreeNode leftTree, PeriodTreeNode rightTree) {

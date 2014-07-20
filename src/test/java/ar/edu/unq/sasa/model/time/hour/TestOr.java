@@ -11,30 +11,24 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Test Case para la clase {@link Or}.
- * 
- * @author Nahuel
- *
- */
 public class TestOr {
 
 	private Or orUnderTest;
 	private LogicalHourFulfiller mockLeftOp, mockRightOp;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		this.mockLeftOp = createMock(LogicalHourFulfiller.class);
 		this.mockRightOp= createMock(LogicalHourFulfiller.class);
 		this.orUnderTest = new Or(mockLeftOp, mockRightOp);
 	}
-	
+
 	@Test
 	public void test_constructor() {
 		assertSame(mockLeftOp, orUnderTest.getLeftOp());
 		assertSame(mockRightOp, orUnderTest.getRightOp());
 	}
-	
+
 	@Test
 	public void test_containsTimestamp() {
 		Timestamp timeSTMock= createMock(Timestamp.class);
@@ -53,7 +47,7 @@ public class TestOr {
 		// no puedo verificar el right porque a veces no se evalua,
 		// ya que el Or que se asume Short-circuit
 	}
-	
+
 	@Test
 	public void test_containsLogicalHourFulfiller() {
 		LogicalHourFulfiller lhfMock = createMock(LogicalHourFulfiller.class);
@@ -70,7 +64,7 @@ public class TestOr {
 		assertTrue(orUnderTest.contains(lhfMock));
 		verify(mockLeftOp);
 	}
-	
+
 	@Test
 	public void test_isIn() {
 		HourInterval hiMock = createMock(HourInterval.class);
@@ -87,7 +81,7 @@ public class TestOr {
 		assertTrue(orUnderTest.isIn(hiMock));
 		verify(mockLeftOp);
 	}
-	
+
 	@Test
 	public void test_intersectsWith() {
 		LogicalHourFulfiller lhfMock = createMock(LogicalHourFulfiller.class);

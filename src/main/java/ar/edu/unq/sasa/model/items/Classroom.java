@@ -14,19 +14,11 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Representa las aulas del sistema.
- * 
- * @author Campos Diego
  */
 public class Classroom extends AssignableItem {
 
-	/**
-	 * La capacidad (cantidad de alumnos).
-	 */
 	private int capacity;
 
-	/**
-	 * Los recursos con los que cuenta el aula, de manera fija.
-	 */
 	private List<FixedResource> resources;
 
 	public Classroom(String name, int capacity) {
@@ -47,22 +39,10 @@ public class Classroom extends AssignableItem {
 		this.capacity = capacity;
 	}
 
-	/**
-	 * Agrega un {@link FixedResource} al aula.
-	 * 
-	 * @param resource
-	 */
 	public void addResource(FixedResource resource) {
 		this.resources.add(resource);
 	}
 	
-	/**
-	 * Retorna un booleano indicando la existencia o no del recurso indicado por
-	 * parámetro.
-	 * 
-	 * @param name Nombre del Recurso buscado.
-	 * @return true si posee al recurso dado por parámetro.
-	 */
 	public boolean hasResource(String name) {
 		boolean retorno = false;
 		for (int i = 0; i < resources.size(); i++) {
@@ -74,14 +54,6 @@ public class Classroom extends AssignableItem {
 		return retorno;
 	}
 
-	/**
-	 * Recibe un nombre de un recurso como parámetro, si encuentra el recurso lo
-	 * devuelve, caso contrario lanza una excepción
-	 * 
-	 * @param Nombre
-	 *            del recurso que se desea obtener.
-	 * @return Recurso buscado
-	 */
 	public FixedResource getResource(String name) throws ResourceException {
 		FixedResource recursoBuscado = null;
 		for (int i = 0; i < resources.size(); i++) {
@@ -111,14 +83,6 @@ public class Classroom extends AssignableItem {
 		return retorno;
 	}
 
-	/**
-	 * Verifica si todos los recursos recibidos como parámetro se satisfacen.
-	 * 
-	 * @param resources
-	 *            los recursos.
-	 * @return true si todos los recursos se satisfacen, false en caso
-	 *         contrario.
-	 */
 	public boolean satisfyFixedResources(Map<FixedResource, Integer> resources) {
 		for (Entry<FixedResource, Integer> res : resources.entrySet())
 			if (!this.satisfyFixedResource(res.getKey(), res.getValue()))
@@ -126,15 +90,6 @@ public class Classroom extends AssignableItem {
 		return true;
 	}
 
-	/**
-	 * Verifica si un recurso fijo es satisfecho (en cantidad).
-	 * 
-	 * @param res
-	 *            el recurso.
-	 * @param amount
-	 *            la cantidad.
-	 * @return true si se satisface, false en caso contrario.
-	 */
 	public boolean satisfyFixedResource(FixedResource res, int amount) {
 		for (FixedResource r : this.getResources())
 			if (r.getName().equals(res.getName()) && r.getAmount() >= amount)

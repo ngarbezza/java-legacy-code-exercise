@@ -13,40 +13,24 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Test Case para la clase {@link Minus}.
- * 
- * @author Nahuel
- *
- */
 public class TestMinus {
 
 	private Minus minusUnderTest;
 	private Period mockLeftOp, mockRightOp;
-	
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		this.mockLeftOp = createMock(Period.class);
 		this.mockRightOp= createMock(Period.class);
 		this.minusUnderTest = new Minus(mockLeftOp, mockRightOp);
 	}
-	
-	/**
-	 * Test method for {@link Minus#Minus(LogicalDateFulfiller, LogicalDateFulfiller)}.
-	 */
+
 	@Test
 	public void test_constructor() {
 		assertSame(mockLeftOp, minusUnderTest.getLeftPeriod());
 		assertSame(mockRightOp, minusUnderTest.getRightPeriod());
 	}
-	
-	/**
-	 * Test method for {@link Minus#contains(Calendar)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_containsCalendar() throws Exception {
 		Calendar calendarMock= createMock(Calendar.class);
@@ -65,11 +49,7 @@ public class TestMinus {
 		// no puedo verificar el right porque a veces no se evalua,
 		// ya que el Or que se asume Short-circuit
 	}
-	
-	/**
-	 * Test method for {@link Minus#contains(LogicalDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_containsLogicalDateFulfiller() throws Exception {
 		Period ldfMock = createMock(Period.class);
@@ -86,11 +66,7 @@ public class TestMinus {
 		assertFalse(minusUnderTest.contains(ldfMock));
 		verify(mockLeftOp);
 	}
-	
-	/**
-	 * Test method for {@link Minus#isIn(SimpleDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_isIn() throws Exception {
 		SimplePeriod sdfMock = createMock(SimplePeriod.class);
@@ -107,11 +83,7 @@ public class TestMinus {
 		assertFalse(minusUnderTest.isIn(sdfMock));
 		verify(mockLeftOp);
 	}
-	
-	/**
-	 * Test method for {@link Minus#intersectsWith(LogicalDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_intersectsWith() throws Exception {
 		Period ldfMock = createMock(Period.class);

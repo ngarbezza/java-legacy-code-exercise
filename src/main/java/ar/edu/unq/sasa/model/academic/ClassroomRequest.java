@@ -11,14 +11,9 @@ import ar.edu.unq.sasa.model.time.Period;
  * petition of a classroom, did by a {@link Professor}.
  * 
  * CONSIDERATIONS The only creational method is the huge constructor.
- * 
- * @author Gaston Charkiewicz
  */
 public class ClassroomRequest extends Request {
 
-	/**
-	 * The required capacity of the classroom.
-	 */
 	public int capacity;
 
 	public ClassroomRequest(Period desHours, Subject aSubject,
@@ -37,19 +32,10 @@ public class ClassroomRequest extends Request {
 		return this.capacity;
 	}
 
-	/**
-	 * @param capacity
-	 *            the capacity to set
-	 */
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	
-	/**
-	 * hashCode redefinition
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,11 +44,6 @@ public class ClassroomRequest extends Request {
 		return result;
 	}
 
-	/**
-	 * equals redefinition
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,7 +57,7 @@ public class ClassroomRequest extends Request {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public boolean isClassroomRequest() {
 		return true;		

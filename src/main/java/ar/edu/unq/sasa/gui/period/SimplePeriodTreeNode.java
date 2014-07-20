@@ -14,10 +14,6 @@ import ar.edu.unq.sasa.model.time.repetition.EndingRepetition;
 import ar.edu.unq.sasa.model.time.repetition.None;
 import ar.edu.unq.sasa.model.time.repetition.Repetition;
 
-/**
- * @author Nahuel Garbezza
- *
- */
 public class SimplePeriodTreeNode extends PeriodTreeNode {
 	
 	private Calendar startDate = new GregorianCalendar();

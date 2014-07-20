@@ -7,9 +7,6 @@ import java.util.Map;
 
 /**
  * Clase parte de la implementación del patrón Observer.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class Publisher {
 	
@@ -19,9 +16,6 @@ public class Publisher {
 		this.subscribers = new HashMap<String, Collection<Subscriber>>();
 	}
 
-	/**
-	 * @return the subscribers
-	 */
 	public Map<String, Collection<Subscriber>> getSubscribers() {
 		return subscribers;
 	}

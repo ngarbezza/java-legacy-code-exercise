@@ -6,12 +6,6 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.items.MobileResource;
 
-/**
- * Test Case para la clase {@link BookedAssignment}.
- * 
- * @author Cristian
- *
- */
 public class TestBookedAssignment {
 
 	@Test

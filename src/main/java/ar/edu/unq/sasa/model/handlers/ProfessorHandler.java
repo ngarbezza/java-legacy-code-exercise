@@ -9,8 +9,6 @@ import ar.edu.unq.sasa.model.exceptions.handlers.ProfessorException;
 
 /**
  * Es un handler específico de Professor; realiza ABMC.
- * 
- * @author Diego Campos
  */
 public class ProfessorHandler extends Handler {
 	
@@ -26,13 +24,6 @@ public class ProfessorHandler extends Handler {
 	
 	private ProfessorHandler() {}
 	
-	/**
-	 * Crea un {@link Professor} y lo almacena en el sistema.
-	 * 
-	 * @param name el nombre del nuevo {@link Professor}.
-	 * @param phone el teléfono del nuevo {@link Professor}.
-	 * @param mail el e-mail del nuevo {@link Professor}.
-	 */
 	public Professor createProfessor(String name, String phone, String mail) {
 		return createProfessor(name, phone, mail, new LinkedList<Subject>());
 	}
@@ -47,24 +38,13 @@ public class ProfessorHandler extends Handler {
 		return professor;
 	}
 
-	/**
-	 * Elimina un {@link Professor} del sistema.
-	 * 
-	 * @param professor el {@link Professor} a eliminar.
-	 */
 	public void deleteProfessor(Professor professor) {
 		this.getInformationManager().getProfessors().remove(professor);
 		
 		this.getPublisher().changed("professorsChanged", 
-				this.getInformationManager().getProfessors());
-		
+				this.getInformationManager().getProfessors());	
 	}
 
-	/**
-	 * Verifica que una instancia de professor no sea null
-	 * @param professor recibe una instancia de professor
-	 * @throws ProfessorException si o que recibe es null lanza una excepcion
-	 */
 	@SuppressWarnings("unused")
 	private void verificar(Professor professor) throws ProfessorException {
 		if (professor == null)

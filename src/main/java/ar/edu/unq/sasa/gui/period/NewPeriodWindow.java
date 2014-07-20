@@ -43,13 +43,6 @@ import ar.edu.unq.sasa.model.time.repetition.None;
 import ar.edu.unq.sasa.model.time.repetition.Repetition;
 import ar.edu.unq.sasa.model.time.repetition.Weekly;
 
-/**
- * Ventana que permite crear y editar las condiciones horarias
- * del sistema.
- * 
- * @author Nahuel Garbezza
- * 
- */
 public class NewPeriodWindow extends JFrame {
 
 	// componentes del tipo de condición

@@ -19,12 +19,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/** TESTMOBILERESOURCESREQUEST
- *  Test suite for tme MobileResource class.
- * @author MEKODA
- * CONSIDERATIONS
- * I use mock object for unsafe not-test-focus classes.
- */
 public class TestMobileResourcesRequest {
 	public MobileResourcesRequest mobileResourcesRequest;
 	public Period desHours;
@@ -63,9 +57,6 @@ public class TestMobileResourcesRequest {
 				this.reqResources,this.optResources);
 	}
 
-	/**
-	 * Tests the correct working of the creational method.
-	 */
 	@Test
 	public void test_shouldBeConstructedCorrectly(){
 		
@@ -87,9 +78,6 @@ public class TestMobileResourcesRequest {
 		assertTrue("optionalResources is from an undesired class",this.mobileResourcesRequest.getOptionalResources() instanceof Map<?, ?>);
 	}
 
-	/**
-	 * Test against repeated elements.
-	 */
 	@Test
 	public void test_elementsDoesNotRepeat(){
 		Set<Resource> optResources = this.mobileResourcesRequest.getOptionalResources().keySet();
@@ -108,9 +96,6 @@ public class TestMobileResourcesRequest {
 		}
 	}
 
-	/**
-	 * Checks if the professor can teach the declared subject in the request.
-	 */
 	@Test
 	public void test_professorCanTeachTheSubjectInRequest(){
 		Subject subjectRequest = this.mobileResourcesRequest.getSubject();

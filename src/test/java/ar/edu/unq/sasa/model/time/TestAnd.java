@@ -13,40 +13,24 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Test Case para la clase {@link And}.
- * 
- * @author Nahuel
- *
- */
 public class TestAnd {
-	
+
 	private And andUnderTest;
 	private Period mockLeftOp, mockRightOp;
-	
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		this.mockLeftOp = createMock(Period.class);
 		this.mockRightOp= createMock(Period.class);
 		this.andUnderTest = new And(mockLeftOp, mockRightOp);
 	}
-	
-	/**
-	 * Test method for {@link And#And(LogicalDateFulfiller, LogicalDateFulfiller)}.
-	 */
+
 	@Test
 	public void test_constructor() {
 		assertSame(mockLeftOp, andUnderTest.getLeftPeriod());
 		assertSame(mockRightOp, andUnderTest.getRightPeriod());
 	}
-	
-	/**
-	 * Test method for {@link And#contains(Calendar)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_containsCalendar() throws Exception {
 		Calendar calendarMock= createMock(Calendar.class);
@@ -65,11 +49,7 @@ public class TestAnd {
 		// no puedo verificar el right porque a veces no se evalua,
 		// ya que el Or que se asume Short-circuit
 	}
-	
-	/**
-	 * Test method for {@link And#contains(LogicalDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_containsLogicalDateFulfiller() throws Exception {
 		Period ldfMock = createMock(Period.class);
@@ -86,11 +66,7 @@ public class TestAnd {
 		assertTrue(andUnderTest.contains(ldfMock));
 		verify(mockLeftOp);
 	}
-	
-	/**
-	 * Test method for {@link And#isIn(SimpleDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_isIn() throws Exception {
 		SimplePeriod sdfMock = createMock(SimplePeriod.class);
@@ -107,11 +83,7 @@ public class TestAnd {
 		assertTrue(andUnderTest.isIn(sdfMock));
 		verify(mockLeftOp);
 	}
-	
-	/**
-	 * Test method for {@link And#intersectsWith(LogicalDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_intersectsWith() throws Exception {
 		Period ldfMock = createMock(Period.class);

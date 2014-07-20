@@ -25,12 +25,8 @@ import ar.edu.unq.sasa.model.mocks.items.MockFixedResource;
 import ar.edu.unq.sasa.model.mocks.time.MockPeriod;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * @author Diego
- *
- */
 public class TestClassroom {	
-	// Por Diego
+
 	@Test
 	public void testConstructor() {
 		Classroom classroom = new Classroom("ZAZA", 20);
@@ -45,7 +41,7 @@ public class TestClassroom {
 		assertEquals(emptyList, resources);
 		assertEquals(emptyMap, assigments);
 	}
-	// Por Diego
+
 	@Test
 	public void testAddResource() {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
@@ -55,7 +51,7 @@ public class TestClassroom {
 		emptyList.add(resource);
 		assertEquals(emptyList, classroom.getResources());
 	}
-	// Por Diego
+
 	@Test
 	public void testGetResource() throws ResourceException {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
@@ -63,7 +59,7 @@ public class TestClassroom {
 		classroom.addResource(resource);
 		assertEquals(resource, classroom.getResource("Pc"));
 	}
-	// Por Diego
+
 	@Test
 	public void testHasResourceTrue() {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
@@ -71,7 +67,7 @@ public class TestClassroom {
 		classroom.addResource(resource);
 		assertEquals(true, classroom.hasResource("Pc"));
 	}
-	// Por Diego
+
 	@Test
 	public void testHasResourceFalse() {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
@@ -80,7 +76,6 @@ public class TestClassroom {
 		assertEquals(false, classroom.hasResource("Proyector"));
 	}
 
-	// Por Diego
 	@Test(expected=AssignmentException.class)
 	public void testGetAssigment() throws AssignmentException,ResourceException {
 		MockPeriod period = new MockPeriod();
@@ -89,7 +84,7 @@ public class TestClassroom {
 		classroom.addAssignment(period, assignment);
 		classroom.getAssignment(period);
      }
-	// Por Diego
+
 	@Test
 	public void testVerificarCorrecto() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
@@ -101,15 +96,14 @@ public class TestClassroom {
 			fail("Exception capturada,se paso como parametro '"	+ resource + "' es null");
 		}
 	}
-	// Por Diego
+
 	@Test(expected=ResourceException.class)
 	public void testVerificarErroneo() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		MockFixedResource resource2 = null;
 		classroom.verificar(resource2);
 	}
-	
-	// por Nahuel
+
 	@Test
 	public void test_isFreeAt() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
@@ -127,8 +121,7 @@ public class TestClassroom {
 		classroom.addAssignment(p3Mock, createMock(Assignment.class));
 		assertFalse(classroom.isFreeAt(mockCalendar));
 	}
-	
-	// por Nahuel
+
 	@Test
 	public void test_canAssignWithoutIgnoringCommonAssignments() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
@@ -143,8 +136,7 @@ public class TestClassroom {
 		classroom.addAssignment(p2Mock, createMock(Assignment.class));
 		assertFalse(classroom.canAssign(periodMock, false));
 	}
-	
-	// por Nahuel
+
 	@Test
 	public void test_canAssignIgnoringCommonAssignments() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
@@ -171,8 +163,7 @@ public class TestClassroom {
 		classroom.addAssignment(p3Mock, a3Mock);
 		assertFalse(classroom.canAssign(periodMock, true));
 	}
-	
-	// por Nahuel
+
 	@Test
 	public void test_satisfyFixedResource() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);

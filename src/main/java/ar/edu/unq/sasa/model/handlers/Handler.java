@@ -7,9 +7,6 @@ import ar.edu.unq.sasa.util.Publisher;
  * Es una clase abstracta que contiene los métodos comunes entre los 
  * distintos Handler, es decir, contiene los métodos de alta, baja, 
  * modificación y consulta de los elementos que estén bajo su responsabilidad.
- * 
- * @author Cristian Suarez
- *
  */
 public abstract class Handler {
 	

@@ -14,12 +14,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Test Case para la clase {@link ResourceAssignment}.
- * 
- * @author Nahuel
- *
- */
 public class TestResourceAssignment {
 
 	@Test

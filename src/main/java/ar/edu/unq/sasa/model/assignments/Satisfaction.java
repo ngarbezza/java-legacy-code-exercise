@@ -10,31 +10,13 @@ import ar.edu.unq.sasa.model.time.Period;
 /**
  * Es la manera de comprobar la satisfacción que hubo al asignar un 
  * {@link ClassroomRequest}.
- * 
- * @author Cristian Suarez
  */
 public class Satisfaction {
 	
-	/**
-	 * Guarda la información de los {@link Resource}s pedidos en el 
-	 * {@link Request} y agrega al costado un número para saber cuántos 
-	 * recursos de esos faltan. O sea que si un recurso al lado tiene un 
-	 * "0", quiere decir que ese recurso fue asignado.
-	 */
 	private Map<Resource, Integer> resources;
 	
-	/**
-	 * Representa las superposiciones que hay al haber asignado ese
-	 * {@link Request}, y puede haber varias. cada una tiene al lado 
-	 * la cantidad de horas que se superponen, representadas en Floats.
-	 */
 	private Map<Period, Float> timeDifference;
 	
-	/**
-	 * Es la diferencia de capacidad que hay entre la pedida y la capacidad 
-	 * real del aula. Si está en positivo quiere decir que sobran lugares, si
-	 * está en negativo quiere decir que faltan lugares.
-	 */
 	private int capacityDifference;
 	
 	public Satisfaction(Map<Resource, Integer> resourcesMap, Map<Period, Float> aTimeDifference, int aCapacityDifference) {

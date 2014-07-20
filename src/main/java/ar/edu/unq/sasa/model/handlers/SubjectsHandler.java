@@ -4,10 +4,6 @@ import java.util.List;
 
 import ar.edu.unq.sasa.model.academic.Subject;
 
-/**
- * @author Nahuel Garbezza
- *
- */
 public class SubjectsHandler extends Handler {
 	
 	private static SubjectsHandler instance;

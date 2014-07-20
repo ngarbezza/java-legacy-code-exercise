@@ -9,43 +9,23 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
 /**
  * Representa la resta de conjuntos aplicada a los {@link Period}.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class Minus extends CompositePeriod {
 
-	/**
-	 * Constructor de Minus.
-	 * 
-	 * @param left
-	 *            el primer operando.
-	 * @param right
-	 *            el otro operando.
-	 */
 	public Minus(Period left, Period right) {
 		super(left, right);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#contains(sasa.model.time.Period)
-	 */
 	@Override
 	public boolean contains(Period p) throws PeriodException {
 		return getLeftPeriod().contains(p) && !getRightPeriod().contains(p);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#contains(java.util.Calendar)
-	 */
 	@Override
 	public boolean contains(Calendar c) throws PeriodException {
 		return getLeftPeriod().contains(c) && !getRightPeriod().contains(c);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#intersectsWith(sasa.model.time.Period)
-	 */
 	@Override
 	public boolean intersectsWith(Period p) throws PeriodException {
 		return getLeftPeriod().intersectsWith(p) 
@@ -62,9 +42,6 @@ public class Minus extends CompositePeriod {
 		return getLeftPeriod().isIn(sdf) && !getRightPeriod().isIn(sdf);
 	}
 	
-	/**
-	 * @see sasa.model.time.Period#convertToConcrete()
-	 */
 	@Override
 	public List<Period> convertToConcrete() throws PeriodException {
 		List<Period> result = new LinkedList<Period>();
@@ -79,10 +56,6 @@ public class Minus extends CompositePeriod {
 		return "( " + getLeftPeriod() + " ) \n MENOS \n( " + getRightPeriod() + " )\n";
 	}
 	
-	/**
-	 * @throws PeriodException 
-	 * @see sasa.model.time.Period#copy()
-	 */
 	@Override
 	public Minus copy() throws PeriodException {
 		return new Minus(getLeftPeriod().copy(), getRightPeriod().copy());

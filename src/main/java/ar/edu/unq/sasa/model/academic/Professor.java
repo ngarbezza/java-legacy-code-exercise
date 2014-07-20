@@ -9,34 +9,17 @@ import java.util.List;
  * 
  * CONSIDERATIONS The id instance variable is going to be final,
  *         because no changes are allowed.
- * 
- * @author Gaston Charkiewicz
  */
 public class Professor {
-	
-	/**
-	 * The name of the professor.
-	 */
+
 	private String name;
-	
-	/**
-	 * His ID (no changes allowed).
-	 */
+
 	private final long id;
-	
-	/**
-	 * Phone number for contact.
-	 */
+
 	private String phoneNumber;
-	
-	/**
-	 * e-mail.
-	 */
+
 	private String mail;
-	
-	/**
-	 * This list is the subjects he/she can teach.
-	 */
+
 	private List<Subject> subjects;
 
 	public Professor(String aName, long anID, String aPhoneNumber, String aMail,
@@ -90,11 +73,6 @@ public class Professor {
 		}
 	}
 
-	/**
-	 * hashCode redefinition
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,11 +86,6 @@ public class Professor {
 		return result;
 	}
 
-	/**
-	 * equals redefinition
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

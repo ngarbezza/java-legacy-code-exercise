@@ -8,9 +8,6 @@ import javax.swing.JPanel;
 
 /**
  * Panel para la ventana principal de la aplicación.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class MainPanel extends JPanel {
 	private JLabel sasaLabel;

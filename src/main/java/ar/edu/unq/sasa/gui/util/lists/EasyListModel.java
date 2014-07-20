@@ -8,9 +8,6 @@ import javax.swing.JList;
 
 /**
  * Modelo sencillo de lista para usar con las {@link JList}.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class EasyListModel<T> extends AbstractListModel {
 

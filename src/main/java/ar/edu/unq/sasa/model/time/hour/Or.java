@@ -6,25 +6,11 @@ import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 
 /**
  * Operador lógico Or, para condiciones de horas.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class Or extends LogicalHourFulfiller {
 
-	/**
-	 * Los operandos del Or.
-	 */
 	private final LogicalHourFulfiller leftOp, rightOp;
 
-	/**
-	 * Constructor de Or.
-	 * 
-	 * @param left
-	 *            un operando.
-	 * @param right
-	 *            el otro operando.
-	 */
 	public Or(LogicalHourFulfiller left, LogicalHourFulfiller right) {
 		this.leftOp = left;
 		this.rightOp = right;
@@ -38,17 +24,11 @@ public class Or extends LogicalHourFulfiller {
 		return rightOp;
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#contains(sasa.model.time.hour.Timestamp)
-	 */
 	@Override
 	public boolean contains(Timestamp t) {
 		return getLeftOp().contains(t) || getRightOp().contains(t);
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#contains(sasa.model.time.hour.LogicalHourFulfiller)
-	 */
 	@Override
 	public boolean contains(LogicalHourFulfiller lhf) {
 		return getLeftOp().contains(lhf) || getRightOp().contains(lhf);
@@ -59,9 +39,6 @@ public class Or extends LogicalHourFulfiller {
 		return getLeftOp().isIn(hi) || getRightOp().isIn(hi);
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#intersectsWith(sasa.model.time.hour.LogicalHourFulfiller)
-	 */
 	@Override
 	public boolean intersectsWith(LogicalHourFulfiller lhf) {
 		return getLeftOp().intersectsWith(lhf) || getRightOp().intersectsWith(lhf);
@@ -72,9 +49,6 @@ public class Or extends LogicalHourFulfiller {
 		return intersectsWith(interval);
 	}
 	
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#getConcreteIntervals()
-	 */
 	@Override
 	public List<HourInterval> getConcreteIntervals() throws PeriodException {
 		List<HourInterval> result = getLeftOp().getConcreteIntervals();
@@ -82,12 +56,6 @@ public class Or extends LogicalHourFulfiller {
 		return result;
 	}
 
-	/**
-	 * Revisa por intersecciones en ambos operandos y retorna la intersección 
-	 * de mayor valor (en minutos).
-	 * 
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#minutesSharedWith(sasa.model.time.hour.LogicalHourFulfiller)
-	 */
 	@Override
 	public int minutesSharedWith(LogicalHourFulfiller hf) {
 		return Math.max(getLeftOp().minutesSharedWith(hf), 
@@ -99,18 +67,11 @@ public class Or extends LogicalHourFulfiller {
 		return this.minutesSharedWith(interval);
 	}
 	
-	/**
-	 * @throws PeriodException 
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#copy()
-	 */
 	@Override
 	public Or copy() throws PeriodException {
 		return new Or(getLeftOp().copy(), getRightOp().copy());
 	}
 	
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#isConcrete()
-	 */
 	@Override
 	public boolean isConcrete() {
 		return false;

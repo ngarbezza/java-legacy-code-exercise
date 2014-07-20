@@ -25,9 +25,6 @@ import ar.edu.unq.sasa.model.handlers.RequestsHandler;
 
 /**
  * Panel de consulta sobre {@link Request}s (Pedidos).
- * 
- * @author Nahuel Garbezza
- *
  */
 public class RequestsPanel extends AbstractHandlerPanel<Request> {
 

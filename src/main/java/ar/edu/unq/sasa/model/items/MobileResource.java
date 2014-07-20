@@ -9,8 +9,6 @@ import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
 /**
  * Representa aquellos recursos denominados "móviles" porque pueden ser asignados
  * al igual que las aulas.
- * 
- * @author Campos Diego
  */
 public class MobileResource extends AssignableItem implements Resource {
 

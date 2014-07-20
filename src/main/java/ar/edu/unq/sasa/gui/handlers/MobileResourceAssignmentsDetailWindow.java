@@ -18,9 +18,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 
 /**
  * Ventana que muestra las asignaciones de un recurso móvil.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class MobileResourceAssignmentsDetailWindow extends
 		AssignmentsDetailWindow<MobileResource, ResourceAssignment> {

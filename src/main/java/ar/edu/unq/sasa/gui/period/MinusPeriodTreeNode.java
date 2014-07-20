@@ -6,10 +6,6 @@ import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.Minus;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * @author Nahuel Garbezza
- *
- */
 public class MinusPeriodTreeNode extends CompositePeriodTreeNode {
 
 	public MinusPeriodTreeNode(PeriodTreeNode leftTree, PeriodTreeNode rightTree) {

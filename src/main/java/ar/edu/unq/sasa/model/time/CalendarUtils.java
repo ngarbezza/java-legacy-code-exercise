@@ -9,8 +9,6 @@ import java.util.Calendar;
 /**
  * Métodos útiles para trabajar con {@link Calendar}'s y para reducir su 
  * complejidad.
- * 
- * @author Nahuel Garbezza
  *
  */
 public class CalendarUtils {

@@ -5,9 +5,6 @@ import ar.edu.unq.sasa.model.items.Resource;
 /**
  * Modelo de aplicación para representar recursos con su cantidad,
  * en un pedido.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class ResourceView {
 

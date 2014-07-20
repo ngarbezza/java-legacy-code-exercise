@@ -15,16 +15,6 @@ import org.junit.Test;
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
-/** TEST SUPERPOSITION
- * Test class according to the Superposition Class.
- * @author MEKODA
- * CONSIDERATIONS
- * Is going to have a rightly coded superposition (with at least 2 elements
- * per HourInterval) and another non-rightly coded one (less than 1 element).
- * The correctness consists in the following: a HourInterval with only one
- * elements is just a simple asignation, because it don�t have something
- * to get superposed.
- */
 public class TestSuperposition {
 
 	public Superposition superposition1; //Rightly coded superposition
@@ -57,19 +47,12 @@ public class TestSuperposition {
 		//Adding elements to each superposition
 	}
 
-	/**
-	 * Just verifying if the inner map is not null when created.
-	 */
 	@Test
 	public void test_shouldConstructCorrectly(){
 		assertNotNull("Fail - traceback: constructor",this.superposition1.getSuperpositionData());
 		assertNotNull("Fail - traceback: constructor",this.superposition2.getSuperpositionData());
 	}
 
-	/**
-	* Performs checks to all elements on each map, determining if each one
-	* have at least one superposition.
-    */
 	@Test
 	public void test_allElementsHaveSuperposition(){
 		Map<HourInterval,List<AssignmentByRequest> > m1 = this.superposition1.getSuperpositionData();

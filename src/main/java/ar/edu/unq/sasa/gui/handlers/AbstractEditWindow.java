@@ -13,9 +13,6 @@ import javax.swing.SwingUtilities;
 /**
  * Clase que sirve de base en la construcción de ventanas de edición
  * para los elementos que manejan los handlers.
- * 
- * @author Nahuel Garbezza
- *
  */
 public abstract class AbstractEditWindow<A> extends JFrame {
 

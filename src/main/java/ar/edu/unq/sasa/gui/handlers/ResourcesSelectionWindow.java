@@ -41,9 +41,6 @@ import ar.edu.unq.sasa.model.items.Resource;
 
 /**
  * Ventana para elegir {@link Resource}s para la asignación de un {@link ClassroomRequest}
- * 
- * @author Cristian Suarez
- *
  */
 public class ResourcesSelectionWindow extends JFrame {
 	private AsignateRequestWindow parentFrame;

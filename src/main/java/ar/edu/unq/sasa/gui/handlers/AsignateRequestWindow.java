@@ -46,9 +46,6 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Ventana para Asignar un {@link ClassroomRequest}
- * 
- * @author Cristian Suarez
- *
  */
 public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 	protected AssignmentsPanel parentPanel; 

@@ -18,12 +18,6 @@ import ar.edu.unq.sasa.model.time.hour.Timestamp;
 import ar.edu.unq.sasa.model.time.repetition.Repetition;
 import ar.edu.unq.sasa.model.time.repetition.Weekly;
 
-/**
- * Test Case para la clase {@link SimplePeriod}.
- * 
- * @author Nahuel
- * 
- */
 public class TestSimplePeriod {
 
 	private SimplePeriod periodUnderTest;

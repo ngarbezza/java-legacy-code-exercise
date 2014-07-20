@@ -1,12 +1,7 @@
 package ar.edu.unq.sasa.gui.util;
 
 /**
- * Clase para representar un Par de objectos.
- * 
- * @author Cristian Suarez
- *
- * @param <A>
- * @param <B>
+ * Clase para representar un Par de objetos.
  */
 public class Pair<A, B> {
 	private Object first;

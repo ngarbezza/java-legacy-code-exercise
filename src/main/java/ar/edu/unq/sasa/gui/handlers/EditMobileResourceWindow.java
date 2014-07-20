@@ -14,9 +14,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 /**
  * Ventana de edición de recursos móviles. También sirve para crear
  * nuevos recursos móviles.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class EditMobileResourceWindow extends AbstractEditWindow<MobileResource> {
 

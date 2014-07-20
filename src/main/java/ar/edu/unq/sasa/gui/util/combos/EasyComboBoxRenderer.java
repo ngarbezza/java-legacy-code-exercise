@@ -9,9 +9,6 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 /**
  * Renderer para ComboBox que da la posibilidad de especificar la forma en que
  * un Object se va a mostrar (por defecto usando toString()).
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class EasyComboBoxRenderer extends BasicComboBoxRenderer {
 	public Component getListCellRendererComponent(JList list, Object value,

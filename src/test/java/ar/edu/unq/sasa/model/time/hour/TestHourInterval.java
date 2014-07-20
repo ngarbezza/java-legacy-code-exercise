@@ -12,12 +12,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Test Case para la clase HourInterval.
- * 
- * @author Nahuel
- * 
- */
 public class TestHourInterval {
 
 	private HourInterval hInterval;
@@ -27,13 +21,6 @@ public class TestHourInterval {
 		this.hInterval = new HourInterval(new Timestamp(17, 30), new Timestamp(19));
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#HourInterval(sasa.model.time.Timestamp, sasa.model.time.Timestamp)}
-	 * .
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_constructor() throws Exception {
 		Timestamp t1 = new Timestamp(1, 20);
@@ -44,12 +31,6 @@ public class TestHourInterval {
 		assertSame(hi.getEnd(), t2);
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#contains(sasa.model.time.Timestamp)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_containsTimestampWhenTheConditionIsSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(17, 30);
@@ -64,12 +45,6 @@ public class TestHourInterval {
 				hInterval.contains(t3));
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#contains(sasa.model.time.Timestamp)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_containsTimestampWhenTheConditionIsntSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(17);
@@ -81,11 +56,6 @@ public class TestHourInterval {
 				hInterval.contains(t2));
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#contains(sasa.model.time.LogicalHourFulfiller)}
-	 * .
-	 */
 	@Test
 	public void test_containsLogicalHourFulfiller() {
 		// sólo se testea por envío de mensaje, pues este método
@@ -97,12 +67,6 @@ public class TestHourInterval {
 		verify(mock);
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#isIn(sasa.model.time.HourInterval)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_isInWhenTheConditionIsSatisfied() throws Exception {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(22));
@@ -117,12 +81,6 @@ public class TestHourInterval {
 				hInterval.isIn(hi3));
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#isIn(sasa.model.time.HourInterval)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_isInWhenTheConditionIsntSatisfied() throws Exception {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(12));
@@ -140,12 +98,6 @@ public class TestHourInterval {
 				hInterval.isIn(hi4));
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#intersectsWith(sasa.model.time.LogicalHourFulfiller)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_intersectsWithWhenTheConditionIsSatisfied() throws Exception {
 		// lo contiene, por lo tanto lo intersecta
@@ -162,12 +114,6 @@ public class TestHourInterval {
 		assertTrue(hInterval.intersectsWith(hi4));
 	}
 
-	/**
-	 * Test method for
-	 * {@link sasa.model.time.HourInterval#intersectsWith(sasa.model.time.LogicalHourFulfiller)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	public void test_intersectsWithWhenTheConditionIsntSatisfied() throws Exception {
 		// intervalos totalmente disjuntos

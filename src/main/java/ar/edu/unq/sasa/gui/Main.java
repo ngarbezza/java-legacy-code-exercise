@@ -27,9 +27,6 @@ import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
 /**
  * Clase que se encarga de iniciar el sistema, con algunos datos de prueba.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class Main {
 

@@ -20,9 +20,6 @@ import ar.edu.unq.sasa.model.items.Classroom;
 
 /**
  * Panel para la administración de {@link Classroom}s.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class ClassroomsPanel extends AbstractHandlerPanel<Classroom> {
 

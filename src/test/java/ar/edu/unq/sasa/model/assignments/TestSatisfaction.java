@@ -10,12 +10,6 @@ import org.junit.Test;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Test Case para la clase {@link Satisfaction}.
- * 
- * @author Cristian
- *
- */
 public class TestSatisfaction {
 
 	@Test

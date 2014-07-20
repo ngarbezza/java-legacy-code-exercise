@@ -10,12 +10,6 @@ import javax.swing.SwingUtilities;
 
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Ventana que muestra en forma de texto un período de tiempo.
- * 
- * @author Nahuel Garbezza
- *
- */
 public class PeriodDetailWindow extends JFrame {
 	
 	public PeriodDetailWindow(final Period p) {

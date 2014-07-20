@@ -12,44 +12,21 @@ import ar.edu.unq.sasa.model.time.Period;
  * 
  * CONSIDERATIONS The huge constructor is the only one allowed in instance creation.
  * 
- * @author Gaston Charkiewicz
- * 
  */
 public abstract class Request {
 
-	/** 
-	 * Desired hour timestamp from the actual request.
-	 */
 	public Period desiredHours;
 	
-	/** 
-	 * The subject that is going to be teached according to the request.
-	 */
 	public Subject subject;
 	
-	/** 
-	 * The issuing Professor of the Request.
-	 */
 	public Professor professor;
 	
-	/** 
-	 * ID of the Request (final because no changes are allowed).
-	 */
 	public final long id;
 	
-	/** 
-	 * Required resources in the Request.
-	 */
 	public Map<Resource,Integer> requiredResources;
 	
-	/**
-	 * Para saber si el request esta asignado o no. Por default no lo está.
-	 */
 	private boolean asignated = false;
 	
-	/** 
-	 * Optional resources of the Request.
-	 */
 	public Map<Resource,Integer> optionalResources;
 	
 	public Request (Period desHours,Subject aSubject,
@@ -63,24 +40,15 @@ public abstract class Request {
 		this.requiredResources = reqResources;
 		this.optionalResources = optResources;
 	}
-	
-	/**
-	 * @param desiredHours the desiredHours to set
-	 */
+
 	public void setDesiredHours(Period desiredHours) {
 		this.desiredHours = desiredHours;
 	}
-	
-	/**
-	 * @param requiredResources the requiredResources to set
-	 */
+
 	public void setRequiredResources(Map<Resource, Integer> requiredResources) {
 		this.requiredResources = requiredResources;
 	}
-	
-	/**
-	 * @param optionalResources the optionalResources to set
-	 */
+
 	public void setOptionalResources(Map<Resource, Integer> optionalResources) {
 		this.optionalResources = optionalResources;
 	}
@@ -123,9 +91,6 @@ public abstract class Request {
 		return isAsignated();
 	}
 
-	/** hashCode redefinition
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -147,9 +112,6 @@ public abstract class Request {
 		return result;
 	}
 
-	/** Equals redefinition
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

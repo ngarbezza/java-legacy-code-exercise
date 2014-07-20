@@ -2,10 +2,6 @@ package ar.edu.unq.sasa.gui.period;
 
 import javax.swing.JRadioButton;
 
-/**
- * @author Nahuel Garbezza
- *
- */
 public abstract class CompositePeriodTreeNode extends PeriodTreeNode {
 
 	public CompositePeriodTreeNode(PeriodTreeNode left,	PeriodTreeNode right) {

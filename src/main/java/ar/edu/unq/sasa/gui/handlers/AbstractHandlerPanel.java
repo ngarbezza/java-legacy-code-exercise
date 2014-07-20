@@ -21,9 +21,6 @@ import ar.edu.unq.sasa.util.Subscriber;
 /**
  * Clase abstracta que contiene las cosas en común de los panels de los 
  * handlers.
- * 
- * @author Nahuel Garbezza
- *
  */
 public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscriber {
 	

@@ -36,12 +36,6 @@ import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Or;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
-/**
- * Test Case para la clase {@link QueryManager}.
- * 
- * @author Grupo
- * 
- */
 public class TestQueryManager {
 	private QueryManager queryManager;
 
@@ -50,16 +44,6 @@ public class TestQueryManager {
 		queryManager = new QueryManager();
 	}
 
-	/**
-	 * Testea que se cree correctamente la satisfaccion entre un Request y un
-	 * Classroom.
-	 * 
-	 * @author Cristian Suarez
-	 * 
-	 * @throws RequestException
-	 * @throws PeriodException
-	 * @throws TimestampException
-	 */
 	@Test
 	public void test_satisfactionsFromClassroomAndRequest()	throws RequestException, PeriodException, TimestampException {
 		Timestamp timestamp1 = new Timestamp(10);
@@ -89,7 +73,6 @@ public class TestQueryManager {
 		assertEquals(satisfaction1, satisfaction2);
 	}
 
-	// por Nahuel
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
 	@Test
 	public void test_freeHoursInAnAssignableItemInADayWhenAllIsBusy()
@@ -106,7 +89,6 @@ public class TestQueryManager {
 		verify(itemMock);
 	}
 
-	// por Nahuel
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
 	@Test
 	public void test_freeHoursInAnAssignableItemInADayOnlyOneIntervalFree()
@@ -135,7 +117,6 @@ public class TestQueryManager {
 		verify(itemMock);
 	}
 
-	// por Nahuel
 	@Test
 	public void test_freeHoursInAnAssignableItemInADayMoreThanOneIntervalFree()
 			throws Exception {
@@ -173,8 +154,7 @@ public class TestQueryManager {
 		assertEquals(expected, result.getHourFulfiller());
 		verify(itemMock);
 	}
-	
-	// por Nahuel
+
 	@Test
 	public void test_classroomsThatSatisfyCapacityRequirement() throws Exception {
 		Classroom c1Mock = createMock(Classroom.class);

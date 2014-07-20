@@ -23,13 +23,6 @@ import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Testing para la clase {@link ResourceHandler}.
- * 
- * @author Cristian
- * 
- */
-
 public class TestResourcesHandler {
 	private ResourcesHandler resHand;
 	private FixedResource fixedResource;

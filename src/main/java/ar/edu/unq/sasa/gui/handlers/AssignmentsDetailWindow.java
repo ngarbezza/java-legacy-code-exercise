@@ -23,9 +23,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
  * Ventana que muestra el detalle de todas las asignaciones de un
  * {@link AssignableItem}. Es abstracta para que puedan mostrarse
  * {@link Classroom}'s y {@link MobileResource}'s con algunas diferencias.
- * 
- * @author Nahuel Garbezza
- *
  */
 public abstract class AssignmentsDetailWindow<A extends AssignableItem, 
 	B extends AssignmentByRequest> extends JFrame {

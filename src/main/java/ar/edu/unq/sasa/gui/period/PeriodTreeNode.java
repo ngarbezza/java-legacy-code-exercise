@@ -8,9 +8,6 @@ import ar.edu.unq.sasa.model.time.Period;
 /**
  * Clase que sirve para representar los nodos del árbol de las condiciones
  * horarias de la ventana {@link NewPeriodWindow}. 
- * 
- * @author Nahuel Garbezza
- *
  */
 public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 	

@@ -3,9 +3,6 @@ package ar.edu.unq.sasa.model.exceptions.time;
 /**
  * Representa casos excepcionales para las clases que implementan las
  * condiciones de días y horas.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class PeriodException extends Exception {
 

@@ -40,9 +40,6 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Ventana para crear Reservas ({@link BookedAssignment})
- * 
- * @author Cristian Suarez
- *
  */
 public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder {
 	private Asignator handler = Asignator.getInstance();

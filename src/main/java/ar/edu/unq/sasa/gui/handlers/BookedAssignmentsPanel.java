@@ -21,9 +21,6 @@ import ar.edu.unq.sasa.model.items.Classroom;
 
 /**
  * Panel para mostrar las Reservas ({@link BookedAssignment}) del Sistema
- * 
- * @author Cristian Suarez
- *
  */
 public class BookedAssignmentsPanel extends AbstractHandlerPanel<BookedAssignment>{
 	

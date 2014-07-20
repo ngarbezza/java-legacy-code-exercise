@@ -4,18 +4,9 @@ import java.util.Calendar;
 
 /**
  * Repetición diaria de un evento.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class Daily extends EndingRepetition {
 
-	/**
-	 * Constructor de Daily.
-	 * 
-	 * @param end
-	 *            fecha de finalización de la repetición.
-	 */
 	public Daily(Calendar end) {
 		super(end);
 	}
@@ -27,9 +18,6 @@ public class Daily extends EndingRepetition {
 		return result;
 	}
 
-	/**
-	 * @see sasa.model.time.repetition.Repetition#copy()
-	 */
 	@Override
 	public Daily copy() {
 		return new Daily((Calendar) getEnd().clone());

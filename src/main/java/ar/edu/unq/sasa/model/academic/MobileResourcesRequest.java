@@ -10,8 +10,6 @@ import ar.edu.unq.sasa.model.time.Period;
  * is only a concrete {@link Request}.
  * 
  * CONSIDERATIONS equals is overriden.
- * 
- * @author Gaston Charkiewicz
  */
 public class MobileResourcesRequest extends Request {
 
@@ -22,10 +20,8 @@ public class MobileResourcesRequest extends Request {
 		super(desHours, aSubject, aProfessor, anID, reqResources, optResources);
 	}
 
-	//-------- Agregado por Cristian Suarez --------//
 	@Override
 	public boolean isClassroomRequest() {
 		return false;		
 	}
-	//----------------------------------------------//
 }

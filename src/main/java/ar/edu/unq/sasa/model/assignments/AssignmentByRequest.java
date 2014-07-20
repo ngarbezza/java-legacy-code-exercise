@@ -5,8 +5,6 @@ import ar.edu.unq.sasa.model.academic.Request;
 /**
  * Clase abstracta, que representa las {@link Assignment} que fueron hechas 
  * por medio de un {@link Request}.
- *
- * @author Cristian Suarez
  */
 public abstract class AssignmentByRequest implements Assignment {
 	

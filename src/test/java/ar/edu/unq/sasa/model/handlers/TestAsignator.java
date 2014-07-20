@@ -108,17 +108,11 @@ public class TestAsignator {
 
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 */
 	@Test
 	public void test_ShouldConstructCorrectly() {
 		assertSame(asignator.getInformationManager(), informationManager);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 */
 	@Test
 	public void test_asignateResourceAssignment() throws AssignmentException {
 		ResourceAssignment resourceAssignment1 = asignator
@@ -133,10 +127,6 @@ public class TestAsignator {
 				resourceAssignment1);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 * @throws PeriodException
-	 */
 	@Test
 	public void test_asignateBookedAssignment() throws PeriodException {
 		BookedAssignment bookedAssignment1 = asignator
@@ -156,10 +146,6 @@ public class TestAsignator {
 		assertSame(storedBookeadAssignment, bookedAssignment1);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 * @throws PeriodException
-	 */
 	@Test
 	public void test_asignateClassroomAssignment() throws PeriodException {
 		ClassroomAssignment classroomAssignment1 = asignator
@@ -182,9 +168,6 @@ public class TestAsignator {
 		assertSame(storedBookeadAssignment, classroomAssignment1);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 */
 	@Test
 	public void test_asignateRequestInAClassroom() throws PeriodException {
 		ClassroomAssignment classroomAssignment1 = asignator
@@ -196,11 +179,6 @@ public class TestAsignator {
 		assertEquals(classroomAssignment1, classroomAssignment2);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 * @throws AssignmentException
-	 * @throws RequestException
-	 */
 	@Test
 	public void test_asignateRequestInMostSatisfactoryClassroom()
 			throws PeriodException, ResourceException, AssignmentException,
@@ -211,10 +189,6 @@ public class TestAsignator {
 		assertTrue(InformationManager.getInstance().getAssignments().contains(asig));
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 * @throws PeriodException
-	 */
 	@Test
 	public void test_modifyBookedAssignmentCause() throws PeriodException {
 		BookedAssignment bookedAssignment = asignator.asignateBookedAssignment(
@@ -225,9 +199,6 @@ public class TestAsignator {
 		assertEquals(bookedAssignment.getCause(), newCause);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 */
 	@Test
 	public void test_deleteResourceAssignmentFromARequest() {
 		ResourceAssignment resourceAssignment = asignator
@@ -249,10 +220,6 @@ public class TestAsignator {
 		assertFalse(exists);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 * @throws PeriodException
-	 */
 	@Test
 	public void test_deleteClassroomAssignment() throws AssignmentException,
 			PeriodException {
@@ -275,10 +242,6 @@ public class TestAsignator {
 		assertFalse(exists);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 * @throws PeriodException
-	 */
 	@Test
 	public void test_deleteBookedAssignment() throws PeriodException {
 		BookedAssignment bookedAssignment = asignator.asignateBookedAssignment(
@@ -298,9 +261,6 @@ public class TestAsignator {
 		assertFalse(exists);
 	}
 
-	/**
-	 * @author Cristian Suarez
-	 */
 	@Test
 	public void test_searchForAssignment() {
 		ResourceAssignment resourceAssignment1 = asignator
@@ -312,9 +272,6 @@ public class TestAsignator {
 		assertSame(resourceAssignment1, resourceAssignment2);
 	}
 
-	/**
-	 * @author Diego Campos
-	 */
 	@Test
 	public void testMoveAssignmentClassroom() throws AssignmentException,
 			TimestampException, RequestException, PeriodException {
@@ -351,9 +308,6 @@ public class TestAsignator {
 		assertEquals(newClassroom, newAssignment.getAssignableItem());
 	}
 
-	/**
-	 * @author Diego Campos
-	 */
 	@Test
 	public void testMoveAssignmentHour() throws AssignmentException,
 			TimestampException, RequestException, PeriodException {
@@ -380,14 +334,6 @@ public class TestAsignator {
 		ClassroomAssignment assignment = asignator.asignateRequestInAClassroom(
 				pedido, oldClassroom);
 
-		/*
-		 * GregorianCalendar calendar = new GregorianCalendar(2010 , 4, 3);
-		 * Timestamp start = new Timestamp(9) ; Timestamp end = new
-		 * Timestamp(11, 30); LogicalHourFulfiller hour = new
-		 * HourInterval(start, end); Period newDate = new SimplePeriod(hour,
-		 * calendar);
-		 */
-
 		// nueva hora
 		Timestamp start = new Timestamp(9);
 		Timestamp end = new Timestamp(11, 30);
@@ -410,9 +356,6 @@ public class TestAsignator {
 		assertEquals(assignmentPeriod, newPeriod);
 	}
 
-	/**
-	 * @author Diego Campos
-	 */
 	@Test
 	public void testMoveAssignmentDate() throws AssignmentException,
 			TimestampException, RequestException, PeriodException {

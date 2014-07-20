@@ -13,40 +13,24 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Test Case para la clase {@link Or}.
- * 
- * @author Nahuel
- *
- */
 public class TestOr {
-	
+
 	private Or orUnderTest;
 	private Period mockLeftOp, mockRightOp;
-	
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		this.mockLeftOp = createMock(Period.class);
 		this.mockRightOp= createMock(Period.class);
 		this.orUnderTest = new Or(mockLeftOp, mockRightOp);
 	}
-	
-	/**
-	 * Test method for {@link Or#Or(LogicalDateFulfiller, LogicalDateFulfiller)}
-	 */
+
 	@Test
 	public void test_constructor() {
 		assertSame(mockLeftOp, orUnderTest.getLeftPeriod());
 		assertSame(mockRightOp, orUnderTest.getRightPeriod());
 	}
-	
-	/**
-	 * Test method for {@link Or#contains(Calendar)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_containsCalendar() throws Exception {
 		Calendar calendarMock= createMock(Calendar.class);
@@ -65,11 +49,7 @@ public class TestOr {
 		// no puedo verificar el right porque a veces no se evalua,
 		// ya que el Or que se asume Short-circuit
 	}
-	
-	/**
-	 * Test method for {@link Or#contains(LogicalDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_containsLogicalDateFulfiller() throws Exception {
 		Period ldfMock = createMock(Period.class);
@@ -86,11 +66,7 @@ public class TestOr {
 		assertTrue(orUnderTest.contains(ldfMock));
 		verify(mockLeftOp);
 	}
-	
-	/**
-	 * Test method for {@link Or#isIn(SimpleDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_isIn() throws Exception {
 		SimplePeriod sdfMock = createMock(SimplePeriod.class);
@@ -107,11 +83,7 @@ public class TestOr {
 		assertTrue(orUnderTest.isIn(sdfMock));
 		verify(mockLeftOp);
 	}
-	
-	/**
-	 * Test method for {@link Or#intersectsWith(LogicalDateFulfiller)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_intersectsWith() throws Exception {
 		Period ldfMock = createMock(Period.class);

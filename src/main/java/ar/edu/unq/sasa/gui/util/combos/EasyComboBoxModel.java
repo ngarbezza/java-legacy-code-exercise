@@ -11,9 +11,6 @@ import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 
 /**
  * Model para {@link JComboBox} que facilita su uso.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class EasyComboBoxModel<T> extends AbstractListModel implements
 		ComboBoxModel {

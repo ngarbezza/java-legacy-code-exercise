@@ -18,8 +18,6 @@ import ar.edu.unq.sasa.model.time.Period;
  * {@link Classroom}. Conoce además las asignaciones que se hicieron a los 
  * {@link Resource}s relacionados al ClassroomAssignment del cual fue
  * generada esta ClassroomAssignment.
- * 
- * @author Cristian Suarez
  */
 public class ClassroomAssignment extends AssignmentByRequest {
 	
@@ -37,13 +35,6 @@ public class ClassroomAssignment extends AssignmentByRequest {
 		resourcesAssignments = resourcesAssignmentsList; 
 	}
 
-	/**
-	 * Crea una {@link Satisfaction} para el {@link ClassroomRequest} y el 
-	 * {@link Classroom} de esta asignación.
-	 * 
-	 * @return Satisfaction
-	 * @throws PeriodException 
-	 */
 	public Satisfaction createSatisfaction() throws PeriodException {
 		int capacityDifference = classroom.getCapacity() - this.getRequest().getCapacity();
 		
@@ -150,9 +141,6 @@ public class ClassroomAssignment extends AssignmentByRequest {
 	public boolean isClassroomAssignment() {
 		return true;		
 	}
-
-	
-	
 	
 	@Override
 	public int hashCode() {
@@ -166,7 +154,6 @@ public class ClassroomAssignment extends AssignmentByRequest {
 				+ ((satisfaction == null) ? 0 : satisfaction.hashCode());
 		return result;
 	}
-	
 	
 	@Override
 	public boolean equals(Object obj) {

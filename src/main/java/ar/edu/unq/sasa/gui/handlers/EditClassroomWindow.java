@@ -31,9 +31,6 @@ import ar.edu.unq.sasa.model.items.FixedResource;
 
 /**
  * Ventana de edición de aulas. También sirve para agregar aulas nuevas.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 	

@@ -13,14 +13,8 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
  * 
  * CONSIDERATIONS The parametered constructor is going to be the
  *         only accesible one.
- * 
- * @author Gaston Charkiewicz
- * 
  */
 public class WeeklySchedule {
-	/**
-	 * The main information.
-	 */
 	public Map<Calendar, Map<HourInterval, Assignment>> schedule = new HashMap<Calendar, Map<HourInterval, Assignment>>();
 
 	public Map<Calendar, Map<HourInterval, Assignment>> getSchedule() {

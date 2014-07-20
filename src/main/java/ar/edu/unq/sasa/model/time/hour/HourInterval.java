@@ -10,44 +10,17 @@ import ar.edu.unq.sasa.model.time.Period;
 /**
  * Representa un intervalo de horas, igual que un intervalo matemático
  * "cerrado".
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class HourInterval extends LogicalHourFulfiller {
 
-	/**
-	 * Horarios de inicio y fin del intervalo.
-	 */
 	private final Timestamp start, end;
 
-	/**
-	 * La cantidad de minutos dentro del rango especificado.
-	 */
 	private final int minutesInRange;
 
-	/**
-	 * Constructor de {@link HourInterval}, que no recibe la cantidad
-	 * de minutos, y la setea como toda la duración entre inicio y fin.
-	 * Esto hace que con este constructor se armen {@link HourInterval}
-	 * concretos.
-	 * 
-	 * @param start la hora inicial.
-	 * @param end la hora final.
-	 * @throws PeriodException 
-	 */
 	public HourInterval(Timestamp start, Timestamp end) throws PeriodException {
 		this(start, end, start.minutesBetween(end));
 	}
 	
-	/**
-	 * Constructor de {@link HourInterval}.
-	 * 
-	 * @param start la hora inicial.
-	 * @param end la hora final.
-	 * @param range la cantidad de minutos del rango.
-	 * @throws PeriodException 
-	 */
 	public HourInterval(Timestamp start, Timestamp end, int range) throws PeriodException {
 		if (start.greaterEqual(end))
 			throw new PeriodException("La hora inicial debe ser menor a la final");
@@ -70,54 +43,31 @@ public class HourInterval extends LogicalHourFulfiller {
 		return minutesInRange;
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#contains(sasa.model.time.hour.Timestamp)
-	 */
 	@Override
 	public boolean contains(Timestamp t) {
 		return t.greaterEqual(getStart()) && t.lessEqual(getEnd());
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#contains(sasa.model.time.hour.LogicalHourFulfiller)
-	 */
 	@Override
 	public boolean contains(LogicalHourFulfiller lhf) {
 		return lhf.isIn(this);
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#isIn(sasa.model.time.hour.HourInterval)
-	 */
 	@Override
 	protected boolean isIn(HourInterval hi) {
 		return getStart().greaterEqual(hi.getStart()) && getEnd().lessEqual(hi.getEnd());
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#intersectsWith(sasa.model.time.hour.LogicalHourFulfiller)
-	 */
 	@Override
 	public boolean intersectsWith(LogicalHourFulfiller lhf) {
 		return lhf.intersectsWithHourInterval(this);
 	}
 
-	/**
-	 * Compara el receptor con otro {@link HourInterval}, chequeando por 
-	 * intersección.
-	 * 
-	 * @param hi
-	 *            el otro HourInterval.
-	 * @return true si hay intersección, false en caso contrario.
-	 */
 	@Override
 	protected boolean intersectsWithHourInterval(HourInterval hi) {
 		return !(getStart().greaterEqual(hi.getEnd()) || getEnd().lessEqual(hi.getStart()));
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#getConcreteIntervals()
-	 */
 	@Override
 	public List<HourInterval> getConcreteIntervals() throws PeriodException {
 		List<HourInterval> intervals = new LinkedList<HourInterval>();
@@ -136,17 +86,11 @@ public class HourInterval extends LogicalHourFulfiller {
 		return intervals;
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#minutesSharedWith(sasa.model.time.hour.LogicalHourFulfiller)
-	 */
 	@Override
 	public int minutesSharedWith(LogicalHourFulfiller hf) {
 		return hf.minutesSharedWithHourInterval(this);
 	}
 
-	/**
-	 * @see sasa.model.time.hour.LogicalHourFulfiller#minutesSharedWith(sasa.model.time.hour.HourInterval)
-	 */
 	@Override
 	protected int minutesSharedWithHourInterval(HourInterval interval) {
 		if (!this.intersectsWith(interval))
@@ -164,12 +108,6 @@ public class HourInterval extends LogicalHourFulfiller {
 					return interval.getStart().minutesBetween(getEnd());
 	}
 
-	/**
-	 * Retorna una copia del objeto receptor.
-	 * 
-	 * @return
-	 * @throws PeriodException 
-	 */
 	@Override
 	public HourInterval copy() throws PeriodException {
 		return new HourInterval(getStart(), getEnd());

@@ -38,9 +38,6 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Ventana para mostrar la {@link Satisfaction} de una {@link ClassroomAssignment}.
- * 
- * @author Cristian Suarez
- *
  */
 public class ShowSatisfactionWindow extends JFrame {
 	private ClassroomAssignment assignment;

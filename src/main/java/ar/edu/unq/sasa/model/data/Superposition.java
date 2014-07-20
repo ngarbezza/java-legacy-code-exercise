@@ -14,14 +14,9 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
  * CONSIDERATIONS Parametered constructor is going to be the only
  *         defined const. method.
  * 
- * @author Gaston Charkiewicz
- * 
  */
 public class Superposition {
 	
-	/**
-	 * Main data.
-	 */
 	public Map<HourInterval, List<AssignmentByRequest>> superpositionData = 
 		new HashMap<HourInterval, List<AssignmentByRequest>>();
 

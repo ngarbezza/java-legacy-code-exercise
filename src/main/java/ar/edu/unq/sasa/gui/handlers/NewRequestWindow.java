@@ -46,9 +46,6 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Ventana que sirve para la creación de nuevos pedidos.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class NewRequestWindow extends JFrame implements PeriodHolder {
 

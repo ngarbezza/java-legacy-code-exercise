@@ -5,8 +5,6 @@ import ar.edu.unq.sasa.model.items.AssignableItem;
 
 /**
  * Interfaz que sirve para englobar a todos los tipos de Assignment que hay.
- *
- * @author Cristian Suarez
  */
 public interface Assignment {
 	

@@ -19,12 +19,6 @@ import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
-/** TESTWEEKLYSCHEDULE
- *  Test suite for the WeeklySchedule class.
- * @author MEKODA
- * CONSIDERATIONS
- * The tested class is the only unsafe class instanciated.
- */
 public class TestWeeklySchedule {
 	
 	public WeeklySchedule weeklySchedule;
@@ -61,12 +55,6 @@ public class TestWeeklySchedule {
 	public Assignment a6;
 	public Assignment a7;
 
-	//--------------------------------------------------------------------------//
-
-	/**
-	 * Maybe it looks huge but believe me, it is really tiny compared with the
-	 * last setUp after the refactor.
-	 */
 	@Before
 	public void setUp(){
 		this.mha1 = new HashMap<HourInterval,Assignment>(); 
@@ -173,25 +161,11 @@ public class TestWeeklySchedule {
 		
 	}
 
-	//--------------------------------------------------------------------------//
-    //--------------------------------------------------------------------------//
-	//--------------------------------------------------------------------------//
-
-	/**
-	 * Just verifying the correct instanciation.
-	 */
 	@Test
 	public void test_shouldConstructCorrectly(){
 		assertTrue("weeklySchedule is not of the desired class",this.weeklySchedule.getSchedule() instanceof Map<?, ?>);
 	}
 
-	//--------------------------------------------------------------------------//
-    //--------------------------------------------------------------------------//
-	//--------------------------------------------------------------------------//
-
-	/**
-	 * Test to avoid repeated days.
-	 */
 	@Test
 	public void test_doesntContainsRepeatedDays(){
 		int mapLenght = this.weeklySchedule.getSchedule().size();
@@ -211,16 +185,8 @@ public class TestWeeklySchedule {
 		
 		assertTrue("Repeated Weeks -traceback 1-",mapLenght==calendarsLenght);
 		assertTrue("Repeated Weeks -traceback 2-",fcalendarsLenght==calendarsLenght);
-		
 	}
-	//--------------------------------------------------------------------------//
-    //--------------------------------------------------------------------------//
-	//--------------------------------------------------------------------------//
-	
-	/**
-	 * Helps to determine if the days inside are from the same week (must be that
-	 * way).
-	 */
+
 	@Test
 	public void test_daysAreFromTheSameWeek(){
 		Set<Calendar> sc = this.weeklySchedule.getSchedule().keySet();
@@ -232,15 +198,7 @@ public class TestWeeklySchedule {
 			}
 		}
 	}
-	
-	//--------------------------------------------------------------------------//
-    //--------------------------------------------------------------------------//
-	//--------------------------------------------------------------------------//
-	
-	
-	/**
-	 * Auxiliary for the next one.
-	 */
+
 	public boolean haveSuperpositions(Map<HourInterval,Assignment> m){
 		boolean ret = false;
 		Set<HourInterval> shi = m.keySet();
@@ -258,27 +216,18 @@ public class TestWeeklySchedule {
 			}
 		
 		return ret;
-		}
-	
-	//--------------------------------------------------------------------------//
-	
-	/**
-	 * Test against superpositions in HourInterval s (to avoid messy problems with
-	 * Superposition elements).
-	 */
+	}
+
 	@Test
 	public void test_HourIntervalsDoNotSuperimpose(){
-		
-			Set<Map.Entry<Calendar,Map<HourInterval,Assignment>>> s = this.weeklySchedule.getSchedule().entrySet();
-			
-			for(Map.Entry<Calendar,Map<HourInterval,Assignment>> it : s){
-				
-				assertFalse("The item have superimpositions",this.haveSuperpositions(it.getValue()));
-			}
-		}
 
-	//--------------------------------------------------------------------------//
-	//--------------------------------------------------------------------------//
-	//--------------------------------------------------------------------------//
-	
+		Set<Map.Entry<Calendar, Map<HourInterval, Assignment>>> s = this.weeklySchedule
+				.getSchedule().entrySet();
+
+		for (Map.Entry<Calendar, Map<HourInterval, Assignment>> it : s) {
+
+			assertFalse("The item have superimpositions",
+					this.haveSuperpositions(it.getValue()));
+		}
+	}
 }

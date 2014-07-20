@@ -16,15 +16,9 @@ import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
  * Clase que facilita el uso de {@link JTable}, mediante una implementación
  * basada en la interfaz que provee {@link TableModel}, a través de la clase 
  * {@link AbstractTableModel}.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class ReadOnlyTableModel<T> extends AbstractTableModel {
 	
-	/**
-	 * El modelo.
-	 */
 	private List<T> model;
 	
 	// INVARIANTE DE REPRESENTACION: 

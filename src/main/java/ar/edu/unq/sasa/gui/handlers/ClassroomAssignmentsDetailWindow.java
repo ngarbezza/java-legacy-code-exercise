@@ -20,9 +20,6 @@ import ar.edu.unq.sasa.model.items.Classroom;
 
 /**
  * Ventana para el detalle de asignaciones de {@link Classroom}'s.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Classroom, ClassroomAssignment> {
 

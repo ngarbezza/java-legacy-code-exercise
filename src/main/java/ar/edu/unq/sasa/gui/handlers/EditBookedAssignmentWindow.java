@@ -19,9 +19,6 @@ import ar.edu.unq.sasa.model.handlers.Asignator;
 
 /**
  * Ventana para editar una Reserva ({@link BookedAssignment})
- * 
- * @author Cristian Suarez
- *
  */
 public class EditBookedAssignmentWindow extends JFrame{
 	private Asignator handler = Asignator.getInstance();

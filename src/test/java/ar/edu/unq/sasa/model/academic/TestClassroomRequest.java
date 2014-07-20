@@ -20,13 +20,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/** TESTPROFESSOR
- *  Test suite for the Professor Class.
- * @author MEKODA
- * CONSIDERATIONS
- * Instance variable classroomRequest is going to be the only unsafe class; the 
- * another ones are mock objects (excepting Maps and List)
- */
 public class TestClassroomRequest {
 	public ClassroomRequest classroomRequest;
 	public ClassroomRequest fclassroomRequest;
@@ -42,7 +35,7 @@ public class TestClassroomRequest {
 	public Map<Resource,Integer> optResources;
 
 	@Before
-	public void setUp(){
+	public void setUp() throws RequestException {
 		this.subject = createMock(Subject.class);
 		expect(this.subject.getName()).andReturn("AOP Programming");
 		expect(this.subject.getId()).andReturn((long)53455);
@@ -61,21 +54,12 @@ public class TestClassroomRequest {
 		replay(this.subject);
 		replay(this.professor);
 		
-		try {
-			this.classroomRequest = new ClassroomRequest(this.desHours,this.subject,this.professor, 98346,
-					this.reqResources,this.optResources,45);
-		} catch (RequestException e) {
-			// try-catch block just to avoid the warning!
-			e.printStackTrace();
-		}
+		this.classroomRequest = new ClassroomRequest(this.desHours,this.subject,this.professor, 98346,
+				this.reqResources,this.optResources,45);
 	}
 
-	/**
-	 * 
-	 */
 	@Test
-	public void test_shouldBeConstructedCorrectly(){
-		
+	public void test_shouldBeConstructedCorrectly(){		
 		assertNotNull("desiredHours is Null",this.classroomRequest.getDesiredHours());
 		assertTrue("desiredHours is from an undesired class",this.classroomRequest.getDesiredHours() instanceof Period);
 		//----------------------------------------------------------------//
@@ -96,9 +80,6 @@ public class TestClassroomRequest {
 		assertTrue("optionalResources is from an undesired class",this.classroomRequest.getOptionalResources() instanceof Map<?, ?>);
 	}
 
-	/**
-	 * Tests if the request haves repeated elements (in the resources lists).
-	 */
 	@Test
 	public void test_elementsDoesNotRepeat(){
 		Set<Resource> optResources = this.classroomRequest.getOptionalResources().keySet();
@@ -117,10 +98,6 @@ public class TestClassroomRequest {
 		}
 	}
 
-	/**
-	 * Tests if the professor in the request can teach the subject he 
-	 * declared is going to teach.
-	 */
 	@Test
 	public void test_professorCanTeachTheSubjectInRequest(){
 		Subject subjectRequest = this.classroomRequest.getSubject();
@@ -134,9 +111,6 @@ public class TestClassroomRequest {
 		assertTrue("The professor cannot teach the subject in request",founded);
 	}
 
-	/**
-	 * Determines if the capacity value is possible.
-	 */
 	@Test
 	public void test_capacityIsCorrectlySetted(){
 		assertTrue("Capacity is not rightly setted",this.classroomRequest.getCapacity()>0);

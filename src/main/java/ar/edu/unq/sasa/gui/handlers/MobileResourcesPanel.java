@@ -22,9 +22,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 
 /**
  * ABM de recursos móviles. Permite también búsqueda por nombre.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 

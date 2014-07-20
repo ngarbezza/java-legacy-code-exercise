@@ -13,9 +13,6 @@ import ar.edu.unq.sasa.gui.handlers.RequestsPanel;
 
 /**
  * Panel con todos los componentes de la ventana principal.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class MainWindow extends JFrame {
 	

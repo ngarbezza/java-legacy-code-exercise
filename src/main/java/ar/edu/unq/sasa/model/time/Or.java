@@ -11,42 +11,23 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
  * Operador que sirve para combinar {@link Period}'s por medio de
  * la condición lógica O (or).
  * 
- * @author Nahuel Garbezza
- * 
  */
 public class Or extends CompositePeriod {
 
-	/**
-	 * Constructor de Or.
-	 * 
-	 * @param left
-	 *            el primer operando.
-	 * @param right
-	 *            el otro operando.
-	 */
 	public Or(Period left, Period right) {
 		super(left, right);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#contains(sasa.model.time.Period)
-	 */
 	@Override
 	public boolean contains(Period p) throws PeriodException {
 		return getLeftPeriod().contains(p) || getRightPeriod().contains(p);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#contains(java.util.Calendar)
-	 */
 	@Override
 	public boolean contains(Calendar c) throws PeriodException {
 		return getLeftPeriod().contains(c) || getRightPeriod().contains(c);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#intersectsWith(sasa.model.time.Period)
-	 */
 	@Override
 	public boolean intersectsWith(Period p) throws PeriodException {
 		return getLeftPeriod().intersectsWith(p) 
@@ -63,18 +44,11 @@ public class Or extends CompositePeriod {
 		return getLeftPeriod().isIn(sdf) || getRightPeriod().isIn(sdf);
 	}
 
-	/**
-	 * @throws PeriodException 
-	 * @see sasa.model.time.Period#copy()
-	 */
 	@Override
 	public Or copy() throws PeriodException {
 		return new Or(getLeftPeriod().copy(), getRightPeriod().copy());
 	}
 
-	/**
-	 * @see sasa.model.time.Period#convertToConcrete()
-	 */
 	@Override
 	public List<Period> convertToConcrete() throws PeriodException {
 		List<Period> result = new LinkedList<Period>();
@@ -96,8 +70,6 @@ public class Or extends CompositePeriod {
 	/**
 	 * En un {@link Or} no es posible determinar los intervalos horarios 
 	 * (pues no genera intervalos concretos).
-	 * 
-	 * @see sasa.model.time.Period#hourIntervalsInADay(java.util.Calendar)
 	 */
 	@Override
 	public List<HourInterval> hourIntervalsInADay(Calendar c) {

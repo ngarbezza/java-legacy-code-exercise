@@ -35,9 +35,6 @@ import ar.edu.unq.sasa.model.handlers.SubjectsHandler;
 /**
  * Panel que sirve para la edición de datos de {@link Professor}s. También sirve
  * para agregar Profesores nuevos.
- * 
- * @author Nahuel Garbezza
- * 
  */
 public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 

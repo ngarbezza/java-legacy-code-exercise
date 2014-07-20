@@ -16,28 +16,16 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
-/**
- * Test Case para la clase {@link Daily}.
- * 
- * @author Nahuel
- *
- */
 public class TestDaily {
 
 	private Daily dailyRep;
-	
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		Calendar endDate = new GregorianCalendar(2010, Calendar.JULY, 9);
 		this.dailyRep = new Daily(endDate); // repetición hasta el 9 de julio
 	}
 
-	/**
-	 * Test method for {@link sasa.model.time.date.Daily#containsInSomeRepetition(java.util.Calendar, java.util.Calendar)}.
-	 */
 	@Test
 	public void test_containsInSomeRepetitionWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
@@ -48,10 +36,7 @@ public class TestDaily {
 			current.add(Calendar.DAY_OF_MONTH, 1); // verifico todos los días
 		}
 	}
-	
-	/**
-	 * Test method for {@link sasa.model.time.date.Daily#containsInSomeRepetition(java.util.Calendar, java.util.Calendar)}.
-	 */
+
 	@Test
 	public void test_containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
@@ -66,10 +51,6 @@ public class TestDaily {
 				dailyRep.containsInSomeRepetition(c2, start));
 	}
 
-	/**
-	 * Test method for {@link sasa.model.time.date.Daily#thereIsSomeDayIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
-	 * @throws Exception 
-	 */
 	@Test
 	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() throws Exception {
 		// es nice mock para que en todas las llamadas a metodos
@@ -84,11 +65,7 @@ public class TestDaily {
 		assertTrue(dailyRep.thereIsSomeDayIn(mockSDF, start));
 		verify(mockSDF);
 	}
-	
-	/**
-	 * Test method for {@link sasa.model.time.date.Daily#thereIsSomeDayIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() throws Exception {
 		SimplePeriod mockSDF = createNiceMock(SimplePeriod.class);
@@ -97,10 +74,6 @@ public class TestDaily {
 		assertFalse(dailyRep.thereIsSomeDayIn(mockSDF, start));
 	}
 
-	/**
-	 * Test method for {@link sasa.model.time.date.Daily#isAllDaysIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
-	 * @throws Exception 
-	 */
 	@Test
 	public void test_isAllDaysInWhenTheConditionIsSatisfied() throws Exception {
 		Calendar start = new GregorianCalendar(2010, Calendar.JULY, 5);
@@ -112,11 +85,7 @@ public class TestDaily {
 		assertTrue(dailyRep.isAllDaysIn(mockSDF, start));
 		verify(mockSDF);
 	}
-	
-	/**
-	 * Test method for {@link sasa.model.time.date.Daily#isAllDaysIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
-	 * @throws Exception 
-	 */
+
 	@Test
 	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
 		Calendar start = new GregorianCalendar(2010, Calendar.JULY, 5);

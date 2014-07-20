@@ -40,9 +40,6 @@ import ar.edu.unq.sasa.util.Subscriber;
 
 /**
  * Crea un panel para manejar asignaciones de pedidos.
- * 
- * @author Cristian Suarez
- *
  */
 public class AssignmentsPanel extends JPanel implements Subscriber {
 	

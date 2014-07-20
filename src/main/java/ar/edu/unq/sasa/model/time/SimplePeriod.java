@@ -15,45 +15,18 @@ import ar.edu.unq.sasa.model.time.hour.Or;
 import ar.edu.unq.sasa.model.time.repetition.None;
 import ar.edu.unq.sasa.model.time.repetition.Repetition;
 
-/**
- * @author Nahuel Garbezza
- *
- */
 public class SimplePeriod extends Period {
 
-	/**
-	 * La fecha de inicio del {@link Period}.
-	 */
 	private final Calendar start;
 	
-	/**
-	 * El tipo de repetición.
-	 */
 	private final Repetition repetition;
 	
-	/**
-	 * La condición horaria.
-	 */
 	private LogicalHourFulfiller hourFulfiller;
 	
-	/**
-	 * Constructor de {@link SimplePeriod}, que setea la repetición
-	 * como {@link None}.
-	 * 
-	 * @param lhf la condición horaria.
-	 * @param start la fecha inicial.
-	 */
 	public SimplePeriod(LogicalHourFulfiller lhf, Calendar start) {
 		this(lhf, start, new None());
 	}
 	
-	/**
-	 * Constructor de {@link SimplePeriod}.
-	 * 
-	 * @param lhf la condición horaria.
-	 * @param start la fecha inicial.
-	 * @param rep la repetición.
-	 */
 	public SimplePeriod(LogicalHourFulfiller lhf, Calendar start, Repetition rep) {
 		this.hourFulfiller = lhf;
 		this.start = start;
@@ -76,18 +49,10 @@ public class SimplePeriod extends Period {
 		return repetition;
 	}
 	
-	/**
-	 * Agrega una condición horaria a la condición existente.
-	 * 
-	 * @param lhf
-	 */
 	public void addHourCondition(LogicalHourFulfiller lhf) {
 		this.setHourFulfiller(new Or(getHourFulfiller(), lhf));
 	}
 
-	/**
-	 * @see sasa.model.time.Period#contains(java.util.Calendar)
-	 */
 	@Override
 	public boolean contains(Calendar c) throws PeriodException {
 		Timestamp t;
@@ -99,29 +64,16 @@ public class SimplePeriod extends Period {
 		return containsDate(c) && getHourFulfiller().contains(t);
 	}
 
-	/**
-	 * Con el mismo propósito que {@link SimplePeriod#contains(Calendar)}, pero
-	 * en este caso teniendo sólo en cuenta los días, no las horas.
-	 * 
-	 * @param c
-	 * @return
-	 */
 	public boolean containsDate(Calendar c) {
 		return (compareEquals(getStart(), c) || 
 				getRepetition().containsInSomeRepetition(c, getStart()));
 	}
 	
-	/**
-	 * @see sasa.model.time.Period#contains(sasa.model.time.Period)
-	 */
 	@Override
 	public boolean contains(Period p) throws PeriodException {
 		return p.isIn(this);
 	}
 
-	/**
-	 * @see sasa.model.time.Period#intersectsWith(sasa.model.time.Period)
-	 */
 	@Override
 	public boolean intersectsWith(Period p) throws PeriodException {
 		return p.intersectsWithSimple(this);
@@ -139,9 +91,6 @@ public class SimplePeriod extends Period {
 			&& sp.getHourFulfiller().contains(getHourFulfiller());
 	}
 
-	/**
-	 * @see sasa.model.time.Period#convertToConcrete()
-	 */
 	@Override
 	public List<Period> convertToConcrete() throws PeriodException {
 		List<Period> result = new LinkedList<Period>();
@@ -150,17 +99,11 @@ public class SimplePeriod extends Period {
 		return result;
 	}
 
-	/**
-	 * @see sasa.model.time.Period#isConcrete()
-	 */
 	@Override
 	public boolean isConcrete() {
 		return getHourFulfiller().isConcrete();
 	}
 
-	/**
-	 * @see sasa.model.time.Period#minutesSharedWithPeriod(sasa.model.time.Period)
-	 */
 	@Override
 	public int minutesSharedWithPeriod(Period p) throws PeriodException {
 		return p.minutesSharedWithSimplePeriod(this);
@@ -177,10 +120,6 @@ public class SimplePeriod extends Period {
 		return getRepetition().toString(getStart()) + ", " + getHourFulfiller();
 	}
 	
-	/**
-	 * @throws PeriodException 
-	 * @see sasa.model.time.Period#copy()
-	 */
 	@Override
 	public SimplePeriod copy() throws PeriodException {
 		return new SimplePeriod(getHourFulfiller().copy(), 
@@ -226,12 +165,6 @@ public class SimplePeriod extends Period {
 		return true;
 	}
 
-	/** 
-	 * Asume que el {@link LogicalHourFulfiller} es un {@link HourInterval},
-	 * pues este método está pensado para ejecutarse sobre períodos concretos.
-	 * 
-	 * @see sasa.model.time.Period#hourIntervalsInADay(java.util.Calendar)
-	 */
 	@Override
 	public List<HourInterval> hourIntervalsInADay(Calendar c) {
 		List<HourInterval> intervals = new LinkedList<HourInterval>();

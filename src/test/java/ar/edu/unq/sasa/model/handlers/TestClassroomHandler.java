@@ -11,10 +11,6 @@ import ar.edu.unq.sasa.model.exceptions.handlers.ResourceException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 
-/**
- * @author Campos Diego
- *
- */
 public class TestClassroomHandler {
 
 	@Before

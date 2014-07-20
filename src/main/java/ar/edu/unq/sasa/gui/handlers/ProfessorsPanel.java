@@ -17,9 +17,6 @@ import ar.edu.unq.sasa.model.handlers.ProfessorHandler;
 
 /**
  * Panel para la administración de {@link Professor}s.
- * 
- * @author Nahuel Garbezza
- *
  */
 public class ProfessorsPanel extends AbstractHandlerPanel<Professor> {
 		

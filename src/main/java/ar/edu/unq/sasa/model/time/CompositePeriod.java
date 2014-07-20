@@ -6,23 +6,11 @@ import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 /**
  * Representa un {@link Period} complejo, compuesto de dos
  * {@link Period} relacionados por algún operador lógico. 
- * 
- * @author Nahuel Garbezza
- *
  */
 public abstract class CompositePeriod extends Period {
 
-	/**
-	 * Los operandos del Or.
-	 */
 	private final Period leftPeriod, rightPeriod; 
 	
-	/**
-	 * Constructor de CompositePeriod.
-	 * 
-	 * @param left el primer operando.
-	 * @param right el otro operando.
-	 */
 	public CompositePeriod(Period left, Period right) {
 		this.leftPeriod = left;
 		this.rightPeriod = right;
@@ -36,17 +24,11 @@ public abstract class CompositePeriod extends Period {
 		return rightPeriod;
 	}
 	
-	/**
-	 * @see sasa.model.time.Period#isConcrete()
-	 */
 	@Override
 	public boolean isConcrete() {
 		return getLeftPeriod().isConcrete() && getRightPeriod().isConcrete();
 	}
 
-	/**
-	 * @see sasa.model.time.Period#minutesSharedWithPeriod(sasa.model.time.Period)
-	 */
 	@Override
 	public int minutesSharedWithPeriod(Period p) throws PeriodException {
 		return Math.max(getLeftPeriod().minutesSharedWithPeriod(p), getRightPeriod().minutesSharedWithPeriod(p));

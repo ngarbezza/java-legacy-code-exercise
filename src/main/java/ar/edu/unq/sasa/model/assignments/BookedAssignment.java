@@ -6,8 +6,6 @@ import ar.edu.unq.sasa.model.items.AssignableItem;
 /**
  * Assignment que se utiliza para representar asignaciones hechas sin un 
  * pedido, que representan reservas.
- *
- * @author Cristian Suarez
  */
 public class BookedAssignment implements Assignment {
 	private AssignableItem assignableItem;
@@ -30,17 +28,10 @@ public class BookedAssignment implements Assignment {
 		return assignableItem;
 	}
 	
-	/** 
-	 * Aclaración: no es un getter, sirve para hacer más polimórficos algunos 
-	 * métodos utilizados.
-	 */
 	public Request getRequest() {
 		return null;
 	}
-		
-	/** 
-	 * Para hacer Double Dispatching.
-	 */
+	
 	@Override
 	public boolean isBookedAssignment() {
 		return true;

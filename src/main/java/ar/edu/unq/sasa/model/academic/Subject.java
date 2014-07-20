@@ -6,20 +6,11 @@ package ar.edu.unq.sasa.model.academic;
  * 
  * CONSIDERATIONS
  * The id instance variable is going to be final, because no changes are allowed.
- * 
- * @author Gaston Charkiewicz
- * 
  */
 public class Subject {
 	
-	/**
-	 * ID of the subject.
-	 */
 	public final long id;
 	
-	/**
-	 * Name of the Subject.
-	 */
 	public String name;
 	
 	public Subject(String aName,long anID){
@@ -43,11 +34,7 @@ public class Subject {
 	public String toString() {
 		return this.getName();
 	}
-	
-	/** 
-	 * hashCode redefinition
-	 * @see java.lang.Object#hashCode()
-	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,10 +44,6 @@ public class Subject {
 		return result;
 	}
 
-	/** 
-	 * equals redefinition
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

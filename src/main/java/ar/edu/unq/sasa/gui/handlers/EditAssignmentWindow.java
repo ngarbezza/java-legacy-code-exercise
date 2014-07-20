@@ -39,9 +39,6 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Ventana para Editar una {@link ClassroomAssignment}.
- * 
- * @author Cristian Suarez
- *
  */
 public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	private ClassroomAssignment assignment;

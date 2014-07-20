@@ -2,9 +2,6 @@ package ar.edu.unq.sasa.model.items;
 
 /**
  * Representa aquellos recursos que pertenecen a un aula, de manera fija.
- * 
- * @author Diego Campos
- *
  */
 public class FixedResource implements Resource{
 	
@@ -17,10 +14,6 @@ public class FixedResource implements Resource{
 		this.amount = amount;
 	}
 	
-	/**
-	 * Constructor que sirve para los {@link Request}
-	 * @param name
-	 */
 	public FixedResource(String name){}
 	
 	public int getAmount() {

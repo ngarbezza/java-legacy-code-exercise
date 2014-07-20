@@ -18,8 +18,6 @@ import ar.edu.unq.sasa.model.items.Resource;
 
 /**
  * Es el punto de acceso a toda la información del sistema.
- * 
- * @author Diego Campos
  */
 public class InformationManager {
 	private static InformationManager instance = null;
@@ -70,12 +68,6 @@ public class InformationManager {
 		return mobileResources;
 	}
 
-	/**
-	 * Retorna todos los recursos que existen en el Sistema, teniendo en cuenta
-	 * los FixedResource y los MobileResource.
-	 * 
-	 * @return List de Resource
-	 */
 	public List<Resource> getResources() {
 		List<Resource> resources = new ArrayList<Resource>();
 		for (MobileResource mobileResource : mobileResources)
@@ -96,12 +88,6 @@ public class InformationManager {
 		return false;
 	}
 
-	/**
-	 * Agrega un {@link Request}.
-	 * 
-	 * @param request
-	 *            el {@link Request} a agregar.
-	 */
 	public void addRequest(Request request) {
 		this.getRequests().add(request);
 	}
@@ -110,62 +96,26 @@ public class InformationManager {
 		this.getSubjects().add(s);
 	}
 
-	/**
-	 * Agrega un {@link Professor}.
-	 * 
-	 * @param professor
-	 *            el {@link Professor} a agregar.
-	 */
 	public void addProfessor(Professor professor) {
 		this.getProfessors().add(professor);
 	}
 
-	/**
-	 * Agrega una {@link Classroom}.
-	 * 
-	 * @param classroom
-	 *            la {@link Classroom} a agregar.
-	 */
 	public void addClassroom(Classroom classroom) {
 		this.getClassrooms().add(classroom);
 	}
 
-	/**
-	 * Agrega una {@link Assignment}.
-	 * 
-	 * @param assignment
-	 *            la {@link Assignment} a agregar.
-	 */
 	public void addAssignment(Assignment assignment) {
 		this.getAssignments().add(assignment);
 	}
 
-	/**
-	 * Agrega un {@link MobileResource}.
-	 * 
-	 * @param res
-	 *            el {@link MobileResource} a agregar.
-	 */
 	public void addResource(MobileResource res) {
 		this.getMobileResources().add(res);
 	}
 
-	/**
-	 * Borra una asignación.
-	 * 
-	 * @param searchedAssignment
-	 *            la asignación a borrar.
-	 */
 	public void deleteAssignment(Assignment searchedAssignment) {
 		this.getAssignments().remove(searchedAssignment);
 	}
 
-	/**
-	 * Borra un pedido.
-	 * 
-	 * @param request
-	 *            el pedido a borrar.
-	 */
 	public void deleteRequest(Request request) {
 		this.getRequests().remove(request);
 	}
@@ -211,14 +161,6 @@ public class InformationManager {
 		return resultado;
 	}
 
-	/**
-	 * Realiza una búsqueda de {@link Classroom} por nombre.
-	 * 
-	 * @param nameClassroom
-	 *            el nombre a buscar.
-	 * @return la {@link Classroom} adecuada, o <code>null</code> si no la
-	 *         encuentra.
-	 */
 	public Classroom getClassroom(String nameClassroom) {
 		Classroom wantedClassroom = null;
 		for (Classroom currentClassroom : this.getClassrooms())
@@ -227,13 +169,6 @@ public class InformationManager {
 		return wantedClassroom;
 	}
 
-	/**
-	 * Busca un {@link MobileResource} por nombre.
-	 * 
-	 * @param name
-	 *            el nombre del {@link MobileResource} a buscar.
-	 * @return el {@link MobileResource} adecuado, o null si no está.
-	 */
 	public MobileResource getResource(String name) {
 		for (MobileResource r : this.getMobileResources())
 			if (r.getName().equals(name))
@@ -241,15 +176,6 @@ public class InformationManager {
 		return null;
 	}
 
-	/**
-	 * Busca un {@link Request} por ID.
-	 * 
-	 * @param id
-	 *            el ID a buscar.
-	 * @return
-	 * @throws RequestException
-	 *             si no existe un pedido con ese ID.
-	 */
 	public Request getRequest(Professor professor, Subject subject)
 			throws RequestException {
 		for (Request request : this.getRequests())

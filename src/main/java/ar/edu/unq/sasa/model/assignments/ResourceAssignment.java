@@ -6,8 +6,6 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 /**
  * {@link Assignment} utilizada para representar las asignaciones hechas en un
  * {@link MobileResource}.
- *
- * @author Cristian Suarez
  */
 public class ResourceAssignment extends AssignmentByRequest {
 	
@@ -27,9 +25,6 @@ public class ResourceAssignment extends AssignmentByRequest {
 		return mobileResource;
 	}
 
-	/**
-	 * Para hacer Double Dispatching
-	 */
 	@Override
 	public boolean isBookedAssignment() {
 		return false;

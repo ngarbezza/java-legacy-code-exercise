@@ -2,8 +2,6 @@ package ar.edu.unq.sasa.model.items;
 
 /**
  * Interfaz que representa recursos en el sistema.
- * 
- * @author Campos Diego
  */
 public interface Resource {
 

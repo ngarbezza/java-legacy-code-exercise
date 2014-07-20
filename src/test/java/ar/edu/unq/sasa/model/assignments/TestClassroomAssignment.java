@@ -20,12 +20,6 @@ import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Test Case para la clase {@link ClassroomAssignment}.
- * 
- * @author Cristian
- *
- */
 public class TestClassroomAssignment {
 
 	@Test
