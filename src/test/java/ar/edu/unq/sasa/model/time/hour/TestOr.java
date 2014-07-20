@@ -43,7 +43,7 @@ public class TestOr {
 		assertTrue(orUnderTest.contains(timeSTMock));
 		assertTrue(orUnderTest.contains(timeSTMock));
 		assertTrue(orUnderTest.contains(timeSTMock));
-		verify(mockLeftOp); 
+		verify(mockLeftOp);
 		// no puedo verificar el right porque a veces no se evalua,
 		// ya que el Or que se asume Short-circuit
 	}

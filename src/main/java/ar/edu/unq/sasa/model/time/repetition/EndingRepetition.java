@@ -40,7 +40,7 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	@Override
-	public boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start) 
+	public boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start)
 			throws PeriodException {
 		Calendar current = start;
 		while (hasNextDate(current)) {
@@ -52,7 +52,7 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	@Override
-	public boolean isAllDaysIn(SimplePeriod sp, Calendar start) 
+	public boolean isAllDaysIn(SimplePeriod sp, Calendar start)
 			throws PeriodException {
 		Calendar current = start;
 		while (hasNextDate(current)) {
@@ -64,7 +64,7 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	protected boolean isOutOfBounds(Calendar c, Calendar start) {
-		return compareLess(c, start) || compareEquals(c, start) 
+		return compareLess(c, start) || compareEquals(c, start)
 			||compareGreater(c, getEnd());
 	}
 

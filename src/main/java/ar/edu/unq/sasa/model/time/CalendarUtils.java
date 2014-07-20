@@ -7,14 +7,14 @@ import static java.util.Calendar.YEAR;
 import java.util.Calendar;
 
 /**
- * Métodos útiles para trabajar con {@link Calendar}'s y para reducir su 
+ * Métodos útiles para trabajar con {@link Calendar}'s y para reducir su
  * complejidad.
  *
  */
 public class CalendarUtils {
 	/**
 	 * Compara dos {@link Calendar} teniendo en cuenta sólo el año, mes y día.
-	 * 
+	 *
 	 * @param c1
 	 *            el primer {@link Calendar} a comparar.
 	 * @param c2
@@ -24,14 +24,14 @@ public class CalendarUtils {
 	public static boolean compareEquals(Calendar c1, Calendar c2) {
 		if (c1 == null || c2 == null)
 			return false;
-		return 
+		return
 			c1.get(YEAR) == c2.get(YEAR) && c1.get(MONTH) == c2.get(MONTH)
 			&& c1.get(DAY_OF_MONTH) == c2.get(DAY_OF_MONTH);
 	}
 	
 	/**
 	 * Compara dos {@link Calendar} teniendo en cuenta sólo el año, mes y día.
-	 * 
+	 *
 	 * @param c1
 	 *            el primer {@link Calendar} a comparar.
 	 * @param c2
@@ -48,7 +48,7 @@ public class CalendarUtils {
 	
 	/**
 	 * Compara dos {@link Calendar} teniendo en cuenta sólo el año, mes y día.
-	 * 
+	 *
 	 * @param c1
 	 *            el primer {@link Calendar} a comparar.
 	 * @param c2

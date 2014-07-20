@@ -6,7 +6,7 @@ public class ReflectionUtils {
 
 	public static Object invokeMethod(Object object, String actionName) {
 		try {
-			Method method = object.getClass().getMethod(actionName, new Class[]{}); 
+			Method method = object.getClass().getMethod(actionName, new Class[]{});
 			Object res = method.invoke(object, new Object[]{});
 			return res;
 		}
@@ -16,7 +16,7 @@ public class ReflectionUtils {
 	}
 	
 	public static Object invokeJavaBean(Object object, String method) {
-		String name = "get" + Character.toUpperCase(method.charAt(0)) 
+		String name = "get" + Character.toUpperCase(method.charAt(0))
 				+ method.substring(1);
 		return invokeMethod(object, name);
 	}

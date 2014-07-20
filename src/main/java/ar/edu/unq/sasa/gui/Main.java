@@ -101,18 +101,18 @@ public class Main {
 		classroomHandler.modifyClassroomAddResource("Aula 1", resourcesHandler.createFixedResource("Computadora", 30)   );
 	    classroomHandler.modifyClassroomAddResource("Aula 2", resourcesHandler.createFixedResource("Computadora", 30)   );
 	    classroomHandler.modifyClassroomAddResource("Aula 3", resourcesHandler.createFixedResource("Computadora", 30)   );
-	  
+	
 	    //Agrego 1 Proyector a 2 aulas de 30
 	    classroomHandler.modifyClassroomAddResource("Aula 2", resourcesHandler.createFixedResource("Proyector", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 3", resourcesHandler.createFixedResource("Proyector", 1)   );
-	    
+	
 	    //Agrego a 5 aulas de 15, 15 computadoras
 	    classroomHandler.modifyClassroomAddResource("Aula 11", resourcesHandler.createFixedResource("Computadora", 30) );
 	    classroomHandler.modifyClassroomAddResource("Aula 12", resourcesHandler.createFixedResource("Computadora", 30) );
 	    classroomHandler.modifyClassroomAddResource("Aula 13", resourcesHandler.createFixedResource("Computadora", 30) );
 	    classroomHandler.modifyClassroomAddResource("Aula 14", resourcesHandler.createFixedResource("Computadora", 30) );
 	    classroomHandler.modifyClassroomAddResource("Aula 15", resourcesHandler.createFixedResource("Computadora", 30) );
-	    
+	
 	    //Agrego a 8 aulas de 15, 1 proyector
 	    classroomHandler.modifyClassroomAddResource("Aula 11", resourcesHandler.createFixedResource("Proyector", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 12", resourcesHandler.createFixedResource("Proyector", 1) );
@@ -122,7 +122,7 @@ public class Main {
 	    classroomHandler.modifyClassroomAddResource("Aula 17", resourcesHandler.createFixedResource("Proyector", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 18", resourcesHandler.createFixedResource("Proyector", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 19", resourcesHandler.createFixedResource("Proyector", 1) );
-	    
+	
 	    //Agrego luz natural a las aulas de 25 y de 40
 	    classroomHandler.modifyClassroomAddResource("Aula 20", resourcesHandler.createFixedResource("Luz Natural", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 21", resourcesHandler.createFixedResource("Luz Natural", 1) );
@@ -134,23 +134,23 @@ public class Main {
 	    classroomHandler.modifyClassroomAddResource("Aula 27", resourcesHandler.createFixedResource("Luz Natural", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 28", resourcesHandler.createFixedResource("Luz Natural", 1) );
 	    classroomHandler.modifyClassroomAddResource("Aula 29", resourcesHandler.createFixedResource("Luz Natural", 1) );
-	    
-	    
+	
+	
 	    //************************************************************************\\
 		//---------------------Creacion de MobileResources------------------------\\
 		//************************************************************************\\
-	    
+	
 	    resourcesHandler.createMobileResource("Proyector");
 	    resourcesHandler.createMobileResource("Proyector");
 	    resourcesHandler.createMobileResource("Pizarron Mobil");
 	    resourcesHandler.createMobileResource("Cortina");
 	    resourcesHandler.createMobileResource("Borrador");
 	    resourcesHandler.createMobileResource("Fibron");
-	    
+	
 	    //**********************************************************************\\
 		//------------------------Creacion de profesores y Materias-------------\\
 		//**********************************************************************\\
-	    
+	
 	    Professor profesorTamara    = professorHandler.createProfessor("Tamara", "42585325" , "tamara@zaza.com");
 	    Professor profesorPepe      = professorHandler.createProfessor("Pepe", "42583575", "pepe@zaza.com");
 	    Professor profesorJose      = professorHandler.createProfessor("Jose", "42583575", "jose@zaza.com");
@@ -161,7 +161,7 @@ public class Main {
 	    Professor profesorAlejandra	= professorHandler.createProfessor("alejandra", "42583575", "alejandra@zaza.com");
 	    Professor profesorCesar		= professorHandler.createProfessor("Cesar", "42583575", "cesar@zaza.com");
 	    Professor profesorElizabeth = professorHandler.createProfessor("Elizabeth", "42583575", "elizabeth@zaza.com");
-	    
+	
 	    Subject am1 = subjectsHandler.createSubject("Analisis Matematico 1");
 	    Subject am2 = subjectsHandler.createSubject("Analisis Matematico 2");
 	    Subject ha = subjectsHandler.createSubject("Historia Argentina");
@@ -195,7 +195,7 @@ public class Main {
 	    profesorElizabeth.addNewSubject(f2);
 	    profesorElizabeth.addNewSubject(am1);
 	    profesorElizabeth.addNewSubject(am2);
-	    
+	
 	    //Pedido 1
 	    //crear requisitos para los pedidos
 	    	//obligatorios
@@ -210,7 +210,7 @@ public class Main {
 	    Timestamp timeEnd1  = new Timestamp(12);
 	    LogicalHourFulfiller hour1 = new HourInterval(timeStart1,timeEnd1);
 	    Period desiredHours = new SimplePeriod(hour1, calendar);
-	    
+	
 	    //crear pedido
 	    requestsHandler.createClassroomRequest(requiredResources, optionalResources, desiredHours, am1, profesorTamara , 20);
 
@@ -230,12 +230,12 @@ public class Main {
 	    Timestamp timeEnd2  = new Timestamp(12);
 	    LogicalHourFulfiller hour2 = new HourInterval(timeStart2,timeEnd2);
 	    Period desiredHours2 = new SimplePeriod(hour2, calendar2);
-        
+
 	    //crear pedido
 	    requestsHandler.createClassroomRequest(requiredResources2, optionalResources2, desiredHours2, am1, profesorPepe , 20);
-        
+
 	    /******************************************************************************************************************/
-	    
+	
 	    //Pedido 3
 	    //crear requisitos para los pedidos
 	    	//obligatorios
@@ -256,7 +256,7 @@ public class Main {
 
 	    /******************************************************************************************************************/
 
-	    
+	
 	  //Pedido 4
 	    //crear requisitos para los pedidos
 	    	//obligatorios
@@ -285,18 +285,18 @@ public class Main {
 	    	//opcionales
 	    Map<Resource,Integer> optionalResources5 = new HashMap<Resource,Integer>();
 	    optionalResources5.put( resourcesHandler.createFixedResource("Luz Natural", 20) , 20) ;
-	    	//fecha y hora	    
+	    	//fecha y hora	
 	    GregorianCalendar calendar5 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart5 = new Timestamp(8);
 	    Timestamp timeEnd5  = new Timestamp(12);
 	    LogicalHourFulfiller hour5 = new HourInterval(timeStart5,timeEnd5);
 	    Period desiredHours5 = new SimplePeriod(hour5, calendar5);
-        
+
 	    //crear pedido
 	    ClassroomRequest classReq5 = requestsHandler.createClassroomRequest(requiredResources5, optionalResources5, desiredHours5, pc, profesorEsteban , 20);
 
 	    /******************************************************************************************************************/
-	    
+	
 	    //Pedido 6
 	    //crear requisitos para los pedidos
 	    	//obligatorios
@@ -314,24 +314,24 @@ public class Main {
 
 	    //crear pedido
 	    ClassroomRequest classReq6 = requestsHandler.createClassroomRequest(requiredResources6, optionalResources6, desiredHours6, i1, profesorErnesto, 25);
-	    
-	    
+	
+	
 	    /******************************************************************************************************************/
 
 	    // Asignacion 5
 	    asignator.asignateRequestInMostSatisfactoryClassroom(classReq5);
-	    
+	
 	    /******************************************************************************************************************/
-	    
+	
 	    // Asignacion 6
 	    asignator.asignateRequestInMostSatisfactoryClassroom(classReq6);
-	    
+	
 	    /******************************************************************************************************************/
-	    
+	
 	    // Reserva
 	    Classroom classroom = classroomHandler.searchClassroom("Aula 20");
 	    asignator.asignateBookedAssignment(classroom, "Reparaciones", desiredHours2);
-	    
+	
 		} catch (Exception e) {}
 	}
 }

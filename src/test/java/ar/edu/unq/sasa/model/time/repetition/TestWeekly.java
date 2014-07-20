@@ -55,7 +55,7 @@ public class TestWeekly {
 		Calendar c3 = new GregorianCalendar(2010, Calendar.JULY, 23);
 		// 9/6 : anterior a fecha inicial.
 		Calendar c4 = new GregorianCalendar(2010, Calendar.JUNE, 9);
-		assertFalse("The start date should not be included in the repetition", 
+		assertFalse("The start date should not be included in the repetition",
 				weeklyRep.containsInSomeRepetition(start, start));
 		assertFalse(weeklyRep.containsInSomeRepetition(c1, start));
 		assertFalse(weeklyRep.containsInSomeRepetition(c2, start));
@@ -99,7 +99,7 @@ public class TestWeekly {
 	@Test
 	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
-		SimplePeriod mockSDF = createMock(SimplePeriod.class); 
+		SimplePeriod mockSDF = createMock(SimplePeriod.class);
 		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JUNE, 21))).andReturn(true);
 		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JUNE, 28))).andReturn(true);
 		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JULY, 5))).andReturn(true);

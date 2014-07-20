@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * PROFESSOR Class denoting a Professor entity, who has personal data and a list
  * of {@link Subject}, that are all the subjects he can teach.
- * 
+ *
  * CONSIDERATIONS The id instance variable is going to be final,
  *         because no changes are allowed.
  */

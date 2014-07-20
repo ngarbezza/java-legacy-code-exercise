@@ -8,9 +8,9 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
 /**
- * Representa el conjunto de días y horas o intervalos de los mismos. 
- * Es capaz de responder consultas y operaciones sobre estos conjuntos. 
- * Ej: ver si el tiempo de un período se intersecta en algún momento con 
+ * Representa el conjunto de días y horas o intervalos de los mismos.
+ * Es capaz de responder consultas y operaciones sobre estos conjuntos.
+ * Ej: ver si el tiempo de un período se intersecta en algún momento con
  * el tiempo de otro.
  */
 public abstract class Period {

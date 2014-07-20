@@ -1,9 +1,9 @@
 package ar.edu.unq.sasa.model.academic;
 
-/** 
+/**
  * SUBJECT
  * Class denoting a Subject entity, containing his name and his ID.
- * 
+ *
  * CONSIDERATIONS
  * The id instance variable is going to be final, because no changes are allowed.
  */

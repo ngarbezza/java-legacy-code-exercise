@@ -148,7 +148,7 @@ public class TestClassroom {
 		expect(p1Mock.intersectsWith(periodMock)).andReturn(false).anyTimes();
 		expect(p2Mock.intersectsWith(periodMock)).andReturn(true).anyTimes();
 		expect(a1Mock.isBookedAssignment()).andReturn(true).anyTimes();
-		expect(a2Mock.isBookedAssignment()).andReturn(false).anyTimes(); 
+		expect(a2Mock.isBookedAssignment()).andReturn(false).anyTimes();
 		replay(p1Mock, p2Mock, a1Mock, a2Mock);
 		classroom.addAssignment(p1Mock, a1Mock);
 		classroom.addAssignment(p2Mock, a2Mock);

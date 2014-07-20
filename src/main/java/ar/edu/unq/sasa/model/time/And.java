@@ -10,7 +10,7 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
 /**
  * Operador que sirve para combinar {@link Period}'s por medio de
  * la condición lógica Y (and).
- * 
+ *
  */
 public class And extends CompositePeriod {
 
@@ -28,7 +28,7 @@ public class And extends CompositePeriod {
 	}
 
 	/**
-	 * En este caso, una fecha va a estar incluida si los dos operandos 
+	 * En este caso, una fecha va a estar incluida si los dos operandos
 	 * la contienen.
 	 */
 	@Override
@@ -38,7 +38,7 @@ public class And extends CompositePeriod {
 
 	@Override
 	public boolean intersectsWith(Period p) throws PeriodException {
-		return getLeftPeriod().intersectsWith(p) 
+		return getLeftPeriod().intersectsWith(p)
 			&& getRightPeriod().intersectsWith(p);
 	}
 	

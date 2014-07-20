@@ -76,7 +76,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		if (!(getRepetition() instanceof None))
 			if (!CalendarUtils.compareGreater(((EndingRepetition)getRepetition()).getEnd(), getStartDate()))
 				throw new PeriodException("La fecha de finalización debe ser posterior a la de inicio");
-		return new SimplePeriod(new HourInterval(getStartHour(), getEndHour(), 
+		return new SimplePeriod(new HourInterval(getStartHour(), getEndHour(),
 				getMinutesInRange()), getStartDate(), getRepetition());
 	}
 	

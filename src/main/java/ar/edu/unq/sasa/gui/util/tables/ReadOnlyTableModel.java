@@ -14,18 +14,18 @@ import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 
 /**
  * Clase que facilita el uso de {@link JTable}, mediante una implementación
- * basada en la interfaz que provee {@link TableModel}, a través de la clase 
+ * basada en la interfaz que provee {@link TableModel}, a través de la clase
  * {@link AbstractTableModel}.
  */
 public class ReadOnlyTableModel<T> extends AbstractTableModel {
 	
 	private List<T> model;
 	
-	// INVARIANTE DE REPRESENTACION: 
+	// INVARIANTE DE REPRESENTACION:
 	//		las tres listas siguientes tienen el mismo tamaño.
 	
 	/**
-	 * Son los nombres de los atributos del modelo que será 
+	 * Son los nombres de los atributos del modelo que será
 	 * invocados por reflection bajo la convención JavaBeans.
 	 */
 	private List<String> attributes;
@@ -106,7 +106,7 @@ public class ReadOnlyTableModel<T> extends AbstractTableModel {
 	@Override
 	public String getValueAt(int rowIndex, int columnIndex) {
 		T object = this.getModel().get(rowIndex);
-		Object result = invokeJavaBean(object, this.getAttributes().get(columnIndex)); 
+		Object result = invokeJavaBean(object, this.getAttributes().get(columnIndex));
 		return this.getConverters().get(columnIndex).convert(result);		
 	}
 }

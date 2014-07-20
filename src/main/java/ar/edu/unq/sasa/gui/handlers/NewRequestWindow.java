@@ -53,7 +53,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	private JComboBox resourceCombo, professorCombo, subjectCombo;
 	private JSpinner amountSelector, capacitySelector;
 	private JRadioButton optionalRadioButton, requiredRadioButton;
-	private JLabel labelResource, labelAmount, professorLabel, 
+	private JLabel labelResource, labelAmount, professorLabel,
 		subjectLabel, capacityLabel;
 	private JTextArea periodDetailArea;
 	private JButton addResourceButton, deleteResourceButton,
@@ -129,7 +129,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		labelResource = new JLabel("Recurso");
 		labelAmount = new JLabel("Cantidad");
 		EasyComboBoxModel<Resource> comboModel = new EasyComboBoxModel<Resource>(
-				ResourcesHandler.getInstance().getAllResources()); 
+				ResourcesHandler.getInstance().getAllResources());
 		resourceCombo = new JComboBox(comboModel);
 		resourceCombo.addActionListener(new ActionListener() {
 			@Override
@@ -276,10 +276,10 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				try {
 					if (validateCurrentRequest()) {
 						RequestsHandler.getInstance().createClassroomRequest(
-							makeResourcesFrom(requiredResourcesTable), 
-							makeResourcesFrom(optionalResourcesTable), 
-							specifiedPeriod, getSelectedSubject(), 
-							getSelectedProfessor(), 
+							makeResourcesFrom(requiredResourcesTable),
+							makeResourcesFrom(optionalResourcesTable),
+							specifiedPeriod, getSelectedSubject(),
+							getSelectedProfessor(),
 							(Integer) capacitySelector.getValue());
 						dispose();
 					}

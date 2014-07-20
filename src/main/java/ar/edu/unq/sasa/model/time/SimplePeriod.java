@@ -65,7 +65,7 @@ public class SimplePeriod extends Period {
 	}
 
 	public boolean containsDate(Calendar c) {
-		return (compareEquals(getStart(), c) || 
+		return (compareEquals(getStart(), c) ||
 				getRepetition().containsInSomeRepetition(c, getStart()));
 	}
 	
@@ -111,7 +111,7 @@ public class SimplePeriod extends Period {
 
 	@Override
 	protected int minutesSharedWithSimplePeriod(SimplePeriod sp) throws PeriodException {
-		return sp.intersectsWithSimple(this)? 
+		return sp.intersectsWithSimple(this)?
 				getHourFulfiller().minutesSharedWith(sp.getHourFulfiller()) : 0;
 	}
 	
@@ -122,7 +122,7 @@ public class SimplePeriod extends Period {
 	
 	@Override
 	public SimplePeriod copy() throws PeriodException {
-		return new SimplePeriod(getHourFulfiller().copy(), 
+		return new SimplePeriod(getHourFulfiller().copy(),
 				(Calendar) getStart().clone(), getRepetition().copy());
 	}
 	

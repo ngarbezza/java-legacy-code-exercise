@@ -21,7 +21,7 @@ public abstract class Repetition {
 	public abstract Repetition copy();
 
 	public String toString(Calendar start) {
-		return "El día " + new SimpleDateFormat("dd/MM/yyyy").format(start.getTime()) 
+		return "El día " + new SimpleDateFormat("dd/MM/yyyy").format(start.getTime())
 			+ getRepetitionText();
 	}
 

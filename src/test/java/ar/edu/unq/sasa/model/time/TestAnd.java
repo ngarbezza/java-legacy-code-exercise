@@ -45,7 +45,7 @@ public class TestAnd {
 		assertFalse(andUnderTest.contains(calendarMock));
 		assertFalse(andUnderTest.contains(calendarMock));
 		assertTrue(andUnderTest.contains(calendarMock));
-		verify(mockLeftOp); 
+		verify(mockLeftOp);
 		// no puedo verificar el right porque a veces no se evalua,
 		// ya que el Or que se asume Short-circuit
 	}

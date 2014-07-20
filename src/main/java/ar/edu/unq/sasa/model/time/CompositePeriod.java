@@ -5,11 +5,11 @@ import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
 /**
  * Representa un {@link Period} complejo, compuesto de dos
- * {@link Period} relacionados por algún operador lógico. 
+ * {@link Period} relacionados por algún operador lógico.
  */
 public abstract class CompositePeriod extends Period {
 
-	private final Period leftPeriod, rightPeriod; 
+	private final Period leftPeriod, rightPeriod;
 	
 	public CompositePeriod(Period left, Period right) {
 		this.leftPeriod = left;

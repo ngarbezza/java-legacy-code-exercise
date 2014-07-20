@@ -8,9 +8,9 @@ import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
 /**
- * WEEKLYSCHEDULE Simple class determining a week schedule for 
+ * WEEKLYSCHEDULE Simple class determining a week schedule for
  * {@link Assignment}s.
- * 
+ *
  * CONSIDERATIONS The parametered constructor is going to be the
  *         only accesible one.
  */

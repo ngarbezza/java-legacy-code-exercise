@@ -291,7 +291,7 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 
 	@Override
 	protected void doAcceptInAddingMode() {
-		ProfessorHandler.getInstance().createProfessor(nameField.getText(), 
+		ProfessorHandler.getInstance().createProfessor(nameField.getText(),
 				phoneField.getText(), mailField.getText(), getSubjectList());
 	}
 

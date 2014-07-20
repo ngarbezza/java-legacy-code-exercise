@@ -23,7 +23,7 @@ import ar.edu.unq.sasa.model.items.Classroom;
  */
 public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Classroom, ClassroomAssignment> {
 
-	protected JTable bookedAssignments; 
+	protected JTable bookedAssignments;
 	
 	public ClassroomAssignmentsDetailWindow(Classroom item) {
 		super(item);
@@ -50,7 +50,7 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 		leftPanel.add(assignmentsScrollPane);
 		rightPanel.setBorder(BorderFactory.createTitledBorder("Reservas"));
 		rightPanel.setLayout(new FlowLayout());
-		JScrollPane bookedsScrollPane = new JScrollPane(bookedAssignments); 
+		JScrollPane bookedsScrollPane = new JScrollPane(bookedAssignments);
 		bookedsScrollPane.setPreferredSize(new Dimension(150, 250));
 		rightPanel.add(bookedsScrollPane);
 		bottomPanel.setBorder(BorderFactory.createTitledBorder("Detalle del tiempo"));
@@ -92,7 +92,7 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 	
 	@Override
 	protected void createOtherWidgets() {
-		ReadOnlyTableModel<BookedAssignment> model = 
+		ReadOnlyTableModel<BookedAssignment> model =
 			new ReadOnlyTableModel<BookedAssignment>
 				(assignableItem.getBookedAssignments());
 		model.addColumn("Causa", "cause");

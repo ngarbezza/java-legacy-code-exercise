@@ -7,7 +7,7 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Clase que sirve para representar los nodos del árbol de las condiciones
- * horarias de la ventana {@link NewPeriodWindow}. 
+ * horarias de la ventana {@link NewPeriodWindow}.
  */
 public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 	
@@ -19,7 +19,7 @@ public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 
 	public abstract Period makePeriod() throws PeriodException;
 
-	public abstract boolean matchPeriodType(boolean simple, boolean or, 
+	public abstract boolean matchPeriodType(boolean simple, boolean or,
 			boolean and, boolean minus);
 
 	public abstract void updateChanges(NewPeriodWindow pw);

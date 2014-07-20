@@ -10,7 +10,7 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
 /**
  * Operador que sirve para combinar {@link Period}'s por medio de
  * la condición lógica O (or).
- * 
+ *
  */
 public class Or extends CompositePeriod {
 
@@ -30,7 +30,7 @@ public class Or extends CompositePeriod {
 
 	@Override
 	public boolean intersectsWith(Period p) throws PeriodException {
-		return getLeftPeriod().intersectsWith(p) 
+		return getLeftPeriod().intersectsWith(p)
 			|| getRightPeriod().intersectsWith(p);
 	}
 
@@ -68,7 +68,7 @@ public class Or extends CompositePeriod {
 	}
 
 	/**
-	 * En un {@link Or} no es posible determinar los intervalos horarios 
+	 * En un {@link Or} no es posible determinar los intervalos horarios
 	 * (pues no genera intervalos concretos).
 	 */
 	@Override

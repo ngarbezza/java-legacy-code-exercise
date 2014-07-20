@@ -49,7 +49,7 @@ public class TestMonthly {
 		Calendar c3 = new GregorianCalendar(2010, Calendar.AUGUST, 23);
 		// 1/6 : anterior a fecha inicial.
 		Calendar c4 = new GregorianCalendar(2010, Calendar.JUNE, 1);
-		assertFalse("The start date should not be included in the repetition", 
+		assertFalse("The start date should not be included in the repetition",
 				monthlyRep.containsInSomeRepetition(start, start));
 		assertFalse(monthlyRep.containsInSomeRepetition(c1, start));
 		assertFalse(monthlyRep.containsInSomeRepetition(c2, start));

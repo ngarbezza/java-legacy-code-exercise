@@ -35,18 +35,18 @@ public class TestTimestamp {
 	
 	@Test
 	public void test_failOnConstructWithNegativeValues() {
-		try { 
+		try {
 			new Timestamp(-1);
 			fail("The hour should be positive");
-		} 
+		}
 		catch (TimestampException e) {}		// correct exception
 		catch (Exception e) {
 			fail("Timestamp has thrown a wrong exception");
 		}
-		try { 
+		try {
 			new Timestamp(13, -4);
 			fail("The minutes should be positive");
-		} 
+		}
 		catch (TimestampException e) {}		// correct exception
 		catch (Exception e) {
 			fail("Timestamp has thrown a wrong exception");
@@ -55,16 +55,16 @@ public class TestTimestamp {
 	
 	@Test
 	public void test_failOnSetNegativeValues() {
-		try { 
+		try {
 			new Timestamp(12).setHour(-3);
 			fail("The hour should be positive");
-		} 
+		}
 		catch (TimestampException e) {}		// correct exception
 		catch (Exception e) {
 			fail("Timestamp has thrown a wrong exception");
 		}
 		
-		try { 
+		try {
 			new Timestamp(22, 10).setMinutes(-21);
 			fail("The minutes should be positive");
 		}
@@ -76,18 +76,18 @@ public class TestTimestamp {
 	
 	@Test
 	public void test_failOnConstructWithHoursOrMinutesOutOfRange() {
-		try { 
+		try {
 			new Timestamp(25);
 			fail("The hour should be less or equal than 23");
-		} 
+		}
 		catch (TimestampException e) {}		// correct exception
 		catch (Exception e) {
 			fail("Timestamp has thrown a wrong exception");
 		}
-		try { 
+		try {
 			new Timestamp(13, 67);
 			fail("The minutes should be less or equal than 59");
-		} 
+		}
 		catch (TimestampException e) {}		// correct exception
 		catch (Exception e) {
 			fail("Timestamp has thrown a wrong exception");
@@ -96,16 +96,16 @@ public class TestTimestamp {
 	
 	@Test
 	public void test_failOnSetHoursOrMinutesOutOfRange() {
-		try { 
+		try {
 			new Timestamp(9).setHour(32);
 			fail("The hour should be less or equal than 23");
-		} 
+		}
 		catch (TimestampException e) {}		// correct exception
 		catch (Exception e) {
 			fail("Timestamp has thrown a wrong exception");
 		}
 		
-		try { 
+		try {
 			new Timestamp(6, 25).setMinutes(60);
 			fail("The minutes should be less or equal than 59");
 		}

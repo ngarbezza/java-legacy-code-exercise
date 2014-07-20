@@ -43,7 +43,7 @@ public class TestDaily {
 		Calendar c1 = new GregorianCalendar(2010, Calendar.MAY, 28);
 		Calendar c2 = new GregorianCalendar(2010, Calendar.JULY, 11);
 		
-		assertFalse("The start date should not be included in the repetition", 
+		assertFalse("The start date should not be included in the repetition",
 				dailyRep.containsInSomeRepetition(start, start));
 		assertFalse("Any date before the start date should not be included",
 				dailyRep.containsInSomeRepetition(c1, start));
@@ -90,7 +90,7 @@ public class TestDaily {
 	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
 		Calendar start = new GregorianCalendar(2010, Calendar.JULY, 5);
 		SimplePeriod mockSDF = createMock(SimplePeriod.class);
-		for (int i=6; i<8; i++) 
+		for (int i=6; i<8; i++)
 			expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JULY, i)))
 				.andReturn(true);
 		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JULY, 8))).andReturn(false);

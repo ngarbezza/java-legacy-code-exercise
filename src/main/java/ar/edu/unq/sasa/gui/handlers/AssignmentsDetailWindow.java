@@ -24,7 +24,7 @@ import ar.edu.unq.sasa.model.items.MobileResource;
  * {@link AssignableItem}. Es abstracta para que puedan mostrarse
  * {@link Classroom}'s y {@link MobileResource}'s con algunas diferencias.
  */
-public abstract class AssignmentsDetailWindow<A extends AssignableItem, 
+public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 	B extends AssignmentByRequest> extends JFrame {
 	
 	protected A assignableItem;

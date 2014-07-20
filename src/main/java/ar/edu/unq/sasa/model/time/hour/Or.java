@@ -58,7 +58,7 @@ public class Or extends LogicalHourFulfiller {
 
 	@Override
 	public int minutesSharedWith(LogicalHourFulfiller hf) {
-		return Math.max(getLeftOp().minutesSharedWith(hf), 
+		return Math.max(getLeftOp().minutesSharedWith(hf),
 				getRightOp().minutesSharedWith(hf));
 	}
 	

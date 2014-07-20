@@ -46,9 +46,9 @@ public class TestSimplePeriod {
 
 	@Test
 	public void test_containsCalendarSatisfiedInDaysAndHours() throws Exception {
-		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 9, 12, 0); 
-		Calendar date2 = new GregorianCalendar(2010, Calendar.JUNE, 9, 15, 30); 
-		Calendar date3 = new GregorianCalendar(2010, Calendar.JUNE, 9, 14, 30); 
+		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 9, 12, 0);
+		Calendar date2 = new GregorianCalendar(2010, Calendar.JUNE, 9, 15, 30);
+		Calendar date3 = new GregorianCalendar(2010, Calendar.JUNE, 9, 14, 30);
 		Calendar date4 = new GregorianCalendar(2010, Calendar.OCTOBER, 13, 12, 0);
 		Calendar date5 = new GregorianCalendar(2010, Calendar.OCTOBER, 13, 15, 30);
 		Calendar date6 = new GregorianCalendar(2010, Calendar.OCTOBER, 13, 14, 30);
@@ -72,9 +72,9 @@ public class TestSimplePeriod {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 30, 11, 00);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.OCTOBER, 6, 17, 30);
 		
-		assertFalse("30 de junio, 11:00 hs : anterior a fecha estipulada", 
+		assertFalse("30 de junio, 11:00 hs : anterior a fecha estipulada",
 				periodUnderTest.contains(date1));
-		assertFalse("6 de octubre, 17:30 hs : posterior a fecha estipulada", 
+		assertFalse("6 de octubre, 17:30 hs : posterior a fecha estipulada",
 				periodUnderTest.contains(date2));
 	}
 	
@@ -107,7 +107,7 @@ public class TestSimplePeriod {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(13), new Timestamp(15, 30));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JULY, 28));
 		LogicalHourFulfiller lhf2 = new HourInterval(new Timestamp(12), new Timestamp(14, 30));
-		Period period2 = new SimplePeriod(lhf2, new GregorianCalendar(2010, Calendar.AUGUST, 11), 
+		Period period2 = new SimplePeriod(lhf2, new GregorianCalendar(2010, Calendar.AUGUST, 11),
 				new Weekly(new GregorianCalendar(2010, Calendar.SEPTEMBER, 22)));
 		
 		assertTrue(periodUnderTest.contains(period1));
@@ -119,7 +119,7 @@ public class TestSimplePeriod {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(9), new Timestamp(13));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JULY, 28));
 		LogicalHourFulfiller lhf2 = new HourInterval(new Timestamp(16, 30), new Timestamp(19));
-		Period period2 = new SimplePeriod(lhf2, new GregorianCalendar(2010, Calendar.AUGUST, 11), 
+		Period period2 = new SimplePeriod(lhf2, new GregorianCalendar(2010, Calendar.AUGUST, 11),
 				new Weekly(new GregorianCalendar(2010, Calendar.SEPTEMBER, 22)));
 		
 		assertFalse(periodUnderTest.contains(period1));
@@ -131,7 +131,7 @@ public class TestSimplePeriod {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(12), new Timestamp(13));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JUNE, 21));
 		LogicalHourFulfiller lhf2 = new HourInterval(new Timestamp(13), new Timestamp(14));
-		Period period2 = new SimplePeriod(lhf2, new GregorianCalendar(2010, Calendar.AUGUST, 11), 
+		Period period2 = new SimplePeriod(lhf2, new GregorianCalendar(2010, Calendar.AUGUST, 11),
 				new Weekly(new GregorianCalendar(2010, Calendar.DECEMBER, 15)));
 		
 		assertFalse(periodUnderTest.contains(period1));

@@ -19,7 +19,7 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.util.Subscriber;
 
 /**
- * Clase abstracta que contiene las cosas en común de los panels de los 
+ * Clase abstracta que contiene las cosas en común de los panels de los
  * handlers.
  */
 public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscriber {
@@ -103,7 +103,7 @@ public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscrib
 
 	@SuppressWarnings("unchecked")
 	protected void whenTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource(); 
+		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
 		if (source.isSelectionEmpty()) {
 			selection = null;
 			deleteButton.setEnabled(false);

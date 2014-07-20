@@ -57,7 +57,7 @@ public class TestWeeklySchedule {
 
 	@Before
 	public void setUp(){
-		this.mha1 = new HashMap<HourInterval,Assignment>(); 
+		this.mha1 = new HashMap<HourInterval,Assignment>();
 		this.mha2 = new HashMap<HourInterval,Assignment>();
 		this.a1 = createMock(Assignment.class);
 		this.a2 = createMock(Assignment.class);
@@ -68,7 +68,7 @@ public class TestWeeklySchedule {
 		this.a7 = createMock(Assignment.class);
 		this.timestamp11 = createMock(Timestamp.class);
 		this.timestamp12 = createMock(Timestamp.class);
-		this.hourInterval1 = createMock(HourInterval.class); 
+		this.hourInterval1 = createMock(HourInterval.class);
 		this.timestamp21 = createMock(Timestamp.class);
 		this.timestamp22 = createMock(Timestamp.class);
 		this.hourInterval2 = createMock(HourInterval.class); //.withConstructor(timestamp21,timestamp22);
@@ -175,7 +175,7 @@ public class TestWeeklySchedule {
 		Set<Calendar> sc = this.weeklySchedule.getSchedule().keySet();
 		calendarsLenght = sc.size();
 		
-		ArrayList<String> alc = new ArrayList<String>(); 
+		ArrayList<String> alc = new ArrayList<String>();
 		
 		for(Calendar it : sc){
 			alc.add(it.toString());

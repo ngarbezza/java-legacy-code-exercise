@@ -101,7 +101,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 				FixedResource res = getResourceTableSelection();
 				String text = resNameField.getText();
 				if (text.equals("")) {
-					JOptionPane.showMessageDialog(EditClassroomWindow.this, 
+					JOptionPane.showMessageDialog(EditClassroomWindow.this,
 							"Falta especificar el nombre al recurso",
 							"Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
@@ -159,7 +159,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 			resNameField.setText(selectedName);
 			resAmountField.setValue(Integer.parseInt(selectedAmount));
 		}
-		WidgetUtilities.enableOrDisableWidgets(!visibility, 
+		WidgetUtilities.enableOrDisableWidgets(!visibility,
 				resAmountField, resAmountLabel, resNameField, resNameLabel,
 				saveResButton, deleteResButton);	
 	}
@@ -225,7 +225,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 
 	@Override
 	protected void doAcceptActionInEditMode() {
-		ClassroomHandler.getInstance().modifyClassroomProperties(item, nameField.getText(), 
+		ClassroomHandler.getInstance().modifyClassroomProperties(item, nameField.getText(),
 				(Integer) capacityField.getValue(),	getListModel());
 	}
 

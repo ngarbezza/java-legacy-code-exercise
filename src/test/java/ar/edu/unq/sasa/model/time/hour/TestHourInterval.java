@@ -73,7 +73,7 @@ public class TestHourInterval {
 		HourInterval hi2 = new HourInterval(new Timestamp(17, 30), new Timestamp(23));
 		HourInterval hi3 = new HourInterval(new Timestamp(16, 30), new Timestamp(19));
 		
-		assertTrue("The interval 17:30 ~ 19 must be in 9 ~ 22", 
+		assertTrue("The interval 17:30 ~ 19 must be in 9 ~ 22",
 				hInterval.isIn(hi1));
 		assertTrue("The interval 17:30 ~ 19 must be in 17:30 ~ 23",
 				hInterval.isIn(hi2));
@@ -90,11 +90,11 @@ public class TestHourInterval {
 
 		assertFalse("The interval 17:30 ~ 19 should not be in 9 ~ 12",
 				hInterval.isIn(hi1));
-		assertFalse("The interval 17:30 ~ 19 should not be in 19:30 ~ 23", 
+		assertFalse("The interval 17:30 ~ 19 should not be in 19:30 ~ 23",
 				hInterval.isIn(hi2));
-		assertFalse("The interval 17:30 ~ 19 should not be in 16 ~ 18", 
+		assertFalse("The interval 17:30 ~ 19 should not be in 16 ~ 18",
 				hInterval.isIn(hi3));
-		assertFalse("The interval 17:30 ~ 19 should not be in 18:30 ~ 21:30", 
+		assertFalse("The interval 17:30 ~ 19 should not be in 18:30 ~ 21:30",
 				hInterval.isIn(hi4));
 	}
 

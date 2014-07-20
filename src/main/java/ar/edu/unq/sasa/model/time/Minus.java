@@ -28,7 +28,7 @@ public class Minus extends CompositePeriod {
 
 	@Override
 	public boolean intersectsWith(Period p) throws PeriodException {
-		return getLeftPeriod().intersectsWith(p) 
+		return getLeftPeriod().intersectsWith(p)
 			&& !getRightPeriod().intersectsWith(p);
 	}
 

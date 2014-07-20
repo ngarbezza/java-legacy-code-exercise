@@ -12,7 +12,7 @@ public class TestProfessor {
 
 	private Subject subject1;
 	private Subject subject2;
-	private List<Subject> subjects; 
+	private List<Subject> subjects;
 	private Professor professor;
 
 	@Before
