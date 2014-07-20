@@ -1,14 +1,16 @@
 package ar.edu.unq.sasa.model.items;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-public class TestFixedResources extends TestCase {
+import org.junit.Test;
 
+public class TestFixedResources {
+
+	@Test
 	public void testFixedResource() {
 		FixedResource resource = new FixedResource("PC" , 10);
-        Assert.assertEquals("PC", resource.getName()) ;
-        Assert.assertEquals(10, resource.getAmount()) ;
+        assertEquals("PC", resource.getName()) ;
+        assertEquals(10, resource.getAmount()) ;
 	}
 	
 }

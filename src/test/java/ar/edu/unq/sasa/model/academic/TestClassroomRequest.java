@@ -3,6 +3,8 @@ package ar.edu.unq.sasa.model.academic;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
 import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
@@ -23,20 +27,21 @@ import ar.edu.unq.sasa.model.time.Period;
  * Instance variable classroomRequest is going to be the only unsafe class; the 
  * another ones are mock objects (excepting Maps and List)
  */
-public class TestClassroomRequest extends TestCase {
+public class TestClassroomRequest {
 	public ClassroomRequest classroomRequest;
 	public ClassroomRequest fclassroomRequest;
 	public Period desHours;
 	public Period period;
-	
+
 	public Subject subject;
 	public Professor professor;
 	public List<Subject> subjectList;
-	
+
 	public Map<Resource,Integer> reqResources;
 	public MobileResource projector;
 	public Map<Resource,Integer> optResources;
-	
+
+	@Before
 	public void setUp(){
 		this.subject = createMock(Subject.class);
 		expect(this.subject.getName()).andReturn("AOP Programming");
@@ -64,11 +69,11 @@ public class TestClassroomRequest extends TestCase {
 			e.printStackTrace();
 		}
 	}
-	
 
 	/**
 	 * 
 	 */
+	@Test
 	public void test_shouldBeConstructedCorrectly(){
 		
 		assertNotNull("desiredHours is Null",this.classroomRequest.getDesiredHours());
@@ -91,10 +96,10 @@ public class TestClassroomRequest extends TestCase {
 		assertTrue("optionalResources is from an undesired class",this.classroomRequest.getOptionalResources() instanceof Map<?, ?>);
 	}
 
-
 	/**
 	 * Tests if the request haves repeated elements (in the resources lists).
-	 */	
+	 */
+	@Test
 	public void test_elementsDoesNotRepeat(){
 		Set<Resource> optResources = this.classroomRequest.getOptionalResources().keySet();
 		Set<Resource> reqResources = this.classroomRequest.getRequiredResources().keySet();
@@ -112,11 +117,11 @@ public class TestClassroomRequest extends TestCase {
 		}
 	}
 
-
 	/**
 	 * Tests if the professor in the request can teach the subject he 
 	 * declared is going to teach.
-	 */	
+	 */
+	@Test
 	public void test_professorCanTeachTheSubjectInRequest(){
 		Subject subjectRequest = this.classroomRequest.getSubject();
 		boolean founded = false;
@@ -129,12 +134,12 @@ public class TestClassroomRequest extends TestCase {
 		assertTrue("The professor cannot teach the subject in request",founded);
 	}
 
-
 	/**
 	 * Determines if the capacity value is possible.
-	 */	
+	 */
+	@Test
 	public void test_capacityIsCorrectlySetted(){
 		assertTrue("Capacity is not rightly setted",this.classroomRequest.getCapacity()>0);
 	}
-	
+
 }

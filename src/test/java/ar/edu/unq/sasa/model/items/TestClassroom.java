@@ -3,6 +3,9 @@ package ar.edu.unq.sasa.model.items;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -10,8 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.exceptions.handlers.AssignmentException;
@@ -25,8 +28,9 @@ import ar.edu.unq.sasa.model.time.Period;
  * @author Diego
  *
  */
-public class TestClassroom extends TestCase {	
+public class TestClassroom {	
 	// Por Diego
+	@Test
 	public void testConstructor() {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		String name = classroom.getName();
@@ -35,43 +39,48 @@ public class TestClassroom extends TestCase {
 		Map<Period, Assignment> assigments = classroom.getAssignments();
 		List<FixedResource> emptyList = new LinkedList<FixedResource>();
 		Map<Period, Assignment> emptyMap = new HashMap<Period, Assignment>();
-		Assert.assertEquals(20, cap);
-		Assert.assertEquals("ZAZA", name);
-		Assert.assertEquals(emptyList, resources);
-		Assert.assertEquals(emptyMap, assigments);
+		assertEquals(20, cap);
+		assertEquals("ZAZA", name);
+		assertEquals(emptyList, resources);
+		assertEquals(emptyMap, assigments);
 	}
 	// Por Diego
+	@Test
 	public void testAddResource() {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		List<FixedResource> emptyList = new LinkedList<FixedResource>();
 		classroom.addResource(resource);
 		emptyList.add(resource);
-		Assert.assertEquals(emptyList, classroom.getResources());
+		assertEquals(emptyList, classroom.getResources());
 	}
 	// Por Diego
+	@Test
 	public void testGetResource() throws ResourceException {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addResource(resource);
-		Assert.assertEquals(resource, classroom.getResource("Pc"));
+		assertEquals(resource, classroom.getResource("Pc"));
 	}
 	// Por Diego
+	@Test
 	public void testHasResourceTrue() {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addResource(resource);
-		Assert.assertEquals(true, classroom.hasResource("Pc"));
+		assertEquals(true, classroom.hasResource("Pc"));
 	}
 	// Por Diego
+	@Test
 	public void testHasResourceFalse() {
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addResource(resource);
-		Assert.assertEquals(false, classroom.hasResource("Proyector"));
+		assertEquals(false, classroom.hasResource("Proyector"));
 	}
 
 	// Por Diego
+	@Test
 	public void testGetAssigment() throws AssignmentException,ResourceException {
 		MockPeriod period = new MockPeriod();
 		MockClassroomAssignment assignment = null;
@@ -85,6 +94,7 @@ public class TestClassroom extends TestCase {
 		}
      }
 	// Por Diego
+	@Test
 	public void testVerificarCorrecto() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		MockFixedResource resource = new MockFixedResource("Pc", 4);
@@ -97,6 +107,7 @@ public class TestClassroom extends TestCase {
 		}
 	}
 	// Por Diego
+	@Test
 	public void testVerificarErroneo() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		MockFixedResource resource2 = null;
@@ -109,6 +120,7 @@ public class TestClassroom extends TestCase {
 	}
 	
 	// por Nahuel
+	@Test
 	public void test_isFreeAt() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Calendar mockCalendar = createMock(Calendar.class);
@@ -127,6 +139,7 @@ public class TestClassroom extends TestCase {
 	}
 	
 	// por Nahuel
+	@Test
 	public void test_canAssignWithoutIgnoringCommonAssignments() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Period periodMock = createMock(Period.class);
@@ -142,6 +155,7 @@ public class TestClassroom extends TestCase {
 	}
 	
 	// por Nahuel
+	@Test
 	public void test_canAssignIgnoringCommonAssignments() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Period periodMock = createMock(Period.class);
@@ -169,6 +183,7 @@ public class TestClassroom extends TestCase {
 	}
 	
 	// por Nahuel
+	@Test
 	public void test_satisfyFixedResource() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
 		FixedResource resMock = createMock(FixedResource.class);

@@ -5,11 +5,15 @@ import static org.easymock.EasyMock.createNiceMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
 /**
@@ -18,14 +22,15 @@ import ar.edu.unq.sasa.model.time.SimplePeriod;
  * @author Nahuel
  *
  */
-public class TestWeekly extends TestCase {
+public class TestWeekly {
 
 	private Weekly weeklyRep;
 	
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// repetición hasta el 21 de julio
 		this.weeklyRep = new Weekly(new GregorianCalendar(2010, Calendar.JULY, 19));
 	}
@@ -33,6 +38,7 @@ public class TestWeekly extends TestCase {
 	/**
 	 * Test method for {@link sasa.model.time.date.Weekly#containsInSomeRepetition(java.util.Calendar, java.util.Calendar)}.
 	 */
+	@Test
 	public void test_containsInSomeRepetitionWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		// todos los resultados semanales posibles
@@ -52,6 +58,7 @@ public class TestWeekly extends TestCase {
 	/**
 	 * Test method for {@link sasa.model.time.date.Weekly#containsInSomeRepetition(java.util.Calendar, java.util.Calendar)}.
 	 */
+	@Test
 	public void test_containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
 		// 14/6 : es fecha inicial.
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
@@ -75,6 +82,7 @@ public class TestWeekly extends TestCase {
 	 * Test method for {@link sasa.model.time.date.Weekly#thereIsSomeDayIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() throws Exception {
 		SimplePeriod mockSDF = createNiceMock(SimplePeriod.class);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
@@ -89,6 +97,7 @@ public class TestWeekly extends TestCase {
 	 * Test method for {@link sasa.model.time.date.Weekly#thereIsSomeDayIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() throws Exception {
 		SimplePeriod mockSDF = createNiceMock(SimplePeriod.class);
 		replay(mockSDF);	// el mock devuelve siempre false
@@ -100,6 +109,7 @@ public class TestWeekly extends TestCase {
 	 * Test method for {@link sasa.model.time.date.Weekly#isAllDaysIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_isAllDaysInWhenTheConditionIsSatisfied() throws Exception {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);		
 		SimplePeriod mockSDF = createMock(SimplePeriod.class);
@@ -117,6 +127,7 @@ public class TestWeekly extends TestCase {
 	 * Test method for {@link sasa.model.time.date.Weekly#isAllDaysIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		SimplePeriod mockSDF = createMock(SimplePeriod.class); 

@@ -1,9 +1,12 @@
 package ar.edu.unq.sasa.model.assignments;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.academic.MobileResourcesRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
@@ -17,8 +20,9 @@ import ar.edu.unq.sasa.model.time.Period;
  * @author Nahuel
  *
  */
-public class TestResourceAssignment extends TestCase {
-	
+public class TestResourceAssignment {
+
+	@Test
 	public void test_shouldConstructCorrectly() {
 		String name = "Proyector";
 		MobileResource resource = new MobileResource(name, 0);

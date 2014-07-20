@@ -4,10 +4,16 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.MobileResourcesRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
@@ -23,21 +29,24 @@ import ar.edu.unq.sasa.model.time.Period;
  * @author Cristian
  * 
  */
-public class TestRequestsHandler extends TestCase {
+public class TestRequestsHandler {
 	private RequestsHandler reqHand;
 	private MobileResourcesRequest mobileResourcesRequest;
 	private ClassroomRequest classroomRequest;
 	
+	@Before
 	public void setUp(){
 		reqHand = RequestsHandler.getInstance();
 		mobileResourcesRequest = createMock(MobileResourcesRequest.class);
 		classroomRequest = createMock(ClassroomRequest.class);
 	}
 	
+	@Test
 	public void testShouldConstructCorrectly() {
 		assertSame(reqHand.getInformationManager(), InformationManager.getInstance());
 	}
 	
+	@Test
 	public void testCreateClassroomRequest() throws RequestException {
 		Map<Resource, Integer> requiredResources = null;
 		Map<Resource, Integer> optionalResources = null;
@@ -53,6 +62,7 @@ public class TestRequestsHandler extends TestCase {
 		assertEquals(req1.getProfessor(), req2.getProfessor());
 	}
 	
+	@Test
 	public void testCreatePositiveCapacityClassroomRequest(){
 		Map<Resource, Integer> requiredResources = null;
 		Map<Resource, Integer> optionalResources = null;
@@ -67,12 +77,14 @@ public class TestRequestsHandler extends TestCase {
 		catch (RequestException e){}
 	}
 	
+	@Test
 	public void testDeleteRequest(){
 		InformationManager.getInstance().addRequest(classroomRequest);
 		reqHand.deleteRequest(classroomRequest);
 		assertFalse(InformationManager.getInstance().getRequests().contains(classroomRequest));
 	}
 	
+	@Test
 	public void testModifyRequestDesiredHours() {
 		Period desiredHours = null;
 		mobileResourcesRequest.setDesiredHours(desiredHours);
@@ -82,6 +94,7 @@ public class TestRequestsHandler extends TestCase {
 		verify(mobileResourcesRequest);
 	}
 	
+	@Test
 	public void testModifyRequestCapacity() throws RequestException {
 		int capacity = 10;
 		classroomRequest.setCapacity(capacity);
@@ -91,6 +104,7 @@ public class TestRequestsHandler extends TestCase {
 		verify(classroomRequest);
 	}
 	
+	@Test
 	public void testModifyPositiveRequestCapacity() throws RequestException {
 		int capacity = -10;
 		try {
@@ -100,6 +114,7 @@ public class TestRequestsHandler extends TestCase {
 		catch (RequestException e){}
 	}
 	
+	@Test
 	public void testModifyRequestRequiredResources() throws RequestException {
 		Map<Resource, Integer> requiredResources = null;
 		mobileResourcesRequest.setRequiredResources(requiredResources);
@@ -109,6 +124,7 @@ public class TestRequestsHandler extends TestCase {
 		verify(mobileResourcesRequest);
 	}
 	
+	@Test
 	public void testModifyRequestOptionalResources() throws RequestException {
 		Map<Resource, Integer> optionalResources = null;
 		mobileResourcesRequest.setOptionalResources(optionalResources);

@@ -1,6 +1,10 @@
 package ar.edu.unq.sasa.model.time.repetition;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test Case para la clase {@link None}.
@@ -8,20 +12,22 @@ import junit.framework.TestCase;
  * @author Nahuel
  *
  */
-public class TestNone extends TestCase {
+public class TestNone {
 
 	private Repetition noneUnderTest;
 	
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		this.noneUnderTest = new None();
 	}
 
 	/**
 	 * Test method for {@link sasa.model.time.date.None#containsInSomeRepetition(java.util.Calendar, java.util.Calendar)}.
 	 */
+	@Test
 	public void testContainsInSomeRepetition() {
 		assertFalse(noneUnderTest.containsInSomeRepetition(null, null));
 	}
@@ -30,6 +36,7 @@ public class TestNone extends TestCase {
 	 * Test method for {@link sasa.model.time.date.None#thereIsSomeDayIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void testThereIsSomeDayIn() throws Exception {
 		assertFalse(noneUnderTest.thereIsSomeDayIn(null, null));
 	}
@@ -38,6 +45,7 @@ public class TestNone extends TestCase {
 	 * Test method for {@link sasa.model.time.date.None#isAllDaysIn(sasa.model.time.date.SimpleDateFulfiller, java.util.Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void testIsAllDaysIn() throws Exception {
 		assertTrue(noneUnderTest.isAllDaysIn(null, null));
 	}

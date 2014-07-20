@@ -3,6 +3,8 @@ package ar.edu.unq.sasa.model.academic;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
@@ -21,20 +25,21 @@ import ar.edu.unq.sasa.model.time.Period;
  * CONSIDERATIONS
  * I use mock object for unsafe not-test-focus classes.
  */
-public class TestMobileResourcesRequest extends TestCase {
+public class TestMobileResourcesRequest {
 	public MobileResourcesRequest mobileResourcesRequest;
 	public Period desHours;
 	public Period period;
-	
+
 	public Subject subject;
 	public Subject subjectForList;
 	public Professor professor;
 	public List<Subject> subjectList;
-	
+
 	public Map<Resource,Integer> reqResources;
 	public MobileResource projector;
 	public Map<Resource,Integer> optResources;
-	
+
+	@Before
 	public void setUp(){
 		this.subject = createMock(Subject.class);
 		expect(this.subject.getName()).andReturn("AOP Programming");
@@ -57,10 +62,11 @@ public class TestMobileResourcesRequest extends TestCase {
 		this.mobileResourcesRequest = new MobileResourcesRequest(this.desHours,this.subject,this.professor, 98346,
 				this.reqResources,this.optResources);
 	}
-	
+
 	/**
 	 * Tests the correct working of the creational method.
 	 */
+	@Test
 	public void test_shouldBeConstructedCorrectly(){
 		
 		assertNotNull("desiredHours is Null",this.mobileResourcesRequest.getDesiredHours());
@@ -80,10 +86,11 @@ public class TestMobileResourcesRequest extends TestCase {
 		assertNotNull("optionalResources is Null",this.mobileResourcesRequest.getOptionalResources());
 		assertTrue("optionalResources is from an undesired class",this.mobileResourcesRequest.getOptionalResources() instanceof Map<?, ?>);
 	}
-	
+
 	/**
 	 * Test against repeated elements.
 	 */
+	@Test
 	public void test_elementsDoesNotRepeat(){
 		Set<Resource> optResources = this.mobileResourcesRequest.getOptionalResources().keySet();
 		Set<Resource> reqResources = this.mobileResourcesRequest.getRequiredResources().keySet();
@@ -100,10 +107,11 @@ public class TestMobileResourcesRequest extends TestCase {
 			assertTrue("Elements have repetitions",repQt<=1); //Because the element checked with itself counts
 		}
 	}
-	
+
 	/**
 	 * Checks if the professor can teach the declared subject in the request.
 	 */
+	@Test
 	public void test_professorCanTeachTheSubjectInRequest(){
 		Subject subjectRequest = this.mobileResourcesRequest.getSubject();
 		boolean founded = false;

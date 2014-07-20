@@ -4,7 +4,15 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
@@ -22,27 +30,30 @@ import ar.edu.unq.sasa.model.time.Period;
  * 
  */
 
-public class TestResourcesHandler extends TestCase {
+public class TestResourcesHandler {
 	private ResourcesHandler resHand;
 	private FixedResource fixedResource;
 	private MobileResource mobileResource;
 	
+	@Before
 	public void setUp(){
 		resHand = ResourcesHandler.getInstance();
 		fixedResource = createMock(FixedResource.class);
 		mobileResource = createMock(MobileResource.class);
  	}
 	
+	@Test
 	public void testShouldConstructCorrectly() {
 		assertSame(resHand.getInformationManager(), InformationManager.getInstance());
 	}
 	
+	@Test
 	public void testCreateMobileResource() {
 		MobileResource res2 = resHand.createMobileResource("Luz");
 		assertTrue(InformationManager.getInstance().getMobileResources().contains(res2));
-
 	}
 	
+	@Test
 	public void testCreateFixedResource() throws ResourceException{
 		String name = "Proyector";
 		int amount = 10;
@@ -51,6 +62,7 @@ public class TestResourcesHandler extends TestCase {
 		assertEquals(res1, res2);
 	}
 	
+	@Test
 	public void testCreatePositiveAmountFixedResource() throws ResourceException {
 		String name = "Proyector";
 		int amount = -10;
@@ -63,11 +75,13 @@ public class TestResourcesHandler extends TestCase {
 		catch (ResourceException e) {}
 	}
 	
+	@Test
 	public void testDeleteMobileResource() throws ResourceException {
 		resHand.deleteMobileResource(mobileResource);
 		assertFalse(InformationManager.getInstance().getMobileResources().contains(mobileResource));
 	}
 	
+	@Test
 	public void testModifyResourceName() {
 		String name = "Proyector";
 		fixedResource.setName(name);
@@ -77,6 +91,7 @@ public class TestResourcesHandler extends TestCase {
 		verify(fixedResource);
 	}
 	
+	@Test
 	public void testModifyResourceAmount() throws ResourceException {
 		int amount = 10;
 		fixedResource.setAmount(amount);
@@ -86,6 +101,7 @@ public class TestResourcesHandler extends TestCase {
 		verify(fixedResource);
 	}
 	
+	@Test
 	public void testModifyPositiveResourceAmount() throws ResourceException {
 		int amount = -10;
 		try {
@@ -95,6 +111,7 @@ public class TestResourcesHandler extends TestCase {
 		catch (ResourceException e){}
 	}
 	
+	@Test
 	public void testAddMobileResourceAssignment() throws RequestException {
 		Period period = null;
 		ClassroomRequest mobileResourcesRequest = new ClassroomRequest(null, null, null, 0, null, null, 10);
@@ -106,6 +123,7 @@ public class TestResourcesHandler extends TestCase {
 		verify(mobileResource);
 	}
 	
+	@Test
 	public void testAddMobileResourceBookedAssignment() {
 		Period period = null;
 		String cause = "Necesita mantenimiento";
@@ -117,6 +135,7 @@ public class TestResourcesHandler extends TestCase {
 		verify(mobileResource);
 	}
 	
+	@Test
 	public void testRemoveMobileResourceAssignment() {
 		Period period = null;
 		mobileResource.removeAssignment(period);

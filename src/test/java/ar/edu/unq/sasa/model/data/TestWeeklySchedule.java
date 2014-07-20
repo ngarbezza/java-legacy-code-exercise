@@ -3,6 +3,7 @@ package ar.edu.unq.sasa.model.data;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
@@ -22,7 +25,7 @@ import ar.edu.unq.sasa.model.time.hour.Timestamp;
  * CONSIDERATIONS
  * The tested class is the only unsafe class instanciated.
  */
-public class TestWeeklySchedule extends TestCase {
+public class TestWeeklySchedule {
 	
 	public WeeklySchedule weeklySchedule;
 	public GregorianCalendar mondayCalendar;
@@ -57,13 +60,14 @@ public class TestWeeklySchedule extends TestCase {
 	public Assignment a5;
 	public Assignment a6;
 	public Assignment a7;
-	
+
 	//--------------------------------------------------------------------------//
 
 	/**
 	 * Maybe it looks huge but believe me, it is really tiny compared with the
 	 * last setUp after the refactor.
 	 */
+	@Before
 	public void setUp(){
 		this.mha1 = new HashMap<HourInterval,Assignment>(); 
 		this.mha2 = new HashMap<HourInterval,Assignment>();
@@ -176,10 +180,11 @@ public class TestWeeklySchedule extends TestCase {
 	/**
 	 * Just verifying the correct instanciation.
 	 */
+	@Test
 	public void test_shouldConstructCorrectly(){
 		assertTrue("weeklySchedule is not of the desired class",this.weeklySchedule.getSchedule() instanceof Map<?, ?>);
 	}
-	
+
 	//--------------------------------------------------------------------------//
     //--------------------------------------------------------------------------//
 	//--------------------------------------------------------------------------//
@@ -187,6 +192,7 @@ public class TestWeeklySchedule extends TestCase {
 	/**
 	 * Test to avoid repeated days.
 	 */
+	@Test
 	public void test_doesntContainsRepeatedDays(){
 		int mapLenght = this.weeklySchedule.getSchedule().size();
 		int calendarsLenght;
@@ -215,6 +221,7 @@ public class TestWeeklySchedule extends TestCase {
 	 * Helps to determine if the days inside are from the same week (must be that
 	 * way).
 	 */
+	@Test
 	public void test_daysAreFromTheSameWeek(){
 		Set<Calendar> sc = this.weeklySchedule.getSchedule().keySet();
 		
@@ -258,7 +265,8 @@ public class TestWeeklySchedule extends TestCase {
 	/**
 	 * Test against superpositions in HourInterval s (to avoid messy problems with
 	 * Superposition elements).
-	 */	
+	 */
+	@Test
 	public void test_HourIntervalsDoNotSuperimpose(){
 		
 			Set<Map.Entry<Calendar,Map<HourInterval,Assignment>>> s = this.weeklySchedule.getSchedule().entrySet();
@@ -268,10 +276,9 @@ public class TestWeeklySchedule extends TestCase {
 				assertFalse("The item have superimpositions",this.haveSuperpositions(it.getValue()));
 			}
 		}
-		
+
 	//--------------------------------------------------------------------------//
 	//--------------------------------------------------------------------------//
 	//--------------------------------------------------------------------------//
-	
 	
 }

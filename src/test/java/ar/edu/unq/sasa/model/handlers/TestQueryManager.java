@@ -4,6 +4,10 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -11,7 +15,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
@@ -36,11 +42,11 @@ import ar.edu.unq.sasa.model.time.hour.Timestamp;
  * @author Grupo
  * 
  */
-public class TestQueryManager extends TestCase {
+public class TestQueryManager {
 	private QueryManager queryManager;
 
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		queryManager = new QueryManager();
 	}
 
@@ -54,6 +60,7 @@ public class TestQueryManager extends TestCase {
 	 * @throws PeriodException
 	 * @throws TimestampException
 	 */
+	@Test
 	public void test_satisfactionsFromClassroomAndRequest()	throws RequestException, PeriodException, TimestampException {
 		Timestamp timestamp1 = new Timestamp(10);
 		Timestamp timestamp11 = new Timestamp(12);
@@ -84,6 +91,7 @@ public class TestQueryManager extends TestCase {
 
 	// por Nahuel
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
+	@Test
 	public void test_freeHoursInAnAssignableItemInADayWhenAllIsBusy()
 			throws Exception {
 		QueryManager qm = new QueryManager();
@@ -100,6 +108,7 @@ public class TestQueryManager extends TestCase {
 
 	// por Nahuel
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
+	@Test
 	public void test_freeHoursInAnAssignableItemInADayOnlyOneIntervalFree()
 			throws Exception {
 		QueryManager qm = new QueryManager();
@@ -127,6 +136,7 @@ public class TestQueryManager extends TestCase {
 	}
 
 	// por Nahuel
+	@Test
 	public void test_freeHoursInAnAssignableItemInADayMoreThanOneIntervalFree()
 			throws Exception {
 		QueryManager qm = new QueryManager();
@@ -165,6 +175,7 @@ public class TestQueryManager extends TestCase {
 	}
 	
 	// por Nahuel
+	@Test
 	public void test_classroomsThatSatisfyCapacityRequirement() throws Exception {
 		Classroom c1Mock = createMock(Classroom.class);
 		Classroom c2Mock = createMock(Classroom.class);

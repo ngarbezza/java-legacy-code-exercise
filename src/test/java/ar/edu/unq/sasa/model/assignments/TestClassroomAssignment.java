@@ -1,11 +1,15 @@
 package ar.edu.unq.sasa.model.assignments;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
@@ -22,8 +26,9 @@ import ar.edu.unq.sasa.model.time.Period;
  * @author Cristian
  *
  */
-public class TestClassroomAssignment extends TestCase {
-	
+public class TestClassroomAssignment {
+
+	@Test
 	public void test_shouldConstructCorrectly() throws RequestException {
 		Classroom classroom = new Classroom("Aula 1", 10);
 		List<ResourceAssignment> listaRes = new ArrayList<ResourceAssignment>(); 
@@ -34,14 +39,15 @@ public class TestClassroomAssignment extends TestCase {
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
 		ClassroomRequest classReq = new ClassroomRequest(desHours, subject, professor, 10, reqResources, optResources, 20);
 		ClassroomAssignment asig = new ClassroomAssignment(classReq, classroom, listaRes);
-		
+
 		boolean listaResIgual = asig.getResourcesAssignments().equals(listaRes);
 		boolean classroomIgual = asig.getAssignableItem().equals(classroom);
 		boolean classReqIgual = asig.getRequest().equals(classReq);
-		
+
 		assertTrue(classroomIgual && classReqIgual && listaResIgual);
 	}
-	
+
+	@Test
 	public void test_createSatisfaction() throws RequestException, PeriodException {
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optionalResources = new HashMap<Resource, Integer>();
@@ -59,7 +65,7 @@ public class TestClassroomAssignment extends TestCase {
 		ClassroomAssignment classroomAssignment2 = new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
 		Satisfaction satisfaction1 = classroomAssignment1.createSatisfaction();
 		Satisfaction satisfaction2 = classroomAssignment2.createSatisfaction();
-		
+
 		assertEquals(satisfaction1, satisfaction2);
 	}
 }

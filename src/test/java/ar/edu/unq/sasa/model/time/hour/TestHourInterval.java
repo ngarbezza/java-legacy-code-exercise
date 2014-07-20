@@ -4,7 +4,13 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test Case para la clase HourInterval.
@@ -12,11 +18,12 @@ import junit.framework.TestCase;
  * @author Nahuel
  * 
  */
-public class TestHourInterval extends TestCase {
+public class TestHourInterval {
 
 	private HourInterval hInterval;
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		this.hInterval = new HourInterval(new Timestamp(17, 30), new Timestamp(19));
 	}
 
@@ -27,6 +34,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_constructor() throws Exception {
 		Timestamp t1 = new Timestamp(1, 20);
 		Timestamp t2 = new Timestamp(5, 30);
@@ -42,6 +50,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_containsTimestampWhenTheConditionIsSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(17, 30);
 		Timestamp t2 = new Timestamp(19);
@@ -61,6 +70,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_containsTimestampWhenTheConditionIsntSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(17);
 		Timestamp t2 = new Timestamp(22);
@@ -76,6 +86,7 @@ public class TestHourInterval extends TestCase {
 	 * {@link sasa.model.time.HourInterval#contains(sasa.model.time.LogicalHourFulfiller)}
 	 * .
 	 */
+	@Test
 	public void test_containsLogicalHourFulfiller() {
 		// sólo se testea por envío de mensaje, pues este método
 		// se resuelve por double-dispatching.
@@ -92,6 +103,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_isInWhenTheConditionIsSatisfied() throws Exception {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(22));
 		HourInterval hi2 = new HourInterval(new Timestamp(17, 30), new Timestamp(23));
@@ -111,6 +123,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_isInWhenTheConditionIsntSatisfied() throws Exception {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(12));
 		HourInterval hi2 = new HourInterval(new Timestamp(19, 30), new Timestamp(23));
@@ -133,6 +146,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_intersectsWithWhenTheConditionIsSatisfied() throws Exception {
 		// lo contiene, por lo tanto lo intersecta
 		HourInterval hi1 = new HourInterval(new Timestamp(18), new Timestamp(18, 30));
@@ -154,6 +168,7 @@ public class TestHourInterval extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_intersectsWithWhenTheConditionIsntSatisfied() throws Exception {
 		// intervalos totalmente disjuntos
 		HourInterval hi1 = new HourInterval(new Timestamp(8), new Timestamp(12));
@@ -168,6 +183,7 @@ public class TestHourInterval extends TestCase {
 		assertFalse(hInterval.intersectsWith(hi4));
 	}
 	
+	@Test
 	public void test_getConcreteIntervals() throws Exception {
 		HourInterval hi1 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 120);
 		HourInterval hi2 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 60);

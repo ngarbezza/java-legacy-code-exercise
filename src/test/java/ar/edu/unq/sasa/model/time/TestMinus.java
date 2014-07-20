@@ -4,10 +4,14 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test Case para la clase {@link Minus}.
@@ -15,7 +19,7 @@ import junit.framework.TestCase;
  * @author Nahuel
  *
  */
-public class TestMinus extends TestCase {
+public class TestMinus {
 
 	private Minus minusUnderTest;
 	private Period mockLeftOp, mockRightOp;
@@ -23,7 +27,8 @@ public class TestMinus extends TestCase {
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		this.mockLeftOp = createMock(Period.class);
 		this.mockRightOp= createMock(Period.class);
 		this.minusUnderTest = new Minus(mockLeftOp, mockRightOp);
@@ -32,6 +37,7 @@ public class TestMinus extends TestCase {
 	/**
 	 * Test method for {@link Minus#Minus(LogicalDateFulfiller, LogicalDateFulfiller)}.
 	 */
+	@Test
 	public void test_constructor() {
 		assertSame(mockLeftOp, minusUnderTest.getLeftPeriod());
 		assertSame(mockRightOp, minusUnderTest.getRightPeriod());
@@ -41,6 +47,7 @@ public class TestMinus extends TestCase {
 	 * Test method for {@link Minus#contains(Calendar)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_containsCalendar() throws Exception {
 		Calendar calendarMock= createMock(Calendar.class);
 		expect(mockLeftOp.contains(calendarMock))
@@ -63,6 +70,7 @@ public class TestMinus extends TestCase {
 	 * Test method for {@link Minus#contains(LogicalDateFulfiller)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_containsLogicalDateFulfiller() throws Exception {
 		Period ldfMock = createMock(Period.class);
 		expect(mockLeftOp.contains(ldfMock))
@@ -83,6 +91,7 @@ public class TestMinus extends TestCase {
 	 * Test method for {@link Minus#isIn(SimpleDateFulfiller)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_isIn() throws Exception {
 		SimplePeriod sdfMock = createMock(SimplePeriod.class);
 		expect(mockLeftOp.isIn(sdfMock))
@@ -103,6 +112,7 @@ public class TestMinus extends TestCase {
 	 * Test method for {@link Minus#intersectsWith(LogicalDateFulfiller)}.
 	 * @throws Exception 
 	 */
+	@Test
 	public void test_intersectsWith() throws Exception {
 		Period ldfMock = createMock(Period.class);
 		expect(mockLeftOp.intersectsWith(ldfMock))

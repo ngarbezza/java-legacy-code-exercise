@@ -1,20 +1,28 @@
 package ar.edu.unq.sasa.model.time.hour;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 
-public class TestTimestamp extends TestCase {
+public class TestTimestamp {
 
 	private Timestamp t_9_50, t_15_35, t_17_00, t_22_15;
 	
-	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		this.t_9_50 = new Timestamp(9, 50);
 		this.t_15_35 = new Timestamp(15, 35);
 		this.t_17_00 = new Timestamp(17);
 		this.t_22_15 = new Timestamp(22, 15);
 	}
 	
+	@Test
 	public void test_constructor() throws Exception {
 		Timestamp t1 = new Timestamp(0, 45);
 		Timestamp t2 = new Timestamp(19);
@@ -25,6 +33,7 @@ public class TestTimestamp extends TestCase {
 		assertEquals(0, t2.getMinutes());
 	}
 	
+	@Test
 	public void test_failOnConstructWithNegativeValues() {
 		try { 
 			new Timestamp(-1);
@@ -44,6 +53,7 @@ public class TestTimestamp extends TestCase {
 		}
 	}
 	
+	@Test
 	public void test_failOnSetNegativeValues() {
 		try { 
 			new Timestamp(12).setHour(-3);
@@ -64,6 +74,7 @@ public class TestTimestamp extends TestCase {
 		}
 	}
 	
+	@Test
 	public void test_failOnConstructWithHoursOrMinutesOutOfRange() {
 		try { 
 			new Timestamp(25);
@@ -83,6 +94,7 @@ public class TestTimestamp extends TestCase {
 		}
 	}
 	
+	@Test
 	public void test_failOnSetHoursOrMinutesOutOfRange() {
 		try { 
 			new Timestamp(9).setHour(32);
@@ -103,6 +115,7 @@ public class TestTimestamp extends TestCase {
 		}
 	}
 	
+	@Test
 	public void test_equalsOnEqualTimestamps() throws Exception {
 		Timestamp t1 = new Timestamp(22, 15);
 		Timestamp t2 = new Timestamp(17, 0);
@@ -111,6 +124,7 @@ public class TestTimestamp extends TestCase {
 		assertTrue("equals() failed", t2.equals(t_17_00));	
 	}
 	
+	@Test
 	public void test_equalsOnDifferentTimestamps() throws Exception {
 		Timestamp t1 = new Timestamp(23, 35);				
 		Timestamp t2 = new Timestamp(9, 05);
@@ -119,6 +133,7 @@ public class TestTimestamp extends TestCase {
 		assertFalse("9:05 != 9:50", t2.equals(t_9_50));
 	}
 	
+	@Test
 	public void test_lessThanWhenTheConditionIsSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(6, 45);
 		Timestamp t2 = new Timestamp(15, 8);
@@ -127,6 +142,7 @@ public class TestTimestamp extends TestCase {
 		assertTrue("15:08 must be less than 15:35", t2.lessThan(t_15_35));
 	}
 	
+	@Test
 	public void test_lessThanWhenTheConditionIsntSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(10, 06);
 		Timestamp t2 = new Timestamp(15, 44);
@@ -135,6 +151,7 @@ public class TestTimestamp extends TestCase {
 		assertFalse("15:44 should not be less than 15:35", t2.lessThan(t_15_35));
 	}
 	
+	@Test
 	public void test_greaterThanWhenTheConditionIsSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(18, 40);
 		Timestamp t2 = new Timestamp(22, 16);
@@ -143,6 +160,7 @@ public class TestTimestamp extends TestCase {
 		assertTrue("22:16 must be greater than 22:15", t2.greaterThan(t_22_15));
 	}
 	
+	@Test
 	public void test_greaterThanWhenTheConditionIsntSatisfied() throws Exception {
 		Timestamp t1 = new Timestamp(7, 59);
 		Timestamp t2 = new Timestamp(15, 34);
@@ -151,6 +169,7 @@ public class TestTimestamp extends TestCase {
 		assertFalse("15:34 should not be greater than 15:35", t2.greaterThan(t_15_35));
 	}
 	
+	@Test
 	public void test_greaterEqual() throws Exception {
 		Timestamp t1 = new Timestamp(9, 50);
 		Timestamp t2 = new Timestamp(10);
@@ -161,6 +180,7 @@ public class TestTimestamp extends TestCase {
 		assertFalse("9:49 should not be >= than 9:50", t3.greaterEqual(t_9_50));
 	}
 	
+	@Test
 	public void test_lessEqual() throws Exception {
 		Timestamp t1 = new Timestamp(9, 49);
 		Timestamp t2 = new Timestamp(9);
@@ -171,6 +191,7 @@ public class TestTimestamp extends TestCase {
 		assertFalse("9:51 should not be <= than 9:50", t3.lessEqual(t_9_50));
 	}
 	
+	@Test
 	public void test_add() throws Exception {
 		Timestamp t1exp = new Timestamp(9, 55); // sumo 5 a t_9_50
 		Timestamp t2exp = new Timestamp(10, 15);// sumo 25 a t_9_50
@@ -181,6 +202,7 @@ public class TestTimestamp extends TestCase {
 		assertEquals(t3exp, t_9_50.add(85));
 	}
 	
+	@Test
 	public void test_substract() throws Exception {
 		Timestamp t1exp = new Timestamp(22, 10); // resto 5 a t_22_15
 		Timestamp t2exp = new Timestamp(21, 50);// resto 25 a t_22_15
@@ -193,6 +215,7 @@ public class TestTimestamp extends TestCase {
 		assertEquals(t4exp, t_22_15.substract(135));
 	}
 	
+	@Test
 	public void test_minutesBetween() throws Exception {
 		assertEquals(t_9_50.minutesBetween(t_15_35), 345);
 		assertEquals(t_15_35.minutesBetween(t_17_00), 85);

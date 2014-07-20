@@ -1,12 +1,17 @@
 package ar.edu.unq.sasa.model.data;
 
 import static org.easymock.EasyMock.createMock;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
@@ -20,8 +25,8 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
  * elements is just a simple asignation, because it don�t have something
  * to get superposed.
  */
-public class TestSuperposition extends TestCase {
-	
+public class TestSuperposition {
+
 	public Superposition superposition1; //Rightly coded superposition
 	public HourInterval hourInterval1 = createMock(HourInterval.class);
 	public AssignmentByRequest abr11 = createMock(AssignmentByRequest.class);
@@ -33,12 +38,11 @@ public class TestSuperposition extends TestCase {
 	public AssignmentByRequest abr22 = createMock(AssignmentByRequest.class);
 	public List<AssignmentByRequest> ls2 = new LinkedList<AssignmentByRequest>();
 
-	
 	Superposition superposition2; //Non-rightly coded superposition
 	AssignmentByRequest abr31 = createMock(AssignmentByRequest.class);
 	List<AssignmentByRequest> ls4 = new LinkedList<AssignmentByRequest>();
 
-	
+	@Before
 	public void setUp(){
 		this.ls1.add(abr11);this.ls1.add(abr12); //Adding elements to each list.
 		this.ls2.add(abr21);this.ls2.add(abr22);
@@ -52,10 +56,11 @@ public class TestSuperposition extends TestCase {
 		this.superposition2.getSuperpositionData().put(hourInterval2,ls4);
 		//Adding elements to each superposition
 	}
-	
+
 	/**
 	 * Just verifying if the inner map is not null when created.
 	 */
+	@Test
 	public void test_shouldConstructCorrectly(){
 		assertNotNull("Fail - traceback: constructor",this.superposition1.getSuperpositionData());
 		assertNotNull("Fail - traceback: constructor",this.superposition2.getSuperpositionData());
@@ -65,6 +70,7 @@ public class TestSuperposition extends TestCase {
 	* Performs checks to all elements on each map, determining if each one
 	* have at least one superposition.
     */
+	@Test
 	public void test_allElementsHaveSuperposition(){
 		Map<HourInterval,List<AssignmentByRequest> > m1 = this.superposition1.getSuperpositionData();
 

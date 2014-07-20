@@ -1,11 +1,17 @@
 package ar.edu.unq.sasa.model.time;
 
 import static org.easymock.EasyMock.createMock;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
@@ -18,12 +24,12 @@ import ar.edu.unq.sasa.model.time.repetition.Weekly;
  * @author Nahuel
  * 
  */
-public class TestSimplePeriod extends TestCase {
+public class TestSimplePeriod {
 
 	private SimplePeriod periodUnderTest;
 
-	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// se crea un período, todos los miércoles empezando desde el 9 de junio
 		// hasta el 15 de octubre, de 12 a 15:30 horas.
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 9);
@@ -32,6 +38,7 @@ public class TestSimplePeriod extends TestCase {
 		periodUnderTest = new SimplePeriod(lhf, start, new Weekly(end));
 	}
 
+	@Test
 	public void test_constructor() {
 		Calendar startMock = createMock(Calendar.class);
 		Repetition repMock = createMock(Repetition.class);
@@ -43,6 +50,7 @@ public class TestSimplePeriod extends TestCase {
 		assertSame(p.getHourFulfiller(), lhf);
 	}
 
+	@Test
 	public void test_containsCalendarSatisfiedInDaysAndHours() throws Exception {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 9, 12, 0); 
 		Calendar date2 = new GregorianCalendar(2010, Calendar.JUNE, 9, 15, 30); 
@@ -65,6 +73,7 @@ public class TestSimplePeriod extends TestCase {
 		assertTrue(periodUnderTest.contains(date9));	
 	}
 	
+	@Test
 	public void test_containsCalendarSatisfiedInDaysButNotInHours() throws Exception {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 30, 11, 00);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.OCTOBER, 6, 17, 30);
@@ -88,6 +97,7 @@ public class TestSimplePeriod extends TestCase {
 				periodUnderTest.contains(date3));
 	}
 	
+	@Test
 	public void test_containsCalendarSatisfiedNeitherDaysNorHours() throws Exception {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 8, 22, 0);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.JULY, 23, 7, 30);
@@ -98,6 +108,7 @@ public class TestSimplePeriod extends TestCase {
 		assertFalse(periodUnderTest.contains(date3));
 	}
 	
+	@Test
 	public void test_containsPeriodSatisfiedInDaysAndHours() throws Exception {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(13), new Timestamp(15, 30));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JULY, 28));
@@ -109,6 +120,7 @@ public class TestSimplePeriod extends TestCase {
 		assertTrue(periodUnderTest.contains(period2));
 	}
 	
+	@Test
 	public void test_containsPeriodSatisfiedInDaysButNotInHours() throws Exception {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(9), new Timestamp(13));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JULY, 28));
@@ -120,6 +132,7 @@ public class TestSimplePeriod extends TestCase {
 		assertFalse(periodUnderTest.contains(period2));
 	}
 	
+	@Test
 	public void test_containsPeriodSatisfiedInHoursButNotInDays() throws Exception {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(12), new Timestamp(13));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JUNE, 21));
@@ -131,6 +144,7 @@ public class TestSimplePeriod extends TestCase {
 		assertFalse(periodUnderTest.contains(period2));
 	}
 
+	@Test
 	public void test_addHourCondition() throws Exception {
 		Calendar expected = new GregorianCalendar(2010, Calendar.JULY, 21, 17, 30);
 		assertFalse(periodUnderTest.contains(expected));
@@ -138,6 +152,7 @@ public class TestSimplePeriod extends TestCase {
 		assertTrue(periodUnderTest.contains(expected));
 	}
 	
+	@Test
 	public void test_minutesSharedWithPeriodSatisfiedInDaysButNotInHours() throws Exception {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(7), new Timestamp(9));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 23));
@@ -145,6 +160,7 @@ public class TestSimplePeriod extends TestCase {
 		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), 0);
 	}
 	
+	@Test
 	public void test_minutesSharedWithPeriodSatisfiedInHoursButNotInDays() throws Exception {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(9), new Timestamp(13));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 6));
@@ -152,6 +168,7 @@ public class TestSimplePeriod extends TestCase {
 		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), 0);
 	}
 	
+	@Test
 	public void test_minutesSharedWithPeriodSatisfiedInDaysAndHours() throws Exception {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(9), new Timestamp(13, 30));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 23));

@@ -1,5 +1,10 @@
 package ar.edu.unq.sasa.model.handlers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.MobileResourcesRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
@@ -33,7 +40,7 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
-public class TestAsignator extends TestCase {
+public class TestAsignator {
 	private InformationManager informationManager;
 	private Asignator asignator;
 	private MobileResourcesRequest mobileResourcesRequest;
@@ -44,6 +51,7 @@ public class TestAsignator extends TestCase {
 	private Classroom classroom1;
 	private Classroom classroom2;
 
+	@Before
 	public void setUp() throws Exception {
 		// InformationManager
 		informationManager = InformationManager.getInstance();
@@ -102,6 +110,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Cristian Suarez
 	 */
+	@Test
 	public void test_ShouldConstructCorrectly() {
 		assertSame(asignator.getInformationManager(), informationManager);
 	}
@@ -109,6 +118,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Cristian Suarez
 	 */
+	@Test
 	public void test_asignateResourceAssignment() throws AssignmentException {
 		ResourceAssignment resourceAssignment1 = asignator
 				.asignateResourceAssignment(mobileResourcesRequest,
@@ -126,6 +136,7 @@ public class TestAsignator extends TestCase {
 	 * @author Cristian Suarez
 	 * @throws PeriodException
 	 */
+	@Test
 	public void test_asignateBookedAssignment() throws PeriodException {
 		BookedAssignment bookedAssignment1 = asignator
 				.asignateBookedAssignment(classroom1, "Limpieza", period1);
@@ -148,6 +159,7 @@ public class TestAsignator extends TestCase {
 	 * @author Cristian Suarez
 	 * @throws PeriodException
 	 */
+	@Test
 	public void test_asignateClassroomAssignment() throws PeriodException {
 		ClassroomAssignment classroomAssignment1 = asignator
 				.asignateClassroomAssignment(classroomRequest, classroom1,
@@ -172,6 +184,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Cristian Suarez
 	 */
+	@Test
 	public void test_asignateRequestInAClassroom() throws PeriodException {
 		ClassroomAssignment classroomAssignment1 = asignator
 				.asignateRequestInAClassroom(classroomRequest, classroom1);
@@ -187,6 +200,7 @@ public class TestAsignator extends TestCase {
 	 * @throws AssignmentException
 	 * @throws RequestException
 	 */
+	@Test
 	public void test_asignateRequestInMostSatisfactoryClassroom()
 			throws PeriodException, ResourceException, AssignmentException,
 			RequestException {
@@ -202,6 +216,7 @@ public class TestAsignator extends TestCase {
 	 * @author Cristian Suarez
 	 * @throws PeriodException
 	 */
+	@Test
 	public void test_modifyBookedAssignmentCause() throws PeriodException {
 		BookedAssignment bookedAssignment = asignator.asignateBookedAssignment(
 				classroom1, "Restauracion", period1);
@@ -214,6 +229,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Cristian Suarez
 	 */
+	@Test
 	public void test_deleteResourceAssignmentFromARequest() {
 		ResourceAssignment resourceAssignment = asignator
 				.asignateResourceAssignment(mobileResourcesRequest,
@@ -238,6 +254,7 @@ public class TestAsignator extends TestCase {
 	 * @author Cristian Suarez
 	 * @throws PeriodException
 	 */
+	@Test
 	public void test_deleteClassroomAssignment() throws AssignmentException,
 			PeriodException {
 		ClassroomAssignment classroomAssignment = asignator
@@ -263,6 +280,7 @@ public class TestAsignator extends TestCase {
 	 * @author Cristian Suarez
 	 * @throws PeriodException
 	 */
+	@Test
 	public void test_deleteBookedAssignment() throws PeriodException {
 		BookedAssignment bookedAssignment = asignator.asignateBookedAssignment(
 				classroom1, "Reparacion", period1);
@@ -284,6 +302,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Cristian Suarez
 	 */
+	@Test
 	public void test_searchForAssignment() {
 		ResourceAssignment resourceAssignment1 = asignator
 				.asignateResourceAssignment(mobileResourcesRequest,
@@ -297,6 +316,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Diego Campos
 	 */
+	@Test
 	public void testMoveAssignmentClassroom() throws AssignmentException,
 			TimestampException, RequestException, PeriodException {
 
@@ -335,6 +355,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Diego Campos
 	 */
+	@Test
 	public void testMoveAssignmentHour() throws AssignmentException,
 			TimestampException, RequestException, PeriodException {
 
@@ -394,6 +415,7 @@ public class TestAsignator extends TestCase {
 	/**
 	 * @author Diego Campos
 	 */
+	@Test
 	public void testMoveAssignmentDate() throws AssignmentException,
 			TimestampException, RequestException, PeriodException {
 		// crear requisitos para los pedidos
