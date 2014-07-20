@@ -55,6 +55,7 @@ public class TestAsignator {
 	public void setUp() throws Exception {
 		// InformationManager
 		informationManager = InformationManager.getInstance();
+		informationManager.getClassrooms().clear();
 
 		// Period 1
 		Timestamp timestamp1 = new Timestamp(10);
@@ -205,11 +206,9 @@ public class TestAsignator {
 			throws PeriodException, ResourceException, AssignmentException,
 			RequestException {
 		InformationManager.getInstance().addRequest(classroomRequest);
-		ClassroomAssignment asig = asignator
-				.asignateRequestInMostSatisfactoryClassroom(classroomRequest);
+		ClassroomAssignment asig = asignator.asignateRequestInMostSatisfactoryClassroom(classroomRequest);
 		assertEquals(classroomRequest, asig.getRequest());
-		assertTrue(InformationManager.getInstance().getAssignments().contains(
-				asig));
+		assertTrue(InformationManager.getInstance().getAssignments().contains(asig));
 	}
 
 	/**
@@ -372,8 +371,7 @@ public class TestAsignator {
 		Period desiredHours = period1;
 		// profesor y materia
 		Subject subject = new Subject("Ingles 1", 000);
-		Professor profesorErnesto = new Professor("Ernesto", 0, "42165035",
-				"a@zaza.com");
+		Professor profesorErnesto = new Professor("Ernesto", 0, "42165035", "a@zaza.com");
 
 		// crear pedido
 		ClassroomRequest pedido = new ClassroomRequest(desiredHours, subject,
@@ -406,7 +404,7 @@ public class TestAsignator {
 			}
 		}
 
-//		desiredHours.setHourFulfiller(hour);
+		desiredHours.setHourFulfiller(hour);
 		Period newPeriod = desiredHours;
 
 		assertEquals(assignmentPeriod, newPeriod);

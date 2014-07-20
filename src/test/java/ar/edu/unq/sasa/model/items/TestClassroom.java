@@ -6,6 +6,7 @@ import static org.easymock.EasyMock.replay;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -80,18 +81,13 @@ public class TestClassroom {
 	}
 
 	// Por Diego
-	@Test
+	@Test(expected=AssignmentException.class)
 	public void testGetAssigment() throws AssignmentException,ResourceException {
 		MockPeriod period = new MockPeriod();
 		MockClassroomAssignment assignment = null;
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addAssignment(period, assignment);
-		try {
-			classroom.getAssignment(period);
-		} catch (AssignmentException e) {
-			System.out.println("Exception capturada,se paso como parametro '"
-					+ period + "' es null");
-		}
+		classroom.getAssignment(period);
      }
 	// Por Diego
 	@Test
@@ -102,21 +98,15 @@ public class TestClassroom {
 		try {
 			classroom.verificar(resource);
 		} catch (ResourceException e) {
-			System.out.println("Exception capturada,se paso como parametro '"
-					+ resource + "' es null");
+			fail("Exception capturada,se paso como parametro '"	+ resource + "' es null");
 		}
 	}
 	// Por Diego
-	@Test
+	@Test(expected=ResourceException.class)
 	public void testVerificarErroneo() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		MockFixedResource resource2 = null;
-		try {
-			classroom.verificar(resource2);
-		} catch (ResourceException e) {
-			System.out.println("Exception capturada, se paso como parametro: '"
-					+ resource2 + "'");
-		}
+		classroom.verificar(resource2);
 	}
 	
 	// por Nahuel

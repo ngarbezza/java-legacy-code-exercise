@@ -1,7 +1,10 @@
 package ar.edu.unq.sasa.model.handlers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.academic.Professor;
@@ -10,18 +13,23 @@ import ar.edu.unq.sasa.model.exceptions.handlers.ProfessorException;
 
 public class TestProfessorHandler {
 
+	@Before
+	public void setUp() {
+		InformationManager.getInstance().getProfessors().clear();
+	}
+
 	@Test
 	public void test_ShouldConstructCorrectly(){
 		ProfessorHandler pHandler = ProfessorHandler.getInstance();
 		assertSame(pHandler.getInformationManager(), InformationManager.getInstance());
 	}
-	
+
 	@Test
 	public void testCreateProfessor() throws ProfessorException{
 		ProfessorHandler pHandler = ProfessorHandler.getInstance(); 
 		
 		Professor professor = pHandler.createProfessor("Pepe", "42158787", "a@pepe.com");
-		assertEquals( 0 , professor.getId()) ;
+		assertNotNull(professor.getId()) ;
 		assertEquals( "a@pepe.com" , professor.getMail()) ;
 		assertEquals( "Pepe" , professor.getName()) ;
 		assertEquals( "42158787" , professor.getPhoneNumber()) ;

@@ -1,10 +1,13 @@
 package ar.edu.unq.sasa.model.handlers;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.data.InformationManager;
 import ar.edu.unq.sasa.model.exceptions.handlers.ClassroomException;
+import ar.edu.unq.sasa.model.exceptions.handlers.ResourceException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 
@@ -14,115 +17,90 @@ import ar.edu.unq.sasa.model.items.FixedResource;
  */
 public class TestClassroomHandler {
 
+	@Before
+	public void setUp() throws Exception {
+		ClassroomHandler.getInstance().getInformationManager().getClassrooms().clear();
+	}
+	
 	@Test
 	public void testConstructor(){
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
-		Assert.assertSame(pHandler.getInformationManager(), InformationManager.getInstance());
+		assertSame(pHandler.getInformationManager(), InformationManager.getInstance());
 	}
 
 	@Test
 	public void testCreateClassroom() throws ClassroomException{
 		ClassroomHandler pHandler = ClassroomHandler.getInstance();
 		Classroom classroom =  pHandler.createClassroom("Aula 1", 10) ;
-		Assert.assertEquals("Aula 1", classroom.getName()) ;
-		Assert.assertEquals(10, classroom.getCapacity()) ;
+		assertEquals("Aula 1", classroom.getName());
+		assertEquals(10, classroom.getCapacity());
 	}
 
 	@Test
 	public void testSearchClassroom() throws ClassroomException{
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
-		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-		try {
-	    	pHandler.searchClassroom("Aula 2");
-		} catch (ClassroomException e) {
-			System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-		}
+		Classroom foundClassroom = pHandler.searchClassroom("Aula 2");
+		assertSame(foundClassroom, classroom);
 	}
 
-	@Test
-	public void testSearchClassroomInexistente() throws ClassroomException{
+	@Test(expected=ClassroomException.class)
+	public void testSearchClassroomInexistente() throws ClassroomException {
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
 		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-		try {
-	    	pHandler.searchClassroom("Aula 5");
-		} catch (ClassroomException e) {
-			System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-		}
+	    pHandler.searchClassroom("Aula 5");
 	}
 
-	@Test	
+	@Test
 	public void testDeleteClassroom() throws ClassroomException {
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
 		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-	    try {
-	    	pHandler.searchClassroom("Aula 2")  ;
-		} catch (ClassroomException e) {
-			System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-		}
+		pHandler.deleteClassroom("Aula 2");
+		assertTrue(pHandler.getInformationManager().getClassrooms().isEmpty());
 	}
 
-	@Test
+	@Test(expected=ClassroomException.class)
 	public void testDeleteClassroomErroneo() throws ClassroomException {
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
 		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-	    try {
-	    	pHandler.searchClassroom("Aula 3")  ;
-		} catch (ClassroomException e) {
-			System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-		}
+		pHandler.searchClassroom("Aula 3");
 	}
 
 	@Test
 	public void testModificarClassroomCapacity() throws ClassroomException{
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
-		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-		try {
-		       pHandler.modifyClassroom("Aula 2", 30) ;	
-			} catch (ClassroomException e) {
-				System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-			}
+		pHandler.modifyClassroom("Aula 2", 30);	
+		assertEquals(30, classroom.getCapacity());
 	}
 
-	@Test
-	public void testModificarClassroomCapacityConNameErroneo() throws ClassroomException{
+	@Test(expected=ClassroomException.class)
+	public void testModificarClassroomCapacityConNameErroneo() throws ClassroomException {
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
 		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-		try {
-		       pHandler.modifyClassroom("Aula 5", 30) ;	
-			} catch (ClassroomException e) {
-				System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-			}
+		pHandler.modifyClassroom("Aula 5", 30);
 	}
 
 	@Test
-	public void testModificarClassroomAddResoruce() throws ClassroomException{
+	public void testModificarClassroomAddResoruce() throws ClassroomException, ResourceException {
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
 		FixedResource resource = new FixedResource("PC", 5);
 		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-		try {
-		       pHandler.modifyClassroomAddResource("Aula 2", resource) ;	
-			} catch (ClassroomException e) {
-				System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-			}
+		pHandler.modifyClassroomAddResource("Aula 2", resource);
+		assertNotNull(pHandler.searchClassroom("Aula 2").getResource("PC"));
 	}
 
-	@Test
-	public void testModificarClassroomAddResoruceConNameErroneo() throws ClassroomException{
+	@Test(expected=ClassroomException.class)
+	public void testModificarClassroomAddResourceConNameErroneo() throws ClassroomException {
 		ClassroomHandler pHandler = ClassroomHandler.getInstance(); 
 		FixedResource resource = new FixedResource("PC", 5);
 		@SuppressWarnings("unused")
 		Classroom classroom = pHandler.createClassroom("Aula 2", 40);
-		try {
-			  pHandler.modifyClassroomAddResource("Aula 5", resource) ;	
-			} catch (ClassroomException e) {
-				System.out.println("Exception capturada, se paso como parametro: un nombre incorrecto");
-			}
+		pHandler.modifyClassroomAddResource("Aula 5", resource) ;	
 	}
 }
