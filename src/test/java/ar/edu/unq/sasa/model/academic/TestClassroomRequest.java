@@ -1,14 +1,10 @@
 package ar.edu.unq.sasa.model.academic;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,68 +12,34 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
-import ar.edu.unq.sasa.model.items.MobileResource;
+import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
+import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
+import ar.edu.unq.sasa.model.time.SimplePeriod;
+import ar.edu.unq.sasa.model.time.hour.HourInterval;
+import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
 public class TestClassroomRequest {
-	public ClassroomRequest classroomRequest;
-	public ClassroomRequest fclassroomRequest;
-	public Period desHours;
-	public Period period;
+	private ClassroomRequest classroomRequest;
+	private Period desiredHours;
 
-	public Subject subject;
-	public Professor professor;
-	public List<Subject> subjectList;
+	private Subject subject;
+	private Professor professor;
 
-	public Map<Resource,Integer> reqResources;
-	public MobileResource projector;
-	public Map<Resource,Integer> optResources;
+	private Map<Resource,Integer> reqResources;
+	private Map<Resource,Integer> optResources;
 
 	@Before
-	public void setUp() throws RequestException {
-		this.subject = createMock(Subject.class);
-		expect(this.subject.getName()).andReturn("AOP Programming");
-		expect(this.subject.getId()).andReturn((long)53455);
-		//----------------------------------------------------------//
-		this.professor = createMock(Professor.class);
-		this.subjectList = new LinkedList<Subject>();
-		this.subjectList.add(this.subject);
-		expect(this.professor.getSubjects()).andReturn(this.subjectList);
-		//----------------------------------------------------------//
-		this.projector = createMock(MobileResource.class);
-		this.period = createMock(Period.class);
-		this.desHours = createMock(Period.class);
-		this.reqResources = new HashMap<Resource,Integer>();
-		this.optResources = new HashMap<Resource,Integer>();
-		//----------------------------------------------------------//
-		replay(this.subject);
-		replay(this.professor);
-		
-		this.classroomRequest = new ClassroomRequest(this.desHours,this.subject,this.professor, 98346,
-				this.reqResources,this.optResources,45);
-	}
-
-	@Test
-	public void test_shouldBeConstructedCorrectly(){		
-		assertNotNull("desiredHours is Null",this.classroomRequest.getDesiredHours());
-		assertTrue("desiredHours is from an undesired class",this.classroomRequest.getDesiredHours() instanceof Period);
-		//----------------------------------------------------------------//
-		assertNotNull("subject is Null",this.classroomRequest.getSubject());
-		assertTrue("subject is from an undesired class",this.classroomRequest.getSubject() instanceof Subject);
-		//----------------------------------------------------------------//
-		assertNotNull("professor is Null",this.classroomRequest.getProfessor());
-		assertTrue("professor is from an undesired class",this.classroomRequest.getProfessor() instanceof Professor);
-		//----------------------------------------------------------------//
-		assertNotNull("id is Null",this.classroomRequest.getId());
-		//----------------------------------------------------------------//
-		assertNotNull("capacity is Null",this.classroomRequest.getCapacity());
-		//----------------------------------------------------------------//
-		assertNotNull("requiredResources is Null",this.classroomRequest.getRequiredResources());
-		assertTrue("requiredResources is from an undesired class",this.classroomRequest.getRequiredResources() instanceof Map<?, ?>);
-		//----------------------------------------------------------------//
-		assertNotNull("optionalResources is Null",this.classroomRequest.getOptionalResources());
-		assertTrue("optionalResources is from an undesired class",this.classroomRequest.getOptionalResources() instanceof Map<?, ?>);
+	public void setUp() throws RequestException, PeriodException, TimestampException {
+		subject = new Subject("AOP Programming", 53455);
+		LinkedList<Subject> subjects = new LinkedList<Subject>();
+		subjects.add(subject);
+		professor = new Professor("prof", 1, "123456", "profe@univ.com", subjects);
+		desiredHours = new SimplePeriod(new HourInterval(new Timestamp(8), new Timestamp(9)), new GregorianCalendar());
+		reqResources = new HashMap<Resource,Integer>();
+		optResources = new HashMap<Resource,Integer>();
+		classroomRequest = new ClassroomRequest(desiredHours, subject, professor, 98346, reqResources, optResources, 45);
 	}
 
 	@Test

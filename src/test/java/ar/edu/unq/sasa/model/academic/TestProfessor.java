@@ -1,8 +1,8 @@
 package ar.edu.unq.sasa.model.academic;
 
-import static org.easymock.EasyMock.createMock;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
@@ -10,40 +10,43 @@ import org.junit.Test;
 
 public class TestProfessor {
 
-	public Subject s1;
-	public Subject s2;
-	public List<Subject> ls; 
-	public Professor p;
+	private Subject subject1;
+	private Subject subject2;
+	private List<Subject> subjects; 
+	private Professor professor;
 
 	@Before
 	public void setUp(){	
-		this.s1 = createMock(Subject.class); 
-		this.s2 = createMock(Subject.class);
-		this.p = new Professor("John Doe",267765,"230934","jdoe@gmail.com");
+		subject1 = new Subject("Filosofía", 1);
+		subject2 = new Subject("Pensamiento científico", 2);
+		subjects = new LinkedList<Subject>();
+		subjects.add(subject1);
+		subjects.add(subject2);
+		this.professor = new Professor("John Doe",267765,"230934","jdoe@gmail.com", subjects);
 	}
 
 	@Test
 	public void test_hasInitializedSubjects(){
-		assertNotNull("Professor subjects not initialized",this.p.getSubjects());
+		assertNotNull("Professor subjects not initialized", professor.getSubjects());
 	}
 
 	@Test
 	public void test_hasInitializedName(){
-		assertNotNull("Professor name not initialized",this.p.getName());
+		assertNotNull("Professor name not initialized",this.professor.getName());
 	}
 
 	@Test
 	public void test_hasInitializedPhoneNumber(){
-		assertNotNull("Professor phone number not initialized",this.p.getPhoneNumber());
+		assertNotNull("Professor phone number not initialized",this.professor.getPhoneNumber());
 	}
 
 	@Test
 	public void test_hasInitializedID(){
-		assertNotNull("Professor ID not initialized",this.p.getId());
+		assertNotNull("Professor ID not initialized",this.professor.getId());
 	}
 
 	@Test
 	public void test_hasInitializedMail(){
-		assertNotNull("Professor mail not initialized",this.p.getMail());
+		assertNotNull("Professor mail not initialized",this.professor.getMail());
 	}
 }

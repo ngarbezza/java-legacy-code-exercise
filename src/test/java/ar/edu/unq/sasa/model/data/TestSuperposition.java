@@ -13,51 +13,55 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
+import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
+import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
+import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
 public class TestSuperposition {
 
-	public Superposition superposition1; //Rightly coded superposition
-	public HourInterval hourInterval1 = createMock(HourInterval.class);
-	public AssignmentByRequest abr11 = createMock(AssignmentByRequest.class);
-	public AssignmentByRequest abr12 = createMock(AssignmentByRequest.class);
-	public List<AssignmentByRequest> ls1 = new LinkedList<AssignmentByRequest>();
+	private Superposition superposition1; //Rightly coded superposition
+	private HourInterval hourInterval1;
+	private AssignmentByRequest abr11 = createMock(AssignmentByRequest.class);
+	private AssignmentByRequest abr12 = createMock(AssignmentByRequest.class);
+	private List<AssignmentByRequest> ls1 = new LinkedList<AssignmentByRequest>();
 
-	public HourInterval hourInterval2 = createMock(HourInterval.class);
-	public AssignmentByRequest abr21 = createMock(AssignmentByRequest.class);
-	public AssignmentByRequest abr22 = createMock(AssignmentByRequest.class);
-	public List<AssignmentByRequest> ls2 = new LinkedList<AssignmentByRequest>();
+	private HourInterval hourInterval2;
+	private AssignmentByRequest abr21 = createMock(AssignmentByRequest.class);
+	private AssignmentByRequest abr22 = createMock(AssignmentByRequest.class);
+	private List<AssignmentByRequest> ls2 = new LinkedList<AssignmentByRequest>();
 
 	Superposition superposition2; //Non-rightly coded superposition
 	AssignmentByRequest abr31 = createMock(AssignmentByRequest.class);
 	List<AssignmentByRequest> ls4 = new LinkedList<AssignmentByRequest>();
 
 	@Before
-	public void setUp(){
-		this.ls1.add(abr11);this.ls1.add(abr12); //Adding elements to each list.
-		this.ls2.add(abr21);this.ls2.add(abr22);
-		this.ls4.add(abr31);
+	public void setUp() throws PeriodException, TimestampException{
+		hourInterval1 = new HourInterval(new Timestamp(12), new Timestamp(13));
+		hourInterval2 = new HourInterval(new Timestamp(8), new Timestamp(9));
+		ls1.add(abr11);this.ls1.add(abr12);
+		ls2.add(abr21);this.ls2.add(abr22);
+		ls4.add(abr31);
 		
-		this.superposition1 = new Superposition();
-		this.superposition2 = new Superposition();
+		superposition1 = new Superposition();
+		superposition2 = new Superposition();
 		
-		this.superposition1.getSuperpositionData().put(hourInterval1,ls1);
-		this.superposition1.getSuperpositionData().put(hourInterval2,ls2);
-		this.superposition2.getSuperpositionData().put(hourInterval2,ls4);
-		//Adding elements to each superposition
+		superposition1.getSuperpositionData().put(hourInterval1,ls1);
+		superposition1.getSuperpositionData().put(hourInterval2,ls2);
+		superposition2.getSuperpositionData().put(hourInterval2,ls4);
 	}
 
 	@Test
 	public void test_shouldConstructCorrectly(){
-		assertNotNull("Fail - traceback: constructor",this.superposition1.getSuperpositionData());
-		assertNotNull("Fail - traceback: constructor",this.superposition2.getSuperpositionData());
+		assertNotNull("Fail - traceback: constructor", superposition1.getSuperpositionData());
+		assertNotNull("Fail - traceback: constructor", superposition2.getSuperpositionData());
 	}
 
 	@Test
 	public void test_allElementsHaveSuperposition(){
-		Map<HourInterval,List<AssignmentByRequest> > m1 = this.superposition1.getSuperpositionData();
+		Map<HourInterval,List<AssignmentByRequest> > m1 = superposition1.getSuperpositionData();
 
-		Map<HourInterval,List<AssignmentByRequest> > m2 = this.superposition2.getSuperpositionData();
+		Map<HourInterval,List<AssignmentByRequest> > m2 = superposition2.getSuperpositionData();
 
 		List<List<AssignmentByRequest>> l_m1 = new LinkedList<List<AssignmentByRequest>>(m1.values());
 		for(List<AssignmentByRequest> it : l_m1){
