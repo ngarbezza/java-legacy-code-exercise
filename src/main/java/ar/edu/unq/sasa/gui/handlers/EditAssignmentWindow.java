@@ -24,6 +24,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.period.NewPeriodWindow;
 import ar.edu.unq.sasa.gui.util.PeriodHolder;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;

@@ -1,5 +1,9 @@
 package ar.edu.unq.sasa.model.time.repetition;
 
+import static ar.edu.unq.sasa.model.time.CalendarUtils.compareEquals;
+import static ar.edu.unq.sasa.model.time.CalendarUtils.compareGreater;
+import static ar.edu.unq.sasa.model.time.CalendarUtils.compareLess;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

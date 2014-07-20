@@ -1,5 +1,7 @@
 package ar.edu.unq.sasa.gui.util.tables;
 
+import static ar.edu.unq.sasa.gui.util.ReflectionUtils.invokeJavaBean;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
+import uic.layout.HorizontalLayout;
 import ar.edu.unq.sasa.gui.period.PeriodDetailWindow;
 import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;

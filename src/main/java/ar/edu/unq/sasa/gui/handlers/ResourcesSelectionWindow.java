@@ -27,6 +27,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import uic.layout.HorizontalLayout;
+import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxModel;

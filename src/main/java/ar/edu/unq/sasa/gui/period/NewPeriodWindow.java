@@ -24,6 +24,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 
+import uic.widgets.calendar.UICDateEdit;
 import ar.edu.unq.sasa.gui.util.PeriodHolder;
 import ar.edu.unq.sasa.gui.util.WidgetUtilities;
 import ar.edu.unq.sasa.model.exceptions.time.PeriodException;

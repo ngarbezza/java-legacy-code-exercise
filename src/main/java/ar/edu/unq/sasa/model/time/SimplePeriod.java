@@ -1,5 +1,7 @@
 package ar.edu.unq.sasa.model.time;
 
+import static ar.edu.unq.sasa.model.time.CalendarUtils.compareEquals;
+
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
