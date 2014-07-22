@@ -23,8 +23,10 @@ import ar.edu.unq.sasa.model.items.Classroom;
  */
 public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Classroom, ClassroomAssignment> {
 
+	private static final long serialVersionUID = -6375987318161190231L;
+
 	protected JTable bookedAssignments;
-	
+
 	public ClassroomAssignmentsDetailWindow(Classroom item) {
 		super(item);
 	}
@@ -62,12 +64,12 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 	protected int getWindowWidth() {
 		return 520;
 	}
-	
+
 	@Override
 	protected int getWindowHeight() {
 		return 450;
 	}
-	
+
 	@Override
 	protected List<ClassroomAssignment> getAssigments() {
 		return assignableItem.getClassroomAssignments();
@@ -88,8 +90,8 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 			periodDetail.setText(assignableItem.searchPeriod(listModel.get(index)).toString());
 		}
 	}
-	
-	
+
+
 	@Override
 	protected void createOtherWidgets() {
 		ReadOnlyTableModel<BookedAssignment> model =
@@ -104,14 +106,14 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 				DefaultListSelectionModel selection = (DefaultListSelectionModel)e.getSource();
 				if (selection.isSelectionEmpty()) {
 					if (assignmentsTable.getSelectionModel().isSelectionEmpty())
-						periodDetail.setText("");			
+						periodDetail.setText("");
 				}
 				else {
 					((DefaultListSelectionModel)assignmentsTable.getSelectionModel()).clearSelection();
 					List<BookedAssignment> listModel = ((ReadOnlyTableModel<BookedAssignment>) bookedAssignments.getModel()).getModel();
 					int index = selection.getMinSelectionIndex();
 					periodDetail.setText(assignableItem.searchPeriod(listModel.get(index)).toString());
-				}				
+				}
 			}
 		});
 	}

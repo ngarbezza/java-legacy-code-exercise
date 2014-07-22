@@ -10,7 +10,9 @@ import ar.edu.unq.sasa.model.time.Period;
  * horarias de la ventana {@link NewPeriodWindow}.
  */
 public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
-	
+
+	private static final long serialVersionUID = -7096834986627776873L;
+
 	public boolean isCompositePeriodNode() {
 		return true;
 	}

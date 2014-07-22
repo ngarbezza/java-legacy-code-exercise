@@ -17,11 +17,13 @@ import ar.edu.unq.sasa.model.items.MobileResource;
  */
 public class EditMobileResourceWindow extends AbstractEditWindow<MobileResource> {
 
+	private static final long serialVersionUID = -7340989131088695181L;
+
 	protected JTextField nameField;
 	protected JLabel nameLabel;
 
 	public EditMobileResourceWindow() {}
-	
+
 	public EditMobileResourceWindow(MobileResource mr) {
 		super(mr);
 	}

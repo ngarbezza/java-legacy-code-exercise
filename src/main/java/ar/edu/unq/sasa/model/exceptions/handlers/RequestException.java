@@ -7,7 +7,9 @@ import ar.edu.unq.sasa.model.academic.Request;
  * de los {@link Request}.
  */
 public class RequestException extends Exception {
-	
+
+	private static final long serialVersionUID = -6896894711717621482L;
+
 	public RequestException(String message) {
 		super(message);
 	}

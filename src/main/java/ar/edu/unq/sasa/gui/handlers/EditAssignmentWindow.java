@@ -41,11 +41,14 @@ import ar.edu.unq.sasa.model.time.Period;
  * Ventana para Editar una {@link ClassroomAssignment}.
  */
 public class EditAssignmentWindow extends JFrame implements PeriodHolder {
+
+	private static final long serialVersionUID = 4976218465593759722L;
+
 	private ClassroomAssignment assignment;
-	
+
 	private Classroom classroomSelected;
 	private Period period;
-	
+
 	private JLabel searchLabel;
 	private JTextField searchTextField;
 	private JScrollPane classroomsTableScrollPane;
@@ -54,16 +57,15 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	private JButton moveAssignmentOfClassroomButton;
 	private JButton moveAssignmentOfPeriodButton;
 	private JButton cancelButton;
-	
+
 	public EditAssignmentWindow(ClassroomAssignment assignmentSelection){
 		assignment = assignmentSelection;
-		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet()){
+		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet())
 			if (entry.getValue().equals(assignmentSelection)){
 				period = entry.getKey();
 				break;
 			}
-		}
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -81,12 +83,12 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			}
 		});
 	}
-	
+
 	@Override
 	public Period getPeriod() {
 		return period;
 	}
-	
+
 	@Override
 	public void setPeriod(Period p) {
 		period = p;
@@ -98,7 +100,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 		searchTextField = new JTextField(10);
 		createSearchTextFieldListeners();
 	}
-	
+
 	private void createSearchTextFieldListeners() {
 		searchTextField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -110,14 +112,14 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			}
 		});
 	}
-	
+
 	private void createClassroomsTable() {
 		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(ClassroomHandler.getInstance().searchClassroomByName(""));
 		addClassroomsColumns(tableModel);
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		classroomsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				EditAssignmentWindow.this.whenClassroomsTableSelectionChanged(e);
@@ -133,7 +135,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 
 	@SuppressWarnings("unchecked")
 	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource(); 
+		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelected = null;
 			moveAssignmentOfClassroomButton.setEnabled(false);
@@ -143,15 +145,13 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			int index = source.getMinSelectionIndex();
 			List<Classroom> model = ((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).getModel();
 			classroomSelected = model.get(index);
-			if (classroomSelected.equals(assignment.getAssignableItem())){
+			if (classroomSelected.equals(assignment.getAssignableItem()))
 				moveAssignmentOfClassroomButton.setEnabled(false);
-			}
-			else {
+			else
 				moveAssignmentOfClassroomButton.setEnabled(true);
-			}
 		}
 	}
-	
+
 	private void createButtons() {
 		changePeriodButton = new JButton("Cambiar Periodo");
 		createChangePeriodButtonListeners();
@@ -164,7 +164,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 		cancelButton = new JButton("Cancelar");
 		createCancelButtonListeners();
 	}
-	
+
 	private void createChangePeriodButtonListeners() {
 		changePeriodButton.addActionListener(new ActionListener() {
 			@Override
@@ -173,7 +173,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			}
 		});
 	}
-	
+
 	private void createMoveAssignmentOfClassroomButtonButtonListeners() {
 		moveAssignmentOfClassroomButton.addActionListener(new ActionListener() {
 			@Override
@@ -211,12 +211,12 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			}
 		});
 	}
-	
+
 	private void organizeComponents() {
 		JPanel mainPanel = new JPanel();
 		getContentPane().add(mainPanel);
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel classroomsTablePanel = new JPanel();
 		classroomsTablePanel.setLayout(new BoxLayout(classroomsTablePanel, BoxLayout.Y_AXIS));
 		classroomsTablePanel.setBorder(BorderFactory.createTitledBorder("Seleccione un Aula"));
@@ -224,27 +224,27 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 		JPanel moveButtonsPanel = new JPanel();
 		JPanel cancelPanel = new JPanel();
 		cancelPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(new FlowLayout());
 		searchPanel.add(searchLabel);
 		searchPanel.add(searchTextField);
-		
+
 		classroomsTablePanel.add(searchPanel);
 		classroomsTablePanel.add(classroomsTableScrollPane);
-		
+
 		mainPanel.add(classroomsTablePanel);
 		mainPanel.add(periodSelectionPanel);
 		mainPanel.add(moveButtonsPanel);
 		mainPanel.add(cancelPanel);
-		
+
 		periodSelectionPanel.setLayout(new FlowLayout());
 		periodSelectionPanel.add(changePeriodButton);
-		
+
 		moveButtonsPanel.setLayout(new VerticalLayout());
 		moveButtonsPanel.add(moveAssignmentOfClassroomButton);
 		moveButtonsPanel.add(moveAssignmentOfPeriodButton);
-		
+
 		cancelPanel.add(cancelButton);
 	}
 }

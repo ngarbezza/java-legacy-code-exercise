@@ -38,13 +38,13 @@ public class TestMobileResourcesRequest {
 		desiredHours = new SimplePeriod(new HourInterval(new Timestamp(8), new Timestamp(9)), new GregorianCalendar());
 		reqResources = new HashMap<Resource,Integer>();
 		optResources = new HashMap<Resource,Integer>();
-		
+
 		mobileResourcesRequest = new MobileResourcesRequest(desiredHours, subject, professor, 98346, reqResources, optResources);
 	}
 
 	@Test
 	public void test_shouldBeConstructedCorrectly(){
-		
+
 		assertNotNull("desiredHours is Null",this.mobileResourcesRequest.getDesiredHours());
 		assertTrue("desiredHours is from an undesired class",this.mobileResourcesRequest.getDesiredHours() instanceof Period);
 		//----------------------------------------------------------------//
@@ -67,16 +67,15 @@ public class TestMobileResourcesRequest {
 	public void test_elementsDoesNotRepeat(){
 		Set<Resource> optResources = this.mobileResourcesRequest.getOptionalResources().keySet();
 		Set<Resource> reqResources = this.mobileResourcesRequest.getRequiredResources().keySet();
-		
+
 		assertTrue(this.mobileResourcesRequest.getOptionalResources().size()==optResources.size());
 		assertTrue(this.mobileResourcesRequest.getRequiredResources().size()==reqResources.size());
-		
+
 		for(Resource it1: optResources){
 			int repQt = 0;
-			for(Resource it2: optResources){
+			for(Resource it2: optResources)
 				if(it1.equals(it2))
-				{repQt++;}
-			}
+					repQt++;
 			assertTrue("Elements have repetitions",repQt<=1); //Because the element checked with itself counts
 		}
 	}
@@ -85,11 +84,11 @@ public class TestMobileResourcesRequest {
 	public void test_professorCanTeachTheSubjectInRequest(){
 		Subject subjectRequest = this.mobileResourcesRequest.getSubject();
 		boolean founded = false;
-		
+
 		for(Subject it : this.mobileResourcesRequest.getProfessor().getSubjects())
 			if(it.equals(subjectRequest))
-				{founded = true;}
-		
+				founded = true;
+
 		assertTrue("Professor cannot teach the subject in request",founded);
 	}
 }

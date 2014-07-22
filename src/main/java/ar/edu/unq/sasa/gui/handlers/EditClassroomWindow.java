@@ -33,7 +33,8 @@ import ar.edu.unq.sasa.model.items.FixedResource;
  * Ventana de edición de aulas. También sirve para agregar aulas nuevas.
  */
 public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
-	
+
+	private static final long serialVersionUID = -238543135195643014L;
 	protected JLabel capacityLabel, nameLabel;
 	protected JTextField nameField;
 	protected JSpinner capacityField;
@@ -80,10 +81,10 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 		resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				whenResourcesListSelectionChanged(e);			
+				whenResourcesListSelectionChanged(e);
 			}
 		});
-		
+
 		if (inEditMode()) {
 			List<FixedResource> copy = new LinkedList<FixedResource>();
 			for (FixedResource fr : item.getResources())
@@ -100,11 +101,10 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 			public void actionPerformed(ActionEvent e) {
 				FixedResource res = getResourceTableSelection();
 				String text = resNameField.getText();
-				if (text.equals("")) {
+				if (text.equals(""))
 					JOptionPane.showMessageDialog(EditClassroomWindow.this,
 							"Falta especificar el nombre al recurso",
 							"Advertencia", JOptionPane.WARNING_MESSAGE);
-				}
 				res.setName(text);
 				res.setAmount((Integer) resAmountField.getValue());
 				setResourceChanged(false);
@@ -161,13 +161,13 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 		}
 		WidgetUtilities.enableOrDisableWidgets(!visibility,
 				resAmountField, resAmountLabel, resNameField, resNameLabel,
-				saveResButton, deleteResButton);	
+				saveResButton, deleteResButton);
 	}
 
 	protected void createFields() {
 		nameField = new JTextField(14);
 		capacityField = new JSpinner(new SpinnerNumberModel(20, 1, Integer.MAX_VALUE, 1));
-		
+
 		if (inEditMode()) {
 			nameField.setText(item.getName());
 			capacityField.setValue(item.getCapacity());
@@ -178,7 +178,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 		nameLabel = new JLabel("Nombre  ");
 		capacityLabel = new JLabel("Capacidad");
 	}
-	
+
 	@Override
 	protected void organizeTopPanelWidgets(JPanel topPanel) {
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
@@ -251,7 +251,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 	protected int getWindowHeight() {
 		return 350;
 	}
-	
+
 	@Override
 	protected int getWindowWidth() {
 		return 450;

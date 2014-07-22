@@ -43,18 +43,21 @@ import ar.edu.unq.sasa.model.items.Resource;
  * Ventana para elegir {@link Resource}s para la asignación de un {@link ClassroomRequest}
  */
 public class ResourcesSelectionWindow extends JFrame {
+
+	private static final long serialVersionUID = -5739243783412143543L;
+
 	private AsignateRequestWindow parentFrame;
-	
+
 	private List<Pair<Resource, Integer>> resourcesSelected = new ArrayList<Pair<Resource,Integer>>();
 	private Pair<Resource, Integer> resourceSelection;
 	private Resource resource;
 	private Integer quantity;
-	
+
 	private JScrollPane resourcesScrollPane;
 	private JTable resourcesTable;
 	private JLabel obligatoryResourceLabel;
 	private JLabel resourcesComboBoxLabel;
-	private JComboBox resourcesComboBox;
+	private JComboBox<MobileResource> resourcesComboBox;
 	private JLabel obligatoryQuantityLabel;
 	private JLabel resourcesQuantityLabel;
 	private JTextField resourcesQuantity;
@@ -63,11 +66,11 @@ public class ResourcesSelectionWindow extends JFrame {
 	private JButton viewDetailsButton;
 	private JButton acceptButton;
 	private JButton cancelButton;
-	
+
 	public ResourcesSelectionWindow(AsignateRequestWindow aParentFrame){
 		parentFrame = aParentFrame;
 		resourcesSelected.addAll(aParentFrame.getResourcesSelection());
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -90,12 +93,12 @@ public class ResourcesSelectionWindow extends JFrame {
 		JPanel mainPanel = new JPanel();
 		getContentPane().add(mainPanel);
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel topMain = new JPanel();
 		topMain.setLayout(new HorizontalLayout());
 		JPanel bottomMain = new JPanel();
 		bottomMain.setLayout(new FlowLayout());
-		
+
 		JPanel leftTopPanel = new JPanel();
 		leftTopPanel.setLayout(new VerticalLayout());
 		JPanel rightTopPanel = new JPanel();
@@ -106,7 +109,7 @@ public class ResourcesSelectionWindow extends JFrame {
 		addAndRemoveButtonsPanel.setLayout(new FlowLayout());
 		JPanel acceptAndCancelPanel = new JPanel();
 		acceptAndCancelPanel.setLayout(new FlowLayout());
-		
+
 		addAndRemoveButtonsPanel.add(addResourceButton);
 		addAndRemoveButtonsPanel.add(removeResourceButton);
 
@@ -117,29 +120,29 @@ public class ResourcesSelectionWindow extends JFrame {
 		resourceSelectionPanel.setLayout(new BoxLayout(resourceSelectionPanel, BoxLayout.X_AXIS));
 		JPanel quantitySelectionPanel = new JPanel();
 		quantitySelectionPanel.setLayout(new FlowLayout());
-		
+
 		resourceSelectionPanel.add(obligatoryResourceLabel);
 		resourceSelectionPanel.add(resourcesComboBoxLabel);
 		resourceSelectionPanel.add(resourcesComboBox);
-		
+
 		quantitySelectionPanel.add(obligatoryQuantityLabel);
 		quantitySelectionPanel.add(resourcesQuantityLabel);
 		quantitySelectionPanel.add(resourcesQuantity);
-		
+
 		mainPanel.add(topMain);
 		mainPanel.add(bottomMain);
-		
+
 		topMain.add(leftTopPanel);
 		topMain.add(rightTopPanel);
 		bottomMain.add(acceptAndCancelPanel);
-		
+
 		resourcesScrollPane.setBorder(BorderFactory.createTitledBorder("Recursos Deseados"));
 		leftTopPanel.add(resourcesScrollPane);
-		
+
 		JPanel viewDetailsPanel = new JPanel();
 		viewDetailsPanel.setLayout(new FlowLayout());
 		viewDetailsPanel.add(viewDetailsButton);
-		
+
 		rightTopPanel.add(resourceSelectionPanel);
 		rightTopPanel.add(new JPanel().add(new JLabel(" ")));
 		rightTopPanel.add(quantitySelectionPanel);
@@ -147,7 +150,7 @@ public class ResourcesSelectionWindow extends JFrame {
 		rightTopPanel.add(addAndRemoveButtonsPanel);
 		rightTopPanel.add(viewDetailsPanel);
 	}
-	
+
 	private void createResourceCreationFields() {
 		obligatoryResourceLabel = new JLabel("* ");
 		obligatoryResourceLabel.setForeground(Color.RED);
@@ -158,26 +161,24 @@ public class ResourcesSelectionWindow extends JFrame {
 		resourcesComboBox = makeResourcesComboBox();
 		resourcesQuantity = makeQuantitySearchField();
 	}
-	
+
 	private JTextField makeQuantitySearchField() {
 		JTextField field = new JTextField(10);
 		field.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				String number = ((JTextField)e.getSource()).getText();
-				if (! number.equals("")){
+				if (! number.equals(""))
 					try {
 						if (quantity != null){
 							addResourceButton.setEnabled(false);
 							quantity = null;
 						}
 						quantity = Integer.parseInt(number);
-						if (resource != null){
+						if (resource != null)
 							addResourceButton.setEnabled(true);
-						}
 					}
 					catch (Exception ex){}
-				}
 				else {
 					addResourceButton.setEnabled(false);
 					quantity = null;
@@ -187,29 +188,31 @@ public class ResourcesSelectionWindow extends JFrame {
 		return field;
 	}
 
-	private JComboBox makeResourcesComboBox() {
+	@SuppressWarnings({ "unchecked", "serial" })
+	private JComboBox<MobileResource> makeResourcesComboBox() {
 		EasyComboBoxModel<MobileResource> comboModel = new EasyComboBoxModel<MobileResource>(getResources());
-		JComboBox combo = new JComboBox(comboModel);
-		combo.setRenderer(new EasyComboBoxRenderer() {
-			
+		JComboBox<MobileResource> combo = new JComboBox<MobileResource>(comboModel);
+		combo.setRenderer(new EasyComboBoxRenderer<MobileResource>() {
+			// TODO there are a lot of this inner classes, we can build an EasyComboBoxRenderer who asks for getName to its inner objects
 			@Override
-			public String getDisplayName(Object obj) {
-				return ((Resource)obj).getName();
+			public String getDisplayName(MobileResource mobileResource) {
+				return mobileResource.getName();
 			}
 		});
 		combo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	if (!(((Resource) ((JComboBox)e.getSource()).getSelectedItem()) == null)){
-	    			if (! isInResourcesList((((Resource) ((JComboBox)e.getSource()).getSelectedItem())))){
-		    			resource = (Resource) ((JComboBox)e.getSource()).getSelectedItem();
-		    			if (quantity != null){
-		    				addResourceButton.setEnabled(true);
-		    			}
+		    @Override
+			public void actionPerformed(ActionEvent e) {
+		    	// TODO refactor me!
+		    	if (!(((Resource) ((JComboBox<Resource>)e.getSource()).getSelectedItem()) == null)){
+	    			if (! isInResourcesList((((Resource) ((JComboBox<Resource>)e.getSource()).getSelectedItem())))){
+		    			resource = (Resource) ((JComboBox<Resource>)e.getSource()).getSelectedItem();
+		    			if (quantity != null)
+							addResourceButton.setEnabled(true);
 	    			}
 	    			else {
 	    				addResourceButton.setEnabled(false);
 	    				resource = null;
-	    			}   		
+	    			}
 		    	}
 		    	else {
 	    			addResourceButton.setEnabled(false);
@@ -225,20 +228,16 @@ public class ResourcesSelectionWindow extends JFrame {
 
 	private List<MobileResource> getResources() {
 		List<MobileResource> resources = new ArrayList<MobileResource>();
-		for (MobileResource mobileResource : InformationManager.getInstance().getMobileResources()){
-			if (! resources.contains(mobileResource)){
+		for (MobileResource mobileResource : InformationManager.getInstance().getMobileResources())
+			if (! resources.contains(mobileResource))
 				resources.add(mobileResource);
-			}
-		}
 		return resources;
 	}
 
 	private boolean isInResourcesList(Resource resource) {
-		for (Pair<Resource, Integer> pair : resourcesSelected){
-			if (((Resource)pair.getFirst()).getName().equals(resource.getName())){
+		for (Pair<Resource, Integer> pair : resourcesSelected)
+			if (((Resource)pair.getFirst()).getName().equals(resource.getName()))
 				return true;
-			}
-		}
 		return false;
 	}
 
@@ -256,7 +255,7 @@ public class ResourcesSelectionWindow extends JFrame {
 		removeResourceButton.setEnabled(false);
 		addResourceButton.setEnabled(false);
 	}
-	
+
 	private void createViewDetailsButtonListeners() {
 		viewDetailsButton.addActionListener(new ActionListener() {
 			@Override
@@ -281,7 +280,7 @@ public class ResourcesSelectionWindow extends JFrame {
 			}
 		});
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void updateTable() {
 		((ReadOnlyTableModel<Pair<Resource, Integer>>)resourcesTable.getModel()).setModel(resourcesSelected);
@@ -300,7 +299,7 @@ public class ResourcesSelectionWindow extends JFrame {
 					updateTable();
 				}
 			}
-		});	
+		});
 	}
 
 	private void createAcceptButtonListeners() {
@@ -316,25 +315,24 @@ public class ResourcesSelectionWindow extends JFrame {
 			}
 		});
 	}
-	
+
 	private void createCancelButtonListeners() {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					dispose();
-				}
 			}
 		});
 	}
-	
+
 	private void createResourcesTable() {
 		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel = new ReadOnlyTableModel<Pair<Resource, Integer>>(resourcesSelected);
 		addResourcesColumns(tableModel);
 		resourcesTable = new JTable(tableModel);
 		resourcesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				ResourcesSelectionWindow.this.whenResourcesTableSelectionChanged(e);
@@ -345,7 +343,7 @@ public class ResourcesSelectionWindow extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	protected void whenResourcesTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource(); 
+		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
 		if (source.isSelectionEmpty()) {
 			resourceSelection = null;
 			removeResourceButton.setEnabled(false);
@@ -353,7 +351,7 @@ public class ResourcesSelectionWindow extends JFrame {
 		else {
 			int index = source.getMinSelectionIndex();
 			List<Pair<Resource, Integer>> model = ((ReadOnlyTableModel<Pair<Resource, Integer>>)resourcesTable.getModel()).getModel();
-			resourceSelection = (Pair<Resource, Integer>) model.get(index);
+			resourceSelection = model.get(index);
 			removeResourceButton.setEnabled(true);
 		}
 	}

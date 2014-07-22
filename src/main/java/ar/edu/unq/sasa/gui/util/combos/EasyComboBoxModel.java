@@ -12,8 +12,9 @@ import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 /**
  * Model para {@link JComboBox} que facilita su uso.
  */
-public class EasyComboBoxModel<T> extends AbstractListModel implements
-		ComboBoxModel {
+public class EasyComboBoxModel<T> extends AbstractListModel<T> implements ComboBoxModel<T> {
+
+	private static final long serialVersionUID = -7637136543588118644L;
 
 	protected List<T> model;
 	protected T selection;

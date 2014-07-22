@@ -6,6 +6,8 @@ package ar.edu.unq.sasa.model.exceptions.time;
  */
 public class PeriodException extends Exception {
 
+	private static final long serialVersionUID = 1331312009696466523L;
+
 	public PeriodException(String message) {
 		super(message);
 	}

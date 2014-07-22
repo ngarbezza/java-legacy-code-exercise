@@ -11,7 +11,9 @@ import javax.swing.SwingUtilities;
 import ar.edu.unq.sasa.model.time.Period;
 
 public class PeriodDetailWindow extends JFrame {
-	
+
+	private static final long serialVersionUID = 265531544901039040L;
+
 	public PeriodDetailWindow(final Period p) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -23,7 +25,7 @@ public class PeriodDetailWindow extends JFrame {
 				area.setEditable(false);
 				area.setText(p.toString());
 				add(new JScrollPane(area));
-				
+
 				setTitle("Detalles de Período");
 				setSize(430, 200);
 				setLocationRelativeTo(null);

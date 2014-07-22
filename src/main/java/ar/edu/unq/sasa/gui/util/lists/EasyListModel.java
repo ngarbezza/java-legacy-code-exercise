@@ -9,7 +9,9 @@ import javax.swing.JList;
 /**
  * Modelo sencillo de lista para usar con las {@link JList}.
  */
-public class EasyListModel<T> extends AbstractListModel {
+public class EasyListModel<T> extends AbstractListModel<T> {
+
+	private static final long serialVersionUID = 4881231145326705206L;
 
 	private List<T> model;
 	

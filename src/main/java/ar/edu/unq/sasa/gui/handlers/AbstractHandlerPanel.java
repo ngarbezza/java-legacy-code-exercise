@@ -23,10 +23,12 @@ import ar.edu.unq.sasa.util.Subscriber;
  * handlers.
  */
 public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscriber {
-	
+
+	private static final long serialVersionUID = 411643177304647624L;
+
 	// el elemento seleccionado de la tabla.
-	protected T selection = null;
-	
+	protected T selection;
+
 	protected JTable table;
 	protected JButton addButton, deleteButton, modifyButton;
 	protected JScrollPane scrollPane;
@@ -34,7 +36,7 @@ public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscrib
 	// el componente que se usará para buscar. Es Component porque algunas
 	// clases usan InputField, y otras ComboBox
 	protected Component searchField;
-	
+
 	public AbstractHandlerPanel() {
 		registerAsSubscriber();
 		createSearchComponents();
@@ -55,17 +57,17 @@ public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscrib
 		searchLabel = new JLabel(getSearchLabelText());
 		searchField = makeSearchField();
 	}
-	
+
 	protected void createTable() {
 		ReadOnlyTableModel<T> tableModel = new ReadOnlyTableModel<T>(getListModel());
 		addColumns(tableModel);
 		table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				whenTableSelectionChanged(e);		
+				whenTableSelectionChanged(e);
 			}
 		});
 		scrollPane = new JScrollPane(table);
@@ -98,7 +100,7 @@ public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscrib
 		bottomPanel.add(modifyButton);
 		bottomPanel.add(deleteButton);
 	}
-	
+
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {}
 
 	@SuppressWarnings("unchecked")
@@ -117,18 +119,18 @@ public abstract class AbstractHandlerPanel<T> extends JPanel implements Subscrib
 			modifyButton.setEnabled(true);
 		}
 	}
-		
+
 	// para registrar observers del modelo
 	protected abstract void registerAsSubscriber();
 	// listeners de los botones
 	protected abstract void createModifyButtonListeners();
 	protected abstract void createDeleteButtonListeners();
 	protected abstract void createAddButtonListeners();
-	
+
 	protected abstract String getSearchLabelText();
 	protected abstract Component makeSearchField();
 	protected abstract List<T> getListModel();
-	
+
 	// para especificar qué columnas se deben agregar en cada caso
 	protected abstract void addColumns(ReadOnlyTableModel<T> tableModel);
 }

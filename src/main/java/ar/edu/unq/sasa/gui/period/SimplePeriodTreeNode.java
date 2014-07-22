@@ -15,13 +15,15 @@ import ar.edu.unq.sasa.model.time.repetition.None;
 import ar.edu.unq.sasa.model.time.repetition.Repetition;
 
 public class SimplePeriodTreeNode extends PeriodTreeNode {
-	
+
+	private static final long serialVersionUID = 2148334845503954485L;
+
 	private Calendar startDate = new GregorianCalendar();
 	private Repetition repetition = new None();
 	private Timestamp endHour;
 	private Timestamp startHour;
 	private int minutesInRange;
-	
+
 	public SimplePeriodTreeNode() throws TimestampException {
 		startDate = new GregorianCalendar();
 		repetition = new None();
@@ -29,7 +31,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		startHour = new Timestamp(8, 0);
 		minutesInRange = 240;
 	}
-	
+
 	@Override
 	public boolean getAllowsChildren() {
 		return false;
@@ -39,7 +41,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	public boolean isCompositePeriodNode() {
 		return false;
 	}
-	
+
 	public void setStartDate(Calendar startDate) {
 		this.startDate = startDate;
 	}
@@ -72,6 +74,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		return endHour;
 	}
 
+	@Override
 	public Period makePeriod() throws PeriodException {
 		if (!(getRepetition() instanceof None))
 			if (!CalendarUtils.compareGreater(((EndingRepetition)getRepetition()).getEnd(), getStartDate()))
@@ -79,7 +82,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		return new SimplePeriod(new HourInterval(getStartHour(), getEndHour(),
 				getMinutesInRange()), getStartDate(), getRepetition());
 	}
-	
+
 	@Override
 	public String getDisplayText() {
 		return "Condición Simple";
@@ -101,6 +104,6 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 
 	@Override
 	public void updateChanges(NewPeriodWindow pw) {
-		pw.updateChangesFromSimple(this);		
+		pw.updateChangesFromSimple(this);
 	}
 }

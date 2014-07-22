@@ -45,6 +45,8 @@ import ar.edu.unq.sasa.model.time.repetition.Weekly;
 
 public class NewPeriodWindow extends JFrame {
 
+	private static final long serialVersionUID = 1588966684159956141L;
+
 	// componentes del tipo de condición
 	protected JRadioButton
 		simpleRadioButton, compositeRadioButton, andRadioButton,
@@ -53,7 +55,7 @@ public class NewPeriodWindow extends JFrame {
 	protected JLabel toDateLabel, fromDateLabel;
 	protected UICDateEdit fromDate, toDate;
 	// componentes de la selección de horas
-	protected JComboBox
+	protected JComboBox<Integer>
 		fromHoursCombo, toHoursCombo, toMinutesCombo, fromMinutesCombo;
 	protected JLabel toHourLabel, fromHourLabel;
 	// componentes de las repeticiones
@@ -75,7 +77,7 @@ public class NewPeriodWindow extends JFrame {
 			@Override
 			public void run() {
 				periodHolder = pHolder;
-				
+
 				createPeriodsTree();
 				createChooseConditionWidgets();
 				createDateWidgets();
@@ -84,7 +86,7 @@ public class NewPeriodWindow extends JFrame {
 				createButtons();
 				addAllWidgets();
 				disableWidgets();
-				
+
 				setSize(450, 480);
 				setLocationRelativeTo(null);
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -100,7 +102,7 @@ public class NewPeriodWindow extends JFrame {
 				compositeRadioButton, orRadioButton, andRadioButton,
 				minusRadioButton, repetitionRadioButton, noneRadioButton,
 				dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
-				minutesInRangeLabel, minutesInRange, saveButton);		
+				minutesInRangeLabel, minutesInRange, saveButton);
 	}
 
 	protected void createDateWidgets() {
@@ -113,14 +115,14 @@ public class NewPeriodWindow extends JFrame {
 	protected void createHourWidgets() {
 		fromHourLabel = new JLabel("Inicio");
 		toHourLabel = new JLabel("Fin");
-		fromHoursCombo = new JComboBox();
-		toHoursCombo = new JComboBox();
+		fromHoursCombo = new JComboBox<Integer>();
+		toHoursCombo = new JComboBox<Integer>();
 		for (int i = 0; i < 24; i++) {
 			fromHoursCombo.addItem(i);
 			toHoursCombo.addItem(i);
 		}
-		fromMinutesCombo = new JComboBox();
-		toMinutesCombo = new JComboBox();
+		fromMinutesCombo = new JComboBox<Integer>();
+		toMinutesCombo = new JComboBox<Integer>();
 		fromMinutesCombo.addItem(0);
 		fromMinutesCombo.addItem(30);
 		toMinutesCombo.addItem(0);
@@ -147,7 +149,7 @@ public class NewPeriodWindow extends JFrame {
 	}
 
 	private void createRepetitionListeners() {
-		noneRadioButton.addActionListener(new ActionListener() {	
+		noneRadioButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
@@ -218,6 +220,7 @@ public class NewPeriodWindow extends JFrame {
 		});
 	}
 
+	@SuppressWarnings("serial")
 	protected void createPeriodsTree() {
 		Period period = periodHolder.getPeriod();
 		PeriodTreeNode rootPeriod = null;
@@ -240,7 +243,7 @@ public class NewPeriodWindow extends JFrame {
 		periodsTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				whenSelectedPeriodChanged(e);	
+				whenSelectedPeriodChanged(e);
 			}
 		});
 	}
@@ -266,7 +269,7 @@ public class NewPeriodWindow extends JFrame {
 		else
 			return null;
 	}
-	
+
 	// Asume que el Period está construido con LogicalHourFulfiller simple, o
 	// sea HourInterval, no Or. Esto es por limitación del diseño de la interfaz.
 	protected SimplePeriodTreeNode makeTreeFromPeriod(SimplePeriod period) {
@@ -288,9 +291,9 @@ public class NewPeriodWindow extends JFrame {
 
 	protected void whenSelectedPeriodChanged(TreeSelectionEvent e) {
 		PeriodTreeNode periodNode = (PeriodTreeNode) periodsTree.getLastSelectedPathComponent();
-		if (periodNode == null) {
+		if (periodNode == null)
 			disableWidgets();
-		} else if (periodNode.isCompositePeriodNode()) {
+		else if (periodNode.isCompositePeriodNode()) {
 			WidgetUtilities.enableOrDisableWidgets(false,
 					toDateLabel, toDate, fromDateLabel, fromDate, fromHourLabel,
 					fromHoursCombo, toHourLabel, toHoursCombo, toMinutesCombo,
@@ -325,7 +328,7 @@ public class NewPeriodWindow extends JFrame {
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
 				noneRadioButton.setSelected(true);
 				repetitionRadioButton.setSelected(false);
-				
+
 			} else {
 				noneRadioButton.setSelected(false);
 				repetitionRadioButton.setSelected(true);
@@ -352,7 +355,7 @@ public class NewPeriodWindow extends JFrame {
 			}
 		});
 		acceptButton = new JButton("Aceptar");
-		acceptButton.addActionListener(new ActionListener() {	
+		acceptButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if ((PeriodTreeNode) periodsTree.getLastSelectedPathComponent() != null)
@@ -366,7 +369,7 @@ public class NewPeriodWindow extends JFrame {
 			}
 		});
 		cancelButton = new JButton("Cancelar");
-		cancelButton.addActionListener(new ActionListener() {		
+		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
@@ -397,13 +400,13 @@ public class NewPeriodWindow extends JFrame {
 				JOptionPane.showMessageDialog(this, "Fallo en la creacion del Periodo",
 						"Advertencia", JOptionPane.WARNING_MESSAGE);
 			}
-			if (selectedNode.getParent() == null) {
+			if (selectedNode.getParent() == null)
 				((DefaultTreeModel) periodsTree.getModel()).setRoot(newNode);
-			} else {
+			else {
 				PeriodTreeNode parent = (PeriodTreeNode) selectedNode.getParent();
 				int index = parent.getIndex(selectedNode);
 				parent.remove(selectedNode);
-				parent.insert(newNode, index);				
+				parent.insert(newNode, index);
 			}
 			newNode.updateChanges(this);
 		}

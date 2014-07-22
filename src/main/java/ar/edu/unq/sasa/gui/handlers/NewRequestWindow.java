@@ -49,8 +49,12 @@ import ar.edu.unq.sasa.model.time.Period;
  */
 public class NewRequestWindow extends JFrame implements PeriodHolder {
 
+	private static final long serialVersionUID = 6081968814611526766L;
+
 	private JTable requiredResourcesTable, optionalResourcesTable;
-	private JComboBox resourceCombo, professorCombo, subjectCombo;
+	private JComboBox<Resource> resourceCombo;
+	private JComboBox<Professor> professorCombo;
+	private JComboBox<Subject> subjectCombo;
 	private JSpinner amountSelector, capacitySelector;
 	private JRadioButton optionalRadioButton, requiredRadioButton;
 	private JLabel labelResource, labelAmount, professorLabel,
@@ -58,7 +62,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	private JTextArea periodDetailArea;
 	private JButton addResourceButton, deleteResourceButton,
 		addPeriodButton, createRequestButton, cancelButton;
-	
+
 	private Period specifiedPeriod;
 
 	public NewRequestWindow() {
@@ -67,7 +71,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 			public void run() {
 				createWidgets();
 				addWidgets();
-				
+
 				setSize(600, 570);
 				setLocationRelativeTo(null);
 				setTitle("Crear pedido");
@@ -113,7 +117,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				if (!b)
 					requiredResourcesTable.getSelectionModel().clearSelection();
 			}
-		});	
+		});
 	}
 
 	private JTable createResourcesTable() {
@@ -124,23 +128,24 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		newTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		return newTable;
 	}
-	
+
+	@SuppressWarnings({ "unchecked", "serial" })
 	private void createAddResourceWidgets() {
 		labelResource = new JLabel("Recurso");
 		labelAmount = new JLabel("Cantidad");
 		EasyComboBoxModel<Resource> comboModel = new EasyComboBoxModel<Resource>(
 				ResourcesHandler.getInstance().getAllResources());
-		resourceCombo = new JComboBox(comboModel);
+		resourceCombo = new JComboBox<Resource>(comboModel);
 		resourceCombo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addResourceButton.setEnabled(resourceCombo.getSelectedItem() != null);
 			}
 		});
-		resourceCombo.setRenderer(new EasyComboBoxRenderer() {
+		resourceCombo.setRenderer(new EasyComboBoxRenderer<Resource>() {
 			@Override
-			protected String getDisplayName(Object obj) {
-				return ((Resource) obj).getName();
+			protected String getDisplayName(Resource resource) {
+				return resource.getName();
 			}
 		});
 		amountSelector = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
@@ -154,7 +159,6 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		addResourceButton.setEnabled(false);
 		addResourceButton.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				ResourceView newRes = new ResourceView(
 						(Resource)resourceCombo.getSelectedItem(),
@@ -173,7 +177,6 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		deleteResourceButton = new JButton("Eliminar recurso seleccionado");
 		deleteResourceButton.setEnabled(false);
 		deleteResourceButton.addActionListener(new ActionListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
@@ -190,10 +193,10 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 			}
 		});
 	}
-	
+
 	protected void addResource(List<ResourceView> model, List<ResourceView> other, ResourceView newRes) {
 		if (!containsResource(other, newRes))
-			if (containsResource(model, newRes)) {			
+			if (containsResource(model, newRes)) {
 				for (ResourceView rv : model)
 					if (rv.getResource().equals(newRes.getResource()))
 						rv.setAmount(rv.getAmount() + (Integer) amountSelector.getValue());
@@ -218,29 +221,29 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		return ((ReadOnlyTableModel<ResourceView>) table.getModel()).getModel();
 	}
 
+	@SuppressWarnings({ "serial", "unchecked" })
 	private void createSubjectAndProfessorWidgets() {
 		subjectLabel = new JLabel("Materia");
 		professorLabel = new JLabel("Profesor");
 		EasyComboBoxModel<Subject> subjectsModel = new EasyComboBoxModel<Subject>();
-		subjectCombo = new JComboBox(subjectsModel);
-		subjectCombo.setRenderer(new EasyComboBoxRenderer() {
+		subjectCombo = new JComboBox<Subject>(subjectsModel);
+		subjectCombo.setRenderer(new EasyComboBoxRenderer<Subject>() {
 			@Override
-			protected String getDisplayName(Object obj) {
-				return ((Subject) obj).getName();
+			protected String getDisplayName(Subject subject) {
+				return subject.getName();
 			}
 		});
 		EasyComboBoxModel<Professor> professorsModel = new EasyComboBoxModel<Professor>(
 				ProfessorHandler.getInstance().getProfessors());
-		professorCombo = new JComboBox(professorsModel);
-		professorCombo.setRenderer(new EasyComboBoxRenderer() {
+		professorCombo = new JComboBox<Professor>(professorsModel);
+		professorCombo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			@Override
-			protected String getDisplayName(Object obj) {
-				return ((Professor) obj).getName();
+			protected String getDisplayName(Professor professor) {
+				return professor.getName();
 			}
 		});
 		professorCombo.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				List<Subject> modelToSet = new LinkedList<Subject>();
 				if (getSelectedProfessor() != null)
@@ -250,7 +253,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 			}
 		});
 	}
-	
+
 	private void createCapacityWidgets() {
 		capacityLabel = new JLabel("Capacidad deseada");
 		capacitySelector = new JSpinner(new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1));
@@ -263,7 +266,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		addPeriodButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new NewPeriodWindow(NewRequestWindow.this);	
+				new NewPeriodWindow(NewRequestWindow.this);
 			}
 		});
 	}
@@ -320,7 +323,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		JOptionPane.showMessageDialog(this, msg,
 			"Advertencia", JOptionPane.WARNING_MESSAGE);
 	}
-	
+
 	protected Subject getSelectedSubject() {
 		return (Subject) subjectCombo.getSelectedItem();
 	}
@@ -328,7 +331,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	protected Professor getSelectedProfessor() {
 		return (Professor) professorCombo.getSelectedItem();
 	}
-	
+
 	protected Map<Resource, Integer> makeResourcesFrom(JTable table) {
 		Map<Resource, Integer> result = new HashMap<Resource, Integer>();
 		List<ResourceView> resources = getListModelFrom(table);

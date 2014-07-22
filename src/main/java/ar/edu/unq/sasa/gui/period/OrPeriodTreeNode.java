@@ -8,6 +8,8 @@ import ar.edu.unq.sasa.model.time.Period;
 
 public class OrPeriodTreeNode extends CompositePeriodTreeNode {
 
+	private static final long serialVersionUID = -7739530302365327327L;
+
 	public OrPeriodTreeNode(PeriodTreeNode leftTree, PeriodTreeNode rightTree) {
 		super(leftTree, rightTree);
 	}
@@ -18,12 +20,12 @@ public class OrPeriodTreeNode extends CompositePeriodTreeNode {
 	}
 
 	@Override
-	public void selectOrDeselect(JRadioButton or, JRadioButton and, JRadioButton minus) {		
+	public void selectOrDeselect(JRadioButton or, JRadioButton and, JRadioButton minus) {
 		or.setSelected(true);
 		and.setSelected(false);
 		minus.setSelected(false);
 	}
-	
+
 	@Override
 	public Period makePeriod() throws PeriodException {
 		return new Or(((PeriodTreeNode) getChildAt(0)).makePeriod(),

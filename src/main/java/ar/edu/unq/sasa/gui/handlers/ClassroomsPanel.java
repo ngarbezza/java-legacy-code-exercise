@@ -23,17 +23,19 @@ import ar.edu.unq.sasa.model.items.Classroom;
  */
 public class ClassroomsPanel extends AbstractHandlerPanel<Classroom> {
 
+	private static final long serialVersionUID = -3693454191114811772L;
+
 	protected JButton assignmentsDetailButton;
 
 	public ClassroomHandler getHandler() {
 		return ClassroomHandler.getInstance();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Aulas";
 	}
-	
+
 	@Override
 	protected void addColumns(ReadOnlyTableModel<Classroom> tableModel) {
 		tableModel.addColumn("Nombre", "name");
@@ -47,7 +49,7 @@ public class ClassroomsPanel extends AbstractHandlerPanel<Classroom> {
 			public void actionPerformed(ActionEvent e) {
 				new EditClassroomWindow();
 			}
-		});	
+		});
 	}
 
 	@Override
@@ -70,7 +72,7 @@ public class ClassroomsPanel extends AbstractHandlerPanel<Classroom> {
 			public void actionPerformed(ActionEvent e) {
 				new EditClassroomWindow(selection);
 			}
-		});	
+		});
 	}
 
 	@Override
@@ -103,7 +105,7 @@ public class ClassroomsPanel extends AbstractHandlerPanel<Classroom> {
 		super.whenTableSelectionChanged(e);
 		assignmentsDetailButton.setEnabled(selection != null);
 	}
-	
+
 	@Override
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {
 		assignmentsDetailButton = new JButton("Ver asignaciones");
@@ -116,7 +118,7 @@ public class ClassroomsPanel extends AbstractHandlerPanel<Classroom> {
 		});
 		bottomPanel.add(assignmentsDetailButton);
 	}
-	
+
 	@Override
 	protected void registerAsSubscriber() {
 		getHandler().getPublisher().addSubscriber("classroomsChanged", this);

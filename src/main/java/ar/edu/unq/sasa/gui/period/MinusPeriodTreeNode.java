@@ -8,6 +8,8 @@ import ar.edu.unq.sasa.model.time.Period;
 
 public class MinusPeriodTreeNode extends CompositePeriodTreeNode {
 
+	private static final long serialVersionUID = 3131410217663034999L;
+
 	public MinusPeriodTreeNode(PeriodTreeNode leftTree, PeriodTreeNode rightTree) {
 		super(leftTree, rightTree);
 	}
@@ -17,14 +19,14 @@ public class MinusPeriodTreeNode extends CompositePeriodTreeNode {
 		return new Minus(((PeriodTreeNode) getChildAt(0)).makePeriod(),
 				((PeriodTreeNode) getChildAt(1)).makePeriod());
 	}
-	
+
 	@Override
-	public void selectOrDeselect(JRadioButton or, JRadioButton and, JRadioButton minus) {		
+	public void selectOrDeselect(JRadioButton or, JRadioButton and, JRadioButton minus) {
 		or.setSelected(false);
 		and.setSelected(false);
 		minus.setSelected(true);
 	}
-	
+
 	@Override
 	public String getDisplayText() {
 		return "Condición lógica Menos";

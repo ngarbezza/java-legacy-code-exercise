@@ -7,7 +7,9 @@ import ar.edu.unq.sasa.model.items.Resource;
  * de los {@link Resource}.
  */
 public class ResourceException extends Exception{
-	
+
+	private static final long serialVersionUID = -6980449779045511669L;
+
 	public ResourceException(String message){
 		super(message);
 	}

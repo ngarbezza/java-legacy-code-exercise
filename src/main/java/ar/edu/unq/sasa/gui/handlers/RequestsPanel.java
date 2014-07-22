@@ -28,17 +28,19 @@ import ar.edu.unq.sasa.model.handlers.RequestsHandler;
  */
 public class RequestsPanel extends AbstractHandlerPanel<Request> {
 
+	private static final long serialVersionUID = -6791066586292230725L;
+
 	protected JButton requestDetail;
 
 	public RequestsHandler getHandler() {
 		return RequestsHandler.getInstance();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Pedidos";
 	}
-	
+
 	@Override
 	protected void addColumns(ReadOnlyTableModel<Request> tableModel) {
 		tableModel.addColumn("Profesor", "professor", new ObjectToStringConverter() {
@@ -104,21 +106,21 @@ public class RequestsPanel extends AbstractHandlerPanel<Request> {
 		return "Búsqueda rápida por profesor";
 	}
 
+	@SuppressWarnings({ "serial", "unchecked" })
 	@Override
 	protected Component makeSearchField() {
 		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(
 				getHandler().getInformationManager().getProfessors());
-		final JComboBox combo = new JComboBox(comboModel);
-		combo.setRenderer(new EasyComboBoxRenderer() {
+		final JComboBox<Professor> combo = new JComboBox<Professor>(comboModel);
+		combo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			@Override
-			public String getDisplayName(Object obj) {
-				return ((Professor)obj).getName();
+			public String getDisplayName(Professor professor) {
+				return professor.getName();
 			}
 		});
 		combo.setPreferredSize(new Dimension(120, 20));
 		combo.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				List<Request> search = getHandler().searchByProfessor((Professor) combo.getSelectedItem());
 				((ReadOnlyTableModel<Request>) table.getModel()).setModel(search);
@@ -134,18 +136,18 @@ public class RequestsPanel extends AbstractHandlerPanel<Request> {
 		requestDetail.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new RequestViewWindow((ClassroomRequest) selection);			
+				new RequestViewWindow((ClassroomRequest) selection);
 			}
 		});
 		bottomPanel.add(requestDetail);
 	}
-	
+
 	@Override
 	protected void whenTableSelectionChanged(ListSelectionEvent e) {
 		super.whenTableSelectionChanged(e);
 		requestDetail.setEnabled(selection != null);
 	}
-	
+
 	@Override
 	protected void registerAsSubscriber() {
 		getHandler().getPublisher().addSubscriber("requestsChanged", this);

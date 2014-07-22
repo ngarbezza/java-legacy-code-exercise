@@ -42,12 +42,15 @@ import ar.edu.unq.sasa.model.time.Period;
  * Ventana para crear Reservas ({@link BookedAssignment})
  */
 public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder {
+
+	private static final long serialVersionUID = -2647344481569383686L;
+
 	private Asignator handler = Asignator.getInstance();
-	
+
 	private Classroom classroomSelected;
 	private Period period;
 	private String cause;
-	
+
 	private JLabel searchTextLabel;
 	private JTextField searchTextField;
 	private JScrollPane classroomsTableScrollPane;
@@ -61,7 +64,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 	private JTextArea periodDetailTextArea;
 	private JButton acceptButton;
 	private JButton cancelButton;
-	
+
 	public CreateBookedAssignmentWindow() {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -69,7 +72,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 				createClassroomsTable();
 				createOtherComponents();
 				organizeComponents();
-				
+
 				setResizable(true);
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				setTitle("Creación de una Reserva");
@@ -79,38 +82,35 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 			}
 		});
 	}
-	
+
 	@Override
 	public Period getPeriod() {
 		return period;
 	}
-	
+
 	@Override
 	public void setPeriod(Period newPeriod) {
 		period = newPeriod;
-		if (cause == null || classroomSelected == null){
+		if (cause == null || classroomSelected == null)
 			acceptButton.setEnabled(false);
-		}
-		else if (cause.equals("")) {
+		else if (cause.equals(""))
 			acceptButton.setEnabled(false);
-		}
-		else {
+		else
 			acceptButton.setEnabled(true);
-		}
 		periodDetailTextArea.setText(period.toString());
 	}
 
 	public Asignator getHandler(){
 		return handler;
 	}
-	
+
 	private void createClassroomsTable() {
 		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(ClassroomHandler.getInstance().searchClassroomByName(""));
 		addClassroomsColumns(tableModel);
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		classroomsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				CreateBookedAssignmentWindow.this.whenClassroomsTableSelectionChanged(e);
@@ -126,7 +126,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 
 	@SuppressWarnings("unchecked")
 	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource(); 
+		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelected = null;
 			acceptButton.setEnabled(false);
@@ -135,12 +135,10 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 			int index = source.getMinSelectionIndex();
 			List<Classroom> model = ((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).getModel();
 			classroomSelected = model.get(index);
-			if (period == null || cause.equals("") || cause == null){
+			if (period == null || cause.equals("") || cause == null)
 				acceptButton.setEnabled(false);
-			}
-			else {
+			else
 				acceptButton.setEnabled(true);
-			}
 		}
 	}
 
@@ -165,7 +163,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		periodDetailScrollPane = new JScrollPane(periodDetailTextArea);
 		periodDetailScrollPane.setPreferredSize(new Dimension(455, 50));
 	}
-	
+
 
 	private void createNewPeriodButtonListeners() {
 		newPeriodButton.addActionListener(new ActionListener() {
@@ -194,12 +192,10 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 			@Override
 			public void keyReleased(KeyEvent e) {
 				cause = ((JTextField)e.getSource()).getText();
-				if (cause.equals("") || period == null || classroomSelected == null){
+				if (cause.equals("") || period == null || classroomSelected == null)
 					acceptButton.setEnabled(false);
-				}
-				else {
+				else
 					acceptButton.setEnabled(true);
-				}
 			}
 		});
 		return field;
@@ -222,9 +218,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la creacion de la Reserva?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la creacion de la Reserva?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					dispose();
-				}
 			}
 		});
 	}
@@ -233,12 +228,12 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		JPanel mainPanel = new JPanel();
 		getContentPane().add(mainPanel);
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel topMain = new JPanel();
 		topMain.setLayout(new HorizontalLayout());
 		JPanel bottomMain = new JPanel();
 		bottomMain.setLayout(new FlowLayout());
-		
+
 		JPanel leftTopPanel = new JPanel();
 		leftTopPanel.setLayout(new VerticalLayout());
 		leftTopPanel.setBorder(BorderFactory.createTitledBorder("Seleccione un Aula"));
@@ -256,36 +251,36 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		periodSelectionPanel.setLayout(new FlowLayout());
 		JPanel causeSelectionPanel = new JPanel();
 		causeSelectionPanel.setLayout(new BoxLayout(causeSelectionPanel, BoxLayout.X_AXIS));
-		
+
 		periodSelectionPanel.add(obligatoryPeriodLabel);
 		periodSelectionPanel.add(newPeriodButton);
-		
+
 		causeSelectionPanel.add(obligatoryCauseLabel);
 		causeSelectionPanel.add(causeLabel);
 		causeSelectionPanel.add(causeTextField);
-		
+
 		JPanel classroomsSearchPanel = new JPanel();
 		classroomsSearchPanel.setLayout(new FlowLayout());
-		
+
 		classroomsSearchPanel.add(searchTextLabel);
 		classroomsSearchPanel.add(searchTextField);
-		
+
 		JPanel periodDetailPanel = new JPanel();
 		periodDetailPanel.setLayout(new FlowLayout());
 		periodDetailPanel.setBorder(BorderFactory.createTitledBorder("Detalle del Periodo elegido"));
 		periodDetailPanel.add(periodDetailScrollPane);
-		
+
 		mainPanel.add(topMain);
 		mainPanel.add(periodDetailPanel);
 		mainPanel.add(bottomMain);
-		
+
 		topMain.add(leftTopPanel);
 		topMain.add(rightTopPanel);
 		bottomMain.add(acceptAndCancelPanel);
-		
+
 		leftTopPanel.add(classroomsSearchPanel);
 		leftTopPanel.add(classroomsTableScrollPane);
-		
+
 		rightTopPanel.add(new JPanel().add(new JLabel(" ")));
 		rightTopPanel.add(new JPanel().add(new JLabel(" ")));
 		rightTopPanel.add(periodSelectionPanel);
@@ -293,5 +288,5 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		rightTopPanel.add(new JPanel().add(new JLabel(" ")));
 		rightTopPanel.add(causeSelectionPanel);
 	}
-	
+
 }

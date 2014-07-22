@@ -46,16 +46,15 @@ public class TestClassroomRequest {
 	public void test_elementsDoesNotRepeat(){
 		Set<Resource> optResources = this.classroomRequest.getOptionalResources().keySet();
 		Set<Resource> reqResources = this.classroomRequest.getRequiredResources().keySet();
-		
+
 		assertTrue(this.classroomRequest.getOptionalResources().size()==optResources.size());
 		assertTrue(this.classroomRequest.getRequiredResources().size()==reqResources.size());
-		
+
 		for(Resource it1: optResources){
 			int repQt = 0;
-			for(Resource it2: optResources){
+			for(Resource it2: optResources)
 				if(it1.equals(it2))
-				{repQt++;}
-			}
+					repQt++;
 			assertTrue("Elements have repetitions",repQt<=1); //Because the element checked with itself counts
 		}
 	}
@@ -64,12 +63,11 @@ public class TestClassroomRequest {
 	public void test_professorCanTeachTheSubjectInRequest(){
 		Subject subjectRequest = this.classroomRequest.getSubject();
 		boolean founded = false;
-		
-		for(Subject it : this.classroomRequest.getProfessor().getSubjects()){
+
+		for(Subject it : this.classroomRequest.getProfessor().getSubjects())
 			if(it.equals(subjectRequest))
-				{founded = true;}
-		}
-		
+				founded = true;
+
 		assertTrue("The professor cannot teach the subject in request",founded);
 	}
 

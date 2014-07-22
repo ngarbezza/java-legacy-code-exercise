@@ -3,61 +3,57 @@ package ar.edu.unq.sasa.model.assignments;
 import java.util.Map;
 
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
-import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
 /**
- * Es la manera de comprobar la satisfacción que hubo al asignar un 
+ * Es la manera de comprobar la satisfacción que hubo al asignar un
  * {@link ClassroomRequest}.
  */
 public class Satisfaction {
-	
+
 	private Map<Resource, Integer> resources;
-	
+
 	private Map<Period, Float> timeDifference;
-	
+
 	private int capacityDifference;
-	
+
 	public Satisfaction(Map<Resource, Integer> resourcesMap, Map<Period, Float> aTimeDifference, int aCapacityDifference) {
 		resources = resourcesMap;
 		timeDifference = aTimeDifference;
 		capacityDifference = aCapacityDifference;
 	}
-	
+
 	public Map<Resource, Integer> getResources() {
 		return resources;
 	}
-	
+
 	public Map<Period, Float> getTimeDifference(){
 		return timeDifference;
 	}
-	
+
 	public int getCapacityDifference(){
 		return capacityDifference;
 	}
-	
+
 	public boolean isSatisfied(){
 		boolean isSatisfied = true;
-		
-		if (! resources.isEmpty()){
+
+		if (! resources.isEmpty())
 			isSatisfied = false;
-		}
-		
-		if (capacityDifference < 0){
+
+		if (capacityDifference < 0)
 			isSatisfied = false;
-		}
-		
-		if (! timeDifference.isEmpty()){
+
+		if (! timeDifference.isEmpty())
 			isSatisfied = false;
-		}
-		
+
 		return isSatisfied;
 	}
-	
+
 	public void addPeriodSuperposition(Period period, float minutesShared) {
 		timeDifference.put(period, minutesShared);
-	}	
+	}
 
 	@Override
 	public int hashCode() {

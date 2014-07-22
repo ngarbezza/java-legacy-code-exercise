@@ -10,13 +10,16 @@ import javax.swing.JPanel;
  * Panel para la ventana principal de la aplicación.
  */
 public class MainPanel extends JPanel {
+
+	private static final long serialVersionUID = -6536603456827458242L;
+
 	private JLabel sasaLabel;
 
 	public MainPanel() {
 		createWidgets();
 		addWidgets();
 	}
-	
+
 	private void addWidgets() {
 		JPanel sasaPanel = new JPanel();
 		add(sasaPanel);

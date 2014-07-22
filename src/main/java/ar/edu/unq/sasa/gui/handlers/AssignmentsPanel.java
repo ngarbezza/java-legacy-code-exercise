@@ -42,7 +42,8 @@ import ar.edu.unq.sasa.util.Subscriber;
  * Crea un panel para manejar asignaciones de pedidos.
  */
 public class AssignmentsPanel extends JPanel implements Subscriber {
-	
+
+	private static final long serialVersionUID = -39425443658019906L;
 	protected Asignator handler = Asignator.getInstance();
 	protected ClassroomRequest requestSelection = null;
 	protected ClassroomAssignment assignmentSelection = null;
@@ -56,8 +57,8 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	protected JButton asignateButton;
 	protected JButton viewDetailsButton;
 	protected JLabel searchLabel;
-	protected JComboBox professorsComboBox;
-	
+	protected JComboBox<Professor> professorsComboBox;
+
 	public AssignmentsPanel(){
 		registerAsSubscriber();
 		createSearchComponents();
@@ -66,78 +67,74 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		createButtons();
 		organizeComponents();
 	}
-	
+
 	public Handler getHandler(){
 		return handler;
 	}
-	
+
 	protected int getWindowWidth() {
 		return 500;
 	}
-	
+
 	protected int getWindowHeight() {
 		return 500;
 	}
-	
+
 	protected String getWindowTitle() {
 		return "ABM Asignaciones";
 	}
-	
+
+	@Override
 	public String getName() {
 		return "Asignaciones";
 	}
-	
+
 	public ClassroomRequest getRequestSelection(){
 		return requestSelection;
 	}
 
 	private List<ClassroomRequest> getRequests() {
 		List<ClassroomRequest> requests = new ArrayList<ClassroomRequest>();
-		for (Request request : getHandler().getInformationManager().getRequests()){
-			if (request.isClassroomRequest()){
-				if (! request.isAsignated()){
-					if (professorsComboBox.getModel().getSelectedItem() == null){
+		for (Request request : getHandler().getInformationManager().getRequests())
+			if (request.isClassroomRequest())
+				if (! request.isAsignated())
+					if (professorsComboBox.getModel().getSelectedItem() == null)
 						requests.add((ClassroomRequest)request);
-					}
-					else if (professorsComboBox.getModel().getSelectedItem().equals(request.getProfessor())) {
+					else if (professorsComboBox.getModel().getSelectedItem().equals(request.getProfessor()))
 						requests.add((ClassroomRequest)request);
-					}
-				}
-			}
-		}
 		return requests;
 	}
-	
+
 	protected List<ClassroomAssignment> getAssignments() {
 		List<ClassroomAssignment> assignments = new ArrayList<ClassroomAssignment>();
-		for (Assignment assignment : getHandler().getInformationManager().getAssignments()){
-			if (assignment.isClassroomAssignment()){
+		for (Assignment assignment : getHandler().getInformationManager().getAssignments())
+			if (assignment.isClassroomAssignment())
 				if (professorsComboBox.getModel().getSelectedItem() == null ||
-						professorsComboBox.getModel().getSelectedItem().equals(assignment.getRequest().getProfessor())){
+						professorsComboBox.getModel().getSelectedItem().equals(assignment.getRequest().getProfessor()))
 					assignments.add((ClassroomAssignment)assignment);
-				}
-			}
-		}
 		return assignments;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	private void createSearchComponents() {
 		searchLabel = new JLabel("Busqueda por Profesor");
-		professorsComboBox = (JComboBox) makeProfessorsComboBox();
+		professorsComboBox = (JComboBox<Professor>) makeProfessorsComboBox();
 	}
 
+	@SuppressWarnings({ "unchecked", "serial" })
 	private Component makeProfessorsComboBox() {
 		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(
 				handler.getInformationManager().getProfessors());
-		JComboBox combo = new JComboBox(comboModel);
-		combo.setRenderer(new EasyComboBoxRenderer() {
+		JComboBox<Professor> combo = new JComboBox<Professor>(comboModel);
+		combo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			@Override
-			public String getDisplayName(Object obj) {
-				return ((Professor)obj).getName();
+			public String getDisplayName(Professor professor) {
+				return professor.getName();
 			}
 		});
 		combo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
+		    @Override
+			public void actionPerformed(ActionEvent e) {
 		    	updateTables();
 		    }
 		});
@@ -197,7 +194,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 					updateTables();
 				}
 			}
-		});		
+		});
 	}
 
 	private void createAssignmentsTable() {
@@ -206,7 +203,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		assignmentsTable = new JTable(tableModel);
 		assignmentsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		assignmentsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				AssignmentsPanel.this.whenAssignmentsTableSelectionChanged(e);
@@ -217,7 +214,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	@SuppressWarnings("unchecked")
 	private void whenAssignmentsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource(); 
+		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
 		if (source.isSelectionEmpty()) {
 			assignmentSelection = null;
 			viewDetailsButton.setEnabled(false);
@@ -261,7 +258,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		requestsTable = new JTable(tableModel);
 		requestsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		requestsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				AssignmentsPanel.this.whenRequestsTableSelectionChanged(e);
@@ -272,7 +269,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	@SuppressWarnings("unchecked")
 	protected void whenRequestsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource(); 
+		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
 		if (source.isSelectionEmpty()) {
 			requestSelection = null;
 			asignateButton.setEnabled(false);
@@ -307,51 +304,51 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	private void organizeComponents() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		leftPanel.setBorder(BorderFactory.createTitledBorder("Pedidos sin Asignar"));
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		rightPanel.setBorder(BorderFactory.createTitledBorder("Pedidos Asignados"));
-		
+
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-		
+
 		JPanel comboBoxPanel = new JPanel();
 		comboBoxPanel.setLayout(new FlowLayout());
 		comboBoxPanel.add(searchLabel);
 		comboBoxPanel.add(professorsComboBox);
-		
+
 		add(comboBoxPanel);
 		add(bottomPanel);
-		
+
 		bottomPanel.add(leftPanel);
 		bottomPanel.add(rightPanel);
-		
+
 		JPanel viewDetailsButtonPanel = new JPanel();
 		viewDetailsButtonPanel.setLayout(new FlowLayout());
 		viewDetailsButtonPanel.add(viewDetailsButton);
-		
+
 		JPanel asignateButtonPanel = new JPanel();
 		asignateButtonPanel.setLayout(new FlowLayout());
 		asignateButtonPanel.add(asignateButton);
-		
+
 		JPanel modifyButtonPanel = new JPanel();
 		modifyButtonPanel.setLayout(new FlowLayout());
 		modifyButtonPanel.add(modifyButton);
-		
+
 		JPanel deleteButtonPanel = new JPanel();
 		deleteButtonPanel.setLayout(new FlowLayout());
 		deleteButtonPanel.add(deleteButton);
-		
+
 		leftPanel.add(requestsScrollPane);
 		leftPanel.add(asignateButtonPanel);
-		
+
 		rightPanel.add(assignmentsScrollPane);
 		rightPanel.add(viewDetailsButtonPanel);
 		rightPanel.add(modifyButtonPanel);
-		rightPanel.add(deleteButtonPanel);		
+		rightPanel.add(deleteButtonPanel);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -361,9 +358,10 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		((ReadOnlyTableModel<ClassroomRequest>)requestsTable.getModel())
 			.setModel(getRequests());
 	}
-	
+
+	@Override
 	public void update(String aspect, Object value) {
 		updateTables();
 	}
-	
+
 }

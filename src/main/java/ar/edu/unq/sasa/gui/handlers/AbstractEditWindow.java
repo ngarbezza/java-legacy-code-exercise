@@ -16,13 +16,15 @@ import javax.swing.SwingUtilities;
  */
 public abstract class AbstractEditWindow<A> extends JFrame {
 
+	private static final long serialVersionUID = 5331002534357983701L;
+
 	protected A item;
 	protected JButton acceptButton, cancelButton;
-	
+
 	public AbstractEditWindow() {
 		this(null);
 	}
-	
+
 	public AbstractEditWindow(final A anItem) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -39,7 +41,7 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 				setSize(getWindowWidth(), getWindowHeight());
 				setAnotherConfigurations();
 				setLocationRelativeTo(null);
-				setVisible(true);			
+				setVisible(true);
 			}
 		});
 	}
@@ -62,7 +64,7 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 	protected boolean mustBeResizable() {
 		return true;
 	}
-	
+
 	protected boolean inEditMode() {
 		return item != null;
 	}
@@ -83,11 +85,11 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();				
+				dispose();
 			}
 		});
 	}
-	
+
 	protected void doValidations() {}
 	// configuraciones especiales de algunos widgets
 	protected void setAnotherConfigurations() {}
@@ -95,10 +97,10 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 	protected abstract String getWindowTitle();
 	protected abstract int getWindowWidth();
 	protected abstract int getWindowHeight();
-	
+
 	// widgets particulares a cada ventana de edición
 	protected abstract void createWidgetsTopPanel();
-	
+
 	protected abstract void organizeTopPanelWidgets(JPanel topPanel);
 
 	// qué hacer cuando se apreta el botón de "Aceptar"

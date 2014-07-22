@@ -21,42 +21,44 @@ import ar.edu.unq.sasa.model.handlers.Asignator;
  * Ventana para editar una Reserva ({@link BookedAssignment})
  */
 public class EditBookedAssignmentWindow extends JFrame{
+
+	private static final long serialVersionUID = 2343559759639534499L;
 	private Asignator handler = Asignator.getInstance();
 	private BookedAssignment bookedAssignmentSelection;
-	
-	private String newCause; 
-	
+
+	private String newCause;
+
 	private JLabel newCauseLabel;
 	private JTextField newCauseTextField;
-	private JButton acceptButton; 
+	private JButton acceptButton;
 	private JButton cancelButton;
 
 	public EditBookedAssignmentWindow(BookedAssignment selection) {
 		bookedAssignmentSelection = selection;
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				createComponents();
 				organizeComponents();
-				
+
 				setResizable(false);
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				setTitle("Edicion de una Reserva");
 				setSize(300, 120);
 				setLocationRelativeTo(null);
-				setVisible(true);			
+				setVisible(true);
 			}
 		});
 	}
-	
+
 	public Asignator getHandler(){
 		return handler;
 	}
-	
+
 	private void createComponents() {
 		newCauseLabel = new JLabel("Nueva Causa");
-		
+
 		newCauseTextField = new JTextField(20);
 		newCauseTextField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -65,20 +67,18 @@ public class EditBookedAssignmentWindow extends JFrame{
 				if (! cause.equals("")){
 					newCause = cause;
 					acceptButton.setEnabled(true);
-				}
-				else {					
+				} else
 					acceptButton.setEnabled(false);
-				}
 			}
 		});
-		
+
 		acceptButton = new JButton("Aceptar");
 		acceptButton.setEnabled(false);
 		createAcceptButtonListener();
 		cancelButton = new JButton("Cancelar");
 		createCancelButtonListener();
 	}
-	
+
 	private void createAcceptButtonListener() {
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
@@ -88,12 +88,12 @@ public class EditBookedAssignmentWindow extends JFrame{
 			}
 		});
 	}
-	
+
 	private void createCancelButtonListener() {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();				
+				dispose();
 			}
 		});
 	}
@@ -102,20 +102,20 @@ public class EditBookedAssignmentWindow extends JFrame{
 		JPanel mainPanel = new JPanel();
 		getContentPane().add(mainPanel);
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new FlowLayout());
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
-		
+
 		mainPanel.add(topPanel);
 		mainPanel.add(bottomPanel);
 		topPanel.add(newCauseLabel);
 		topPanel.add(newCauseTextField);
-		
+
 		bottomPanel.add(acceptButton);
 		bottomPanel.add(cancelButton);
 	}
-	
-	
+
+
 }

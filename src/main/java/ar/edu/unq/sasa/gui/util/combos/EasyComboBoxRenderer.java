@@ -10,13 +10,18 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
  * Renderer para ComboBox que da la posibilidad de especificar la forma en que
  * un Object se va a mostrar (por defecto usando toString()).
  */
-public class EasyComboBoxRenderer extends BasicComboBoxRenderer {
+public class EasyComboBoxRenderer<T> extends BasicComboBoxRenderer {
+
+	private static final long serialVersionUID = 5535038578103596283L;
+
+	@Override
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Component getListCellRendererComponent(JList list, Object value,
 			int index, boolean isSelected, boolean cellHasFocus) {
 
 		// redefinido de vuelta casi todo, porque está mal programado
 		// (no diseñado para redefinir) en BasicComboBoxRenderer
-		
+
 		if (isSelected) {
 			setBackground(list.getSelectionBackground());
 			setForeground(list.getSelectionForeground());
@@ -30,11 +35,11 @@ public class EasyComboBoxRenderer extends BasicComboBoxRenderer {
 		if (value instanceof Icon)
 			setIcon((Icon) value);
 		else
-			setText((value == null) ? "" : this.getDisplayName(value));
+			setText((value == null) ? "" : this.getDisplayName((T) value));
 		return this;
 	}
 
-	protected String getDisplayName(Object value) {
+	protected String getDisplayName(T value) {
 		return value.toString();
 	}
 }

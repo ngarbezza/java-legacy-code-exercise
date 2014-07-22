@@ -26,11 +26,13 @@ import ar.edu.unq.sasa.model.items.MobileResource;
  */
 public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 	B extends AssignmentByRequest> extends JFrame {
-	
+
+	private static final long serialVersionUID = 4835555392263678407L;
+
 	protected A assignableItem;
 	protected JTable assignmentsTable;
 	protected JTextArea periodDetail;
-	
+
 	public AssignmentsDetailWindow(final A item) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -38,7 +40,7 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 				assignableItem = item;
 				createWidgets();
 				addWidgets();
-				
+
 				setTitle("Detalle de asignaciones");
 				setSize(new Dimension(getWindowWidth(), getWindowHeight()));
 				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -48,15 +50,15 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 			}
 		});
 	}
-	
-	protected int getWindowWidth() {		
+
+	protected int getWindowWidth() {
 		return 500;
 	}
 
 	protected int getWindowHeight() {
 		return 500;
 	}
-	
+
 	protected void createWidgets() {
 		ReadOnlyTableModel<B> model = new ReadOnlyTableModel<B>(getAssigments());
 		model.addColumn("Profesor", "request", new ObjectToStringConverter() {
@@ -86,7 +88,7 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 	}
 
 	protected abstract void whenAssignmentsTableSelectionChanged(
-			ListSelectionEvent e);	
+			ListSelectionEvent e);
 	protected abstract void createOtherWidgets();
 	protected abstract void addWidgets();
 	protected abstract List<B> getAssigments();

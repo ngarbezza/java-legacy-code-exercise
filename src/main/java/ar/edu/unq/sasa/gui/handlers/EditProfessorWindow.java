@@ -38,13 +38,15 @@ import ar.edu.unq.sasa.model.handlers.SubjectsHandler;
  */
 public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 
+	private static final long serialVersionUID = -252220491365344826L;
+
 	protected JLabel nameLabel, phoneLabel, mailLabel;
 	protected JTextField mailField, phoneField, nameField;
 
 	// materias
 	protected JPanel subjectsPanel, leftBottomPanel;
-	protected JComboBox allSubjectsCombo;
-	protected JList subjectList;
+	protected JComboBox<Subject> allSubjectsCombo;
+	protected JList<Subject> subjectList;
 	protected JTextField newSubjectField;
 	protected JButton addSubject, deleteSubject;
 	protected JRadioButton chooseExistingSubject, chooseNewSubject;
@@ -56,16 +58,15 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 	protected String currentSubjectName;
 
 	public EditProfessorWindow() {}
-	
+
 	public EditProfessorWindow(Professor p) {
 		super(p);
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Subject> getSubjectList() {
 		return ((EasyListModel<Subject>) subjectList.getModel()).getModel();
 	}
-	
+
 	@Override
 	protected void createWidgetsTopPanel() {
 		createLabels();
@@ -102,14 +103,13 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void createSubjectsPanel() {
 		subjectsPanel = new JPanel();
 		subjectsPanel.setBorder(BorderFactory.createTitledBorder("Materias"));
 
 		addSubjectLabel = new JLabel("Agregar Materia");
 		List<Subject> allSubjects = SubjectsHandler.getInstance().getSubjects();
-		allSubjectsCombo = new JComboBox(new EasyComboBoxModel<Subject>(allSubjects));
+		allSubjectsCombo = new JComboBox<Subject>(new EasyComboBoxModel<Subject>(allSubjects));
 		allSubjectsCombo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,7 +126,7 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 				validateCurrentSubjectName();
 			}
 		});
-		subjectList = new JList(new EasyListModel<Subject>());
+		subjectList = new JList<Subject>(new EasyListModel<Subject>());
 		subjectList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -182,7 +182,6 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		addSubject.setEnabled(false);
 		addSubject.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				SubjectsHandler sh = SubjectsHandler.getInstance();
 				if (!sh.existSubjectNamed(getSubjectList(), currentSubjectName)) {
@@ -201,9 +200,8 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		deleteSubject.setEnabled(false);
 		deleteSubject.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-				Subject selection = (Subject) subjectList.getSelectedValue();
+				Subject selection = subjectList.getSelectedValue();
 				if (selection != null)
 					((EasyListModel<Subject>) subjectList.getModel()).removeItem(selection);
 			}

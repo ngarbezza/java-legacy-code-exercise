@@ -25,17 +25,19 @@ import ar.edu.unq.sasa.model.items.MobileResource;
  */
 public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 
+	private static final long serialVersionUID = -484671956803489488L;
+
 	protected JButton assignmentsDetailButton;
 
 	public ResourcesHandler getHandler() {
 		return ResourcesHandler.getInstance();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Recursos";
 	}
-	
+
 	@Override
 	protected void addColumns(ReadOnlyTableModel<MobileResource> tableModel) {
 		tableModel.addColumn("ID", "id");
@@ -47,7 +49,7 @@ public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditMobileResourceWindow();				
+				new EditMobileResourceWindow();
 			}
 		});
 	}
@@ -68,7 +70,7 @@ public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 								"Advertencia", JOptionPane.WARNING_MESSAGE);
 					}
 			}
-		});	
+		});
 	}
 
 	@Override
@@ -76,7 +78,7 @@ public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 		modifyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditMobileResourceWindow(selection);				
+				new EditMobileResourceWindow(selection);
 			}
 		});
 	}
@@ -105,13 +107,13 @@ public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 		});
 		return input;
 	}
-	
+
 	@Override
 	protected void whenTableSelectionChanged(ListSelectionEvent e) {
 		super.whenTableSelectionChanged(e);
 		assignmentsDetailButton.setEnabled(selection != null);
 	}
-	
+
 	@Override
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {
 		assignmentsDetailButton = new JButton("Ver asignaciones");
@@ -124,7 +126,7 @@ public class MobileResourcesPanel extends AbstractHandlerPanel<MobileResource> {
 		});
 		bottomPanel.add(assignmentsDetailButton);
 	}
-	
+
 	@Override
 	protected void registerAsSubscriber() {
 		ResourcesHandler.getInstance().getPublisher()

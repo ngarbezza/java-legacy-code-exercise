@@ -16,7 +16,7 @@ public class TestProfessor {
 	private Professor professor;
 
 	@Before
-	public void setUp(){	
+	public void setUp(){
 		subject1 = new Subject("Filosofía", 1);
 		subject2 = new Subject("Pensamiento científico", 2);
 		subjects = new LinkedList<Subject>();

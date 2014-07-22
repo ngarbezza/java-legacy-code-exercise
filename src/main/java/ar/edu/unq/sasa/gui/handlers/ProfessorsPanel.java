@@ -19,26 +19,28 @@ import ar.edu.unq.sasa.model.handlers.ProfessorHandler;
  * Panel para la administración de {@link Professor}s.
  */
 public class ProfessorsPanel extends AbstractHandlerPanel<Professor> {
-		
+
+	private static final long serialVersionUID = -2846696085344808896L;
+
 	private ProfessorHandler getHandler() {
 		return ProfessorHandler.getInstance();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Profesores";
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
 		((ReadOnlyTableModel<Professor>)table.getModel())
 			.setModel((List<Professor>)value);
 	}
-	
+
 	@Override
 	protected void registerAsSubscriber() {
-		getHandler().getPublisher().addSubscriber("professorsChanged", this);		
+		getHandler().getPublisher().addSubscriber("professorsChanged", this);
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class ProfessorsPanel extends AbstractHandlerPanel<Professor> {
 		});
 		return field;
 	}
-	
+
 	@Override
 	protected void createAddButtonListeners() {
 		addButton.addActionListener(new ActionListener() {
@@ -93,12 +95,12 @@ public class ProfessorsPanel extends AbstractHandlerPanel<Professor> {
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 				      getHandler().deleteProfessor(selection);
 			}
-		});		
+		});
 	}
 
 	@Override
 	protected void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {		
+		modifyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new EditProfessorWindow(selection);

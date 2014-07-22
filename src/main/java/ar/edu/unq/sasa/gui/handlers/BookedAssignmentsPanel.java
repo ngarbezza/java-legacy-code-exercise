@@ -23,11 +23,13 @@ import ar.edu.unq.sasa.model.items.Classroom;
  * Panel para mostrar las Reservas ({@link BookedAssignment}) del Sistema
  */
 public class BookedAssignmentsPanel extends AbstractHandlerPanel<BookedAssignment>{
-	
+
+	private static final long serialVersionUID = -408242049018068843L;
+
 	private Asignator getHandler() {
 		return Asignator.getInstance();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Reservas";
@@ -62,7 +64,7 @@ public class BookedAssignmentsPanel extends AbstractHandlerPanel<BookedAssignmen
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la reserva seleccionada?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 				      getHandler().deleteAssignment(selection);
 			}
-		});	
+		});
 	}
 
 	@Override
@@ -78,11 +80,9 @@ public class BookedAssignmentsPanel extends AbstractHandlerPanel<BookedAssignmen
 	@Override
 	protected List<BookedAssignment> getListModel() {
 		List<BookedAssignment> bookedAssignments = new ArrayList<BookedAssignment>();
-		for (Assignment assignment : getHandler().getInformationManager().getAssignments()){
-			if (assignment.isBookedAssignment()){
+		for (Assignment assignment : getHandler().getInformationManager().getAssignments())
+			if (assignment.isBookedAssignment())
 				bookedAssignments.add((BookedAssignment) assignment);
-			}
-		}
 		return bookedAssignments;
 	}
 
@@ -116,5 +116,5 @@ public class BookedAssignmentsPanel extends AbstractHandlerPanel<BookedAssignmen
 	public void update(String aspect, Object value) {
 		((ReadOnlyTableModel<BookedAssignment>)table.getModel()).setModel(getListModel());
 	}
-	
+
 }

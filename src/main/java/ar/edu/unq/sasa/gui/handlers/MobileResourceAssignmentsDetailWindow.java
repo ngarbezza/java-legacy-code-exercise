@@ -22,6 +22,8 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 public class MobileResourceAssignmentsDetailWindow extends
 		AssignmentsDetailWindow<MobileResource, ResourceAssignment> {
 
+	private static final long serialVersionUID = -6062321212214573838L;
+
 	public MobileResourceAssignmentsDetailWindow(MobileResource item) {
 		super(item);
 	}
@@ -57,7 +59,7 @@ public class MobileResourceAssignmentsDetailWindow extends
 	protected int getWindowWidth() {
 		return 520;
 	}
-	
+
 	@Override
 	protected int getWindowHeight() {
 		return 450;
