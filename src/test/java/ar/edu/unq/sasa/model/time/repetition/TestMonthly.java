@@ -1,10 +1,5 @@
 package ar.edu.unq.sasa.model.time.repetition;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.createNiceMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -15,15 +10,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.time.SimplePeriod;
+import ar.edu.unq.sasa.model.time.hour.HourInterval;
+import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
 public class TestMonthly {
 
 	private Monthly monthlyRep;
+	private SimplePeriod period;
 
 	@Before
 	public void setUp() throws Exception {
-		this.monthlyRep = new Monthly(
-			new GregorianCalendar(2010, Calendar.AUGUST, 12));
+		monthlyRep = new Monthly(new GregorianCalendar(2010, Calendar.AUGUST, 12));
+		HourInterval someHourInterval = new HourInterval(new Timestamp(13), new Timestamp(16));
+		period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JULY, 8), monthlyRep);
 	}
 
 	@Test
@@ -32,7 +31,7 @@ public class TestMonthly {
 		// todos los resultados semanales posibles
 		Calendar c1 = new GregorianCalendar(2010, Calendar.JULY, 8);
 		Calendar c2 = new GregorianCalendar(2010, Calendar.AUGUST, 8);
-		
+
 		assertTrue(monthlyRep.containsInSomeRepetition(c1, start));
 		assertTrue(monthlyRep.containsInSomeRepetition(c2, start));
 	}
@@ -59,42 +58,25 @@ public class TestMonthly {
 
 	@Test
 	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() throws Exception {
-		SimplePeriod mockSDF = createNiceMock(SimplePeriod.class);
-		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 28);
-		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JULY, 28)))
-			.andReturn(true);
-		replay(mockSDF);
-		assertTrue(monthlyRep.thereIsSomeDayIn(mockSDF, start));
-		verify(mockSDF);
+		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
+		assertTrue(monthlyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
 	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() throws Exception {
-		SimplePeriod mockSDF = createNiceMock(SimplePeriod.class);
-		replay(mockSDF);	// el mock devuelve siempre false
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
-		assertFalse(monthlyRep.thereIsSomeDayIn(mockSDF, start));
+		assertFalse(monthlyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
 	public void test_isAllDaysInWhenTheConditionIsSatisfied() throws Exception {
-		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);		
-		SimplePeriod mockSDF = createMock(SimplePeriod.class);
-		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JULY, 8))).andReturn(true);
-		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.AUGUST, 8))).andReturn(true);
-		replay(mockSDF);
-		assertTrue(monthlyRep.isAllDaysIn(mockSDF, start));
-		verify(mockSDF);
+		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
+		assertTrue(monthlyRep.isAllDaysIn(period, start));
 	}
 
 	@Test
 	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
-		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);		
-		SimplePeriod mockSDF = createMock(SimplePeriod.class);
-		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.JULY, 8))).andReturn(true);
-		expect(mockSDF.containsDate(new GregorianCalendar(2010, Calendar.AUGUST, 8))).andReturn(false);
-		replay(mockSDF);
-		assertFalse(monthlyRep.isAllDaysIn(mockSDF, start));
-		verify(mockSDF);
+		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 9);
+		assertFalse(monthlyRep.isAllDaysIn(period, start));
 	}
 }
