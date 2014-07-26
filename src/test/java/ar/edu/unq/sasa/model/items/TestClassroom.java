@@ -18,8 +18,8 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
-import ar.edu.unq.sasa.model.exceptions.handlers.AssignmentException;
-import ar.edu.unq.sasa.model.exceptions.handlers.ResourceException;
+import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
+import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.mocks.assignments.MockClassroomAssignment;
 import ar.edu.unq.sasa.model.mocks.items.MockFixedResource;
 import ar.edu.unq.sasa.model.mocks.time.MockPeriod;

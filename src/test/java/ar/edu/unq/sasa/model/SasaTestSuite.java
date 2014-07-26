@@ -12,15 +12,15 @@ import ar.edu.unq.sasa.model.assignments.TestBookedAssignment;
 import ar.edu.unq.sasa.model.assignments.TestClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.TestResourceAssignment;
 import ar.edu.unq.sasa.model.assignments.TestSatisfaction;
-import ar.edu.unq.sasa.model.data.TestInformationManager;
+import ar.edu.unq.sasa.model.data.TestUniversity;
 import ar.edu.unq.sasa.model.data.TestSuperposition;
 import ar.edu.unq.sasa.model.data.TestWeeklySchedule;
-import ar.edu.unq.sasa.model.handlers.TestAsignator;
-import ar.edu.unq.sasa.model.handlers.TestClassroomHandler;
-import ar.edu.unq.sasa.model.handlers.TestProfessorHandler;
-import ar.edu.unq.sasa.model.handlers.TestQueryManager;
-import ar.edu.unq.sasa.model.handlers.TestRequestsHandler;
-import ar.edu.unq.sasa.model.handlers.TestResourcesHandler;
+import ar.edu.unq.sasa.model.departments.TestAssignmentsDepartment;
+import ar.edu.unq.sasa.model.departments.TestClassroomsDepartment;
+import ar.edu.unq.sasa.model.departments.TestProfessorsDepartment;
+import ar.edu.unq.sasa.model.departments.TestQueryManager;
+import ar.edu.unq.sasa.model.departments.TestRequestsDepartment;
+import ar.edu.unq.sasa.model.departments.TestResourcesDepartment;
 import ar.edu.unq.sasa.model.items.TestClassroom;
 import ar.edu.unq.sasa.model.items.TestFixedResources;
 import ar.edu.unq.sasa.model.items.TestMobileResource;
@@ -44,15 +44,15 @@ import ar.edu.unq.sasa.model.time.repetition.TestWeekly;
 	TestClassroomAssignment.class,
 	TestResourceAssignment.class,
 	TestSatisfaction.class,
-	TestInformationManager.class,
+	TestUniversity.class,
 	TestSuperposition.class,
 	TestWeeklySchedule.class,
-	TestAsignator.class,
-	TestClassroomHandler.class,
-	TestProfessorHandler.class,
+	TestAssignmentsDepartment.class,
+	TestClassroomsDepartment.class,
+	TestProfessorsDepartment.class,
 	TestQueryManager.class,
-	TestRequestsHandler.class,
-	TestResourcesHandler.class,
+	TestRequestsDepartment.class,
+	TestResourcesDepartment.class,
 	TestClassroom.class,
 	TestFixedResources.class,
 	TestMobileResource.class,

@@ -1,5 +1,5 @@
 ar.edu.unq.sasa.gui
-ar.edu.unq.sasa.gui.handlers
+ar.edu.unq.sasa.gui.departments
 ar.edu.unq.sasa.gui.period
 ar.edu.unq.sasa.gui.util
 ar.edu.unq.sasa.gui.util.combos
@@ -9,9 +9,9 @@ ar.edu.unq.sasa.model
 ar.edu.unq.sasa.model.academic
 ar.edu.unq.sasa.model.assignments
 ar.edu.unq.sasa.model.data
-ar.edu.unq.sasa.model.exceptions.handlers
+ar.edu.unq.sasa.model.departments
+ar.edu.unq.sasa.model.exceptions.departments
 ar.edu.unq.sasa.model.exceptions.time
-ar.edu.unq.sasa.model.handlers
 ar.edu.unq.sasa.model.items
 ar.edu.unq.sasa.model.mocks.academic
 ar.edu.unq.sasa.model.mocks.assignments

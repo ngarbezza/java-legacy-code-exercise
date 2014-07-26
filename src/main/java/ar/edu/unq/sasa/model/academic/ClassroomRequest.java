@@ -2,7 +2,7 @@ package ar.edu.unq.sasa.model.academic;
 
 import java.util.Map;
 
-import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
+import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
