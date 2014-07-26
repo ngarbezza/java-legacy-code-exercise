@@ -20,7 +20,7 @@ public class TestDaily {
 	private LogicalHourFulfiller someHourInterval;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		Calendar endDate = new GregorianCalendar(2010, Calendar.JULY, 9);
 		someHourInterval = new HourInterval(new Timestamp(7), new Timestamp(10));
 		dailyRep = new Daily(endDate); // repetición hasta el 9 de julio
@@ -52,14 +52,14 @@ public class TestDaily {
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 28), dailyRep);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		assertTrue(dailyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() {
 		Repetition dailyRepetitionUntilJune14 = new Daily(new GregorianCalendar(2010, Calendar.JUNE, 14));
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 2), dailyRepetitionUntilJune14);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
@@ -67,14 +67,14 @@ public class TestDaily {
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_isAllDaysInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 16), dailyRep);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		assertTrue(dailyRep.isAllDaysIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_isAllDaysInWhenTheConditionIsntSatisfied() {
 		Repetition dailyRepetitionUntilJune14 = new Daily(new GregorianCalendar(2010, Calendar.JUNE, 14));
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 2), dailyRepetitionUntilJune14);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);

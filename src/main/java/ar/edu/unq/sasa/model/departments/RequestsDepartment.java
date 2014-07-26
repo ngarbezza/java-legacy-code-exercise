@@ -24,7 +24,7 @@ public class RequestsDepartment extends Department {
 		super(university);
 	}
 
-	public ClassroomRequest createClassroomRequest(Map<Resource, Integer> requiredResources, Map<Resource, Integer> optionalResources, Period desiredHours, Subject subject, Professor professor, int capacity) throws RequestException {
+	public ClassroomRequest createClassroomRequest(Map<Resource, Integer> requiredResources, Map<Resource, Integer> optionalResources, Period desiredHours, Subject subject, Professor professor, int capacity) {
 		if (capacity < 0)
 			throw new RequestException("La capacidad del aula tiene que ser positiva");
 		else {

@@ -31,8 +31,6 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.time.Period;
 
@@ -62,6 +60,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	public EditAssignmentWindow(AssignmentsDepartment assignmentsDepartment, ClassroomAssignment assignmentSelection) {
 		department = assignmentsDepartment;
 		assignment = assignmentSelection;
+		// TODO why is this logic here?
 		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet())
 			if (entry.getValue().equals(assignmentSelection)){
 				period = entry.getKey();
@@ -181,9 +180,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar la asignación al aula elegida?", "Cambio de Aula", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					try {department.moveAssignmentOfClassroom(assignment, classroomSelected);}
-					catch (AssignmentException e1) {}
-					catch (PeriodException e1) {}
+					department.moveAssignmentOfClassroom(assignment, classroomSelected);
 					dispose();
 				}
 			}
@@ -195,9 +192,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar el periodo de la asignación?", "Cambio de Periodo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					try {department.moveAssignmentOfPeriod(assignment, period);}
-					catch (PeriodException e1) {}
-					catch (AssignmentException e1) {}
+					department.moveAssignmentOfPeriod(assignment, period);
 					dispose();
 				}
 			}

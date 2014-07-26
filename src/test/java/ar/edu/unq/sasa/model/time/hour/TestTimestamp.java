@@ -3,7 +3,6 @@ package ar.edu.unq.sasa.model.time.hour;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,7 @@ public class TestTimestamp {
 	private Timestamp t_9_50, t_15_35, t_17_00, t_22_15;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		this.t_9_50 = new Timestamp(9, 50);
 		this.t_15_35 = new Timestamp(15, 35);
 		this.t_17_00 = new Timestamp(17);
@@ -23,7 +22,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_constructor() throws Exception {
+	public void test_constructor() {
 		Timestamp t1 = new Timestamp(0, 45);
 		Timestamp t2 = new Timestamp(19);
 
@@ -33,93 +32,48 @@ public class TestTimestamp {
 		assertEquals(0, t2.getMinutes());
 	}
 
-	@Test
-	public void test_failOnConstructWithNegativeValues() {
-		try {
-			new Timestamp(-1);
-			fail("The hour should be positive");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-		try {
-			new Timestamp(13, -4);
-			fail("The minutes should be positive");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
+	@Test(expected=TimestampException.class)
+	public void test_failOnConstructWithNegativeHours() {
+		new Timestamp(-1, 10);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnConstructWithNegativeMinutes() {
+		new Timestamp(13, -4);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnSetNegativeHours() {
+		new Timestamp(12).setHour(-3);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnSetNegativeMinutes() {
+		new Timestamp(22, 10).setMinutes(-21);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnConstructWithMinutesGreaterThanAdmitted() {
+		new Timestamp(12, 62);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnConstructWithMinutesLessThanAdmitted() {
+		new Timestamp(8, -1);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnConstructWithHoursGreaterThanAdmitted() {
+		new Timestamp(25);
+	}
+
+	@Test(expected=TimestampException.class)
+	public void test_failOnConstructWithHoursLessThanAdmitted() {
+		new Timestamp(-1);
 	}
 
 	@Test
-	public void test_failOnSetNegativeValues() {
-		// TODO make it junit4 and split it into two tests
-		try {
-			new Timestamp(12).setHour(-3);
-			fail("The hour should be positive");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-
-		try {
-			new Timestamp(22, 10).setMinutes(-21);
-			fail("The minutes should be positive");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-	}
-
-	@Test
-	public void test_failOnConstructWithHoursOrMinutesOutOfRange() {
-		// TODO make it junit4 and split it into two tests
-		try {
-			new Timestamp(25);
-			fail("The hour should be less or equal than 23");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-		try {
-			new Timestamp(13, 67);
-			fail("The minutes should be less or equal than 59");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-	}
-
-	@Test
-	public void test_failOnSetHoursOrMinutesOutOfRange() {
-		// TODO make it junit4 and split it into two tests
-		try {
-			new Timestamp(9).setHour(32);
-			fail("The hour should be less or equal than 23");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-
-		try {
-			new Timestamp(6, 25).setMinutes(60);
-			fail("The minutes should be less or equal than 59");
-		}
-		catch (TimestampException e) {}		// correct exception
-		catch (Exception e) {
-			fail("Timestamp has thrown a wrong exception");
-		}
-	}
-
-	@Test
-	public void test_equalsOnEqualTimestamps() throws Exception {
+	public void test_equalsOnEqualTimestamps() {
 		Timestamp t1 = new Timestamp(22, 15);
 		Timestamp t2 = new Timestamp(17, 0);
 
@@ -128,7 +82,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_equalsOnDifferentTimestamps() throws Exception {
+	public void test_equalsOnDifferentTimestamps() {
 		Timestamp t1 = new Timestamp(23, 35);
 		Timestamp t2 = new Timestamp(9, 05);
 
@@ -137,7 +91,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_lessThanWhenTheConditionIsSatisfied() throws Exception {
+	public void test_lessThanWhenTheConditionIsSatisfied() {
 		Timestamp t1 = new Timestamp(6, 45);
 		Timestamp t2 = new Timestamp(15, 8);
 
@@ -146,7 +100,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_lessThanWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_lessThanWhenTheConditionIsntSatisfied() {
 		Timestamp t1 = new Timestamp(10, 06);
 		Timestamp t2 = new Timestamp(15, 44);
 
@@ -155,7 +109,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_greaterThanWhenTheConditionIsSatisfied() throws Exception {
+	public void test_greaterThanWhenTheConditionIsSatisfied() {
 		Timestamp t1 = new Timestamp(18, 40);
 		Timestamp t2 = new Timestamp(22, 16);
 
@@ -164,7 +118,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_greaterThanWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_greaterThanWhenTheConditionIsntSatisfied() {
 		Timestamp t1 = new Timestamp(7, 59);
 		Timestamp t2 = new Timestamp(15, 34);
 
@@ -173,7 +127,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_greaterEqual() throws Exception {
+	public void test_greaterEqual() {
 		Timestamp t1 = new Timestamp(9, 50);
 		Timestamp t2 = new Timestamp(10);
 		Timestamp t3 = new Timestamp(9, 49);
@@ -184,7 +138,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_lessEqual() throws Exception {
+	public void test_lessEqual() {
 		Timestamp t1 = new Timestamp(9, 49);
 		Timestamp t2 = new Timestamp(9);
 		Timestamp t3 = new Timestamp(9, 51);
@@ -195,7 +149,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_add() throws Exception {
+	public void test_add() {
 		Timestamp t1exp = new Timestamp(9, 55); // sumo 5 a t_9_50
 		Timestamp t2exp = new Timestamp(10, 15);// sumo 25 a t_9_50
 		Timestamp t3exp = new Timestamp(11, 15);// sumo 85 a t_9_50
@@ -206,7 +160,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_substract() throws Exception {
+	public void test_substract() {
 		Timestamp t1exp = new Timestamp(22, 10); // resto 5 a t_22_15
 		Timestamp t2exp = new Timestamp(21, 50);// resto 25 a t_22_15
 		Timestamp t3exp = new Timestamp(20, 50);// resto 85 a t_22_15
@@ -219,7 +173,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_minutesBetween() throws Exception {
+	public void test_minutesBetween() {
 		assertEquals(t_9_50.minutesBetween(t_15_35), 345);
 		assertEquals(t_15_35.minutesBetween(t_17_00), 85);
 		assertEquals(t_17_00.minutesBetween(t_22_15), 315);

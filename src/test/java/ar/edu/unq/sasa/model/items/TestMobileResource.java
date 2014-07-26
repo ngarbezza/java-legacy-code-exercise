@@ -9,15 +9,13 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
-import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
-import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
 public class TestMobileResource {
 
 	@Test
-    public void testConstructor(){
+    public void testConstructor() {
     	MobileResource mobileResource = new MobileResource("Proyector", 0) ;
 		String name = mobileResource.getName();
      	Map<Period, Assignment> assigments = mobileResource.getAssignments();
@@ -27,7 +25,7 @@ public class TestMobileResource {
     }
 
 	@Test
-	public void testGetAssigment() throws AssignmentException,ResourceException {
+	public void testGetAssigment() {
 		Period period = new SimplePeriod(null, null);
 		ClassroomAssignment assignment = null;
 		MobileResource mobileResource = new MobileResource("Proyector", 0) ;
@@ -36,5 +34,4 @@ public class TestMobileResource {
 		assignments.put(period, assignment);
 		assertEquals( assignments,  mobileResource.getAssignments() );
      }
-
 }

@@ -19,7 +19,7 @@ public class TestWeekly {
 	private HourInterval someHourInterval;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		// repetición hasta el 21 de julio
 		weeklyRepetition = new Weekly(new GregorianCalendar(2010, Calendar.JULY, 19));
 		someHourInterval = new HourInterval(new Timestamp(7), new Timestamp(10));
@@ -64,28 +64,28 @@ public class TestWeekly {
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 28));
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertTrue(weeklyRepetition.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 13));
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertFalse(weeklyRepetition.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_isAllDaysInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 21), weeklyRepetition);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertTrue(weeklyRepetition.isAllDaysIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_isAllDaysInWhenTheConditionIsntSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 21), weeklyRepetition);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		assertFalse(weeklyRepetition.isAllDaysIn(period, start));

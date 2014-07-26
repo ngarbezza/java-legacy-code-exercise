@@ -38,13 +38,9 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.departments.RequestsDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Ventana que sirve para la creación de nuevos pedidos.
- */
 public class NewRequestWindow extends JFrame implements PeriodHolder {
 
 	private static final long serialVersionUID = 6081968814611526766L;
@@ -55,11 +51,9 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	private JComboBox<Subject> subjectCombo;
 	private JSpinner amountSelector, capacitySelector;
 	private JRadioButton optionalRadioButton, requiredRadioButton;
-	private JLabel labelResource, labelAmount, professorLabel,
-		subjectLabel, capacityLabel;
+	private JLabel labelResource, labelAmount, professorLabel, subjectLabel, capacityLabel;
 	private JTextArea periodDetailArea;
-	private JButton addResourceButton, deleteResourceButton,
-		addPeriodButton, createRequestButton, cancelButton;
+	private JButton addResourceButton, deleteResourceButton, addPeriodButton, createRequestButton, cancelButton;
 
 	private Period specifiedPeriod;
 
@@ -275,18 +269,14 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		createRequestButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if (validateCurrentRequest()) {
-						department.createClassroomRequest(
-							makeResourcesFrom(requiredResourcesTable),
-							makeResourcesFrom(optionalResourcesTable),
-							specifiedPeriod, getSelectedSubject(),
-							getSelectedProfessor(),
-							(Integer) capacitySelector.getValue());
-						dispose();
-					}
-				} catch (RequestException e1) {
-					warningWithMessage("Fallo en la creacion del Pedido");
+				if (validateCurrentRequest()) {
+					department.createClassroomRequest(
+						makeResourcesFrom(requiredResourcesTable),
+						makeResourcesFrom(optionalResourcesTable),
+						specifiedPeriod, getSelectedSubject(),
+						getSelectedProfessor(),
+						(Integer) capacitySelector.getValue());
+					dispose();
 				}
 			}
 		});

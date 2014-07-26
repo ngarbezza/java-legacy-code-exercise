@@ -25,10 +25,6 @@ import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
-import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
-import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -52,7 +48,7 @@ public class TestAssignmentsDepartment {
 	private Classroom classroom2;
 
 	@Before
-	public void setUp() throws RequestException {
+	public void setUp() {
 		university = new University();
 		assignmentsDepartment = new AssignmentsDepartment(university);
 
@@ -73,11 +69,11 @@ public class TestAssignmentsDepartment {
 
 		// Classroom 1
 		classroom1 = new Classroom("Aula 1", 30);
-		university.addClassroom(classroom1);
+		university.getClassroomsDepartment().addClassroom(classroom1);
 
 		// Classroom 2
 		classroom2 = new Classroom("Aula 2", 29);
-		university.addClassroom(classroom2);
+		university.getClassroomsDepartment().addClassroom(classroom2);
 
 		// MobileResourcesRequest
 		Period desHours = period1;
@@ -95,22 +91,16 @@ public class TestAssignmentsDepartment {
 		Period desHours2 = period2;
 		Map<Resource, Integer> reqResources2 = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources2 = new HashMap<Resource, Integer>();
-		classroomRequest = new ClassroomRequest(desHours2, subject, professor,
-				anID, reqResources2, optResources2, capacity);
+		classroomRequest = new ClassroomRequest(desHours2, subject, professor, anID, reqResources2, optResources2, capacity);
 	}
 
 	@Test
-	public void test_asignateResourceAssignment() throws AssignmentException {
-		ResourceAssignment resourceAssignment1 = assignmentsDepartment
-				.asignateResourceAssignment(mobileResourcesRequest,
-						mobileResource1, period1);
-		ResourceAssignment resourceAssignment2 = new ResourceAssignment(
-				mobileResourcesRequest, mobileResource1);
+	public void test_asignateResourceAssignment() {
+		ResourceAssignment resourceAssignment1 = assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
+		ResourceAssignment resourceAssignment2 = new ResourceAssignment(mobileResourcesRequest, mobileResource1);
 
 		assertEquals(resourceAssignment1, resourceAssignment2);
-		assertSame(university
-				.getAssignmentByRequest(mobileResourcesRequest),
-				resourceAssignment1);
+		assertSame(university.getAssignmentByRequest(mobileResourcesRequest), resourceAssignment1);
 	}
 
 	@Test
@@ -155,7 +145,7 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_asignateRequestInMostSatisfactoryClassroom() throws ResourceException, AssignmentException, RequestException {
+	public void test_asignateRequestInMostSatisfactoryClassroom() {
 		university.addRequest(classroomRequest);
 		ClassroomAssignment asig = assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classroomRequest);
 		assertEquals(classroomRequest, asig.getRequest());
@@ -188,7 +178,7 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_deleteClassroomAssignment() throws AssignmentException {
+	public void test_deleteClassroomAssignment() {
 		ClassroomAssignment classroomAssignment = assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period1);
 		assignmentsDepartment.deleteClassroomAssignmentFromARequest(classroomRequest);
 		Map<Period, Assignment> map = new HashMap<Period, Assignment>();
@@ -228,7 +218,7 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void testMoveAssignmentClassroom() throws AssignmentException, RequestException {
+	public void testMoveAssignmentClassroom() {
 		// crear requisitos para los pedidos obligatorios
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		FixedResource resource = new FixedResource("Computadora");
@@ -258,7 +248,7 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void testMoveAssignmentHour() throws AssignmentException, RequestException {
+	public void testMoveAssignmentHour() {
 		// crear requisitos para los pedidos obligatorios
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		FixedResource resource = new FixedResource("Computadora", 20);
@@ -301,7 +291,7 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void testMoveAssignmentDate() throws AssignmentException, RequestException {
+	public void testMoveAssignmentDate() {
 		// crear requisitos para los pedidos obligatorios
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		FixedResource resource = new FixedResource("Computadora", 20);

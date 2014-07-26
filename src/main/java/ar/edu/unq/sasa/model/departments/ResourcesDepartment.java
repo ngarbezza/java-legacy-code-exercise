@@ -28,20 +28,17 @@ public class ResourcesDepartment extends Department {
 		return res;
 	}
 
-	public FixedResource createFixedResource(String name, int amount) throws ResourceException {
+	public FixedResource createFixedResource(String name, int amount) {
 		if (amount < 0)
 			throw new ResourceException("La cantidad del recurso debe ser positiva");
-		else {
-			FixedResource res = new FixedResource(name, amount);
-			return res;
-		}
+		else
+			return new FixedResource(name, amount);
 	}
 
-	public void deleteResource(String name) throws ResourceException {
-		MobileResource mobileResource = getUniversity().getResource(name);
-		for (Assignment assignment : mobileResource.getAssignments().values())
+	public void deleteResource(MobileResource resource) {
+		for (Assignment assignment : resource.getAssignments().values())
 			getAssignmentsDepartment().deleteAssignment(assignment);
-		getUniversity().deleteResource(name);
+		getUniversity().deleteResource(resource);
 
 		getPublisher().changed("mobileResources", getMobileResources());
 	}
@@ -52,7 +49,7 @@ public class ResourcesDepartment extends Department {
 		getPublisher().changed("mobileResources", getMobileResources());
 	}
 
-	public void modifyResource(FixedResource searchedResource, int newAmount) throws ResourceException {
+	public void modifyResource(FixedResource searchedResource, int newAmount) {
 		if (newAmount < 0)
 			throw new ResourceException("La cantidad del recurso debe ser positiva");
 		else

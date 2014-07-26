@@ -64,7 +64,7 @@ public class QueryManager extends Department {
 
 	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(ClassroomRequest req, boolean ignoreCommonAssignments) {
 		Set<Classroom> result = new HashSet<Classroom>();
-		for (Classroom c : this.getUniversity().getClassrooms())
+		for (Classroom c : getClassroomsDepartment().getClassrooms())
 			if (c.satisfyTimeRequirements(req, ignoreCommonAssignments))
 				result.add(c);
 		return result;
@@ -72,7 +72,7 @@ public class QueryManager extends Department {
 
 	private Collection<Classroom> classroomsThatSatisfyFixedResources(Map<FixedResource, Integer> resources) {
 		Set<Classroom> result = new HashSet<Classroom>();
-		for (Classroom c : this.getUniversity().getClassrooms())
+		for (Classroom c : getClassroomsDepartment().getClassrooms())
 			if (c.satisfyFixedResources(resources))
 				result.add(c);
 		return result;
@@ -84,7 +84,7 @@ public class QueryManager extends Department {
 
 	public Collection<Classroom> classroomsThatSatisfyCapacityRequirement(ClassroomRequest req) {
 		Set<Classroom> result = new HashSet<Classroom>();
-		for (Classroom c : this.getUniversity().getClassrooms())
+		for (Classroom c : getClassroomsDepartment().getClassrooms())
 			if (c.getCapacity() >= req.getCapacity())
 				result.add(c);
 		return result;

@@ -1,9 +1,6 @@
 package ar.edu.unq.sasa.model.exceptions.departments;
 
-/**
- * Representa casos excepcionales en el ámbito de asignaciones.
- */
-public class AssignmentException extends Exception {
+public class AssignmentException extends RuntimeException {
 
 	private static final long serialVersionUID = 6077532736630559771L;
 

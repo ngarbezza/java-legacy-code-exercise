@@ -19,7 +19,7 @@ public class TestMonthly {
 	private SimplePeriod period;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		monthlyRep = new Monthly(new GregorianCalendar(2010, Calendar.AUGUST, 12));
 		HourInterval someHourInterval = new HourInterval(new Timestamp(13), new Timestamp(16));
 		period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JULY, 8), monthlyRep);
@@ -57,25 +57,25 @@ public class TestMonthly {
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
 		assertTrue(monthlyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertFalse(monthlyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_isAllDaysInWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
 		assertTrue(monthlyRep.isAllDaysIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_isAllDaysInWhenTheConditionIsntSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		assertFalse(monthlyRep.isAllDaysIn(period, start));
 	}

@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Or;
@@ -56,18 +54,12 @@ public class SimplePeriod extends Period {
 
 	@Override
 	public boolean contains(Calendar c) {
-		Timestamp t;
-		try {
-			t = new Timestamp(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
-		} catch (TimestampException e) {
-			throw new PeriodException("Timestamp failed : " + e.getMessage());
-		}
+		Timestamp t = new Timestamp(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
 		return containsDate(c) && getHourFulfiller().contains(t);
 	}
 
 	public boolean containsDate(Calendar c) {
-		return (compareEquals(getStart(), c) ||
-				getRepetition().containsInSomeRepetition(c, getStart()));
+		return (compareEquals(getStart(), c) || getRepetition().containsInSomeRepetition(c, getStart()));
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
-import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.util.Publisher;
 
 /**
@@ -44,10 +43,6 @@ public abstract class Department {
 
 	public List<Request> getRequests() {
 		return university.getRequests();
-	}
-
-	public List<Classroom> getClassrooms() {
-		return university.getClassrooms();
 	}
 
 	public ClassroomsDepartment getClassroomsDepartment() {

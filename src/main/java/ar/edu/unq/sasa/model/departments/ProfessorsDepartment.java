@@ -6,7 +6,6 @@ import java.util.List;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.academic.University;
-import ar.edu.unq.sasa.model.exceptions.departments.ProfessorException;
 
 public class ProfessorsDepartment extends Department {
 
@@ -33,14 +32,7 @@ public class ProfessorsDepartment extends Department {
 	public void deleteProfessor(Professor professor) {
 		this.getUniversity().getProfessors().remove(professor);
 
-		this.getPublisher().changed("professorsChanged",
-				this.getUniversity().getProfessors());
-	}
-
-	@SuppressWarnings("unused")
-	private void verificar(Professor professor) throws ProfessorException {
-		if (professor == null)
-			throw new ProfessorException("El profe no esta, el profe no esta!!");
+		this.getPublisher().changed("professorsChanged", this.getUniversity().getProfessors());
 	}
 
 	public List<Professor> searchProfessor(String text) {

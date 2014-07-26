@@ -36,8 +36,6 @@ import ar.edu.unq.sasa.gui.util.PeriodHolder;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
@@ -255,8 +253,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 					Map<Resource, Integer> resources = resourcesSelectionToMap(resourcesSelection);
-					try {department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(classroomRequestSelection, classroomSelection, periodSelection, resources);}
-					catch (PeriodException e1) {}
+					department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(classroomRequestSelection, classroomSelection, periodSelection, resources);
 					parentPanel.updateTables();
 					dispose();
 				}
@@ -276,8 +273,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					try {department.asignateClassroomAssignment(classroomRequestSelection, classroomSelection, periodSelection);}
-					catch (PeriodException e1) {}
+					department.asignateClassroomAssignment(classroomRequestSelection, classroomSelection, periodSelection);
 					parentPanel.updateTables();
 					dispose();
 				}
@@ -290,8 +286,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					try {department.asignateRequestInAClassroom(classroomRequestSelection, classroomSelection);}
-					catch (PeriodException e1) {}
+					department.asignateRequestInAClassroom(classroomRequestSelection, classroomSelection);
 					parentPanel.updateTables();
 					dispose();
 				}
@@ -304,9 +299,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					try {department.asignateRequestInMostSatisfactoryClassroom(classroomRequestSelection);}
-					catch (PeriodException e1) {}
-					catch (ResourceException e1) {}
+					department.asignateRequestInMostSatisfactoryClassroom(classroomRequestSelection);
 					parentPanel.updateTables();
 					dispose();
 				}
@@ -333,7 +326,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 	}
 
 	private void createClassroomsTable() {
-		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(department.getClassrooms());
+		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(department.getClassroomsDepartment().getClassrooms());
 		addClassroomColumns(tableModel);
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -23,7 +23,6 @@ import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Satisfaction;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.Resource;
@@ -46,7 +45,7 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_satisfactionsFromClassroomAndRequest()	throws RequestException {
+	public void test_satisfactionsFromClassroomAndRequest()	{
 		LogicalHourFulfiller logicHourFul1 = new HourInterval(new Timestamp(10), new Timestamp(12));
 
 		Period desHours = new SimplePeriod(logicHourFul1, new GregorianCalendar(2010, Calendar.DECEMBER, 5));
@@ -111,7 +110,7 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_freeHoursInAnAssignableItemInADayMoreThanOneIntervalFree() throws Exception {
+	public void test_freeHoursInAnAssignableItemInADayMoreThanOneIntervalFree() {
 		AssignableItem itemMock = createMock(AssignableItem.class);
 		Calendar day = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		for (int i = 0; i < 22; i++) {	// ocupada hasta las 10:30 hs
@@ -144,15 +143,15 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_classroomsThatSatisfyCapacityRequirement() throws RequestException {
+	public void test_classroomsThatSatisfyCapacityRequirement() {
 		Classroom classroom1 = new Classroom("Aula 30", 15);
 		Classroom classroom2 = new Classroom("Aula 62", 22);
 		Classroom classroom3 = new Classroom("Aula 15", 8);
 		Classroom classroom4 = new Classroom("Aula 22", 10);
-		university.addClassroom(classroom1);
-		university.addClassroom(classroom2);
-		university.addClassroom(classroom3);
-		university.addClassroom(classroom4);
+		university.getClassroomsDepartment().addClassroom(classroom1);
+		university.getClassroomsDepartment().addClassroom(classroom2);
+		university.getClassroomsDepartment().addClassroom(classroom3);
+		university.getClassroomsDepartment().addClassroom(classroom4);
 		ClassroomRequest request = new ClassroomRequest(null, null, null, 0L, null, null, 15);
 		Collection<Classroom> result = queryManager.classroomsThatSatisfyCapacityRequirement(request);
 		assertEquals(2, result.size());

@@ -8,8 +8,6 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.University;
-import ar.edu.unq.sasa.model.departments.ProfessorsDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.ProfessorException;
 
 public class TestProfessorsDepartment {
 
@@ -23,7 +21,7 @@ public class TestProfessorsDepartment {
 	}
 
 	@Test
-	public void testCreateProfessor() throws ProfessorException {
+	public void testCreateProfessor() {
 		Professor professor = professorsDepartment.createProfessor("Pepe", "42158787", "a@pepe.com");
 		assertNotNull(professor.getId());
 		assertEquals("a@pepe.com", professor.getMail());
@@ -32,7 +30,7 @@ public class TestProfessorsDepartment {
 	}
 
 	@Test
-	public void testCreateProfessorConMismoID() throws ProfessorException {
+	public void testCreateProfessorConMismoID() {
 		professorsDepartment.createProfessor("Pepe", "42158787", "a@pepe.com");
 		professorsDepartment.createProfessor("Jose", "42564798", "a@jose.com");
 	}

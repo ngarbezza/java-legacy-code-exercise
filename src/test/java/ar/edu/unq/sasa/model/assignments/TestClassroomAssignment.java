@@ -13,7 +13,6 @@ import org.junit.Test;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.Resource;
@@ -22,7 +21,7 @@ import ar.edu.unq.sasa.model.time.Period;
 public class TestClassroomAssignment {
 
 	@Test
-	public void test_shouldConstructCorrectly() throws RequestException {
+	public void test_shouldConstructCorrectly() {
 		Classroom classroom = new Classroom("Aula 1", 10);
 		List<ResourceAssignment> listaRes = new ArrayList<ResourceAssignment>();
 		Period desHours = null;
@@ -41,7 +40,7 @@ public class TestClassroomAssignment {
 	}
 
 	@Test
-	public void test_createSatisfaction() throws RequestException {
+	public void test_createSatisfaction() {
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optionalResources = new HashMap<Resource, Integer>();
 		Period desiredHours = null;

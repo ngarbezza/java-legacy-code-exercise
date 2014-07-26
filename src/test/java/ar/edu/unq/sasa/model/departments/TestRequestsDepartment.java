@@ -8,7 +8,6 @@ import org.junit.Test;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.academic.University;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 
 public class TestRequestsDepartment {
 
@@ -22,7 +21,7 @@ public class TestRequestsDepartment {
 	}
 
 	@Test
-	public void testDeleteRequest() throws RequestException {
+	public void testDeleteRequest() {
 		Request classroomRequest = new ClassroomRequest(null, null, null, 0, null, null, 1);
 		university.addRequest(classroomRequest);
 		requestsDepartment.deleteRequest(classroomRequest);

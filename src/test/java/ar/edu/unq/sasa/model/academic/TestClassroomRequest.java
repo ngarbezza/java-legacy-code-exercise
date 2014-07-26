@@ -11,7 +11,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
@@ -29,7 +28,7 @@ public class TestClassroomRequest {
 	private Map<Resource,Integer> optResources;
 
 	@Before
-	public void setUp() throws RequestException {
+	public void setUp() {
 		subject = new Subject("AOP Programming", 53455);
 		LinkedList<Subject> subjects = new LinkedList<Subject>();
 		subjects.add(subject);

@@ -33,19 +33,16 @@ public class Main {
 	public static void main(String[] args) {
 		// MODELO
 		University university = new University();
-		agregarValoresDePrueba(university);
+		addSampleValues(university);
 
 		// INTERFAZ GRÁFICA
 		try {UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());}
-		catch (Exception e) {}
+		catch (Exception e) { throw new RuntimeException(e); }
 
 		new MainWindow(university);
 	}
 
-	private static void agregarValoresDePrueba(University university) {
-
-		try {
-
+	private static void addSampleValues(University university) {
 		ClassroomsDepartment classroomsDepartment = university.getClassroomsDepartment();
 		ProfessorsDepartment professorsDepartment = university.getProfessorsDepartment();
 		ResourcesDepartment resourcesDepartment = university.getResourcesDepartment();
@@ -331,9 +328,5 @@ public class Main {
 	    // Reserva
 	    Classroom classroom = classroomsDepartment.searchClassroom("Aula 20");
 	    assignmentsDepartment.asignateBookedAssignment(classroom, "Reparaciones", desiredHours2);
-
-		} catch (Exception e) {
-			// TODO glup!
-		}
 	}
 }

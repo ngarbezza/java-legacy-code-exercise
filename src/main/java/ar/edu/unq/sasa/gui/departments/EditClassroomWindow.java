@@ -25,7 +25,6 @@ import javax.swing.event.ListSelectionListener;
 import ar.edu.unq.sasa.gui.util.WidgetUtilities;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.ClassroomException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 
@@ -233,14 +232,9 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 
 	@Override
 	protected void doAcceptInAddingMode() {
-		try {
-			Classroom c = department.createClassroom(nameField.getText(), (Integer) capacityField.getValue());
-			for (FixedResource r : getListModel())
-				c.addResource(r);
-		} catch (ClassroomException e) {
-			JOptionPane.showMessageDialog(this, "Hubo un error al crear el aula",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		}
+		Classroom c = department.createClassroom(nameField.getText(), (Integer) capacityField.getValue());
+		for (FixedResource r : getListModel())
+			c.addResource(r);
 	}
 
 	@SuppressWarnings("unchecked")

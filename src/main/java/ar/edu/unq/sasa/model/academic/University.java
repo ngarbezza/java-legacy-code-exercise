@@ -13,7 +13,6 @@ import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
 import ar.edu.unq.sasa.model.departments.SubjectsDepartment;
 import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
-import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -27,7 +26,6 @@ public class University {
 
 	private List<Request> requests;
 	private LinkedList<Professor> professors;
-	private List<Classroom> classrooms;
 	private List<MobileResource> mobileResources;
 	private List<Assignment> assignments;
 	private List<Subject> subjects;
@@ -40,7 +38,6 @@ public class University {
 	private SubjectsDepartment subjectsDepartment;
 
 	public University() {
-		this.classrooms = new LinkedList<Classroom>();
 		this.professors = new LinkedList<Professor>();
 		this.requests = new LinkedList<Request>();
 		this.mobileResources = new LinkedList<MobileResource>();
@@ -70,10 +67,6 @@ public class University {
 		return professors;
 	}
 
-	public List<Classroom> getClassrooms() {
-		return classrooms;
-	}
-
 	public List<MobileResource> getMobileResources() {
 		// TODO move to ResourcesDepartment
 		return mobileResources;
@@ -84,7 +77,7 @@ public class University {
 		for (MobileResource mobileResource : mobileResources)
 			if (!containsResource(resources, mobileResource))
 				resources.add(mobileResource);
-		for (Classroom classroom : classrooms)
+		for (Classroom classroom : getClassroomsDepartment().getClassrooms())
 			for (FixedResource fixedResource : classroom.getResources())
 				if (!containsResource(resources, fixedResource))
 					resources.add(fixedResource);
@@ -112,10 +105,6 @@ public class University {
 		this.getProfessors().add(professor);
 	}
 
-	public void addClassroom(Classroom classroom) {
-		this.getClassrooms().add(classroom);
-	}
-
 	public void addAssignment(Assignment assignment) {
 		this.getAssignments().add(assignment);
 	}
@@ -132,21 +121,11 @@ public class University {
 		this.getRequests().remove(request);
 	}
 
-	public void deleteClassroom(Classroom classroom) {
-		this.getClassrooms().remove(classroom);
+	public void deleteResource(MobileResource resource) {
+		this.getMobileResources().remove(resource);
 	}
 
-	public void deleteResource(String name) throws ResourceException {
-		for (MobileResource mobRes : this.getMobileResources())
-			if (mobRes.getName().equals(name)) {
-				this.getMobileResources().remove(mobRes);
-				return;
-			}
-		throw new ResourceException("Recurso inexistente");
-	}
-
-	public Assignment getAssignmentByRequest(Request request)
-			throws AssignmentException {
+	public Assignment getAssignmentByRequest(Request request) {
 		Assignment resultado = null;
 		for (Assignment a : this.getAssignments())
 			if (a.getRequest().equals(request))
@@ -156,14 +135,6 @@ public class University {
 		return resultado;
 	}
 
-	public Classroom getClassroom(String nameClassroom) {
-		Classroom wantedClassroom = null;
-		for (Classroom currentClassroom : this.getClassrooms())
-			if (currentClassroom.getName().equals(nameClassroom))
-				wantedClassroom = currentClassroom;
-		return wantedClassroom;
-	}
-
 	public MobileResource getResource(String name) {
 		for (MobileResource r : this.getMobileResources())
 			if (r.getName().equals(name))
@@ -171,8 +142,7 @@ public class University {
 		return null;
 	}
 
-	public Request getRequest(Professor professor, Subject subject)
-			throws RequestException {
+	public Request getRequest(Professor professor, Subject subject) {
 		for (Request request : this.getRequests())
 			if (request.getProfessor().equals(professor)
 					&& request.getSubject().equals(subject))

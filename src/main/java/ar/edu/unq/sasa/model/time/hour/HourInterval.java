@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.Period;
 
 /**
@@ -71,17 +70,13 @@ public class HourInterval extends LogicalHourFulfiller {
 	@Override
 	public List<HourInterval> getConcreteIntervals() {
 		List<HourInterval> intervals = new LinkedList<HourInterval>();
-		try {
-			Timestamp currentStart = getStart();
-			Timestamp currentEnd = getStart().add(getMinutesInRange());
+		Timestamp currentStart = getStart();
+		Timestamp currentEnd = getStart().add(getMinutesInRange());
 
-			while (getEnd().greaterEqual(currentEnd)) {
-				intervals.add(new HourInterval(currentStart, currentEnd));
-				currentStart = currentStart.add(Period.MIN_HOUR_BLOCK);
-				currentEnd = currentEnd.add(Period.MIN_HOUR_BLOCK);
-			}
-		} catch (TimestampException e) {
-			throw new PeriodException("Timestamp failed : " + e.getMessage());
+		while (getEnd().greaterEqual(currentEnd)) {
+			intervals.add(new HourInterval(currentStart, currentEnd));
+			currentStart = currentStart.add(Period.MIN_HOUR_BLOCK);
+			currentEnd = currentEnd.add(Period.MIN_HOUR_BLOCK);
 		}
 		return intervals;
 	}

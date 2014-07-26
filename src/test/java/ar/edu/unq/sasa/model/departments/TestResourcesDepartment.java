@@ -7,7 +7,6 @@ import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +15,6 @@ import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
-import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -45,7 +42,7 @@ public class TestResourcesDepartment {
 	}
 
 	@Test
-	public void testCreateFixedResource() throws ResourceException {
+	public void testCreateFixedResource() {
 		String name = "Proyector";
 		int amount = 10;
 		FixedResource res1 = new FixedResource(name, amount);
@@ -53,22 +50,13 @@ public class TestResourcesDepartment {
 		assertEquals(res1, res2);
 	}
 
-	@Test
-	public void testCreatePositiveAmountFixedResource() throws ResourceException {
-		// TODO rewrite using junit 4
-		String name = "Proyector";
-		int amount = -10;
-		try {
-			@SuppressWarnings("unused")
-			FixedResource res2 = resourcesDepartment.createFixedResource(name, amount);
-			fail("La cantidad del recurso debe ser positiva");
-		}
-
-		catch (ResourceException e) {}
+	@Test(expected=ResourceException.class)
+	public void testCreatePositiveAmountFixedResource() {
+		resourcesDepartment.createFixedResource("Proyector", -10);
 	}
 
 	@Test
-	public void testDeleteMobileResource() throws ResourceException {
+	public void testDeleteMobileResource() {
 		resourcesDepartment.deleteMobileResource(mobileResource);
 		assertFalse(university.getMobileResources().contains(mobileResource));
 	}
@@ -84,7 +72,7 @@ public class TestResourcesDepartment {
 	}
 
 	@Test
-	public void testModifyResourceAmount() throws ResourceException {
+	public void testModifyResourceAmount() {
 		int amount = 10;
 		fixedResource.setAmount(amount);
 		expectLastCall();
@@ -93,19 +81,13 @@ public class TestResourcesDepartment {
 		verify(fixedResource);
 	}
 
-	@Test
-	public void testModifyPositiveResourceAmount() throws ResourceException {
-		// TODO rewrite using junit 4
-		int amount = -10;
-		try {
-			resourcesDepartment.modifyResource(fixedResource, amount);
-			fail("La cantidad debe ser positiva");
-		}
-		catch (ResourceException e){}
+	@Test(expected=ResourceException.class)
+	public void testModifyPositiveResourceAmount() {
+		resourcesDepartment.modifyResource(fixedResource, -10);
 	}
 
 	@Test
-	public void testAddMobileResourceAssignment() throws RequestException {
+	public void testAddMobileResourceAssignment() {
 		Period period = null;
 		ClassroomRequest mobileResourcesRequest = new ClassroomRequest(null, null, null, 0, null, null, 10);
 		ResourceAssignment resAsig = new ResourceAssignment(mobileResourcesRequest, mobileResource);

@@ -10,11 +10,7 @@ public class ClassroomRequest extends Request {
 
 	public int capacity;
 
-	public ClassroomRequest(Period desHours, Subject aSubject,
-			Professor aProfessor, long anID,
-			Map<Resource, Integer> reqResources,
-			Map<Resource, Integer> optResources, int aCapacity)
-			throws RequestException {
+	public ClassroomRequest(Period desHours, Subject aSubject, Professor aProfessor, long anID, Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources, int aCapacity) {
 		super(desHours, aSubject, aProfessor, anID, reqResources, optResources);
 
 		if (aCapacity <= 0)

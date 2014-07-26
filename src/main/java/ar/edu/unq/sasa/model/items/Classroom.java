@@ -12,9 +12,6 @@ import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Representa las aulas del sistema.
- */
 public class Classroom extends AssignableItem {
 
 	private int capacity;
@@ -53,7 +50,7 @@ public class Classroom extends AssignableItem {
 		return retorno;
 	}
 
-	public FixedResource getResource(String name) throws ResourceException {
+	public FixedResource getResource(String name) {
 		FixedResource recursoBuscado = null;
 		for (int i = 0; i < resources.size(); i++)
 			if (resources.get(i).getName() == name) {
@@ -64,17 +61,17 @@ public class Classroom extends AssignableItem {
 		return recursoBuscado;
 	}
 
-	public void verificar(FixedResource resource) throws ResourceException {
+	public void verificar(FixedResource resource) {
 		if (resource == null)
 			throw new ResourceException("Recurso no encontrado");
 	}
 
-	public void verificar(Assignment assignment) throws ResourceException, AssignmentException {
+	public void verificar(Assignment assignment) {
     	if (assignment == null)
 			throw new AssignmentException("Asignacion no encontrada");
     }
 
-	public ClassroomAssignment getAssignment(Period period) throws ResourceException, AssignmentException {
+	public ClassroomAssignment getAssignment(Period period) {
 		ClassroomAssignment retorno = null;
 		retorno = (ClassroomAssignment) this.getAssignments().get(period);
 		this.verificar(retorno);

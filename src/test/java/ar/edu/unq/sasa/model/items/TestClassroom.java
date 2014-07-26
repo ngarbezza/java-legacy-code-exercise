@@ -6,7 +6,6 @@ import static org.easymock.EasyMock.replay;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -35,7 +34,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void testGetResource() throws ResourceException {
+	public void testGetResource() {
 		FixedResource resource = new FixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addResource(resource);
@@ -59,7 +58,7 @@ public class TestClassroom {
 	}
 
 	@Test(expected=AssignmentException.class)
-	public void testGetAssigment() throws AssignmentException,ResourceException {
+	public void testGetAssigment() {
 		Period period = new SimplePeriod(null, null);
 		ClassroomAssignment assignment = null;
 		Classroom classroom = new Classroom("ZAZA", 20);
@@ -68,26 +67,22 @@ public class TestClassroom {
      }
 
 	@Test
-	public void testVerificarCorrecto() throws ResourceException {
+	public void testHasExistingResource() {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		FixedResource resource = new FixedResource("Pc", 4);
 		classroom.addResource(resource);
-		try {
-			classroom.verificar(resource);
-		} catch (ResourceException e) {
-			fail("Exception capturada,se paso como parametro '"	+ resource + "' es null");
-		}
+		assertTrue(classroom.hasResource("Pc"));
 	}
 
 	@Test(expected=ResourceException.class)
-	public void testVerificarErroneo() throws ResourceException {
+	public void testVerificarErroneo() {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		FixedResource resource2 = null;
 		classroom.verificar(resource2);
 	}
 
 	@Test
-	public void test_isFreeAt() throws Exception {
+	public void test_isFreeAt() {
 		// TODO make 3 tests:
 		// * free if no assignments at all
 		// * free if assignments in other periods
@@ -109,7 +104,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_canAssignWithoutIgnoringCommonAssignments() throws Exception {
+	public void test_canAssignWithoutIgnoringCommonAssignments() {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Period periodMock = createMock(Period.class);
 		Period p1Mock = createMock(Period.class);
@@ -124,7 +119,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_canAssignIgnoringCommonAssignments() throws Exception {
+	public void test_canAssignIgnoringCommonAssignments() {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Period periodMock = createMock(Period.class);
 		Period p1Mock = createMock(Period.class);
@@ -151,7 +146,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_satisfyFixedResource() throws Exception {
+	public void test_satisfyFixedResource() {
 		Classroom classroom = new Classroom("La 37B", 30);
 		FixedResource classroomResource = new FixedResource("Pizarron", 1);
 		FixedResource resource = new FixedResource("Pizarron");

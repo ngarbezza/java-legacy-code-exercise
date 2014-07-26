@@ -171,17 +171,15 @@ public class ResourcesSelectionWindow extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				String number = ((JTextField)e.getSource()).getText();
-				if (! number.equals(""))
-					try {
-						if (quantity != null){
-							addResourceButton.setEnabled(false);
-							quantity = null;
-						}
-						quantity = Integer.parseInt(number);
-						if (resource != null)
-							addResourceButton.setEnabled(true);
+				if (! number.equals("")) {
+					if (quantity != null){
+						addResourceButton.setEnabled(false);
+						quantity = null;
 					}
-					catch (Exception ex){}
+					quantity = Integer.parseInt(number);
+					if (resource != null)
+						addResourceButton.setEnabled(true);
+				}
 				else {
 					addResourceButton.setEnabled(false);
 					quantity = null;

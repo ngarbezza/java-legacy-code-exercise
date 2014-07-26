@@ -27,8 +27,6 @@ import javax.swing.tree.DefaultTreeModel;
 import uic.widgets.calendar.UICDateEdit;
 import ar.edu.unq.sasa.gui.util.PeriodHolder;
 import ar.edu.unq.sasa.gui.util.WidgetUtilities;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.And;
 import ar.edu.unq.sasa.model.time.Minus;
 import ar.edu.unq.sasa.model.time.Or;
@@ -225,12 +223,7 @@ public class NewPeriodWindow extends JFrame {
 		Period period = periodHolder.getPeriod();
 		PeriodTreeNode rootPeriod = null;
 		if (period == null)
-			try {
-				rootPeriod = new SimplePeriodTreeNode();
-			} catch (TimestampException e1) {
-				JOptionPane.showMessageDialog(this, "Fallo en la creacion del Periodo",
-						"Advertencia", JOptionPane.WARNING_MESSAGE);
-			}
+			rootPeriod = new SimplePeriodTreeNode();
 		else
 			rootPeriod = makeTreeFromPeriod(period);
 			periodsTree = new JTree(rootPeriod) {
@@ -273,20 +266,13 @@ public class NewPeriodWindow extends JFrame {
 	// Asume que el Period está construido con LogicalHourFulfiller simple, o
 	// sea HourInterval, no Or. Esto es por limitación del diseño de la interfaz.
 	protected SimplePeriodTreeNode makeTreeFromPeriod(SimplePeriod period) {
-		try {
-			SimplePeriodTreeNode newSP = new SimplePeriodTreeNode();
-			newSP.setRepetition(period.getRepetition());
-			newSP.setStartDate(period.getStart());
-			newSP.setMinutesInRange(((HourInterval) period.getHourFulfiller())
-					.getMinutesInRange());
-			newSP.setStartHour(((HourInterval) period.getHourFulfiller()).getStart());
-			newSP.setEndHour(((HourInterval) period.getHourFulfiller()).getEnd());
-			return newSP;
-		} catch (TimestampException e) {
-			JOptionPane.showMessageDialog(this, "Fallo en la creacion del Periodo",
-					"Advertencia", JOptionPane.WARNING_MESSAGE);
-		}
-		return null;
+		SimplePeriodTreeNode newSP = new SimplePeriodTreeNode();
+		newSP.setRepetition(period.getRepetition());
+		newSP.setStartDate(period.getStart());
+		newSP.setMinutesInRange(((HourInterval) period.getHourFulfiller()).getMinutesInRange());
+		newSP.setStartHour(((HourInterval) period.getHourFulfiller()).getStart());
+		newSP.setEndHour(((HourInterval) period.getHourFulfiller()).getEnd());
+		return newSP;
 	}
 
 	protected void whenSelectedPeriodChanged(TreeSelectionEvent e) {
@@ -360,8 +346,8 @@ public class NewPeriodWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if ((PeriodTreeNode) periodsTree.getLastSelectedPathComponent() != null)
 					saveChanges();
-				Period period = makePeriodFromTree((PeriodTreeNode)
-					periodsTree.getModel().getRoot());
+				Period period = ((PeriodTreeNode)
+				periodsTree.getModel().getRoot()).makePeriod();
 				if (period != null) {
 					periodHolder.setPeriod(period);
 					dispose();
@@ -387,7 +373,6 @@ public class NewPeriodWindow extends JFrame {
 			selectedNode.updateChanges(this);
 		else {
 			PeriodTreeNode newNode = null;
-			try {
 			if (simpleRadioButton.isSelected())
 				newNode = new SimplePeriodTreeNode();
 			else if (orRadioButton.isSelected())
@@ -396,10 +381,6 @@ public class NewPeriodWindow extends JFrame {
 				newNode = new AndPeriodTreeNode(new SimplePeriodTreeNode(), new SimplePeriodTreeNode());
 			else if (minusRadioButton.isSelected())
 				newNode = new MinusPeriodTreeNode(new SimplePeriodTreeNode(), new SimplePeriodTreeNode());
-			} catch (TimestampException e) {
-				JOptionPane.showMessageDialog(this, "Fallo en la creacion del Periodo",
-						"Advertencia", JOptionPane.WARNING_MESSAGE);
-			}
 			if (selectedNode.getParent() == null)
 				((DefaultTreeModel) periodsTree.getModel()).setRoot(newNode);
 			else {
@@ -413,16 +394,6 @@ public class NewPeriodWindow extends JFrame {
 		DefaultTreeModel model = ((DefaultTreeModel)periodsTree.getModel());
 		model.reload();
 		periodsTree.clearSelection();
-	}
-
-	protected Period makePeriodFromTree(PeriodTreeNode node) {
-		try {
-			return node.makePeriod();
-		} catch (PeriodException e) {
-			JOptionPane.showMessageDialog(NewPeriodWindow.this, e.getMessage(),
-					"Advertencia", JOptionPane.WARNING_MESSAGE);
-			return null;
-		}
 	}
 
 	protected void addAllWidgets() {
@@ -519,27 +490,22 @@ public class NewPeriodWindow extends JFrame {
 	}
 
 	public void updateChangesFromSimple(SimplePeriodTreeNode sptn) {
-		try {
-			sptn.setStartHour(new Timestamp((Integer)fromHoursCombo.getSelectedItem(),
-					(Integer)fromMinutesCombo.getSelectedItem()));
-			sptn.setEndHour(new Timestamp((Integer)toHoursCombo.getSelectedItem(),
-					(Integer)toMinutesCombo.getSelectedItem()));
-			sptn.setMinutesInRange(Math.round((Float)minutesInRange.getValue() * 60));
-			sptn.setStartDate(fromDate.getSelectedCalendar());
-			if (noneRadioButton.isSelected())
-				sptn.setRepetition(new None());
-			else {
-				Calendar end = toDate.getSelectedCalendar();
-				if (dailyRadioButton.isSelected())
-					sptn.setRepetition(new Daily(end));
-				else if (weeklyRadioButton.isSelected())
-					sptn.setRepetition(new Weekly(end));
-				else if (monthlyRadioButton.isSelected())
-					sptn.setRepetition(new Monthly(end));
-			}
-		} catch (TimestampException e) {
-			JOptionPane.showMessageDialog(this, "Fallo en la creacion del Periodo",
-					"Advertencia", JOptionPane.WARNING_MESSAGE);
+		sptn.setStartHour(new Timestamp((Integer)fromHoursCombo.getSelectedItem(),
+				(Integer)fromMinutesCombo.getSelectedItem()));
+		sptn.setEndHour(new Timestamp((Integer)toHoursCombo.getSelectedItem(),
+				(Integer)toMinutesCombo.getSelectedItem()));
+		sptn.setMinutesInRange(Math.round((Float)minutesInRange.getValue() * 60));
+		sptn.setStartDate(fromDate.getSelectedCalendar());
+		if (noneRadioButton.isSelected())
+			sptn.setRepetition(new None());
+		else {
+			Calendar end = toDate.getSelectedCalendar();
+			if (dailyRadioButton.isSelected())
+				sptn.setRepetition(new Daily(end));
+			else if (weeklyRadioButton.isSelected())
+				sptn.setRepetition(new Weekly(end));
+			else if (monthlyRadioButton.isSelected())
+				sptn.setRepetition(new Monthly(end));
 		}
 	}
 }

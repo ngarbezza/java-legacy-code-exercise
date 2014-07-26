@@ -17,12 +17,12 @@ public class TestHourInterval {
 	private HourInterval hInterval;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		this.hInterval = new HourInterval(new Timestamp(17, 30), new Timestamp(19));
 	}
 
 	@Test
-	public void test_constructor() throws Exception {
+	public void test_constructor() {
 		Timestamp t1 = new Timestamp(1, 20);
 		Timestamp t2 = new Timestamp(5, 30);
 		HourInterval hi = new HourInterval(t1, t2);
@@ -32,7 +32,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_containsTimestampWhenTheConditionIsSatisfied() throws Exception {
+	public void test_containsTimestampWhenTheConditionIsSatisfied() {
 		Timestamp t1 = new Timestamp(17, 30);
 		Timestamp t2 = new Timestamp(19);
 		Timestamp t3 = new Timestamp(18, 22);
@@ -46,7 +46,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_containsTimestampWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_containsTimestampWhenTheConditionIsntSatisfied() {
 		Timestamp t1 = new Timestamp(17);
 		Timestamp t2 = new Timestamp(22);
 
@@ -68,11 +68,11 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_isInWhenTheConditionIsSatisfied() throws Exception {
+	public void test_isInWhenTheConditionIsSatisfied() {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(22));
 		HourInterval hi2 = new HourInterval(new Timestamp(17, 30), new Timestamp(23));
 		HourInterval hi3 = new HourInterval(new Timestamp(16, 30), new Timestamp(19));
-		
+
 		assertTrue("The interval 17:30 ~ 19 must be in 9 ~ 22",
 				hInterval.isIn(hi1));
 		assertTrue("The interval 17:30 ~ 19 must be in 17:30 ~ 23",
@@ -82,7 +82,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_isInWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_isInWhenTheConditionIsntSatisfied() {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(12));
 		HourInterval hi2 = new HourInterval(new Timestamp(19, 30), new Timestamp(23));
 		HourInterval hi3 = new HourInterval(new Timestamp(16), new Timestamp(18));
@@ -99,7 +99,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_intersectsWithWhenTheConditionIsSatisfied() throws Exception {
+	public void test_intersectsWithWhenTheConditionIsSatisfied() {
 		// lo contiene, por lo tanto lo intersecta
 		HourInterval hi1 = new HourInterval(new Timestamp(18), new Timestamp(18, 30));
 		// es contenido, por lo tanto hay intersección también
@@ -115,7 +115,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_intersectsWithWhenTheConditionIsntSatisfied() throws Exception {
+	public void test_intersectsWithWhenTheConditionIsntSatisfied() {
 		// intervalos totalmente disjuntos
 		HourInterval hi1 = new HourInterval(new Timestamp(8), new Timestamp(12));
 		HourInterval hi2 = new HourInterval(new Timestamp(19, 30), new Timestamp(22));
@@ -128,14 +128,14 @@ public class TestHourInterval {
 		assertFalse(hInterval.intersectsWith(hi3));
 		assertFalse(hInterval.intersectsWith(hi4));
 	}
-	
+
 	@Test
-	public void test_getConcreteIntervals() throws Exception {
+	public void test_getConcreteIntervals() {
 		HourInterval hi1 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 120);
 		HourInterval hi2 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 60);
 		HourInterval hi3 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 150);
 		HourInterval hi4 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 270);
-				
+
 		assertEquals(hi1.getConcreteIntervals().size(), 6);
 		assertEquals(hi2.getConcreteIntervals().size(), 8);
 		assertEquals(hi3.getConcreteIntervals().size(), 5);

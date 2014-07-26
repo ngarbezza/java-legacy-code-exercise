@@ -15,8 +15,6 @@ import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
-import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
-import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -30,7 +28,7 @@ public class AssignmentsDepartment extends Department {
 		super(university);
 	}
 
-	public ResourceAssignment asignateResourceAssignment(Request request, MobileResource mobileResource, Period period){
+	public ResourceAssignment asignateResourceAssignment(Request request, MobileResource mobileResource, Period period) {
 		ResourceAssignment resourceAssignment = new ResourceAssignment(request, mobileResource);
 		mobileResource.addAssignment(period, resourceAssignment);
 		addAssignment(resourceAssignment);
@@ -114,7 +112,7 @@ public class AssignmentsDepartment extends Department {
 		return classroomAssignment;
 	}
 
-	public ClassroomAssignment asignateRequestInMostSatisfactoryClassroom(ClassroomRequest classroomRequest) throws ResourceException {
+	public ClassroomAssignment asignateRequestInMostSatisfactoryClassroom(ClassroomRequest classroomRequest) {
 		Classroom bestClassroom = null;
 		Float bestRequiredPercentage = null;
 		Float bestOptionalPercentage = null;
@@ -122,7 +120,7 @@ public class AssignmentsDepartment extends Department {
 		int lowestMinutesSuperposed = 0;
 		Period freePeriod = null;
 
-		for (Classroom c : getUniversity().getClassrooms()){
+		for (Classroom c : getClassroomsDepartment().getClassrooms()){
 			float cRequiredPercentage = getPercentage(classroomRequest.getRequiredResources(), c);
 			float cOptionalPercentage = getPercentage(classroomRequest.getOptionalResources(), c);
 			Map<Integer, Object> percentageAndPeriod = getPercentageAndPeriod(classroomRequest, c);
@@ -250,7 +248,7 @@ public class AssignmentsDepartment extends Department {
 		return highestMinutesSuperposed;
 	}
 
-	private float getPercentage(Map<Resource, Integer> requestResources, Classroom classroom) throws ResourceException {
+	private float getPercentage(Map<Resource, Integer> requestResources, Classroom classroom) {
 		int cantMatched = 0;
 		int cantTotal = 0;
 
@@ -291,7 +289,7 @@ public class AssignmentsDepartment extends Department {
 		///////////////////////////////////////////////////////////
 	}
 
-	public void deleteClassroomAssignmentFromARequest(Request request) throws AssignmentException {
+	public void deleteClassroomAssignmentFromARequest(Request request) {
 		ClassroomAssignment classroomAssignment = null;
 		for (Assignment assignment : getUniversity().getAssignments())
 			if (assignment.isClassroomAssignment())
@@ -357,7 +355,7 @@ public class AssignmentsDepartment extends Department {
 		return bookedAssignments;
 	}
 
-	public ClassroomAssignment moveAssignmentOfClassroom(ClassroomAssignment assigment, Classroom classroom) throws AssignmentException {
+	public ClassroomAssignment moveAssignmentOfClassroom(ClassroomAssignment assigment, Classroom classroom) {
 		Period period = null;
 		for (Entry<Period, Assignment> currentEntry : (assigment.getAssignableItem().getAssignments().entrySet())  )
 			if (currentEntry.getValue().equals(assigment)){
@@ -369,7 +367,7 @@ public class AssignmentsDepartment extends Department {
 		return this.asignateClassroomAssignment(request,classroom,period);
 	}
 
-    public void moveAssignmentOfHour(ClassroomAssignment assignment, LogicalHourFulfiller hour) throws AssignmentException {
+    public void moveAssignmentOfHour(ClassroomAssignment assignment, LogicalHourFulfiller hour) {
 		Period period = null;
 		for (Entry<Period, Assignment> currentEntry : (assignment.getAssignableItem().getAssignments().entrySet())  )
 			if (currentEntry.getValue().equals(assignment)){
@@ -381,7 +379,7 @@ public class AssignmentsDepartment extends Department {
 		asignateClassroomAssignment(assignment.getRequest(), assignment.getAssignableItem(), period);
 	}
 
-	public void moveAssignmentOfPeriod(ClassroomAssignment assignment, Period newPeriod) throws AssignmentException {
+	public void moveAssignmentOfPeriod(ClassroomAssignment assignment, Period newPeriod) {
 		deleteClassroomAssignmentFromARequest(assignment.getRequest());
 		asignateClassroomAssignment(assignment.getRequest(), assignment.getAssignableItem(), newPeriod);
 	}

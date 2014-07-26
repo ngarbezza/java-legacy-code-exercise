@@ -1,6 +1,5 @@
 package ar.edu.unq.sasa.model.academic;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.GregorianCalendar;
@@ -38,27 +37,6 @@ public class TestMobileResourcesRequest {
 		optResources = new HashMap<Resource,Integer>();
 
 		mobileResourcesRequest = new MobileResourcesRequest(desiredHours, subject, professor, 98346, reqResources, optResources);
-	}
-
-	@Test
-	public void test_shouldBeConstructedCorrectly() {
-
-		assertNotNull("desiredHours is Null",this.mobileResourcesRequest.getDesiredHours());
-		assertTrue("desiredHours is from an undesired class",this.mobileResourcesRequest.getDesiredHours() instanceof Period);
-		//----------------------------------------------------------------//
-		assertNotNull("subject is Null",this.mobileResourcesRequest.getSubject());
-		assertTrue("subject is from an undesired class",this.mobileResourcesRequest.getSubject() instanceof Subject);
-		//----------------------------------------------------------------//
-		assertNotNull("professor is Null",this.mobileResourcesRequest.getProfessor());
-		assertTrue("professor is from an undesired class",this.mobileResourcesRequest.getProfessor() instanceof Professor);
-		//----------------------------------------------------------------//
-		assertNotNull("id is Null",this.mobileResourcesRequest.getId());
-		//----------------------------------------------------------------//
-		assertNotNull("requiredResources is Null",this.mobileResourcesRequest.getRequiredResources());
-		assertTrue("requiredResources is from an undesired class",this.mobileResourcesRequest.getRequiredResources() instanceof Map<?, ?>);
-		//----------------------------------------------------------------//
-		assertNotNull("optionalResources is Null",this.mobileResourcesRequest.getOptionalResources());
-		assertTrue("optionalResources is from an undesired class",this.mobileResourcesRequest.getOptionalResources() instanceof Map<?, ?>);
 	}
 
 	@Test

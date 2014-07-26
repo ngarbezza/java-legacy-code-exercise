@@ -16,7 +16,6 @@ import javax.swing.event.ListSelectionEvent;
 
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
-import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.MobileResource;
 
 /**
@@ -64,13 +63,7 @@ public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource
 				if (JOptionPane.showConfirmDialog(new JFrame(),
 						"¿Desea eliminar el recurso seleccionado?", "Eliminar",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					try {
-						department.deleteResource(selection.getName());
-					} catch (ResourceException e1) {
-						JOptionPane.showMessageDialog(MobileResourcesPanel.this,
-								"No se pudo borrar el recurso",
-								"Advertencia", JOptionPane.WARNING_MESSAGE);
-					}
+					department.deleteResource(selection);
 			}
 		});
 	}

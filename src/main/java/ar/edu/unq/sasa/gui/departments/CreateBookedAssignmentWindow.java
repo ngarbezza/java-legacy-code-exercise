@@ -34,7 +34,6 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.time.Period;
 
@@ -203,8 +202,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea crear la Reseva con esos datos?", "Aceptar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					try {department.asignateBookedAssignment(classroomSelected, cause, period);}
-					catch (PeriodException e1) {}
+					department.asignateBookedAssignment(classroomSelected, cause, period);
 					dispose();
 				}
 			}

@@ -20,7 +20,7 @@ public class TestSimplePeriod {
 	private SimplePeriod periodUnderTest;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		// se crea un período, todos los miércoles empezando desde el 9 de junio
 		// hasta el 15 de octubre, de 12 a 15:30 horas.
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 9);
@@ -30,7 +30,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_containsCalendarSatisfiedInDaysAndHours() throws Exception {
+	public void test_containsCalendarSatisfiedInDaysAndHours() {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 9, 12, 0);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.JUNE, 9, 15, 30);
 		Calendar date3 = new GregorianCalendar(2010, Calendar.JUNE, 9, 14, 30);
@@ -53,7 +53,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_containsCalendarSatisfiedInDaysButNotInHours() throws Exception {
+	public void test_containsCalendarSatisfiedInDaysButNotInHours() {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 30, 11, 00);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.OCTOBER, 6, 17, 30);
 
@@ -63,7 +63,7 @@ public class TestSimplePeriod {
 				periodUnderTest.contains(date2));
 	}
 
-	public void test_containsCalendarSatisfiedInHoursButNotInDays() throws Exception {
+	public void test_containsCalendarSatisfiedInHoursButNotInDays() {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.MAY, 26, 13, 30);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.OCTOBER, 20, 14, 00);
 		Calendar date3 = new GregorianCalendar(2010, Calendar.JULY, 9, 12, 30);
@@ -77,7 +77,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_containsCalendarSatisfiedNeitherDaysNorHours() throws Exception {
+	public void test_containsCalendarSatisfiedNeitherDaysNorHours() {
 		Calendar date1 = new GregorianCalendar(2010, Calendar.JUNE, 8, 22, 0);
 		Calendar date2 = new GregorianCalendar(2010, Calendar.JULY, 23, 7, 30);
 		Calendar date3 = new GregorianCalendar(2010, Calendar.SEPTEMBER, 10, 23, 30);
@@ -88,7 +88,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_containsPeriodSatisfiedInDaysAndHours() throws Exception {
+	public void test_containsPeriodSatisfiedInDaysAndHours() {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(13), new Timestamp(15, 30));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JULY, 28));
 		LogicalHourFulfiller lhf2 = new HourInterval(new Timestamp(12), new Timestamp(14, 30));
@@ -100,7 +100,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_containsPeriodSatisfiedInDaysButNotInHours() throws Exception {
+	public void test_containsPeriodSatisfiedInDaysButNotInHours() {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(9), new Timestamp(13));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JULY, 28));
 		LogicalHourFulfiller lhf2 = new HourInterval(new Timestamp(16, 30), new Timestamp(19));
@@ -112,7 +112,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_containsPeriodSatisfiedInHoursButNotInDays() throws Exception {
+	public void test_containsPeriodSatisfiedInHoursButNotInDays() {
 		LogicalHourFulfiller lhf1 = new HourInterval(new Timestamp(12), new Timestamp(13));
 		Period period1 = new SimplePeriod(lhf1, new GregorianCalendar(2010, Calendar.JUNE, 21));
 		LogicalHourFulfiller lhf2 = new HourInterval(new Timestamp(13), new Timestamp(14));
@@ -124,7 +124,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_addHourCondition() throws Exception {
+	public void test_addHourCondition() {
 		Calendar expected = new GregorianCalendar(2010, Calendar.JULY, 21, 17, 30);
 		assertFalse(periodUnderTest.contains(expected));
 		periodUnderTest.addHourCondition(new HourInterval(new Timestamp(16), new Timestamp(18)));
@@ -132,7 +132,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_minutesSharedWithPeriodSatisfiedInDaysButNotInHours() throws Exception {
+	public void test_minutesSharedWithPeriodSatisfiedInDaysButNotInHours() {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(7), new Timestamp(9));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 23));
 
@@ -140,7 +140,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_minutesSharedWithPeriodSatisfiedInHoursButNotInDays() throws Exception {
+	public void test_minutesSharedWithPeriodSatisfiedInHoursButNotInDays() {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(9), new Timestamp(13));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 6));
 
@@ -148,7 +148,7 @@ public class TestSimplePeriod {
 	}
 
 	@Test
-	public void test_minutesSharedWithPeriodSatisfiedInDaysAndHours() throws Exception {
+	public void test_minutesSharedWithPeriodSatisfiedInDaysAndHours() {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(9), new Timestamp(13, 30));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 23));
 

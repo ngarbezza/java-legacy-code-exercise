@@ -1,9 +1,6 @@
 package ar.edu.unq.sasa.model.exceptions.departments;
 
-/**
- * Representa casos excepcionales que tengan que ver con aulas.
- */
-public class ClassroomException extends Exception {
+public class ClassroomException extends RuntimeException {
 
 	private static final long serialVersionUID = 2573760846099487712L;
 
