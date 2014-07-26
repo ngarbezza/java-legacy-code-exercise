@@ -4,18 +4,21 @@ package ar.edu.unq.sasa.model.items;
  * Representa aquellos recursos que pertenecen a un aula, de manera fija.
  */
 public class FixedResource implements Resource{
-	
+
 	private String name;
-	
+
 	private int amount;
-	
+
 	public FixedResource(String name, int amount) {
 		this.name = name;
 		this.amount = amount;
 	}
-	
-	public FixedResource(String name){}
-	
+
+	public FixedResource(String name) {
+		// TODO this should not exist anymore when requirements are modeled
+		this.name = name;
+	}
+
 	public int getAmount() {
 		return amount;
 	}
@@ -47,7 +50,7 @@ public class FixedResource implements Resource{
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public String toString(){
 		return name;
@@ -70,7 +73,7 @@ public class FixedResource implements Resource{
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}   
+	}
 
 	public boolean equalsName(Resource anotherResource){
 		return this.getName().equals(anotherResource.getName());

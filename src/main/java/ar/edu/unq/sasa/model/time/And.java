@@ -6,30 +6,17 @@ import java.util.List;
 
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
-/**
- * Operador que sirve para combinar {@link Period}'s por medio de
- * la condición lógica Y (and).
- *
- */
 public class And extends CompositePeriod {
 
 	public And(Period left, Period right) {
 		super(left, right);
 	}
 
-	/**
-	 * En este caso, un {@link Period} va a estar contenido si ambos operandos
-	 * lo contienen.
-	 */
 	@Override
 	public boolean contains(Period p) {
 		return getLeftPeriod().contains(p) && getRightPeriod().contains(p);
 	}
 
-	/**
-	 * En este caso, una fecha va a estar incluida si los dos operandos
-	 * la contienen.
-	 */
 	@Override
 	public boolean contains(Calendar c) {
 		return getLeftPeriod().contains(c) && getRightPeriod().contains(c);

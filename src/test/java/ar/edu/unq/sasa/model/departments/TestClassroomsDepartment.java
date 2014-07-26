@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.exceptions.departments.ClassroomException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.Classroom;

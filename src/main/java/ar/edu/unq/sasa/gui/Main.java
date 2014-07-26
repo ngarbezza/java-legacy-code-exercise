@@ -10,7 +10,7 @@ import javax.swing.UIManager;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
 import ar.edu.unq.sasa.model.departments.ProfessorsDepartment;

@@ -1,4 +1,4 @@
-package ar.edu.unq.sasa.model.data;
+package ar.edu.unq.sasa.model.assignments;
 
 import static org.easymock.EasyMock.createMock;
 import static org.junit.Assert.assertFalse;
@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
+import ar.edu.unq.sasa.model.assignments.Superposition;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 

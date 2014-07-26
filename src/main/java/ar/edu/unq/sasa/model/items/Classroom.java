@@ -30,38 +30,36 @@ public class Classroom extends AssignableItem {
 	public List<FixedResource> getResources() {
 		return resources;
 	}
-	
+
 	public int getCapacity() {
 		return capacity;
 	}
-	
+
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
 
 	public void addResource(FixedResource resource) {
-		this.resources.add(resource);
+		resources.add(resource);
 	}
-	
+
 	public boolean hasResource(String name) {
 		boolean retorno = false;
-		for (int i = 0; i < resources.size(); i++) {
+		for (int i = 0; i < resources.size(); i++)
 			if (resources.get(i).getName() == name) {
 				retorno = true;
 				i = resources.size();
 			}
-		}
 		return retorno;
 	}
 
 	public FixedResource getResource(String name) throws ResourceException {
 		FixedResource recursoBuscado = null;
-		for (int i = 0; i < resources.size(); i++) {
+		for (int i = 0; i < resources.size(); i++)
 			if (resources.get(i).getName() == name) {
 				recursoBuscado = resources.get(i);
 				i = resources.size();
 			}
-		}
 		this.verificar(recursoBuscado);
 		return recursoBuscado;
 	}
@@ -70,14 +68,14 @@ public class Classroom extends AssignableItem {
 		if (resource == null)
 			throw new ResourceException("Recurso no encontrado");
 	}
-	
+
 	public void verificar(Assignment assignment) throws ResourceException, AssignmentException {
     	if (assignment == null)
 			throw new AssignmentException("Asignacion no encontrada");
     }
 
 	public ClassroomAssignment getAssignment(Period period) throws ResourceException, AssignmentException {
-		ClassroomAssignment retorno = null; 
+		ClassroomAssignment retorno = null;
 		retorno = (ClassroomAssignment) this.getAssignments().get(period);
 		this.verificar(retorno);
 		return retorno;
@@ -91,12 +89,13 @@ public class Classroom extends AssignableItem {
 	}
 
 	public boolean satisfyFixedResource(FixedResource res, int amount) {
-		for (FixedResource r : this.getResources())
+		// #anySatisfy:
+		for (FixedResource r : resources)
 			if (r.getName().equals(res.getName()) && r.getAmount() >= amount)
 				return true;
 		return false;
 	}
-	
+
 	public List<ClassroomAssignment> getClassroomAssignments() {
 		List<ClassroomAssignment> result = new LinkedList<ClassroomAssignment>();
 		for (Assignment a : getAssignments().values())
@@ -104,7 +103,7 @@ public class Classroom extends AssignableItem {
 				result.add((ClassroomAssignment) a);
 		return result;
 	}
-	
+
 	public List<BookedAssignment> getBookedAssignments() {
 		List<BookedAssignment> result = new LinkedList<BookedAssignment>();
 		for (Assignment a : getAssignments().values())

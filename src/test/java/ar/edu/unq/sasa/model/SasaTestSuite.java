@@ -8,13 +8,12 @@ import ar.edu.unq.sasa.model.academic.TestClassroomRequest;
 import ar.edu.unq.sasa.model.academic.TestMobileResourcesRequest;
 import ar.edu.unq.sasa.model.academic.TestProfessor;
 import ar.edu.unq.sasa.model.academic.TestSubject;
+import ar.edu.unq.sasa.model.academic.TestUniversity;
 import ar.edu.unq.sasa.model.assignments.TestBookedAssignment;
 import ar.edu.unq.sasa.model.assignments.TestClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.TestResourceAssignment;
 import ar.edu.unq.sasa.model.assignments.TestSatisfaction;
-import ar.edu.unq.sasa.model.data.TestUniversity;
-import ar.edu.unq.sasa.model.data.TestSuperposition;
-import ar.edu.unq.sasa.model.data.TestWeeklySchedule;
+import ar.edu.unq.sasa.model.assignments.TestSuperposition;
 import ar.edu.unq.sasa.model.departments.TestAssignmentsDepartment;
 import ar.edu.unq.sasa.model.departments.TestClassroomsDepartment;
 import ar.edu.unq.sasa.model.departments.TestProfessorsDepartment;
@@ -46,7 +45,6 @@ import ar.edu.unq.sasa.model.time.repetition.TestWeekly;
 	TestSatisfaction.class,
 	TestUniversity.class,
 	TestSuperposition.class,
-	TestWeeklySchedule.class,
 	TestAssignmentsDepartment.class,
 	TestClassroomsDepartment.class,
 	TestProfessorsDepartment.class,

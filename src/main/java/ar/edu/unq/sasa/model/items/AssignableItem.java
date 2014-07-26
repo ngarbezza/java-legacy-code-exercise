@@ -10,12 +10,10 @@ import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Representa aquellos elementos que pueden asignarse mediante {@link Assignment}s,
- * en intervalos de tiempo definidos por objetos {@link Period}.
- */
 public abstract class AssignableItem {
+
 	private String name;
+
 	private final Map<Period, Assignment> assignments;
 
 	public AssignableItem(String name) {

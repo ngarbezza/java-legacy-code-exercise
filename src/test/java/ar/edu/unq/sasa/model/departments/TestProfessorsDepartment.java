@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.academic.Professor;
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.departments.ProfessorsDepartment;
 import ar.edu.unq.sasa.model.exceptions.departments.ProfessorException;
 

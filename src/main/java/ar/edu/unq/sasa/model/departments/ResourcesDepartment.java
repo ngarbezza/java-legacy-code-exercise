@@ -3,8 +3,8 @@ package ar.edu.unq.sasa.model.departments;
 import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
-import ar.edu.unq.sasa.model.data.University;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;

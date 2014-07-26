@@ -21,9 +21,8 @@ import org.junit.Test;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Satisfaction;
-import ar.edu.unq.sasa.model.data.University;
-import ar.edu.unq.sasa.model.departments.QueryManager;
 import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
@@ -48,10 +47,7 @@ public class TestQueryManager {
 
 	@Test
 	public void test_satisfactionsFromClassroomAndRequest()	throws RequestException {
-		Timestamp timestamp1 = new Timestamp(10);
-		Timestamp timestamp11 = new Timestamp(12);
-		LogicalHourFulfiller logicHourFul1 = new HourInterval(timestamp1,
-				timestamp11);
+		LogicalHourFulfiller logicHourFul1 = new HourInterval(new Timestamp(10), new Timestamp(12));
 
 		Period desHours = new SimplePeriod(logicHourFul1, new GregorianCalendar(2010, Calendar.DECEMBER, 5));
 
@@ -77,8 +73,7 @@ public class TestQueryManager {
 
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
 	@Test
-	public void test_freeHoursInAnAssignableItemInADayWhenAllIsBusy()
-			throws Exception {
+	public void test_freeHoursInAnAssignableItemInADayWhenAllIsBusy() {
 		AssignableItem itemMock = createMock(AssignableItem.class);
 		Calendar day = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		for (int i = 0; i < 47; i++) {
@@ -149,29 +144,21 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_classroomsThatSatisfyCapacityRequirement() {
-		Classroom c1Mock = createMock(Classroom.class);
-		Classroom c2Mock = createMock(Classroom.class);
-		Classroom c3Mock = createMock(Classroom.class);
-		Classroom c4Mock = createMock(Classroom.class);
-		expect(c1Mock.getCapacity()).andReturn(15);
-		expect(c2Mock.getCapacity()).andReturn(22);
-		expect(c3Mock.getCapacity()).andReturn(8);
-		expect(c4Mock.getCapacity()).andReturn(10);
-		replay(c1Mock, c2Mock, c3Mock, c4Mock);
-		university.addClassroom(c1Mock);
-		university.addClassroom(c2Mock);
-		university.addClassroom(c3Mock);
-		university.addClassroom(c4Mock);
-		ClassroomRequest req = createMock(ClassroomRequest.class);
-		expect(req.getCapacity()).andReturn(15).times(4);
-		replay(req);
-		Collection<Classroom> result = queryManager.classroomsThatSatisfyCapacityRequirement(req);
-		assertEquals("2 aulas deben cumplir la condición", 2, result.size());
-		assertTrue(result.contains(c1Mock));
-		assertTrue(result.contains(c1Mock));
-		assertFalse(result.contains(c3Mock));
-		assertFalse(result.contains(c4Mock));
-		verify(c1Mock, c2Mock, c3Mock, c4Mock, req);
+	public void test_classroomsThatSatisfyCapacityRequirement() throws RequestException {
+		Classroom classroom1 = new Classroom("Aula 30", 15);
+		Classroom classroom2 = new Classroom("Aula 62", 22);
+		Classroom classroom3 = new Classroom("Aula 15", 8);
+		Classroom classroom4 = new Classroom("Aula 22", 10);
+		university.addClassroom(classroom1);
+		university.addClassroom(classroom2);
+		university.addClassroom(classroom3);
+		university.addClassroom(classroom4);
+		ClassroomRequest request = new ClassroomRequest(null, null, null, 0L, null, null, 15);
+		Collection<Classroom> result = queryManager.classroomsThatSatisfyCapacityRequirement(request);
+		assertEquals(2, result.size());
+		assertTrue(result.contains(classroom1));
+		assertTrue(result.contains(classroom1));
+		assertFalse(result.contains(classroom3));
+		assertFalse(result.contains(classroom4));
 	}
 }

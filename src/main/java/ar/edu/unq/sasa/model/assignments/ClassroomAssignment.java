@@ -73,6 +73,7 @@ public class ClassroomAssignment extends AssignmentByRequest {
 				if (entry.getValue() <= 0)
 					tempSatisfactionResources.remove(entry.getKey());
 		} catch (ConcurrentModificationException e) {
+			// TODO fix this
 			substractZeros();
 		}
 	}

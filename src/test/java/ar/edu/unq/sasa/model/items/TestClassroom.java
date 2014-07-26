@@ -9,42 +9,24 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
+import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
-import ar.edu.unq.sasa.model.mocks.assignments.MockClassroomAssignment;
-import ar.edu.unq.sasa.model.mocks.items.MockFixedResource;
-import ar.edu.unq.sasa.model.mocks.time.MockPeriod;
 import ar.edu.unq.sasa.model.time.Period;
+import ar.edu.unq.sasa.model.time.SimplePeriod;
 
-public class TestClassroom {	
-
-	@Test
-	public void testConstructor() {
-		Classroom classroom = new Classroom("ZAZA", 20);
-		String name = classroom.getName();
-		int cap = classroom.getCapacity();
-		List<FixedResource> resources = classroom.getResources();
-		Map<Period, Assignment> assigments = classroom.getAssignments();
-		List<FixedResource> emptyList = new LinkedList<FixedResource>();
-		Map<Period, Assignment> emptyMap = new HashMap<Period, Assignment>();
-		assertEquals(20, cap);
-		assertEquals("ZAZA", name);
-		assertEquals(emptyList, resources);
-		assertEquals(emptyMap, assigments);
-	}
+public class TestClassroom {
 
 	@Test
 	public void testAddResource() {
-		MockFixedResource resource = new MockFixedResource("Pc", 4);
+		FixedResource resource = new FixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		List<FixedResource> emptyList = new LinkedList<FixedResource>();
 		classroom.addResource(resource);
@@ -54,7 +36,7 @@ public class TestClassroom {
 
 	@Test
 	public void testGetResource() throws ResourceException {
-		MockFixedResource resource = new MockFixedResource("Pc", 4);
+		FixedResource resource = new FixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addResource(resource);
 		assertEquals(resource, classroom.getResource("Pc"));
@@ -62,24 +44,24 @@ public class TestClassroom {
 
 	@Test
 	public void testHasResourceTrue() {
-		MockFixedResource resource = new MockFixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
+		FixedResource resource = new FixedResource("Pc", 4);
 		classroom.addResource(resource);
-		assertEquals(true, classroom.hasResource("Pc"));
+		assertTrue(classroom.hasResource("Pc"));
 	}
 
 	@Test
 	public void testHasResourceFalse() {
-		MockFixedResource resource = new MockFixedResource("Pc", 4);
 		Classroom classroom = new Classroom("ZAZA", 20);
+		FixedResource resource = new FixedResource("Pc", 4);
 		classroom.addResource(resource);
-		assertEquals(false, classroom.hasResource("Proyector"));
+		assertFalse(classroom.hasResource("Proyector"));
 	}
 
 	@Test(expected=AssignmentException.class)
 	public void testGetAssigment() throws AssignmentException,ResourceException {
-		MockPeriod period = new MockPeriod();
-		MockClassroomAssignment assignment = null;
+		Period period = new SimplePeriod(null, null);
+		ClassroomAssignment assignment = null;
 		Classroom classroom = new Classroom("ZAZA", 20);
 		classroom.addAssignment(period, assignment);
 		classroom.getAssignment(period);
@@ -88,7 +70,7 @@ public class TestClassroom {
 	@Test
 	public void testVerificarCorrecto() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
-		MockFixedResource resource = new MockFixedResource("Pc", 4);
+		FixedResource resource = new FixedResource("Pc", 4);
 		classroom.addResource(resource);
 		try {
 			classroom.verificar(resource);
@@ -100,12 +82,16 @@ public class TestClassroom {
 	@Test(expected=ResourceException.class)
 	public void testVerificarErroneo() throws ResourceException {
 		Classroom classroom = new Classroom("ZAZA", 20);
-		MockFixedResource resource2 = null;
+		FixedResource resource2 = null;
 		classroom.verificar(resource2);
 	}
 
 	@Test
 	public void test_isFreeAt() throws Exception {
+		// TODO make 3 tests:
+		// * free if no assignments at all
+		// * free if assignments in other periods
+		// * not free if assignment in the requested period
 		Classroom classroom = new Classroom("La 37B", 30);
 		Calendar mockCalendar = createMock(Calendar.class);
 		Period p1Mock = createMock(Period.class);
@@ -167,14 +153,11 @@ public class TestClassroom {
 	@Test
 	public void test_satisfyFixedResource() throws Exception {
 		Classroom classroom = new Classroom("La 37B", 30);
-		FixedResource resMock = createMock(FixedResource.class);
-		expect(resMock.getName()).andReturn("Pizarron").anyTimes();
-		FixedResource r1Mock = createMock(FixedResource.class);
-		expect(r1Mock.getName()).andReturn("Pizarron").anyTimes();
-		expect(r1Mock.getAmount()).andReturn(1).anyTimes();
-		replay(resMock, r1Mock);
-		classroom.addResource(r1Mock);
-		assertFalse(classroom.satisfyFixedResource(resMock, 2));
-		assertTrue(classroom.satisfyFixedResource(resMock, 1));
+		FixedResource classroomResource = new FixedResource("Pizarron", 1);
+		FixedResource resource = new FixedResource("Pizarron");
+		classroom.addResource(classroomResource);
+		// TODO split three tests
+		assertFalse(classroom.satisfyFixedResource(resource, 2));
+		assertTrue(classroom.satisfyFixedResource(resource, 1));
 	}
 }

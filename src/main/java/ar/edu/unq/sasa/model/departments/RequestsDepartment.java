@@ -8,7 +8,7 @@ import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.academic.Subject;
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
@@ -40,24 +40,6 @@ public class RequestsDepartment extends Department {
 		getUniversity().deleteRequest(searchedRequest);
 
 		getPublisher().changed("requestsChanged", getUniversity().getRequests());
-	}
-
-	public void modifyRequest(Request searchedRequest, Period hours) {
-		searchedRequest.setDesiredHours(hours);
-	}
-
-	public void modifyRequest(ClassroomRequest searchedRequest, int capacity) throws RequestException {
-		if (capacity < 0)
-			throw new RequestException("La capacidad del aula tiene que ser positiva");
-		searchedRequest.setCapacity(capacity);
-	}
-
-	public void modifyRequestRequiredResources(Request searchedRequest, Map<Resource, Integer> requiredResources) {
-		searchedRequest.setRequiredResources(requiredResources);
-	}
-
-	public void modifyRequestOptionalResources(Request searchedRequest, Map<Resource, Integer> optionalResources) {
-		searchedRequest.setOptionalResources(optionalResources);
 	}
 
 	public List<Request> searchByProfessor(Professor p) {

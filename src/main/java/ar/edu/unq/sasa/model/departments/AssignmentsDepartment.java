@@ -10,11 +10,11 @@ import java.util.Set;
 
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
-import ar.edu.unq.sasa.model.data.University;
 import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.AssignableItem;

@@ -6,12 +6,6 @@ import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * CLASSROOMREQUEST Subclass of the abstract {@link Request}. It represents the
- * petition of a classroom, did by a {@link Professor}.
- * 
- * CONSIDERATIONS The only creational method is the huge constructor.
- */
 public class ClassroomRequest extends Request {
 
 	public int capacity;
@@ -60,6 +54,6 @@ public class ClassroomRequest extends Request {
 
 	@Override
 	public boolean isClassroomRequest() {
-		return true;		
+		return true;
 	}
 }

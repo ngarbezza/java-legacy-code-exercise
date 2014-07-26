@@ -13,9 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
-import ar.edu.unq.sasa.model.data.University;
 import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
 import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;

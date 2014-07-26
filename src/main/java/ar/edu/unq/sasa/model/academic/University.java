@@ -1,12 +1,9 @@
-package ar.edu.unq.sasa.model.data;
+package ar.edu.unq.sasa.model.academic;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.unq.sasa.model.academic.Professor;
-import ar.edu.unq.sasa.model.academic.Request;
-import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;

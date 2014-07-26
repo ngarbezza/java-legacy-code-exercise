@@ -1,4 +1,4 @@
-package ar.edu.unq.sasa.model.data;
+package ar.edu.unq.sasa.model.academic;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.MobileResource;

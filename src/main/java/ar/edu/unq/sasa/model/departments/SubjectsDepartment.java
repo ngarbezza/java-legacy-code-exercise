@@ -3,7 +3,7 @@ package ar.edu.unq.sasa.model.departments;
 import java.util.List;
 
 import ar.edu.unq.sasa.model.academic.Subject;
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 
 public class SubjectsDepartment extends Department {
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.exceptions.departments.ProfessorException;
 
 public class ProfessorsDepartment extends Department {

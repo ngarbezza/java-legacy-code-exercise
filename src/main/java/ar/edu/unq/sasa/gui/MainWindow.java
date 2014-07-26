@@ -10,7 +10,7 @@ import ar.edu.unq.sasa.gui.departments.ClassroomsPanel;
 import ar.edu.unq.sasa.gui.departments.MobileResourcesPanel;
 import ar.edu.unq.sasa.gui.departments.ProfessorsPanel;
 import ar.edu.unq.sasa.gui.departments.RequestsPanel;
-import ar.edu.unq.sasa.model.data.University;
+import ar.edu.unq.sasa.model.academic.University;
 
 /**
  * Panel con todos los componentes de la ventana principal.

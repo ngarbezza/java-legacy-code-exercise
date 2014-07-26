@@ -4,8 +4,8 @@ import java.util.List;
 
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
-import ar.edu.unq.sasa.model.data.University;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.util.Publisher;
 

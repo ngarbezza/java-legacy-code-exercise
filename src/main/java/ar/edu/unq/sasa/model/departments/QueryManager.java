@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Satisfaction;
-import ar.edu.unq.sasa.model.data.University;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;

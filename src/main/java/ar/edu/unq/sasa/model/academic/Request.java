@@ -5,34 +5,27 @@ import java.util.Map;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/** 
- * Abstract class REQUEST
- * Class depicting every request a {@link Professor} can do. It contains some 
- * information from the request, and another interest topics. 
- * 
- * CONSIDERATIONS The huge constructor is the only one allowed in instance creation.
- * 
- */
 public abstract class Request {
 
 	public Period desiredHours;
-	
+
 	public Subject subject;
-	
+
 	public Professor professor;
-	
+
 	public final long id;
-	
+
+	// TODO model requirement, and make optional and required polymorphic
 	public Map<Resource,Integer> requiredResources;
-	
-	private boolean asignated = false;
-	
+
 	public Map<Resource,Integer> optionalResources;
-	
+
+	private boolean asignated = false;
+
 	public Request (Period desHours,Subject aSubject,
 			Professor aProfessor,long anID,Map<Resource,Integer> reqResources,
 			Map<Resource,Integer> optResources){
-		
+
 		this.desiredHours = desHours;
 		this.subject = aSubject;
 		this.professor = aProfessor;
@@ -64,7 +57,7 @@ public abstract class Request {
 	public Professor getProfessor() {
 		return professor;
 	}
-	
+
 	public long getId() {
 		return this.id;
 	}
@@ -76,17 +69,17 @@ public abstract class Request {
 	public Map<Resource, Integer> getOptionalResources() {
 		return optionalResources;
 	}
-	
+
 	public boolean isAsignated(){
 		return asignated;
 	}
-	
+
 	public void setAsignated(Boolean estado){
 		asignated = estado;
 	}
-	
+
 	public abstract boolean isClassroomRequest();
-	
+
 	public boolean getAsignated() {
 		return isAsignated();
 	}

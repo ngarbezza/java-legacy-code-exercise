@@ -4,14 +4,16 @@ import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 
 /**
- * Interfaz que sirve para englobar a todos los tipos de Assignment que hay.
+ * Interfaz que representa una asignación.
  */
 public interface Assignment {
-	
+
+	// TODO conocer el Period?
+
 	AssignableItem getAssignableItem();
-	
+
 	Request getRequest();
-	
+
 	boolean isBookedAssignment();
 
 	boolean isClassroomAssignment();

@@ -1,103 +1,61 @@
 package ar.edu.unq.sasa.model.time;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.unq.sasa.model.time.hour.HourInterval;
+import ar.edu.unq.sasa.model.time.hour.Timestamp;
+import ar.edu.unq.sasa.model.time.repetition.Daily;
+import ar.edu.unq.sasa.model.time.repetition.Weekly;
+
 public class TestAnd {
 
 	private And andUnderTest;
-	private Period mockLeftOp, mockRightOp;
+	private Period leftExpression, rightExpression;
+	private HourInterval someHourInterval;
 
 	@Before
-	public void setUp() throws Exception {
-		this.mockLeftOp = createMock(Period.class);
-		this.mockRightOp= createMock(Period.class);
-		this.andUnderTest = new And(mockLeftOp, mockRightOp);
+	public void setUp() {
+		someHourInterval = new HourInterval(new Timestamp(10), new Timestamp(14));
+		leftExpression = new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 22), new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 5)));
+		rightExpression= new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 24), new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 3)));
+		andUnderTest = new And(leftExpression, rightExpression);
 	}
 
 	@Test
-	public void test_constructor() {
-		assertSame(mockLeftOp, andUnderTest.getLeftPeriod());
-		assertSame(mockRightOp, andUnderTest.getRightPeriod());
+	public void test_containsCalendar() {
+		// TODO split and put good names
+		assertFalse(andUnderTest.contains(new GregorianCalendar(2014, Calendar.JULY, 23, 11, 0)));
+		assertFalse(andUnderTest.contains(new GregorianCalendar(2014, Calendar.AUGUST, 4, 11, 0)));
+		assertFalse(andUnderTest.contains(new GregorianCalendar(2014, Calendar.SEPTEMBER, 2, 11, 0)));
+		assertTrue(andUnderTest.contains(new GregorianCalendar(2014, Calendar.JULY, 29, 11, 0)));
 	}
 
 	@Test
-	public void test_containsCalendar() throws Exception {
-		Calendar calendarMock= createMock(Calendar.class);
-		expect(mockLeftOp.contains(calendarMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.contains(calendarMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(andUnderTest.contains(calendarMock));
-		assertFalse(andUnderTest.contains(calendarMock));
-		assertFalse(andUnderTest.contains(calendarMock));
-		assertTrue(andUnderTest.contains(calendarMock));
-		verify(mockLeftOp);
-		// no puedo verificar el right porque a veces no se evalua,
-		// ya que el Or que se asume Short-circuit
+	public void test_containsLogicalDateFulfiller() {
+		assertFalse(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 23))));
+		assertFalse(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 4))));
+		assertFalse(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 12))));
+		assertTrue(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 29))));
 	}
 
 	@Test
-	public void test_containsLogicalDateFulfiller() throws Exception {
-		Period ldfMock = createMock(Period.class);
-		expect(mockLeftOp.contains(ldfMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.contains(ldfMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(andUnderTest.contains(ldfMock));
-		assertFalse(andUnderTest.contains(ldfMock));
-		assertFalse(andUnderTest.contains(ldfMock));
-		assertTrue(andUnderTest.contains(ldfMock));
-		verify(mockLeftOp);
+	public void test_isIn() {
+		assertTrue(andUnderTest.isIn(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
+		assertFalse(andUnderTest.isIn(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
 	}
 
 	@Test
-	public void test_isIn() throws Exception {
-		SimplePeriod sdfMock = createMock(SimplePeriod.class);
-		expect(mockLeftOp.isIn(sdfMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.isIn(sdfMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(andUnderTest.isIn(sdfMock));
-		assertFalse(andUnderTest.isIn(sdfMock));
-		assertFalse(andUnderTest.isIn(sdfMock));
-		assertTrue(andUnderTest.isIn(sdfMock));
-		verify(mockLeftOp);
-	}
-
-	@Test
-	public void test_intersectsWith() throws Exception {
-		Period ldfMock = createMock(Period.class);
-		expect(mockLeftOp.intersectsWith(ldfMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.intersectsWith(ldfMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(andUnderTest.intersectsWith(ldfMock));
-		assertFalse(andUnderTest.intersectsWith(ldfMock));
-		assertFalse(andUnderTest.intersectsWith(ldfMock));
-		assertTrue(andUnderTest.intersectsWith(ldfMock));
-		verify(mockLeftOp);
+	public void test_intersectsWith() {
+		assertTrue(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
+		assertFalse(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
+		assertFalse(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.AUGUST, 10))));
+		assertFalse(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 8))));
 	}
 }
