@@ -1,15 +1,13 @@
 package ar.edu.unq.sasa.model.time.hour;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
+import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 
 public class TestOr {
 
@@ -18,84 +16,49 @@ public class TestOr {
 
 	@Before
 	public void setUp() throws Exception {
-		this.mockLeftOp = createMock(LogicalHourFulfiller.class);
-		this.mockRightOp= createMock(LogicalHourFulfiller.class);
-		this.orUnderTest = new Or(mockLeftOp, mockRightOp);
+		mockLeftOp = new HourInterval(new Timestamp(12), new Timestamp(13, 30));
+		mockRightOp= new HourInterval(new Timestamp(13), new Timestamp(17, 15));
+		orUnderTest = new Or(mockLeftOp, mockRightOp);
 	}
 
 	@Test
-	public void test_constructor() {
-		assertSame(mockLeftOp, orUnderTest.getLeftOp());
-		assertSame(mockRightOp, orUnderTest.getRightOp());
+	public void test_containsTimestamp() throws TimestampException {
+		assertTrue(orUnderTest.contains(new Timestamp(13, 15)));
+		assertTrue(orUnderTest.contains(new Timestamp(16)));
+		assertTrue(orUnderTest.contains(new Timestamp(12)));
+		// TODO split in another test
+		assertFalse(orUnderTest.contains(new Timestamp(11, 30)));
+		assertFalse(orUnderTest.contains(new Timestamp(18)));
 	}
 
 	@Test
-	public void test_containsTimestamp() {
-		Timestamp timeSTMock= createMock(Timestamp.class);
-		expect(mockLeftOp.contains(timeSTMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.contains(timeSTMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(orUnderTest.contains(timeSTMock));
-		assertTrue(orUnderTest.contains(timeSTMock));
-		assertTrue(orUnderTest.contains(timeSTMock));
-		assertTrue(orUnderTest.contains(timeSTMock));
-		verify(mockLeftOp);
-		// no puedo verificar el right porque a veces no se evalua,
-		// ya que el Or que se asume Short-circuit
+	public void test_containsLogicalHourFulfiller() throws PeriodException, TimestampException {
+		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(12), new Timestamp(12, 15))));
+		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(13, 15), new Timestamp(13, 30))));
+		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(16), new Timestamp(17))));
+		// TODO split in another test
+		assertFalse(orUnderTest.contains(new HourInterval(new Timestamp(9), new Timestamp(10, 15))));
+		assertFalse(orUnderTest.contains(new HourInterval(new Timestamp(18), new Timestamp(22))));
 	}
 
 	@Test
-	public void test_containsLogicalHourFulfiller() {
-		LogicalHourFulfiller lhfMock = createMock(LogicalHourFulfiller.class);
-		expect(mockLeftOp.contains(lhfMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.contains(lhfMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(orUnderTest.contains(lhfMock));
-		assertTrue(orUnderTest.contains(lhfMock));
-		assertTrue(orUnderTest.contains(lhfMock));
-		assertTrue(orUnderTest.contains(lhfMock));
-		verify(mockLeftOp);
+	public void test_isIn() throws PeriodException, TimestampException {
+		assertTrue(orUnderTest.isIn(new HourInterval(new Timestamp(11), new Timestamp(18))));
+		// TODO split in another test(s)
+		assertFalse(orUnderTest.isIn(new HourInterval(new Timestamp(12, 30), new Timestamp(16))));
+		assertFalse(orUnderTest.isIn(new HourInterval(new Timestamp(10, 15), new Timestamp(13))));
+		assertFalse(orUnderTest.isIn(new HourInterval(new Timestamp(16), new Timestamp(18))));
 	}
 
 	@Test
-	public void test_isIn() {
-		HourInterval hiMock = createMock(HourInterval.class);
-		expect(mockLeftOp.isIn(hiMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.isIn(hiMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(orUnderTest.isIn(hiMock));
-		assertTrue(orUnderTest.isIn(hiMock));
-		assertTrue(orUnderTest.isIn(hiMock));
-		assertTrue(orUnderTest.isIn(hiMock));
-		verify(mockLeftOp);
-	}
-
-	@Test
-	public void test_intersectsWith() {
-		LogicalHourFulfiller lhfMock = createMock(LogicalHourFulfiller.class);
-		expect(mockLeftOp.intersectsWith(lhfMock))
-			.andReturn(false).andReturn(false)
-			.andReturn(true).andReturn(true);
-		expect(mockRightOp.intersectsWith(lhfMock))
-			.andReturn(false).andReturn(true)
-			.andReturn(false).andReturn(true);
-		replay(mockLeftOp, mockRightOp);
-		assertFalse(orUnderTest.intersectsWith(lhfMock));
-		assertTrue(orUnderTest.intersectsWith(lhfMock));
-		assertTrue(orUnderTest.intersectsWith(lhfMock));
-		assertTrue(orUnderTest.intersectsWith(lhfMock));
-		verify(mockLeftOp);
+	public void test_intersectsWith() throws PeriodException, TimestampException {
+		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(11), new Timestamp(18))));
+		// TODO split in another test(s)
+		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(12, 30), new Timestamp(16))));
+		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(10, 15), new Timestamp(13))));
+		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(16), new Timestamp(18))));
+		// TODO split in another test(s)
+		assertFalse(orUnderTest.intersectsWith(new HourInterval(new Timestamp(10), new Timestamp(11, 55))));
+		assertFalse(orUnderTest.intersectsWith(new HourInterval(new Timestamp(17, 30), new Timestamp(19, 30))));
 	}
 }

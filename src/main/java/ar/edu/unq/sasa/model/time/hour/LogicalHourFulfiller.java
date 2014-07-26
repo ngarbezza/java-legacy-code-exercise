@@ -8,7 +8,7 @@ import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
  * Representa todo lo referente a condiciones de intervalos flexibles de horas.
  */
 public abstract class LogicalHourFulfiller {
-	
+
 	public abstract boolean contains(Timestamp t);
 
 	public abstract boolean contains(LogicalHourFulfiller lhf);
