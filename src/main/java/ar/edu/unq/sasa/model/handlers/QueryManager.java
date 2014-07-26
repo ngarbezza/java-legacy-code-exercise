@@ -12,11 +12,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
-import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.Satisfaction;
 import ar.edu.unq.sasa.model.data.InformationManager;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
@@ -27,7 +24,7 @@ import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
 /**
- * Trata y analiza consultas de mayor complejidad de las que podrían manejar 
+ * Trata y analiza consultas de mayor complejidad de las que podrían manejar
  * los handlers (nota: es el anfitrión de las futuras consultas).
  */
 public class QueryManager {
@@ -40,28 +37,19 @@ public class QueryManager {
 		return Asignator.getInstance();
 	}
 
-	public Satisfaction satisfactionsFromClassroomAndRequest(
-			ClassroomRequest classroomRequest, Classroom classroom)
-			throws PeriodException {
-		
-		ClassroomAssignment classroomAssignment = getAsignator().asignateRequestInAClassroom(classroomRequest, classroom);
-		
-		return classroomAssignment.getSatisfaction();
+	public Satisfaction satisfactionsFromClassroomAndRequest(ClassroomRequest classroomRequest, Classroom classroom) {
+		return getAsignator().asignateRequestInAClassroom(classroomRequest, classroom).getSatisfaction();
 	}
 
-	public Collection<Classroom> classroomsThatSatisfyTheWholeRequest(
-			ClassroomRequest req) throws PeriodException {
+	public Collection<Classroom> classroomsThatSatisfyTheWholeRequest(ClassroomRequest req) {
 		return this.classroomsThatSatisfyTheWholeRequest(req, false);
 	}
 
-	public Collection<Classroom> classroomsThatSatisfyARequestRegardlessOfTheirAssignments(
-			ClassroomRequest req) throws PeriodException {
+	public Collection<Classroom> classroomsThatSatisfyARequestRegardlessOfTheirAssignments(ClassroomRequest req) {
 		return this.classroomsThatSatisfyTheWholeRequest(req, true);
 	}
 
-	protected Collection<Classroom> classroomsThatSatisfyTheWholeRequest(
-			ClassroomRequest req, boolean ignoreCommonAssignments)
-			throws PeriodException {
+	protected Collection<Classroom> classroomsThatSatisfyTheWholeRequest(ClassroomRequest req, boolean ignoreCommonAssignments) {
 		Collection<Classroom> result = this
 				.classroomsThatSatisfyCapacityRequirement(req);
 		result.retainAll(this.classroomsThatSatisfyTimeRequirements(req,
@@ -78,9 +66,7 @@ public class QueryManager {
 		return result;
 	}
 
-	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(
-			ClassroomRequest req, boolean ignoreCommonAssignments)
-			throws PeriodException {
+	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(ClassroomRequest req, boolean ignoreCommonAssignments) {
 		Set<Classroom> result = new HashSet<Classroom>();
 		for (Classroom c : this.getInformationManager().getClassrooms())
 			if (c.satisfyTimeRequirements(req, ignoreCommonAssignments))
@@ -88,8 +74,7 @@ public class QueryManager {
 		return result;
 	}
 
-	private Collection<Classroom> classroomsThatSatisfyFixedResources(
-			Map<FixedResource, Integer> resources) {
+	private Collection<Classroom> classroomsThatSatisfyFixedResources(Map<FixedResource, Integer> resources) {
 		Set<Classroom> result = new HashSet<Classroom>();
 		for (Classroom c : this.getInformationManager().getClassrooms())
 			if (c.satisfyFixedResources(resources))
@@ -97,13 +82,11 @@ public class QueryManager {
 		return result;
 	}
 
-	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(
-			ClassroomRequest req) throws PeriodException {
+	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(ClassroomRequest req) {
 		return this.classroomsThatSatisfyTimeRequirements(req, false);
 	}
 
-	public Collection<Classroom> classroomsThatSatisfyCapacityRequirement(
-			ClassroomRequest req) {
+	public Collection<Classroom> classroomsThatSatisfyCapacityRequirement(ClassroomRequest req) {
 		Set<Classroom> result = new HashSet<Classroom>();
 		for (Classroom c : this.getInformationManager().getClassrooms())
 			if (c.getCapacity() >= req.getCapacity())
@@ -111,9 +94,7 @@ public class QueryManager {
 		return result;
 	}
 
-	public List<Period> freeHoursInAnAssignableItemInAGivenWeek(
-			AssignableItem item, Calendar start)
-			throws PeriodException, TimestampException {
+	public List<Period> freeHoursInAnAssignableItemInAGivenWeek(AssignableItem item, Calendar start) {
 		Calendar current = (Calendar) start.clone();
 		List<Period> result = new ArrayList<Period>();
 		for (int i = 0; i < 7; i++) {
@@ -123,7 +104,7 @@ public class QueryManager {
 		return result;
 	}
 
-	public SimplePeriod freeHoursInADay(AssignableItem item, Calendar day) throws TimestampException, PeriodException {
+	public SimplePeriod freeHoursInADay(AssignableItem item, Calendar day) {
 		Calendar copy = (Calendar) day.clone();
 		day.set(Calendar.HOUR_OF_DAY, 0);	// horarios iniciales
 		day.set(Calendar.MINUTE, 0);
@@ -133,7 +114,7 @@ public class QueryManager {
 		for (int j = 0; j < (24 * 60 / Period.MIN_HOUR_BLOCK) - 1; j++) {
 			if (item.isFreeAt(day)) {
 				if (currentStart == null) {
-					currentStart = new Timestamp(day.get(Calendar.HOUR_OF_DAY), 
+					currentStart = new Timestamp(day.get(Calendar.HOUR_OF_DAY),
 							day.get(Calendar.MINUTE));
 					if (day.get(Calendar.HOUR_OF_DAY) != 0
 							|| day.get(Calendar.MINUTE) != 0)
@@ -142,7 +123,7 @@ public class QueryManager {
 			}
 			else if (currentStart != null) {
 				// cerrar el HourInterval y agregarlo a la lista
-				Timestamp end = new Timestamp(day.get(Calendar.HOUR_OF_DAY), 
+				Timestamp end = new Timestamp(day.get(Calendar.HOUR_OF_DAY),
 						day.get(Calendar.MINUTE));
 				intervals.add(new HourInterval(currentStart, end));
 				currentStart = null;

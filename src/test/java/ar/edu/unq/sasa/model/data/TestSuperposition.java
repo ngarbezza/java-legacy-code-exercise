@@ -2,7 +2,6 @@ package ar.edu.unq.sasa.model.data;
 
 import static org.easymock.EasyMock.createMock;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
@@ -13,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
@@ -36,25 +33,19 @@ public class TestSuperposition {
 	List<AssignmentByRequest> ls4 = new LinkedList<AssignmentByRequest>();
 
 	@Before
-	public void setUp() throws PeriodException, TimestampException{
+	public void setUp() {
 		hourInterval1 = new HourInterval(new Timestamp(12), new Timestamp(13));
 		hourInterval2 = new HourInterval(new Timestamp(8), new Timestamp(9));
 		ls1.add(abr11);this.ls1.add(abr12);
 		ls2.add(abr21);this.ls2.add(abr22);
 		ls4.add(abr31);
-		
+
 		superposition1 = new Superposition();
 		superposition2 = new Superposition();
-		
+
 		superposition1.getSuperpositionData().put(hourInterval1,ls1);
 		superposition1.getSuperpositionData().put(hourInterval2,ls2);
 		superposition2.getSuperpositionData().put(hourInterval2,ls4);
-	}
-
-	@Test
-	public void test_shouldConstructCorrectly(){
-		assertNotNull("Fail - traceback: constructor", superposition1.getSuperpositionData());
-		assertNotNull("Fail - traceback: constructor", superposition2.getSuperpositionData());
 	}
 
 	@Test
@@ -64,13 +55,11 @@ public class TestSuperposition {
 		Map<HourInterval,List<AssignmentByRequest> > m2 = superposition2.getSuperpositionData();
 
 		List<List<AssignmentByRequest>> l_m1 = new LinkedList<List<AssignmentByRequest>>(m1.values());
-		for(List<AssignmentByRequest> it : l_m1){
+		for(List<AssignmentByRequest> it : l_m1)
 			assertTrue("There are elements without superpositions",it.size()>1);
-		}
-		
+
 		List<List<AssignmentByRequest>> l_m2 = new LinkedList<List<AssignmentByRequest>>(m2.values());
-		for(List<AssignmentByRequest> it : l_m2){
+		for(List<AssignmentByRequest> it : l_m2)
 			assertFalse("There are elements without superpositions",it.size()>1);
-		}
 	}
 }

@@ -12,11 +12,11 @@ public class Timestamp {
 
 	private int minutes;
 
-	public Timestamp(int h) throws TimestampException {
+	public Timestamp(int h) {
 		this.setHour(h);
 	}
 
-	public Timestamp(int h, int m) throws TimestampException {
+	public Timestamp(int h, int m) {
 		this(h);
 		this.setMinutes(m);
 	}
@@ -29,14 +29,14 @@ public class Timestamp {
 		return minutes;
 	}
 
-	public void setHour(int hour) throws TimestampException {
+	public void setHour(int hour) {
 		if (hour >= 0 && hour < 24)
 			this.hour = hour;
 		else
 			throw new TimestampException("Hour out of range");
 	}
 
-	public void setMinutes(int minutes) throws TimestampException {
+	public void setMinutes(int minutes) {
 		if (minutes >= 0 && minutes < 60)
 			this.minutes = minutes;
 		else
@@ -64,7 +64,7 @@ public class Timestamp {
 		return !this.greaterThan(other);
 	}
 
-	public Timestamp add(int min) throws TimestampException {
+	public Timestamp add(int min) {
 		int minutes = min + this.getMinutes();
 		int hours = this.getHour();
 		while (minutes >= 60) {
@@ -74,7 +74,7 @@ public class Timestamp {
 		return new Timestamp(hours, minutes);
 	}
 
-	public Timestamp substract(int min) throws TimestampException {
+	public Timestamp substract(int min) {
 		int minutes = this.getMinutes() - min;
 		int hours = this.getHour();
 		while (minutes < 0) {
@@ -83,18 +83,18 @@ public class Timestamp {
 		}
 		return new Timestamp(hours, minutes);
 	}
-	
+
 	public int minutesBetween(Timestamp t) {
 		int myMinutes = this.getHour() * 60 + this.getMinutes();
 		int tMinutes = t.getHour() * 60 + t.getMinutes();
 		return tMinutes - myMinutes;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getHour() + ":" + getMinutes();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,7 +103,7 @@ public class Timestamp {
 		result = prime * result + minutes;
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

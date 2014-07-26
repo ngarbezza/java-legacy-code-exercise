@@ -6,23 +6,20 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
-
 public class TestOr {
 
 	private Or orUnderTest;
 	private LogicalHourFulfiller mockLeftOp, mockRightOp;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		mockLeftOp = new HourInterval(new Timestamp(12), new Timestamp(13, 30));
 		mockRightOp= new HourInterval(new Timestamp(13), new Timestamp(17, 15));
 		orUnderTest = new Or(mockLeftOp, mockRightOp);
 	}
 
 	@Test
-	public void test_containsTimestamp() throws TimestampException {
+	public void test_containsTimestamp() {
 		assertTrue(orUnderTest.contains(new Timestamp(13, 15)));
 		assertTrue(orUnderTest.contains(new Timestamp(16)));
 		assertTrue(orUnderTest.contains(new Timestamp(12)));
@@ -32,7 +29,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_containsLogicalHourFulfiller() throws PeriodException, TimestampException {
+	public void test_containsLogicalHourFulfiller() {
 		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(12), new Timestamp(12, 15))));
 		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(13, 15), new Timestamp(13, 30))));
 		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(16), new Timestamp(17))));
@@ -42,7 +39,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_isIn() throws PeriodException, TimestampException {
+	public void test_isIn() {
 		assertTrue(orUnderTest.isIn(new HourInterval(new Timestamp(11), new Timestamp(18))));
 		// TODO split in another test(s)
 		assertFalse(orUnderTest.isIn(new HourInterval(new Timestamp(12, 30), new Timestamp(16))));
@@ -51,7 +48,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_intersectsWith() throws PeriodException, TimestampException {
+	public void test_intersectsWith() {
 		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(11), new Timestamp(18))));
 		// TODO split in another test(s)
 		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(12, 30), new Timestamp(16))));

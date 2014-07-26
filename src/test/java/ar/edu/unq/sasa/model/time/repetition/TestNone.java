@@ -9,8 +9,6 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
@@ -22,7 +20,7 @@ public class TestNone {
 	private Calendar someDate;
 
 	@Before
-	public void setUp() throws PeriodException, TimestampException {
+	public void setUp() {
 		noneRepetition = new None();
 		someDate = new GregorianCalendar();
 		HourInterval someHourInterval = new HourInterval(new Timestamp(16), new Timestamp(18));
@@ -35,12 +33,12 @@ public class TestNone {
 	}
 
 	@Test
-	public void testThereIsSomeDayIn() throws Exception {
+	public void testThereIsSomeDayIn() {
 		assertFalse(noneRepetition.thereIsSomeDayIn(someSimplePeriod, someDate));
 	}
 
 	@Test
-	public void testIsAllDaysIn() throws Exception {
+	public void testIsAllDaysIn() {
 		assertTrue(noneRepetition.isAllDaysIn(someSimplePeriod, someDate));
 	}
 }

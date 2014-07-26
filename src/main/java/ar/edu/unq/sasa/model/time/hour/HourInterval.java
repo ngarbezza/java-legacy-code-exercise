@@ -17,11 +17,11 @@ public class HourInterval extends LogicalHourFulfiller {
 
 	private final int minutesInRange;
 
-	public HourInterval(Timestamp start, Timestamp end) throws PeriodException {
+	public HourInterval(Timestamp start, Timestamp end) {
 		this(start, end, start.minutesBetween(end));
 	}
-	
-	public HourInterval(Timestamp start, Timestamp end, int range) throws PeriodException {
+
+	public HourInterval(Timestamp start, Timestamp end, int range) {
 		if (start.greaterEqual(end))
 			throw new PeriodException("La hora inicial debe ser menor a la final");
 		if (range > start.minutesBetween(end))
@@ -38,7 +38,7 @@ public class HourInterval extends LogicalHourFulfiller {
 	public Timestamp getEnd() {
 		return end;
 	}
-	
+
 	public int getMinutesInRange() {
 		return minutesInRange;
 	}
@@ -69,7 +69,7 @@ public class HourInterval extends LogicalHourFulfiller {
 	}
 
 	@Override
-	public List<HourInterval> getConcreteIntervals() throws PeriodException {
+	public List<HourInterval> getConcreteIntervals() {
 		List<HourInterval> intervals = new LinkedList<HourInterval>();
 		try {
 			Timestamp currentStart = getStart();
@@ -109,20 +109,20 @@ public class HourInterval extends LogicalHourFulfiller {
 	}
 
 	@Override
-	public HourInterval copy() throws PeriodException {
+	public HourInterval copy() {
 		return new HourInterval(getStart(), getEnd());
 	}
-	
+
 	@Override
 	public boolean isConcrete() {
 		return getMinutesInRange() == getStart().minutesBetween(getEnd());
 	}
-	
+
 	@Override
 	public String toString() {
 		return "\n con " + (float) getMinutesInRange() / 60 + " horas de duración entre las " + getStart() + " y las " + getEnd();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -154,7 +154,7 @@ public class HourInterval extends LogicalHourFulfiller {
 		return true;
 	}
 
-	public HourInterval substract(HourInterval hr) throws PeriodException {
+	public HourInterval substract(HourInterval hr) {
 		if (getEnd().lessEqual(hr.getStart()) || hr.getEnd().lessEqual(getStart()))
 			return null;		// disjuntos
 		if (getStart().greaterEqual(hr.getStart()) && getEnd().lessEqual(hr.getEnd()))

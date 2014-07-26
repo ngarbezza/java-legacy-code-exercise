@@ -3,7 +3,6 @@ package ar.edu.unq.sasa.model.time.repetition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
 /**
@@ -14,9 +13,9 @@ public abstract class Repetition {
 
 	public abstract boolean containsInSomeRepetition(Calendar c, Calendar start);
 
-	public abstract boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start) throws PeriodException;
+	public abstract boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start);
 
-	public abstract boolean isAllDaysIn(SimplePeriod sp, Calendar start) throws PeriodException;
+	public abstract boolean isAllDaysIn(SimplePeriod sp, Calendar start);
 
 	public abstract Repetition copy();
 

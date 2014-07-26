@@ -2,7 +2,6 @@ package ar.edu.unq.sasa.gui.period;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.Period;
 
 /**
@@ -19,7 +18,7 @@ public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 
 	public abstract String getDisplayText();
 
-	public abstract Period makePeriod() throws PeriodException;
+	public abstract Period makePeriod();
 
 	public abstract boolean matchPeriodType(boolean simple, boolean or,
 			boolean and, boolean minus);

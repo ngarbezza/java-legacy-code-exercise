@@ -28,8 +28,6 @@ import ar.edu.unq.sasa.model.data.InformationManager;
 import ar.edu.unq.sasa.model.exceptions.handlers.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
 import ar.edu.unq.sasa.model.exceptions.handlers.ResourceException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -52,7 +50,7 @@ public class TestAsignator {
 	private Classroom classroom2;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws RequestException {
 		// InformationManager
 		informationManager = InformationManager.getInstance();
 		informationManager.getClassrooms().clear();
@@ -128,26 +126,25 @@ public class TestAsignator {
 	}
 
 	@Test
-	public void test_asignateBookedAssignment() throws PeriodException {
+	public void test_asignateBookedAssignment() {
 		BookedAssignment bookedAssignment1 = asignator
 				.asignateBookedAssignment(classroom1, "Limpieza", period1);
 		BookedAssignment bookedAssignment2 = new BookedAssignment("Limpieza",
 				classroom1);
 
 		BookedAssignment storedBookeadAssignment = null;
-		for (Assignment assignment : informationManager.getAssignments()) {
+		for (Assignment assignment : informationManager.getAssignments())
 			if (assignment.equals(bookedAssignment1)) {
 				storedBookeadAssignment = (BookedAssignment) assignment;
 				break;
 			}
-		}
 
 		assertEquals(bookedAssignment1, bookedAssignment2);
 		assertSame(storedBookeadAssignment, bookedAssignment1);
 	}
 
 	@Test
-	public void test_asignateClassroomAssignment() throws PeriodException {
+	public void test_asignateClassroomAssignment() {
 		ClassroomAssignment classroomAssignment1 = asignator
 				.asignateClassroomAssignment(classroomRequest, classroom1,
 						period1);
@@ -158,18 +155,16 @@ public class TestAsignator {
 		classroomAssignment2.createSatisfaction();
 
 		ClassroomAssignment storedBookeadAssignment = null;
-		for (Assignment assignment : informationManager.getAssignments()) {
-			if (assignment.equals(classroomAssignment1)) {
+		for (Assignment assignment : informationManager.getAssignments())
+			if (assignment.equals(classroomAssignment1))
 				storedBookeadAssignment = (ClassroomAssignment) assignment;
-			}
-		}
 
 		assertEquals(classroomAssignment1, classroomAssignment2);
 		assertSame(storedBookeadAssignment, classroomAssignment1);
 	}
 
 	@Test
-	public void test_asignateRequestInAClassroom() throws PeriodException {
+	public void test_asignateRequestInAClassroom() {
 		ClassroomAssignment classroomAssignment1 = asignator
 				.asignateRequestInAClassroom(classroomRequest, classroom1);
 		ClassroomAssignment classroomAssignment2 = asignator
@@ -180,9 +175,7 @@ public class TestAsignator {
 	}
 
 	@Test
-	public void test_asignateRequestInMostSatisfactoryClassroom()
-			throws PeriodException, ResourceException, AssignmentException,
-			RequestException {
+	public void test_asignateRequestInMostSatisfactoryClassroom() throws ResourceException, AssignmentException, RequestException {
 		InformationManager.getInstance().addRequest(classroomRequest);
 		ClassroomAssignment asig = asignator.asignateRequestInMostSatisfactoryClassroom(classroomRequest);
 		assertEquals(classroomRequest, asig.getRequest());
@@ -190,7 +183,7 @@ public class TestAsignator {
 	}
 
 	@Test
-	public void test_modifyBookedAssignmentCause() throws PeriodException {
+	public void test_modifyBookedAssignmentCause() {
 		BookedAssignment bookedAssignment = asignator.asignateBookedAssignment(
 				classroom1, "Restauracion", period1);
 		String newCause = "Robado";
@@ -211,18 +204,15 @@ public class TestAsignator {
 				map);
 
 		boolean exists = false;
-		for (Assignment assignment : informationManager.getAssignments()) {
-			if (assignment.equals(resourceAssignment)) {
+		for (Assignment assignment : informationManager.getAssignments())
+			if (assignment.equals(resourceAssignment))
 				exists = true;
-			}
-		}
 
 		assertFalse(exists);
 	}
 
 	@Test
-	public void test_deleteClassroomAssignment() throws AssignmentException,
-			PeriodException {
+	public void test_deleteClassroomAssignment() throws AssignmentException {
 		ClassroomAssignment classroomAssignment = asignator
 				.asignateClassroomAssignment(classroomRequest, classroom1,
 						period1);
@@ -233,17 +223,15 @@ public class TestAsignator {
 				map);
 
 		boolean exists = false;
-		for (Assignment assignment : informationManager.getAssignments()) {
-			if (assignment.equals(classroomAssignment)) {
+		for (Assignment assignment : informationManager.getAssignments())
+			if (assignment.equals(classroomAssignment))
 				exists = true;
-			}
-		}
 
 		assertFalse(exists);
 	}
 
 	@Test
-	public void test_deleteBookedAssignment() throws PeriodException {
+	public void test_deleteBookedAssignment() {
 		BookedAssignment bookedAssignment = asignator.asignateBookedAssignment(
 				classroom1, "Reparacion", period1);
 		asignator.deleteAssignment(bookedAssignment);
@@ -252,11 +240,9 @@ public class TestAsignator {
 		assertEquals(bookedAssignment.getAssignableItem().getAssignments(), map);
 
 		boolean exists = false;
-		for (Assignment assignment : informationManager.getAssignments()) {
-			if (assignment.equals(bookedAssignment)) {
+		for (Assignment assignment : informationManager.getAssignments())
+			if (assignment.equals(bookedAssignment))
 				exists = true;
-			}
-		}
 
 		assertFalse(exists);
 	}
@@ -273,9 +259,7 @@ public class TestAsignator {
 	}
 
 	@Test
-	public void testMoveAssignmentClassroom() throws AssignmentException,
-			TimestampException, RequestException, PeriodException {
-
+	public void testMoveAssignmentClassroom() throws AssignmentException, RequestException {
 		// crear requisitos para los pedidos
 		// obligatorios
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
@@ -309,9 +293,7 @@ public class TestAsignator {
 	}
 
 	@Test
-	public void testMoveAssignmentHour() throws AssignmentException,
-			TimestampException, RequestException, PeriodException {
-
+	public void testMoveAssignmentHour() throws AssignmentException, RequestException {
 		// crear requisitos para los pedidos
 		// obligatorios
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
@@ -343,12 +325,11 @@ public class TestAsignator {
 
 		Period assignmentPeriod = null;
 		for (Entry<Period, Assignment> currentEntry : (assignment
-				.getAssignableItem().getAssignments().entrySet())) {
+				.getAssignableItem().getAssignments().entrySet()))
 			if (currentEntry.getValue().equals(assignment)) {
 				assignmentPeriod = currentEntry.getKey();
 				break;
 			}
-		}
 
 		desiredHours.setHourFulfiller(hour);
 		Period newPeriod = desiredHours;
@@ -357,8 +338,7 @@ public class TestAsignator {
 	}
 
 	@Test
-	public void testMoveAssignmentDate() throws AssignmentException,
-			TimestampException, RequestException, PeriodException {
+	public void testMoveAssignmentDate() throws AssignmentException, RequestException {
 		// crear requisitos para los pedidos
 		// obligatorios
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
@@ -389,12 +369,11 @@ public class TestAsignator {
 
 		Period assignmentPeriod = null;
 		for (Entry<Period, Assignment> currentEntry : (assignment
-				.getAssignableItem().getAssignments().entrySet())) {
+				.getAssignableItem().getAssignments().entrySet()))
 			if (currentEntry.getValue().equals(assignment)) {
 				assignmentPeriod = currentEntry.getKey();
 				break;
 			}
-		}
 
 		assertEquals(assignmentPeriod, newDate);
 	}

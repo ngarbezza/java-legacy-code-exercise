@@ -12,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
@@ -31,7 +29,7 @@ public class TestClassroomRequest {
 	private Map<Resource,Integer> optResources;
 
 	@Before
-	public void setUp() throws RequestException, PeriodException, TimestampException {
+	public void setUp() throws RequestException {
 		subject = new Subject("AOP Programming", 53455);
 		LinkedList<Subject> subjects = new LinkedList<Subject>();
 		subjects.add(subject);
@@ -43,7 +41,7 @@ public class TestClassroomRequest {
 	}
 
 	@Test
-	public void test_elementsDoesNotRepeat(){
+	public void test_elementsDoesNotRepeat() {
 		Set<Resource> optResources = this.classroomRequest.getOptionalResources().keySet();
 		Set<Resource> reqResources = this.classroomRequest.getRequiredResources().keySet();
 
@@ -60,7 +58,7 @@ public class TestClassroomRequest {
 	}
 
 	@Test
-	public void test_professorCanTeachTheSubjectInRequest(){
+	public void test_professorCanTeachTheSubjectInRequest() {
 		Subject subjectRequest = this.classroomRequest.getSubject();
 		boolean founded = false;
 
@@ -72,7 +70,7 @@ public class TestClassroomRequest {
 	}
 
 	@Test
-	public void test_capacityIsCorrectlySetted(){
+	public void test_capacityIsCorrectlySetted() {
 		assertTrue("Capacity is not rightly setted",this.classroomRequest.getCapacity()>0);
 	}
 

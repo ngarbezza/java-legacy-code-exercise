@@ -2,12 +2,11 @@ package ar.edu.unq.sasa.model.mocks.time;
 
 import java.util.List;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
 
-public class MockLogicalHourFulfiller extends LogicalHourFulfiller{
+public class MockLogicalHourFulfiller extends LogicalHourFulfiller {
 
 	@Override
 	public boolean contains(Timestamp t) {
@@ -20,8 +19,7 @@ public class MockLogicalHourFulfiller extends LogicalHourFulfiller{
 	}
 
 	@Override
-	public List<HourInterval> getConcreteIntervals()
-			throws PeriodException {
+	public List<HourInterval> getConcreteIntervals() {
 		return null;
 	}
 

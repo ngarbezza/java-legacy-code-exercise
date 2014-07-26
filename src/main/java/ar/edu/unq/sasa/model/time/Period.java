@@ -3,7 +3,6 @@ package ar.edu.unq.sasa.model.time;
 import java.util.Calendar;
 import java.util.List;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
@@ -14,30 +13,30 @@ import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
  * el tiempo de otro.
  */
 public abstract class Period {
-	
+
 	public static final int MIN_HOUR_BLOCK = 30;
 
-	public abstract boolean intersectsWith(Period p) throws PeriodException;
-	
-	protected abstract boolean intersectsWithSimple(SimplePeriod sp) throws PeriodException;
-	
-	public abstract boolean contains(Calendar c) throws PeriodException;
-	
-	public abstract boolean contains(Period p) throws PeriodException;
-	
-	protected abstract boolean isIn(SimplePeriod sp) throws PeriodException;
-	
-	public abstract List<Period> convertToConcrete() throws PeriodException;
-	
+	public abstract boolean intersectsWith(Period p);
+
+	protected abstract boolean intersectsWithSimple(SimplePeriod sp);
+
+	public abstract boolean contains(Calendar c);
+
+	public abstract boolean contains(Period p);
+
+	protected abstract boolean isIn(SimplePeriod sp);
+
+	public abstract List<Period> convertToConcrete();
+
 	public abstract boolean isConcrete();
-	
-	public abstract int minutesSharedWithPeriod(Period p) throws PeriodException;
-	
-	protected abstract int minutesSharedWithSimplePeriod(SimplePeriod sp) throws PeriodException;
-	
-	public abstract Period copy() throws PeriodException;
-	
+
+	public abstract int minutesSharedWithPeriod(Period p);
+
+	protected abstract int minutesSharedWithSimplePeriod(SimplePeriod sp);
+
+	public abstract Period copy();
+
 	public abstract void setHourFulfiller(LogicalHourFulfiller hf);
-	
-	public abstract List<HourInterval> hourIntervalsInADay(Calendar c) throws PeriodException;
+
+	public abstract List<HourInterval> hourIntervalsInADay(Calendar c);
 }

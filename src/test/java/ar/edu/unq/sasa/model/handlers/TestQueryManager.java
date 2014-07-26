@@ -24,8 +24,6 @@ import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.assignments.Satisfaction;
 import ar.edu.unq.sasa.model.data.InformationManager;
 import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.Resource;
@@ -45,7 +43,7 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_satisfactionsFromClassroomAndRequest()	throws RequestException, PeriodException, TimestampException {
+	public void test_satisfactionsFromClassroomAndRequest()	throws RequestException {
 		Timestamp timestamp1 = new Timestamp(10);
 		Timestamp timestamp11 = new Timestamp(12);
 		LogicalHourFulfiller logicHourFul1 = new HourInterval(timestamp1,
@@ -91,8 +89,7 @@ public class TestQueryManager {
 
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
 	@Test
-	public void test_freeHoursInAnAssignableItemInADayOnlyOneIntervalFree()
-			throws Exception {
+	public void test_freeHoursInAnAssignableItemInADayOnlyOneIntervalFree() {
 		QueryManager qm = new QueryManager();
 		AssignableItem itemMock = createMock(AssignableItem.class);
 		Calendar day = new GregorianCalendar(2010, Calendar.JUNE, 9);
@@ -138,7 +135,7 @@ public class TestQueryManager {
 		for (int i = 30; i < 34; i++) {	// libre de 14:30 a 17 hs
 			expect(itemMock.isFreeAt(day)).andReturn(true);
 			day.add(Calendar.MINUTE, 30);
-		}		
+		}
 		for (int i = 34; i < 47; i++) {	// ocupada desde las 17 hs
 			expect(itemMock.isFreeAt(day)).andReturn(false);
 			day.add(Calendar.MINUTE, 30);
@@ -150,13 +147,13 @@ public class TestQueryManager {
 				new Timestamp(12));
 		HourInterval hiRightExp = new HourInterval(new Timestamp(14, 30),
 				new Timestamp(17));
-		Or expected = new Or(hiLeftExp, hiRightExp);	
+		Or expected = new Or(hiLeftExp, hiRightExp);
 		assertEquals(expected, result.getHourFulfiller());
 		verify(itemMock);
 	}
 
 	@Test
-	public void test_classroomsThatSatisfyCapacityRequirement() throws Exception {
+	public void test_classroomsThatSatisfyCapacityRequirement() {
 		Classroom c1Mock = createMock(Classroom.class);
 		Classroom c2Mock = createMock(Classroom.class);
 		Classroom c3Mock = createMock(Classroom.class);

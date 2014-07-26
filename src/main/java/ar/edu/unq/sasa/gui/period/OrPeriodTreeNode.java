@@ -2,7 +2,6 @@ package ar.edu.unq.sasa.gui.period;
 
 import javax.swing.JRadioButton;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.Or;
 import ar.edu.unq.sasa.model.time.Period;
 
@@ -27,7 +26,7 @@ public class OrPeriodTreeNode extends CompositePeriodTreeNode {
 	}
 
 	@Override
-	public Period makePeriod() throws PeriodException {
+	public Period makePeriod() {
 		return new Or(((PeriodTreeNode) getChildAt(0)).makePeriod(),
 				((PeriodTreeNode) getChildAt(1)).makePeriod());
 	}

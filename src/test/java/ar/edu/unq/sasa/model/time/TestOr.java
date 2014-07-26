@@ -5,7 +5,6 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
@@ -19,20 +18,14 @@ public class TestOr {
 	private Period mockLeftOp, mockRightOp;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		this.mockLeftOp = createMock(Period.class);
 		this.mockRightOp= createMock(Period.class);
 		this.orUnderTest = new Or(mockLeftOp, mockRightOp);
 	}
 
 	@Test
-	public void test_constructor() {
-		assertSame(mockLeftOp, orUnderTest.getLeftPeriod());
-		assertSame(mockRightOp, orUnderTest.getRightPeriod());
-	}
-
-	@Test
-	public void test_containsCalendar() throws Exception {
+	public void test_containsCalendar() {
 		Calendar calendarMock= createMock(Calendar.class);
 		expect(mockLeftOp.contains(calendarMock))
 			.andReturn(false).andReturn(false)
@@ -51,7 +44,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_containsLogicalDateFulfiller() throws Exception {
+	public void test_containsLogicalDateFulfiller() {
 		Period ldfMock = createMock(Period.class);
 		expect(mockLeftOp.contains(ldfMock))
 			.andReturn(false).andReturn(false)
@@ -68,7 +61,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_isIn() throws Exception {
+	public void test_isIn() {
 		SimplePeriod sdfMock = createMock(SimplePeriod.class);
 		expect(mockLeftOp.isIn(sdfMock))
 			.andReturn(false).andReturn(false)
@@ -85,7 +78,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_intersectsWith() throws Exception {
+	public void test_intersectsWith() {
 		Period ldfMock = createMock(Period.class);
 		expect(mockLeftOp.intersectsWith(ldfMock))
 			.andReturn(false).andReturn(false)

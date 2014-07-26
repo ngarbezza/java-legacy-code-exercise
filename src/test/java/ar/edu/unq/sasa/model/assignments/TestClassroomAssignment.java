@@ -14,7 +14,6 @@ import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.exceptions.handlers.RequestException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.Resource;
@@ -25,7 +24,7 @@ public class TestClassroomAssignment {
 	@Test
 	public void test_shouldConstructCorrectly() throws RequestException {
 		Classroom classroom = new Classroom("Aula 1", 10);
-		List<ResourceAssignment> listaRes = new ArrayList<ResourceAssignment>(); 
+		List<ResourceAssignment> listaRes = new ArrayList<ResourceAssignment>();
 		Period desHours = null;
 		Subject subject = new Subject("Creacion de Shortcuts", 12);
 		Professor professor = new Professor("Pable", 5, "42244556", "pablo@gmail.com");
@@ -42,7 +41,7 @@ public class TestClassroomAssignment {
 	}
 
 	@Test
-	public void test_createSatisfaction() throws RequestException, PeriodException {
+	public void test_createSatisfaction() throws RequestException {
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optionalResources = new HashMap<Resource, Integer>();
 		Period desiredHours = null;
@@ -50,8 +49,8 @@ public class TestClassroomAssignment {
 		Professor professor = new Professor("Pablo", 0, "44445555", "pablo@gmail.com");
 		ClassroomRequest classroomRequest = new ClassroomRequest(desiredHours, subject, professor, 0, requiredResources, optionalResources, 25);
 		Classroom classroom = new Classroom("Aula 1", 20);
-		FixedResource fr1 = new FixedResource("Proyector", 1); 
-		FixedResource fr2 = new FixedResource("Pizarron", 2); 
+		FixedResource fr1 = new FixedResource("Proyector", 1);
+		FixedResource fr2 = new FixedResource("Pizarron", 2);
 		classroom.addResource(fr1);
 		classroom.addResource(fr2);
 		List<ResourceAssignment> resourcesAssignmentsList = new ArrayList<ResourceAssignment>();

@@ -16,7 +16,6 @@ import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
 import ar.edu.unq.sasa.model.exceptions.handlers.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.handlers.ResourceException;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -25,16 +24,15 @@ import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
 /**
- * Se encarga de realizar operaciones de Alta, Baja y Modificación sobre 
+ * Se encarga de realizar operaciones de Alta, Baja y Modificación sobre
  * {@link Assignment}s.
  */
-public class Asignator extends Handler{
+public class Asignator extends Handler {
 	private static Asignator instance = null;
 
 	public static Asignator getInstance(){
-		if (instance == null){
+		if (instance == null)
 			instance = new Asignator();
-		}
 		return instance;
 	}
 
@@ -45,13 +43,13 @@ public class Asignator extends Handler{
 		return resourceAssignment;
 	}
 
-	public BookedAssignment asignateBookedAssignment(Classroom classroom, String cause, Period period) throws PeriodException {
+	public BookedAssignment asignateBookedAssignment(Classroom classroom, String cause, Period period) {
 		BookedAssignment bookedAssignment = new BookedAssignment(cause, classroom);
 		classroom.addAssignment(period, bookedAssignment);
 		getInformationManager().addAssignment(bookedAssignment);
 		updateAssignmentsSatisfactionSuperpositions(period, bookedAssignment);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", 
+		this.getPublisher().changed("assignmentsChanged",
 				this.getInformationManager().getAssignments());
 		this.getPublisher().changed("requestsChanged",
                 this.getInformationManager().getRequests());
@@ -59,12 +57,12 @@ public class Asignator extends Handler{
 		return bookedAssignment;
 	}
 
-	public ClassroomAssignment asignateClassroomAssignment(ClassroomRequest classroomRequest, Classroom classroom, Period period) throws PeriodException {
+	public ClassroomAssignment asignateClassroomAssignment(ClassroomRequest classroomRequest, Classroom classroom, Period period) {
 		ClassroomAssignment classroomAssignment = asignateClassroomAssignmentWithoutSatisfaction(classroomRequest, classroom, period);
 		classroomAssignment.createSatisfaction();
 		updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", 
+		this.getPublisher().changed("assignmentsChanged",
 				this.getInformationManager().getAssignments()) ;
 		this.getPublisher().changed("requestsChanged",
                 this.getInformationManager().getRequests());
@@ -72,70 +70,65 @@ public class Asignator extends Handler{
 		return classroomAssignment;
 	}
 
-	private ClassroomAssignment asignateClassroomAssignmentWithoutSatisfaction(ClassroomRequest classroomRequest, Classroom classroom, Period period) throws PeriodException {
+	private ClassroomAssignment asignateClassroomAssignmentWithoutSatisfaction(ClassroomRequest classroomRequest, Classroom classroom, Period period) {
 		List<ResourceAssignment> resourcesAssignmentsList = new ArrayList<ResourceAssignment>();
 		Set<Entry<Resource, Integer>> requiredResources = classroomRequest.getRequiredResources().entrySet();
-		Set<Entry<Resource, Integer>> optionalResources = classroomRequest.getOptionalResources().entrySet();		
-		
+		Set<Entry<Resource, Integer>> optionalResources = classroomRequest.getOptionalResources().entrySet();
+
 		asignateInFreeResources(requiredResources, classroomRequest, resourcesAssignmentsList, period);
 		asignateInFreeResources(optionalResources, classroomRequest, resourcesAssignmentsList, period);
-		
+
 		ClassroomAssignment classroomAssignment = new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
 		classroom.addAssignment(period, classroomAssignment);
 		getInformationManager().addAssignment(classroomAssignment);
-		
-		
+
+
 		return classroomAssignment;
 	}
 
-	private void updateAssignmentsSatisfactionSuperpositions(Period period, Assignment assignment) throws PeriodException {
-		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet()){
-			if (! entry.getValue().equals(assignment)) {
-				if (entry.getKey().intersectsWith(period)) {
+	private void updateAssignmentsSatisfactionSuperpositions(Period period, Assignment assignment) {
+		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet())
+			if (! entry.getValue().equals(assignment))
+				if (entry.getKey().intersectsWith(period))
 					if (entry.getValue().isClassroomAssignment()) {
 						float minutesShared = entry.getKey().minutesSharedWithPeriod(period) / 60;
 						((ClassroomAssignment) entry.getValue()).getSatisfaction().addPeriodSuperposition(period, minutesShared);
 					}
-				}
-			}
-		}
 	}
 
-	private void asignateInFreeResources(Set<Entry<Resource, Integer>> resources, ClassroomRequest classroomRequest, List<ResourceAssignment> resourcesAssignmentsList, Period period) throws PeriodException {
+	private void asignateInFreeResources(Set<Entry<Resource, Integer>> resources, ClassroomRequest classroomRequest, List<ResourceAssignment> resourcesAssignmentsList, Period period) {
 		for (Entry<Resource, Integer> entry : resources){
 			Integer cant = entry.getValue();
-			for (MobileResource resource : getInformationManager().getMobileResources()){
+			for (MobileResource resource : getInformationManager().getMobileResources())
 				if (resource.getName().equals(entry.getKey().getName()) &&
 						cant > 0){
 					boolean isUsefullPeriod = true;
-					for (Period resourcePeriod : resource.getAssignments().keySet()){
+					for (Period resourcePeriod : resource.getAssignments().keySet())
 						if (resourcePeriod.intersectsWith(period))
 							isUsefullPeriod = false;
-					}
 					if (isUsefullPeriod){
 						ResourceAssignment asig = asignateResourceAssignment(classroomRequest, resource, period);
 						resourcesAssignmentsList.add(asig);
 						cant--;
 					}
 				}
-			}
 		}
 	}
 
-	public ClassroomAssignment asignateRequestInAClassroom(ClassroomRequest classroomRequest, Classroom classroom) throws PeriodException {
+	public ClassroomAssignment asignateRequestInAClassroom(ClassroomRequest classroomRequest, Classroom classroom) {
 		Period freePeriod = (Period) getPercentageAndPeriod(classroomRequest, classroom).get(1);
 		ClassroomAssignment classroomAssignment = asignateClassroomAssignment(classroomRequest, classroom, freePeriod);
 		return classroomAssignment;
 	}
 
-	public ClassroomAssignment asignateRequestInMostSatisfactoryClassroom(ClassroomRequest classroomRequest) throws PeriodException, ResourceException {
+	public ClassroomAssignment asignateRequestInMostSatisfactoryClassroom(ClassroomRequest classroomRequest) throws ResourceException {
 		Classroom bestClassroom = null;
 		Float bestRequiredPercentage = null;
 		Float bestOptionalPercentage = null;
 		int bestCapacityDifference = 0;
 		int lowestMinutesSuperposed = 0;
 		Period freePeriod = null;
-		
+
 		for (Classroom c : getInformationManager().getClassrooms()){
 			float cRequiredPercentage = getPercentage(classroomRequest.getRequiredResources(), c);
 			float cOptionalPercentage = getPercentage(classroomRequest.getOptionalResources(), c);
@@ -143,7 +136,7 @@ public class Asignator extends Handler{
 			int cMinutesSuperposed = (Integer) percentageAndPeriod.get(0);
 			Period cFreePeriod = (Period) percentageAndPeriod.get(1);
 			int cCapacityDifference = c.getCapacity() - classroomRequest.getCapacity();
-			
+
 			if (bestClassroom == null){
 				bestClassroom = c;
 				bestRequiredPercentage = cRequiredPercentage;
@@ -187,49 +180,47 @@ public class Asignator extends Handler{
 								freePeriod = cFreePeriod;
 						}
 		}
-		
-		return asignateClassroomAssignment(classroomRequest, bestClassroom, freePeriod);		
+
+		return asignateClassroomAssignment(classroomRequest, bestClassroom, freePeriod);
 	}
 
-	public ClassroomAssignment asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(ClassroomRequest classroomRequest, Classroom classroom, Period period, Map<Resource, Integer> resources) throws PeriodException {
+	public ClassroomAssignment asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(ClassroomRequest classroomRequest, Classroom classroom, Period period, Map<Resource, Integer> resources) {
 		Map<Resource, Integer> oldRequiredResources = classroomRequest.getRequiredResources();
 		Map<Resource, Integer> oldOptionalResources = classroomRequest.getOptionalResources();
 		classroomRequest.setRequiredResources(resources);
 		classroomRequest.setOptionalResources(new HashMap<Resource, Integer>());
-		
+
 		ClassroomAssignment classroomAssignment = asignateClassroomAssignmentWithoutSatisfaction(classroomRequest, classroom, period);
 		classroomAssignment.getRequest().setRequiredResources(oldRequiredResources);
 		classroomAssignment.getRequest().setOptionalResources(oldOptionalResources);
-		
+
 		classroomAssignment.createSatisfaction();
 		updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", 
+		this.getPublisher().changed("assignmentsChanged",
 				this.getInformationManager().getAssignments());
 		this.getPublisher().changed("requestsChanged",
                 this.getInformationManager().getRequests());
 		///////////////////////////////////////////////////////////
 		return classroomAssignment;
-	}	
+	}
 
-	private Map<Integer, Object> getPercentageAndPeriod(ClassroomRequest classroomRequest, Classroom classroom) throws PeriodException {
+	private Map<Integer, Object> getPercentageAndPeriod(ClassroomRequest classroomRequest, Classroom classroom) {
 		Map<Integer, Object> percentageAndPeriods = new HashMap<Integer, Object>();
 		Period bestPeriod = null;
 		int minutesShared = -1;
-		
+
 		List<Period> periodDivisions = classroomRequest.getDesiredHours().convertToConcrete();
-		
+
 		boolean isUsefullPeriod = true;
 		for (Period reqPeriod : periodDivisions){
 			if (bestPeriod == null){
 				bestPeriod = reqPeriod;
 				minutesShared = searchForHighestSuperposedMinutes(reqPeriod, classroom);
-				if (minutesShared > 0){
+				if (minutesShared > 0)
 					isUsefullPeriod = false;
-				}
-				else {
+				else
 					isUsefullPeriod = true;
-				}
 			}
 			else {
 				int currentMinutesShared = searchForHighestSuperposedMinutes(reqPeriod, classroom);
@@ -238,10 +229,8 @@ public class Asignator extends Handler{
 						bestPeriod = reqPeriod;
 						minutesShared = 0;
 						isUsefullPeriod = true;
-					}
-					else {
+					} else
 						isUsefullPeriod = false;
-					}
 				}
 				else {
 					bestPeriod = reqPeriod;
@@ -249,25 +238,23 @@ public class Asignator extends Handler{
 					isUsefullPeriod = true;
 				}
 			}
-				
-			if (isUsefullPeriod){
+
+			if (isUsefullPeriod)
 				break;
-			}
 		}
-		
+
 		percentageAndPeriods.put(0, minutesShared);
 		percentageAndPeriods.put(1, bestPeriod);
-		
-		return percentageAndPeriods;		
+
+		return percentageAndPeriods;
 	}
-	
-	private int searchForHighestSuperposedMinutes(Period period, Classroom classroom) throws PeriodException {
+
+	private int searchForHighestSuperposedMinutes(Period period, Classroom classroom) {
 		int highestMinutesSuperposed = 0;
 		for (Period classroomPeriod : classroom.getAssignments().keySet()){
 			int minutesSharedWithPeriod = classroomPeriod.minutesSharedWithPeriod(period);
-			if (minutesSharedWithPeriod > highestMinutesSuperposed){
+			if (minutesSharedWithPeriod > highestMinutesSuperposed)
 				highestMinutesSuperposed = minutesSharedWithPeriod;
-			}
 		}
 		return highestMinutesSuperposed;
 	}
@@ -275,32 +262,28 @@ public class Asignator extends Handler{
 	private float getPercentage(Map<Resource, Integer> requestResources, Classroom classroom) throws ResourceException {
 		int cantMatched = 0;
 		int cantTotal = 0;
-		
+
 		for (Entry<Resource, Integer> entry : requestResources.entrySet()){
 			if (classroom.hasResource(entry.getKey().getName())) {
 				int classAmount = classroom.getResource(entry.getKey().getName()).getAmount();
-				if (entry.getValue() > classAmount){
+				if (entry.getValue() > classAmount)
 					cantMatched += classAmount;
-				}
-				else {
+				else
 					cantMatched += entry.getValue();
-				}
 			}
 			cantTotal += entry.getValue();
 		}
-		
-		if (cantTotal == 0){
+
+		if (cantTotal == 0)
 			return 1;
-		}
-		else {
+		else
 			return cantMatched * 100 / cantTotal;
-		}
 	}
 
-	public void modifyBookedAssignmentCause(BookedAssignment searchedAssignment, String newCause){
+	public void modifyBookedAssignmentCause(BookedAssignment searchedAssignment, String newCause) {
 		searchedAssignment.setCause(newCause);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", 
+		this.getPublisher().changed("assignmentsChanged",
 				this.getInformationManager().getAssignments());
 		this.getPublisher().changed("requestsChanged",
                 this.getInformationManager().getRequests());
@@ -314,63 +297,59 @@ public class Asignator extends Handler{
 			if (entry.getValue().equals(resourceAssignment))
 				resourceAssignment.getAssignableItem().removeAssignment(entry.getKey());
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", 
+		this.getPublisher().changed("assignmentsChanged",
 				this.getInformationManager().getAssignments());
 		this.getPublisher().changed("requestsChanged",
                 this.getInformationManager().getRequests());
 		///////////////////////////////////////////////////////////
 	}
 
-	public void deleteClassroomAssignmentFromARequest(Request request) throws AssignmentException{
+	public void deleteClassroomAssignmentFromARequest(Request request) throws AssignmentException {
 		ClassroomAssignment classroomAssignment = null;
-		for (Assignment assignment : getInformationManager().getAssignments()){
-			if (assignment.isClassroomAssignment()){
+		for (Assignment assignment : getInformationManager().getAssignments())
+			if (assignment.isClassroomAssignment())
 				if (assignment.getRequest().equals(request)){
 					classroomAssignment = (ClassroomAssignment) assignment;
 					getInformationManager().deleteAssignment(assignment);
 					break;
 				}
-			}
-		}
-				
-		for (ResourceAssignment resourceAssignment : ((ClassroomAssignment)classroomAssignment).getResourcesAssignments())
+
+		for (ResourceAssignment resourceAssignment : classroomAssignment.getResourcesAssignments())
 			deleteResourceAssignment(resourceAssignment);
-		
+
 		Map<Period, Assignment> classroomAssignments = classroomAssignment.getAssignableItem().getAssignments();
-		for (Entry<Period, Assignment> entry : classroomAssignments.entrySet()){
+		for (Entry<Period, Assignment> entry : classroomAssignments.entrySet())
 			if (entry.getValue().equals(classroomAssignment)){
 				classroomAssignment.getAssignableItem().removeAssignment(entry.getKey());
 				break;
 			}
-		}
-		
+
 		if (! request.isAsignated())
 			throw new AssignmentException("No existe una asignacion para ese pedido");
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", 
+		this.getPublisher().changed("assignmentsChanged",
 				this.getInformationManager().getAssignments());
 		this.getPublisher().changed("requestsChanged",
                 this.getInformationManager().getRequests());
 		///////////////////////////////////////////////////////////
 	}
-	
+
 	public void deleteAssignment(Assignment searchedAssignment){
 		try {
-			if (searchedAssignment.getRequest() != null){
+			if (searchedAssignment.getRequest() != null)
 				searchedAssignment.getRequest().setAsignated(false);
-			}
 			AssignableItem assignableItem = searchedAssignment.getAssignableItem();
 			Map<Period, Assignment> assignments = assignableItem.getAssignments();
-			
+
 			for (Entry<Period, Assignment> entry : assignments.entrySet())
 				if (entry.getValue().equals(searchedAssignment)){
 					assignableItem.removeAssignment(entry.getKey());
 					break;
 				}
 			getInformationManager().deleteAssignment(searchedAssignment);
-			
+
 			///////////////////////////////////////////////////////////
-			this.getPublisher().changed("assignmentsChanged", 
+			this.getPublisher().changed("assignmentsChanged",
 					this.getInformationManager().getAssignments());
 			this.getPublisher().changed("requestsChanged",
 	                this.getInformationManager().getRequests());
@@ -383,49 +362,44 @@ public class Asignator extends Handler{
 
 	public Assignment searchForAssignment(AssignableItem assignableItem, Period period){
 		return assignableItem.getAssignments().get(period);
-	}	
-	
+	}
+
 	public List<BookedAssignment> searchForBookedAssignment(String text) {
 		List<BookedAssignment> bookedAssignments = new ArrayList<BookedAssignment>();
-		
-		for (Assignment assignment : getInformationManager().getAssignments()){
-			if (assignment instanceof BookedAssignment){
-				if (((BookedAssignment) assignment).getCause().contains(text)){
+
+		for (Assignment assignment : getInformationManager().getAssignments())
+			if (assignment instanceof BookedAssignment)
+				if (((BookedAssignment) assignment).getCause().contains(text))
 					bookedAssignments.add((BookedAssignment) assignment);
-				}
-			}
-		}
-		
+
 		return bookedAssignments;
 	}
-	
-	public ClassroomAssignment moveAssignmentOfClassroom(ClassroomAssignment assigment, Classroom classroom) throws AssignmentException, PeriodException{
+
+	public ClassroomAssignment moveAssignmentOfClassroom(ClassroomAssignment assigment, Classroom classroom) throws AssignmentException {
 		Period period = null;
-		for (Entry<Period, Assignment> currentEntry : (assigment.getAssignableItem().getAssignments().entrySet())  ) {
-		   if (currentEntry.getValue().equals(assigment)){
-			   period =  currentEntry.getKey();
-		       break; 
-		    } 
-		}
+		for (Entry<Period, Assignment> currentEntry : (assigment.getAssignableItem().getAssignments().entrySet())  )
+			if (currentEntry.getValue().equals(assigment)){
+				   period =  currentEntry.getKey();
+			       break;
+			    }
 		ClassroomRequest request = assigment.getRequest();
 		this.deleteClassroomAssignmentFromARequest(request);
 		return this.asignateClassroomAssignment(request,classroom,period);
-	} 
+	}
 
-    public void moveAssignmentOfHour(ClassroomAssignment assignment ,LogicalHourFulfiller hour) throws AssignmentException, PeriodException{
+    public void moveAssignmentOfHour(ClassroomAssignment assignment, LogicalHourFulfiller hour) throws AssignmentException {
 		Period period = null;
-		for (Entry<Period, Assignment> currentEntry : (assignment.getAssignableItem().getAssignments().entrySet())  ) {
-		   if (currentEntry.getValue().equals(assignment)){
-			   period =  currentEntry.getKey();
-		       break; 
-		    } 
-		}
+		for (Entry<Period, Assignment> currentEntry : (assignment.getAssignableItem().getAssignments().entrySet())  )
+			if (currentEntry.getValue().equals(assignment)){
+				   period =  currentEntry.getKey();
+			       break;
+			    }
 		deleteClassroomAssignmentFromARequest(assignment.getRequest());
 		period.setHourFulfiller(hour);
 		asignateClassroomAssignment(assignment.getRequest(), assignment.getAssignableItem(), period);
 	}
-	
-	public void moveAssignmentOfPeriod( ClassroomAssignment assignment , Period newPeriod) throws PeriodException, AssignmentException{
+
+	public void moveAssignmentOfPeriod(ClassroomAssignment assignment, Period newPeriod) throws AssignmentException {
 		deleteClassroomAssignmentFromARequest(assignment.getRequest());
 		asignateClassroomAssignment(assignment.getRequest(), assignment.getAssignableItem(), newPeriod);
 	}

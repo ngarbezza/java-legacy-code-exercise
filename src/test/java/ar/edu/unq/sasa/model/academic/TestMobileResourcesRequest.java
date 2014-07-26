@@ -12,8 +12,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
@@ -30,7 +28,7 @@ public class TestMobileResourcesRequest {
 	private Map<Resource,Integer> optResources;
 
 	@Before
-	public void setUp() throws PeriodException, TimestampException{
+	public void setUp() {
 		subject = new Subject("AOP Programming", 53455);
 		LinkedList<Subject> subjects = new LinkedList<Subject>();
 		subjects.add(subject);
@@ -43,7 +41,7 @@ public class TestMobileResourcesRequest {
 	}
 
 	@Test
-	public void test_shouldBeConstructedCorrectly(){
+	public void test_shouldBeConstructedCorrectly() {
 
 		assertNotNull("desiredHours is Null",this.mobileResourcesRequest.getDesiredHours());
 		assertTrue("desiredHours is from an undesired class",this.mobileResourcesRequest.getDesiredHours() instanceof Period);
@@ -64,7 +62,7 @@ public class TestMobileResourcesRequest {
 	}
 
 	@Test
-	public void test_elementsDoesNotRepeat(){
+	public void test_elementsDoesNotRepeat() {
 		Set<Resource> optResources = this.mobileResourcesRequest.getOptionalResources().keySet();
 		Set<Resource> reqResources = this.mobileResourcesRequest.getRequiredResources().keySet();
 
@@ -81,7 +79,7 @@ public class TestMobileResourcesRequest {
 	}
 
 	@Test
-	public void test_professorCanTeachTheSubjectInRequest(){
+	public void test_professorCanTeachTheSubjectInRequest() {
 		Subject subjectRequest = this.mobileResourcesRequest.getSubject();
 		boolean founded = false;
 

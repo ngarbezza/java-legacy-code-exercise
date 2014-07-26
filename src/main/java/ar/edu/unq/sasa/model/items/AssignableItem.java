@@ -8,11 +8,10 @@ import java.util.Map.Entry;
 
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.assignments.Assignment;
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.Period;
 
 /**
- * Representa aquellos elementos que pueden asignarse mediante {@link Assignment}s, 
+ * Representa aquellos elementos que pueden asignarse mediante {@link Assignment}s,
  * en intervalos de tiempo definidos por objetos {@link Period}.
  */
 public abstract class AssignableItem {
@@ -44,16 +43,15 @@ public abstract class AssignableItem {
 		this.getAssignments().remove(period);
 	}
 
-	public boolean satisfyTimeRequirements(Request request,
-			boolean ignoreCommonAssignments) throws PeriodException {
-		Collection<Period> current = request.getDesiredHours().convertToConcrete(); 
+	public boolean satisfyTimeRequirements(Request request, boolean ignoreCommonAssignments) {
+		Collection<Period> current = request.getDesiredHours().convertToConcrete();
 		for (Period p : current)
 			if (canAssign(p, ignoreCommonAssignments))
 				return true;
 		return false;
 	}
 
-	protected boolean canAssign(Period period, boolean ignoreCommonAssignments) throws PeriodException {
+	protected boolean canAssign(Period period, boolean ignoreCommonAssignments) {
 		for (Entry<Period, Assignment> p : this.getAssignments().entrySet())
 			if (p.getKey().intersectsWith(period))
 				if (ignoreCommonAssignments)
@@ -66,16 +64,15 @@ public abstract class AssignableItem {
 		return true;
 	}
 
-	public boolean satisfyTimeRequirements(Request request)
-			throws PeriodException {
+	public boolean satisfyTimeRequirements(Request request) {
 		return this.satisfyTimeRequirements(request, false);
 	}
 
-	public boolean canAssign(Period period) throws PeriodException {
+	public boolean canAssign(Period period) {
 		return this.canAssign(period, false);
 	}
 
-	public boolean isFreeAt(Calendar calendar) throws PeriodException {
+	public boolean isFreeAt(Calendar calendar) {
 		for (Period p : this.getAssignments().keySet())
 			if (p.contains(calendar))
 				return false;

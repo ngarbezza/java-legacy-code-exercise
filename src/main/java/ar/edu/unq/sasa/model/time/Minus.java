@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
 /**
@@ -17,33 +16,33 @@ public class Minus extends CompositePeriod {
 	}
 
 	@Override
-	public boolean contains(Period p) throws PeriodException {
+	public boolean contains(Period p) {
 		return getLeftPeriod().contains(p) && !getRightPeriod().contains(p);
 	}
 
 	@Override
-	public boolean contains(Calendar c) throws PeriodException {
+	public boolean contains(Calendar c) {
 		return getLeftPeriod().contains(c) && !getRightPeriod().contains(c);
 	}
 
 	@Override
-	public boolean intersectsWith(Period p) throws PeriodException {
+	public boolean intersectsWith(Period p) {
 		return getLeftPeriod().intersectsWith(p)
 			&& !getRightPeriod().intersectsWith(p);
 	}
 
 	@Override
-	protected boolean intersectsWithSimple(SimplePeriod simple) throws PeriodException {
+	protected boolean intersectsWithSimple(SimplePeriod simple) {
 		return this.intersectsWith(simple);
 	}
-	
+
 	@Override
-	protected boolean isIn(SimplePeriod sdf) throws PeriodException {
+	protected boolean isIn(SimplePeriod sdf) {
 		return getLeftPeriod().isIn(sdf) && !getRightPeriod().isIn(sdf);
 	}
-	
+
 	@Override
-	public List<Period> convertToConcrete() throws PeriodException {
+	public List<Period> convertToConcrete() {
 		List<Period> result = new LinkedList<Period>();
 		for (Period p1 : getLeftPeriod().convertToConcrete())
 			for (Period p2 : getRightPeriod().convertToConcrete())
@@ -55,14 +54,14 @@ public class Minus extends CompositePeriod {
 	public String toString() {
 		return "( " + getLeftPeriod() + " ) \n MENOS \n( " + getRightPeriod() + " )\n";
 	}
-	
+
 	@Override
-	public Minus copy() throws PeriodException {
+	public Minus copy() {
 		return new Minus(getLeftPeriod().copy(), getRightPeriod().copy());
 	}
 
 	@Override
-	public List<HourInterval> hourIntervalsInADay(Calendar c) throws PeriodException {
+	public List<HourInterval> hourIntervalsInADay(Calendar c) {
 		List<HourInterval> leftIntervals = getLeftPeriod().hourIntervalsInADay(c);
 		List<HourInterval> rightIntervals = getRightPeriod().hourIntervalsInADay(c);
 		List<HourInterval> result = new LinkedList<HourInterval>();

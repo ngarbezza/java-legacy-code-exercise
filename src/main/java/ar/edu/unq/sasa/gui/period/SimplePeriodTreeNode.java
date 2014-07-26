@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
 import ar.edu.unq.sasa.model.time.CalendarUtils;
 import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
@@ -24,7 +23,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	private Timestamp startHour;
 	private int minutesInRange;
 
-	public SimplePeriodTreeNode() throws TimestampException {
+	public SimplePeriodTreeNode() {
 		startDate = new GregorianCalendar();
 		repetition = new None();
 		endHour = new Timestamp(12, 0);
@@ -75,7 +74,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	}
 
 	@Override
-	public Period makePeriod() throws PeriodException {
+	public Period makePeriod() {
 		if (!(getRepetition() instanceof None))
 			if (!CalendarUtils.compareGreater(((EndingRepetition)getRepetition()).getEnd(), getStartDate()))
 				throw new PeriodException("La fecha de finalización debe ser posterior a la de inicio");

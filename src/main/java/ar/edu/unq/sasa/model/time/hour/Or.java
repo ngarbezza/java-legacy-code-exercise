@@ -2,8 +2,6 @@ package ar.edu.unq.sasa.model.time.hour;
 
 import java.util.List;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
-
 /**
  * Operador lógico Or, para condiciones de horas.
  */
@@ -48,9 +46,9 @@ public class Or extends LogicalHourFulfiller {
 	protected boolean intersectsWithHourInterval(HourInterval interval) {
 		return intersectsWith(interval);
 	}
-	
+
 	@Override
-	public List<HourInterval> getConcreteIntervals() throws PeriodException {
+	public List<HourInterval> getConcreteIntervals() {
 		List<HourInterval> result = getLeftOp().getConcreteIntervals();
 		result.addAll(getRightOp().getConcreteIntervals());
 		return result;
@@ -61,17 +59,17 @@ public class Or extends LogicalHourFulfiller {
 		return Math.max(getLeftOp().minutesSharedWith(hf),
 				getRightOp().minutesSharedWith(hf));
 	}
-	
+
 	@Override
 	protected int minutesSharedWithHourInterval(HourInterval interval) {
 		return this.minutesSharedWith(interval);
 	}
-	
+
 	@Override
-	public Or copy() throws PeriodException {
+	public Or copy() {
 		return new Or(getLeftOp().copy(), getRightOp().copy());
 	}
-	
+
 	@Override
 	public boolean isConcrete() {
 		return false;

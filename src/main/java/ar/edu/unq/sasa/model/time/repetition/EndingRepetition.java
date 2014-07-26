@@ -7,7 +7,6 @@ import static ar.edu.unq.sasa.model.time.CalendarUtils.compareLess;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
 /**
@@ -40,8 +39,7 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	@Override
-	public boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start)
-			throws PeriodException {
+	public boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start) {
 		Calendar current = start;
 		while (hasNextDate(current)) {
 			current = getNextDate(current);
@@ -52,8 +50,7 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	@Override
-	public boolean isAllDaysIn(SimplePeriod sp, Calendar start)
-			throws PeriodException {
+	public boolean isAllDaysIn(SimplePeriod sp, Calendar start) {
 		Calendar current = start;
 		while (hasNextDate(current)) {
 			current = getNextDate(current);
@@ -78,7 +75,7 @@ public abstract class EndingRepetition extends Repetition {
 	protected String getRepetitionText() {
 		return " hasta el " + new SimpleDateFormat("dd/MM/yyyy").format(getEnd().getTime());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

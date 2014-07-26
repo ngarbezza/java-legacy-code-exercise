@@ -1,6 +1,5 @@
 package ar.edu.unq.sasa.model.time;
 
-import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
 /**
@@ -10,41 +9,41 @@ import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 public abstract class CompositePeriod extends Period {
 
 	private final Period leftPeriod, rightPeriod;
-	
+
 	public CompositePeriod(Period left, Period right) {
 		this.leftPeriod = left;
 		this.rightPeriod = right;
 	}
-	
+
 	public Period getLeftPeriod() {
 		return leftPeriod;
 	}
-	
+
 	public Period getRightPeriod() {
 		return rightPeriod;
 	}
-	
+
 	@Override
 	public boolean isConcrete() {
 		return getLeftPeriod().isConcrete() && getRightPeriod().isConcrete();
 	}
 
 	@Override
-	public int minutesSharedWithPeriod(Period p) throws PeriodException {
+	public int minutesSharedWithPeriod(Period p) {
 		return Math.max(getLeftPeriod().minutesSharedWithPeriod(p), getRightPeriod().minutesSharedWithPeriod(p));
 	}
-	
+
 	@Override
-	protected int minutesSharedWithSimplePeriod(SimplePeriod sp) throws PeriodException {
+	protected int minutesSharedWithSimplePeriod(SimplePeriod sp) {
 		return this.minutesSharedWithPeriod(sp);
 	}
-	
+
 	@Override
 	public void setHourFulfiller(LogicalHourFulfiller hf) {
 		this.getLeftPeriod().setHourFulfiller(hf);
 		this.getRightPeriod().setHourFulfiller(hf);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
