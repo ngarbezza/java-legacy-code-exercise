@@ -51,8 +51,7 @@ public class TestQueryManager {
 		Period desHours = new SimplePeriod(logicHourFul1, new GregorianCalendar(2010, Calendar.DECEMBER, 5));
 
 		Subject subject = new Subject("Nombres Felices", 0);
-		Professor professor = new Professor("Pablo", 0, "44445555",
-				"pablo@gmail.com");
+		Professor professor = new Professor("Pablo", "44445555", "pablo@gmail.com");
 		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
 

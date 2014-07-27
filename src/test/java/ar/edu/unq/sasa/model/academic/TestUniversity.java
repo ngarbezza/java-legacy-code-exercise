@@ -35,7 +35,7 @@ public class TestUniversity {
 
 	@Test
 	public void testAddProfessor(){
-        Professor professor = new Professor("Aula 3", 2000, "1200258", "lala@lolo.com");
+        Professor professor = new Professor("Aula 3", "1200258", "lala@lolo.com");
 		university.addProfessor(professor);
 		List<Professor> professors = new LinkedList<Professor>();
 		professors.add(professor);

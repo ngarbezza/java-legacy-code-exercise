@@ -31,7 +31,7 @@ public class TestMobileResourcesRequest {
 		subject = new Subject("AOP Programming", 53455);
 		LinkedList<Subject> subjects = new LinkedList<Subject>();
 		subjects.add(subject);
-		professor = new Professor("prof", 1, "123456", "profe@univ.com", subjects);
+		professor = new Professor("prof", "123456", "profe@univ.com", subjects);
 		desiredHours = new SimplePeriod(new HourInterval(new Timestamp(8), new Timestamp(9)), new GregorianCalendar());
 		reqResources = new HashMap<Resource,Integer>();
 		optResources = new HashMap<Resource,Integer>();

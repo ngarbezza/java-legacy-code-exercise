@@ -22,7 +22,7 @@ public class TestProfessor {
 		subjects = new LinkedList<Subject>();
 		subjects.add(subject1);
 		subjects.add(subject2);
-		this.professor = new Professor("John Doe",267765,"230934","jdoe@gmail.com", subjects);
+		professor = new Professor("John Doe", "230934", "jdoe@gmail.com", subjects);
 	}
 
 	@Test
@@ -38,11 +38,6 @@ public class TestProfessor {
 	@Test
 	public void test_hasInitializedPhoneNumber(){
 		assertNotNull("Professor phone number not initialized",this.professor.getPhoneNumber());
-	}
-
-	@Test
-	public void test_hasInitializedID(){
-		assertNotNull("Professor ID not initialized",this.professor.getId());
 	}
 
 	@Test

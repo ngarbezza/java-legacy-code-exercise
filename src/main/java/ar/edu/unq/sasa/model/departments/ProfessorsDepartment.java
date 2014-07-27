@@ -9,9 +9,6 @@ import ar.edu.unq.sasa.model.academic.University;
 
 public class ProfessorsDepartment extends Department {
 
-	// TODO kill this
-	private static long idPool = 0;
-
 	public ProfessorsDepartment(University university) {
 		super(university);
 	}
@@ -21,7 +18,7 @@ public class ProfessorsDepartment extends Department {
 	}
 
 	public Professor createProfessor(String name, String phone, String mail, List<Subject> subjects) {
-		Professor professor = new Professor(name, idPool++, phone, mail, subjects);
+		Professor professor = new Professor(name, phone, mail, subjects);
 		this.getUniversity().addProfessor(professor);
 
 		this.getPublisher().changed("professorsChanged", this.getProfessors());

@@ -3,18 +3,9 @@ package ar.edu.unq.sasa.model.academic;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * PROFESSOR Class denoting a Professor entity, who has personal data and a list
- * of {@link Subject}, that are all the subjects he can teach.
- *
- * CONSIDERATIONS The id instance variable is going to be final,
- *         because no changes are allowed.
- */
 public class Professor {
 
 	private String name;
-
-	private final long id;
 
 	private String phoneNumber;
 
@@ -22,23 +13,17 @@ public class Professor {
 
 	private List<Subject> subjects;
 
-	public Professor(String aName, long anID, String aPhoneNumber, String aMail,
-			List<Subject> aSubjectList) {
+	public Professor(String aName, String aPhoneNumber, String aMail, List<Subject> aSubjectList) {
 		this.name = aName;
-		this.id = anID;
 		this.phoneNumber = aPhoneNumber;
 		this.mail = aMail;
 		this.subjects = aSubjectList;
 	}
-	
-	public Professor(String name, long i, String phone, String mail) {
-		this(name, i, phone, mail, new LinkedList<Subject>());
+
+	public Professor(String name, String phone, String mail) {
+		this(name, phone, mail, new LinkedList<Subject>());
 	}
 
-	public long getId() {
-		return id;
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -68,16 +53,14 @@ public class Professor {
 	}
 
 	public void addNewSubject(Subject aSubject) {
-		if (!(this.getSubjects().contains(aSubject))) {
+		if (!(this.getSubjects().contains(aSubject)))
 			this.getSubjects().add(aSubject);
-		}
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : name.hashCode());
@@ -95,8 +78,6 @@ public class Professor {
 		if (getClass() != obj.getClass())
 			return false;
 		Professor other = (Professor) obj;
-		if (id != other.id)
-			return false;
 		if (mail == null) {
 			if (other.mail != null)
 				return false;

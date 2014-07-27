@@ -78,8 +78,7 @@ public class TestAssignmentsDepartment {
 		// MobileResourcesRequest
 		Period desHours = period1;
 		Subject subject = new Subject("Nombres Felices", 0);
-		Professor professor = new Professor("Pablo", 0, "44445555",
-				"pablo@gmail.com");
+		Professor professor = new Professor("Pablo", "44445555", "pablo@gmail.com");
 		long anID = 0;
 		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
@@ -231,7 +230,7 @@ public class TestAssignmentsDepartment {
 		Period desiredHours6 = period1;
 		// profesor y materia
 		Subject subject6 = new Subject("Ingles 1", 000);
-		Professor profesorErnesto = new Professor("Ernesto", 0, "42165035", "a@zaza.com");
+		Professor profesorErnesto = new Professor("Ernesto", "42165035", "a@zaza.com");
 
 		// crear pedido
 		ClassroomRequest pedido6 = new ClassroomRequest(desiredHours6,
@@ -261,7 +260,7 @@ public class TestAssignmentsDepartment {
 		Period desiredHours = period1;
 		// profesor y materia
 		Subject subject = new Subject("Ingles 1", 000);
-		Professor profesorErnesto = new Professor("Ernesto", 0, "42165035", "a@zaza.com");
+		Professor profesorErnesto = new Professor("Ernesto", "42165035", "a@zaza.com");
 
 		// crear pedido
 		ClassroomRequest pedido = new ClassroomRequest(desiredHours, subject,
@@ -304,7 +303,7 @@ public class TestAssignmentsDepartment {
 		Period desiredHours = period1;
 		// profesor y materia
 		Subject subject = new Subject("Ingles 1", 000);
-		Professor profesorErnesto = new Professor("Ernesto", 0, "42165035", "a@zaza.com");
+		Professor profesorErnesto = new Professor("Ernesto", "42165035", "a@zaza.com");
 
 		// crear pedido
 		ClassroomRequest pedido = new ClassroomRequest(desiredHours, subject,

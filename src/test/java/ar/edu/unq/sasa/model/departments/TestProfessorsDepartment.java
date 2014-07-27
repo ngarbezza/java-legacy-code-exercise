@@ -1,7 +1,6 @@
 package ar.edu.unq.sasa.model.departments;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +22,6 @@ public class TestProfessorsDepartment {
 	@Test
 	public void testCreateProfessor() {
 		Professor professor = professorsDepartment.createProfessor("Pepe", "42158787", "a@pepe.com");
-		assertNotNull(professor.getId());
 		assertEquals("a@pepe.com", professor.getMail());
 		assertEquals("Pepe", professor.getName());
 		assertEquals("42158787", professor.getPhoneNumber());
