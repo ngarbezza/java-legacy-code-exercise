@@ -66,4 +66,4 @@ import ar.edu.unq.sasa.model.time.repetition.TestWeekly;
 	TestNone.class,
 	TestWeekly.class
 })
-public class SasaTestSuite {}
+public class SasaTestSuite { }

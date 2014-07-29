@@ -3,28 +3,28 @@ package ar.edu.unq.sasa.model.items;
 /**
  * Representa aquellos recursos que pertenecen a un aula, de manera fija.
  */
-public class FixedResource implements Resource{
+public class FixedResource implements Resource {
 
 	private String name;
 
 	private int amount;
 
-	public FixedResource(String name, int amount) {
-		this.name = name;
-		this.amount = amount;
+	public FixedResource(String aName, int anAmount) {
+		name = aName;
+		amount = anAmount;
 	}
 
-	public FixedResource(String name) {
+	public FixedResource(String aName) {
 		// TODO this should not exist anymore when requirements are modeled
-		this.name = name;
+		name = aName;
 	}
 
 	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setAmount(int anAmount) {
+		amount = anAmount;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class FixedResource implements Resource{
 	}
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return name;
 	}
 

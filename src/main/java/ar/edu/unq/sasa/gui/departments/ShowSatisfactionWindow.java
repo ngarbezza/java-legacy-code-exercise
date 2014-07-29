@@ -32,13 +32,9 @@ import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
-import ar.edu.unq.sasa.model.assignments.Satisfaction;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Ventana para mostrar la {@link Satisfaction} de una {@link ClassroomAssignment}.
- */
 public class ShowSatisfactionWindow extends JFrame {
 
 	private static final long serialVersionUID = -3664046632029358042L;
@@ -84,7 +80,8 @@ public class ShowSatisfactionWindow extends JFrame {
 	}
 
 	private void createMissingResourcesTable() {
-		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel = new ReadOnlyTableModel<Pair<Resource, Integer>>(getMissingResources());
+		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel =
+				new ReadOnlyTableModel<Pair<Resource, Integer>>(getMissingResources());
 		addResourceColumns(tableModel);
 		missingResourcesTable = new JTable(tableModel);
 		missingResourcesScrollPane = new JScrollPane(missingResourcesTable);
@@ -94,13 +91,13 @@ public class ShowSatisfactionWindow extends JFrame {
 		tableModel.addColumn("Recurso", "first", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Resource)obj).getName();
+				return ((Resource) obj).getName();
 			};
 		});
 		tableModel.addColumn("Cantidad", "second", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Integer)obj).toString();
+				return ((Integer) obj).toString();
 			};
 		});
 	}
@@ -113,12 +110,13 @@ public class ShowSatisfactionWindow extends JFrame {
 	private List<Pair<Resource, Integer>> resourcesMapToList(Map<Resource, Integer> resourcesMap) {
 		List<Pair<Resource, Integer>> resourcesList = new ArrayList<Pair<Resource, Integer>>();
 		for (Entry<Resource, Integer> entry : resourcesMap.entrySet())
-			resourcesList.add(new Pair<Resource, Integer>(entry.getKey(),entry.getValue()));
+			resourcesList.add(new Pair<Resource, Integer>(entry.getKey(), entry.getValue()));
 		return resourcesList;
 	}
 
 	private void createPeriodSuperpositionsTable() {
-		ReadOnlyTableModel<Pair<Period, Float>> tableModel = new ReadOnlyTableModel<Pair<Period, Float>>(getPeriodSuperpositionsResources());
+		ReadOnlyTableModel<Pair<Period, Float>> tableModel =
+				new ReadOnlyTableModel<Pair<Period, Float>>(getPeriodSuperpositionsResources());
 		addPeriodSuperpositionsColumns(tableModel);
 		periodSuperpositionsTable = new JTable(tableModel);
 		periodSuperpositionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -136,14 +134,14 @@ public class ShowSatisfactionWindow extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	protected void whenPeriodTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			selectedPeriod = null;
 			showPeriodButton.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<Pair<Period, Float>> model = ((ReadOnlyTableModel<Pair<Period, Float>>)periodSuperpositionsTable.getModel()).getModel();
+			List<Pair<Period, Float>> model =
+					((ReadOnlyTableModel<Pair<Period, Float>>)periodSuperpositionsTable.getModel()).getModel();
 			selectedPeriod = (Period) model.get(index).getFirst();
 			showPeriodButton.setEnabled(true);
 		}
@@ -157,7 +155,7 @@ public class ShowSatisfactionWindow extends JFrame {
 	private List<Pair<Period, Float>> periodSuperpositionsMapToList(Map<Period, Float> periodSuperpositionsMap) {
 		List<Pair<Period, Float>> periodSuperpositionsList = new ArrayList<Pair<Period, Float>>();
 		for (Entry<Period, Float> entry : periodSuperpositionsMap.entrySet())
-			periodSuperpositionsList.add(new Pair<Period, Float>(entry.getKey(),entry.getValue()));
+			periodSuperpositionsList.add(new Pair<Period, Float>(entry.getKey(), entry.getValue()));
 		return periodSuperpositionsList;
 	}
 
@@ -173,7 +171,7 @@ public class ShowSatisfactionWindow extends JFrame {
 		tableModel.addColumn("Cantidad de Horas", "second", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return "Superpuesta " + ((Float)obj).toString() + " hs";
+				return "Superpuesta " + ((Float) obj).toString() + " hs";
 			};
 		});
 	}

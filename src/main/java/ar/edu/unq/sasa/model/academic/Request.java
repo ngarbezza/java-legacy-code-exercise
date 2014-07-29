@@ -16,34 +16,32 @@ public abstract class Request {
 	public final long id;
 
 	// TODO model requirement, and make optional and required polymorphic
-	public Map<Resource,Integer> requiredResources;
+	public Map<Resource, Integer> requiredResources;
 
-	public Map<Resource,Integer> optionalResources;
+	public Map<Resource, Integer> optionalResources;
 
 	private boolean asignated = false;
 
-	public Request (Period desHours,Subject aSubject,
-			Professor aProfessor,long anID,Map<Resource,Integer> reqResources,
-			Map<Resource,Integer> optResources){
-
-		this.desiredHours = desHours;
-		this.subject = aSubject;
-		this.professor = aProfessor;
-		this.id = anID;
-		this.requiredResources = reqResources;
-		this.optionalResources = optResources;
+	public Request(Period aPeriod, Subject aSubject, Professor aProfessor, long anID,
+			Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources) {
+		desiredHours = aPeriod;
+		subject = aSubject;
+		professor = aProfessor;
+		id = anID;
+		requiredResources = reqResources;
+		optionalResources = optResources;
 	}
 
-	public void setDesiredHours(Period desiredHours) {
-		this.desiredHours = desiredHours;
+	public void setDesiredHours(Period aPeriod) {
+		desiredHours = aPeriod;
 	}
 
-	public void setRequiredResources(Map<Resource, Integer> requiredResources) {
-		this.requiredResources = requiredResources;
+	public void setRequiredResources(Map<Resource, Integer> reqResources) {
+		requiredResources = reqResources;
 	}
 
-	public void setOptionalResources(Map<Resource, Integer> optionalResources) {
-		this.optionalResources = optionalResources;
+	public void setOptionalResources(Map<Resource, Integer> optResources) {
+		optionalResources = optResources;
 	}
 
 	public Period getDesiredHours() {
@@ -59,7 +57,7 @@ public abstract class Request {
 	}
 
 	public long getId() {
-		return this.id;
+		return id;
 	}
 
 	public Map<Resource, Integer> getRequiredResources() {
@@ -70,11 +68,11 @@ public abstract class Request {
 		return optionalResources;
 	}
 
-	public boolean isAsignated(){
+	public boolean isAsignated() {
 		return asignated;
 	}
 
-	public void setAsignated(Boolean estado){
+	public void setAsignated(Boolean estado) {
 		asignated = estado;
 	}
 

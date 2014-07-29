@@ -66,16 +66,17 @@ public class MobileResourceAssignmentsDetailWindow extends
 	}
 
 	@Override
-	protected void createOtherWidgets() {}
+	protected void createOtherWidgets() { }
 
 	@Override
 	@SuppressWarnings("unchecked")
 	protected void whenAssignmentsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel selection = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel selection = (DefaultListSelectionModel) e.getSource();
 		if (selection.isSelectionEmpty())
 			periodDetail.setText("");
 		else {
-			List<ClassroomAssignment> listModel = ((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel()).getModel();
+			List<ClassroomAssignment> listModel =
+					((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel()).getModel();
 			int index = selection.getMinSelectionIndex();
 			periodDetail.setText(assignableItem.searchPeriod(listModel.get(index)).toString());
 		}

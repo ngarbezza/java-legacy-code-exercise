@@ -2,15 +2,12 @@ package ar.edu.unq.sasa.model.assignments;
 
 import java.util.Map;
 
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Es la manera de comprobar la satisfacción que hubo al asignar un
- * {@link ClassroomRequest}.
- */
 public class Satisfaction {
+
+	// TODO get rid of maps an model the corresponding objects
 
 	private Map<Resource, Integer> resources;
 
@@ -18,7 +15,8 @@ public class Satisfaction {
 
 	private int capacityDifference;
 
-	public Satisfaction(Map<Resource, Integer> resourcesMap, Map<Period, Float> aTimeDifference, int aCapacityDifference) {
+	public Satisfaction(Map<Resource, Integer> resourcesMap, Map<Period, Float> aTimeDifference,
+			int aCapacityDifference) {
 		resources = resourcesMap;
 		timeDifference = aTimeDifference;
 		capacityDifference = aCapacityDifference;
@@ -28,27 +26,16 @@ public class Satisfaction {
 		return resources;
 	}
 
-	public Map<Period, Float> getTimeDifference(){
+	public Map<Period, Float> getTimeDifference() {
 		return timeDifference;
 	}
 
-	public int getCapacityDifference(){
+	public int getCapacityDifference() {
 		return capacityDifference;
 	}
 
-	public boolean isSatisfied(){
-		boolean isSatisfied = true;
-
-		if (! resources.isEmpty())
-			isSatisfied = false;
-
-		if (capacityDifference < 0)
-			isSatisfied = false;
-
-		if (! timeDifference.isEmpty())
-			isSatisfied = false;
-
-		return isSatisfied;
+	public boolean isSatisfied() {
+		return resources.isEmpty() && capacityDifference >= 0 && timeDifference.isEmpty();
 	}
 
 	public void addPeriodSuperposition(Period period, float minutesShared) {

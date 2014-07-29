@@ -104,8 +104,7 @@ public class SimplePeriod extends Period {
 
 	@Override
 	protected int minutesSharedWithSimplePeriod(SimplePeriod sp) {
-		return sp.intersectsWithSimple(this)?
-				getHourFulfiller().minutesSharedWith(sp.getHourFulfiller()) : 0;
+		return sp.intersectsWithSimple(this) ? getHourFulfiller().minutesSharedWith(sp.getHourFulfiller()) : 0;
 	}
 
 	@Override

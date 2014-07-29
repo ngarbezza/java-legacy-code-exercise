@@ -207,11 +207,12 @@ public final class Main {
 	    GregorianCalendar calendar = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart1 = new Timestamp(8);
 	    Timestamp timeEnd1  = new Timestamp(12);
-	    LogicalHourFulfiller hour1 = new HourInterval(timeStart1,timeEnd1);
+	    LogicalHourFulfiller hour1 = new HourInterval(timeStart1, timeEnd1);
 	    Period desiredHours = new SimplePeriod(hour1, calendar);
 
 	    //crear pedido
-	    requestsDepartment.createClassroomRequest(requiredResources, optionalResources, desiredHours, am1, profesorTamara , 20);
+	    requestsDepartment.createClassroomRequest(
+	    		requiredResources, optionalResources, desiredHours, am1, profesorTamara, 20);
 
 	    /************************************************************************************************************/
 
@@ -270,7 +271,7 @@ public final class Main {
 	    GregorianCalendar calendar4 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart4 = new Timestamp(8);
 	    Timestamp timeEnd4  = new Timestamp(12);
-	    LogicalHourFulfiller hour4 = new HourInterval(timeStart4,timeEnd4);
+	    LogicalHourFulfiller hour4 = new HourInterval(timeStart4, timeEnd4);
 	    Period desiredHours4 = new SimplePeriod(hour4, calendar4);
 
 	    //crear pedido
@@ -282,10 +283,10 @@ public final class Main {
 	    //Pedido 5
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources5 = new HashMap<Resource, Integer>();
+	    Map<Resource, Integer> requiredResources5 = new HashMap<Resource, Integer>();
 	    requiredResources5.put(resourcesDepartment.createFixedResource("Computadora", 20), 20);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources5 = new HashMap<Resource, Integer>();
+	    Map<Resource, Integer> optionalResources5 = new HashMap<Resource, Integer>();
 	    optionalResources5.put(resourcesDepartment.createFixedResource("Luz Natural", 20), 20);
 	    	//fecha y hora
 	    GregorianCalendar calendar5 = new GregorianCalendar(2010, Calendar.MARCH, 3);

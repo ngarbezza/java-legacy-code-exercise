@@ -12,7 +12,7 @@ public abstract class CompositePeriodTreeNode extends PeriodTreeNode {
 	}
 
 	@Override
-	public void updateChanges(NewPeriodWindow pw) {}
+	public void updateChanges(NewPeriodWindow pw) { }
 
 	public abstract void selectOrDeselect(JRadioButton or, JRadioButton and, JRadioButton minus);
 }

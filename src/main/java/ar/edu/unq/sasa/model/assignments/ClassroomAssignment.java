@@ -35,18 +35,17 @@ public class ClassroomAssignment extends AssignmentByRequest {
 	}
 
 	public Satisfaction createSatisfaction() {
-		int capacityDifference = classroom.getCapacity() - this.getRequest().getCapacity();
+		int capacityDifference = classroom.getCapacity() - getRequest().getCapacity();
 
-		tempSatisfactionResources.putAll(this.getRequest().getRequiredResources());
-		tempSatisfactionResources.putAll(this.getRequest().getOptionalResources());
+		tempSatisfactionResources.putAll(getRequest().getRequiredResources());
+		tempSatisfactionResources.putAll(getRequest().getOptionalResources());
 
 		substractResources();
 		substractZeros();
 
-		Period period = obtainPeriod();
-		Map<Period, Float> PeriodSuperpositions = createPeriodSuperpositions(period);
+		Map<Period, Float> periodSuperpositions = createPeriodSuperpositions(getPeriod());
 
-		satisfaction = new Satisfaction(tempSatisfactionResources, PeriodSuperpositions, capacityDifference);
+		satisfaction = new Satisfaction(tempSatisfactionResources, periodSuperpositions, capacityDifference);
 		return satisfaction;
 	}
 
@@ -90,25 +89,15 @@ public class ClassroomAssignment extends AssignmentByRequest {
 		return periodSuperpositions;
 	}
 
-	private Period obtainPeriod() {
-		Period period = null;
-		for (Entry<Period, Assignment> entryClass : classroom.getAssignments().entrySet())
-			if (entryClass.getValue().equals(this)){
-				period = entryClass.getKey();
-				break;
-			}
-		return period;
-	}
-
-	public void setAssignableItem(Classroom aClassroom){
+	public void setAssignableItem(Classroom aClassroom) {
 		classroom = aClassroom;
 	}
 
-	public Satisfaction getSatisfaction(){
+	public Satisfaction getSatisfaction() {
 		return satisfaction;
 	}
 
-	public List<ResourceAssignment> getResourcesAssignments(){
+	public List<ResourceAssignment> getResourcesAssignments() {
 		return resourcesAssignments;
 	}
 

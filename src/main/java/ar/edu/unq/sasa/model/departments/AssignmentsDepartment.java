@@ -87,17 +87,17 @@ public class AssignmentsDepartment extends Department {
 					}
 	}
 
-	private void asignateInFreeResources(Set<Entry<Resource, Integer>> resources, ClassroomRequest classroomRequest, List<ResourceAssignment> resourcesAssignmentsList, Period period) {
-		for (Entry<Resource, Integer> entry : resources){
+	private void asignateInFreeResources(Set<Entry<Resource, Integer>> resources, ClassroomRequest classroomRequest,
+			List<ResourceAssignment> resourcesAssignmentsList, Period period) {
+		for (Entry<Resource, Integer> entry : resources) {
 			Integer cant = entry.getValue();
 			for (MobileResource resource : getUniversity().getMobileResources())
-				if (resource.getName().equals(entry.getKey().getName()) &&
-						cant > 0){
+				if (resource.getName().equals(entry.getKey().getName()) && cant > 0) {
 					boolean isUsefullPeriod = true;
 					for (Period resourcePeriod : resource.getAssignments().keySet())
 						if (resourcePeriod.intersectsWith(period))
 							isUsefullPeriod = false;
-					if (isUsefullPeriod){
+					if (isUsefullPeriod) {
 						ResourceAssignment asig = asignateResourceAssignment(classroomRequest, resource, period);
 						resourcesAssignmentsList.add(asig);
 						cant--;

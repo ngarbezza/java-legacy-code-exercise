@@ -86,9 +86,9 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 		});
 	}
 
-	protected void doValidations() {}
+	protected void doValidations() { }
 	// configuraciones especiales de algunos widgets
-	protected void setAnotherConfigurations() {}
+	protected void setAnotherConfigurations() { }
 
 	protected abstract String getWindowTitle();
 	protected abstract int getWindowWidth();

@@ -89,19 +89,20 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		return "Asignaciones";
 	}
 
-	public ClassroomRequest getRequestSelection(){
+	public ClassroomRequest getRequestSelection() {
 		return requestSelection;
 	}
 
 	private List<ClassroomRequest> getRequests() {
+		// TODO too much logic to be here
 		List<ClassroomRequest> requests = new ArrayList<ClassroomRequest>();
 		for (Request request : getDepartment().getRequests())
 			if (request.isClassroomRequest())
-				if (! request.isAsignated())
+				if (!request.isAsignated())
 					if (professorsComboBox.getModel().getSelectedItem() == null)
-						requests.add((ClassroomRequest)request);
+						requests.add((ClassroomRequest) request);
 					else if (professorsComboBox.getModel().getSelectedItem().equals(request.getProfessor()))
-						requests.add((ClassroomRequest)request);
+						requests.add((ClassroomRequest) request);
 		return requests;
 	}
 
@@ -192,7 +193,8 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la asignacion seleccionada?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la asignacion seleccionada?",
+						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					getDepartment().deleteAssignment(assignmentSelection);
 					updateTables();
 				}
@@ -201,7 +203,8 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	}
 
 	private void createAssignmentsTable() {
-		ReadOnlyTableModel<ClassroomAssignment> tableModel = new ReadOnlyTableModel<ClassroomAssignment>(getAssignments());
+		ReadOnlyTableModel<ClassroomAssignment> tableModel =
+				new ReadOnlyTableModel<ClassroomAssignment>(getAssignments());
 		addAssignmentColumns(tableModel);
 		assignmentsTable = new JTable(tableModel);
 		assignmentsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -217,16 +220,17 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	@SuppressWarnings("unchecked")
 	private void whenAssignmentsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			assignmentSelection = null;
 			viewDetailsButton.setEnabled(false);
 			deleteButton.setEnabled(false);
 			modifyButton.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<ClassroomAssignment> model = ((ReadOnlyTableModel<ClassroomAssignment>)assignmentsTable.getModel()).getModel();
+			// TODO there are a lot of casts like this. try to avoid them
+			List<ClassroomAssignment> model =
+					((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel()).getModel();
 			assignmentSelection = model.get(index);
 			viewDetailsButton.setEnabled(true);
 			deleteButton.setEnabled(true);
@@ -238,19 +242,19 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		tableModel.addColumn("Profesor", "request", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Request)obj).getProfessor().getName();
+				return ((Request) obj).getProfessor().getName();
 			};
 		});
 		tableModel.addColumn("Materia", "request", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Request)obj).getSubject().getName();
+				return ((Request) obj).getSubject().getName();
 			};
 		});
 		tableModel.addColumn("Aula", "assignableItem", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Classroom)obj).getName();
+				return ((Classroom) obj).getName();
 			};
 		});
 	}
@@ -276,10 +280,9 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		if (source.isSelectionEmpty()) {
 			requestSelection = null;
 			asignateButton.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<ClassroomRequest> model = ((ReadOnlyTableModel<ClassroomRequest>)requestsTable.getModel()).getModel();
+			List<ClassroomRequest> model = ((ReadOnlyTableModel<ClassroomRequest>) requestsTable.getModel()).getModel();
 			requestSelection = model.get(index);
 			asignateButton.setEnabled(true);
 		}
@@ -289,13 +292,13 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		tableModel.addColumn("Profesor", "professor", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Professor)obj).getName();
+				return ((Professor) obj).getName();
 			};
 		});
 		tableModel.addColumn("Materia", "subject", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Subject)obj).getName();
+				return ((Subject) obj).getName();
 			};
 		});
 	}

@@ -200,9 +200,9 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+				String text = ((JTextField) e.getSource()).getText();
 				List<Classroom> res = department.getClassroomsDepartment().searchClassroomByName(text);
-				((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).setModel(res);
+				((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).setModel(res);
 			}
 		});
 	}
@@ -248,9 +248,11 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 					Map<Resource, Integer> resources = resourcesSelectionToMap(resourcesSelection);
-					department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(classroomRequestSelection, classroomSelection, periodSelection, resources);
+					department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(
+							classroomRequestSelection, classroomSelection, periodSelection, resources);
 					parentPanel.updateTables();
 					dispose();
 				}
@@ -261,7 +263,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	private Map<Resource, Integer> resourcesSelectionToMap(List<Pair<Resource, Integer>> resourcesSelection) {
 		Map<Resource, Integer> resources = new HashMap<Resource, Integer>();
 		for (Pair<Resource, Integer> pair : resourcesSelection)
-			resources.put((Resource)pair.getFirst(), (Integer)pair.getSecond());
+			resources.put((Resource) pair.getFirst(), (Integer) pair.getSecond());
 		return resources;
 	}
 
@@ -269,8 +271,10 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		asignateClassroomAssignment.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					department.asignateClassroomAssignment(classroomRequestSelection, classroomSelection, periodSelection);
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					department.asignateClassroomAssignment(
+							classroomRequestSelection, classroomSelection, periodSelection);
 					parentPanel.updateTables();
 					dispose();
 				}
@@ -295,7 +299,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		asignateRequestInMostSatisfactoryClassroom.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?",
+						"Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					department.asignateRequestInMostSatisfactoryClassroom(classroomRequestSelection);
 					parentPanel.updateTables();
 					dispose();
@@ -345,19 +350,18 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 
 	@SuppressWarnings("unchecked")
 	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelection = null;
 			asignateRequestInAClassroom.setEnabled(false);
 			asignateClassroomAssignment.setEnabled(false);
 			asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<Classroom> model = ((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).getModel();
+			List<Classroom> model = ((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).getModel();
 			classroomSelection = model.get(index);
 			asignateRequestInAClassroom.setEnabled(true);
-			if (periodSelection != null){
+			if (periodSelection != null) {
 				asignateClassroomAssignment.setEnabled(true);
 				asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.setEnabled(true);
 			}
@@ -383,21 +387,21 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		tableModel.addColumn("Recurso", "first", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Resource)obj).getName();
+				return ((Resource) obj).getName();
 			};
 		});
 		tableModel.addColumn("Cantidad", "second", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Integer)obj).toString();
+				return ((Integer) obj).toString();
 			};
 		});
 	}
 
 	public void validateButtons() {
-		if (classroomSelection != null){
+		if (classroomSelection != null) {
 			asignateRequestInAClassroom.setEnabled(true);
-			if (periodSelection != null){
+			if (periodSelection != null) {
 				asignateClassroomAssignment.setEnabled(true);
 				asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.setEnabled(true);
 			}
@@ -405,8 +409,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void updateResourcesTable(){
-		((ReadOnlyTableModel<Pair<Resource, Integer>>)resourcesTable.getModel()).setModel(resourcesSelection);
+	public void updateResourcesTable() {
+		((ReadOnlyTableModel<Pair<Resource, Integer>>) resourcesTable.getModel()).setModel(resourcesSelection);
 	}
 
 }

@@ -168,7 +168,7 @@ public class RequestViewWindow extends JFrame {
 		createSatisfactionButtonListeners();
 		closeButton = new JButton("Cerrar");
 		createCloseButtonListeners();
-		if (! request.isAsignated()){
+		if (!request.isAsignated()) {
 			showAsignatedPeriodButton.setEnabled(false);
 			showSatisfactionButton.setEnabled(false);
 		}
@@ -197,7 +197,7 @@ public class RequestViewWindow extends JFrame {
 		Period asignatedPeriod = null;
 		for (Entry<Period, Assignment> entry : classroom.getAssignments().entrySet())
 			if (entry.getValue().isClassroomAssignment())
-				if (entry.getValue().getRequest().equals(request)){
+				if (entry.getValue().getRequest().equals(request)) {
 					asignatedPeriod = entry.getKey();
 					break;
 				}
