@@ -1,20 +1,10 @@
 package ar.edu.unq.sasa.model.academic;
 
-/**
- * SUBJECT
- * Class denoting a Subject entity, containing his name and his ID.
- *
- * CONSIDERATIONS
- * The id instance variable is going to be final, because no changes are allowed.
- */
 public class Subject {
-	
-	public final long id;
-	
+
 	public String name;
-	
-	public Subject(String aName,long anID){
-		this.id = anID;
+
+	public Subject(String aName){
 		this.name = aName;
 	}
 
@@ -26,10 +16,6 @@ public class Subject {
 		this.name = name;
 	}
 
-	public long getId() {
-		return id;
-	}
-	
 	@Override
 	public String toString() {
 		return this.getName();
@@ -39,7 +25,6 @@ public class Subject {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -53,8 +38,6 @@ public class Subject {
 		if (getClass() != obj.getClass())
 			return false;
 		Subject other = (Subject) obj;
-		if (id != other.id)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;

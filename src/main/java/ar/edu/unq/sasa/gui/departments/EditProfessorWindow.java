@@ -32,10 +32,6 @@ import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.departments.ProfessorsDepartment;
 import ar.edu.unq.sasa.model.departments.SubjectsDepartment;
 
-/**
- * Panel que sirve para la edición de datos de {@link Professor}s. También sirve
- * para agregar Profesores nuevos.
- */
 public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 
 	private static final long serialVersionUID = -252220491365344826L;
@@ -189,7 +185,7 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SubjectsDepartment sh = department.getSubjectsDepartment();
-				if (!sh.existSubjectNamed(getSubjectList(), currentSubjectName)) {
+				if (!sh.existSubjectNamed(currentSubjectName)) {
 					Subject subjectToAdd;
 					if (!sh.existSubjectNamed(currentSubjectName))
 						subjectToAdd = sh.createSubject(currentSubjectName);

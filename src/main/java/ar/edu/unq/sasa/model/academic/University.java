@@ -25,10 +25,8 @@ import ar.edu.unq.sasa.model.items.Resource;
 public class University {
 
 	private List<Request> requests;
-	private LinkedList<Professor> professors;
 	private List<MobileResource> mobileResources;
 	private List<Assignment> assignments;
-	private List<Subject> subjects;
 
 	private ClassroomsDepartment classroomsDepartment;
 	private ProfessorsDepartment professorsDepartment;
@@ -38,11 +36,9 @@ public class University {
 	private SubjectsDepartment subjectsDepartment;
 
 	public University() {
-		this.professors = new LinkedList<Professor>();
 		this.requests = new LinkedList<Request>();
 		this.mobileResources = new LinkedList<MobileResource>();
 		this.assignments = new ArrayList<Assignment>();
-		this.subjects = new LinkedList<Subject>();
 		classroomsDepartment = new ClassroomsDepartment(this);
 		professorsDepartment = new ProfessorsDepartment(this);
 		assignmentsDepartment = new AssignmentsDepartment(this);
@@ -55,16 +51,8 @@ public class University {
 		return assignments;
 	}
 
-	public List<Subject> getSubjects() {
-		return subjects;
-	}
-
 	public List<Request> getRequests() {
 		return requests;
-	}
-
-	public List<Professor> getProfessors() {
-		return professors;
 	}
 
 	public List<MobileResource> getMobileResources() {
@@ -95,14 +83,6 @@ public class University {
 	public void addRequest(Request request) {
 		// TODO move to requests department
 		this.getRequests().add(request);
-	}
-
-	public void addSubject(Subject s) {
-		this.getSubjects().add(s);
-	}
-
-	public void addProfessor(Professor professor) {
-		this.getProfessors().add(professor);
 	}
 
 	public void addAssignment(Assignment assignment) {

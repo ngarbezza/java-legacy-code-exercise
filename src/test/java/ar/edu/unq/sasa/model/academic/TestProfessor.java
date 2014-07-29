@@ -1,6 +1,7 @@
 package ar.edu.unq.sasa.model.academic;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,8 +18,8 @@ public class TestProfessor {
 
 	@Before
 	public void setUp(){
-		subject1 = new Subject("Filosofía", 1);
-		subject2 = new Subject("Pensamiento científico", 2);
+		subject1 = new Subject("Filosofía");
+		subject2 = new Subject("Pensamiento científico");
 		subjects = new LinkedList<Subject>();
 		subjects.add(subject1);
 		subjects.add(subject2);
@@ -26,22 +27,23 @@ public class TestProfessor {
 	}
 
 	@Test
-	public void test_hasInitializedSubjects(){
-		assertNotNull("Professor subjects not initialized", professor.getSubjects());
+	public void test_TheProfessorTeachesSomeSubjects() {
+		assertTrue(professor.teaches(subject1));
+		assertTrue(professor.teaches(subject2));
 	}
 
 	@Test
-	public void test_hasInitializedName(){
-		assertNotNull("Professor name not initialized",this.professor.getName());
+	public void test_AddingASubjectToAProfessor() {
+		Subject newSubject = new Subject("Análisis Matemático 1");
+		professor.addNewSubject(newSubject);
+		assertTrue(professor.teaches(newSubject));
 	}
 
 	@Test
-	public void test_hasInitializedPhoneNumber(){
-		assertNotNull("Professor phone number not initialized",this.professor.getPhoneNumber());
-	}
-
-	@Test
-	public void test_hasInitializedMail(){
-		assertNotNull("Professor mail not initialized",this.professor.getMail());
+	public void test_AddingTheSameSubjectToAProfessorTwiceLeavesJustOne() {
+		Subject newSubject = new Subject("Análisis Matemático 1");
+		professor.addNewSubject(newSubject);
+		professor.addNewSubject(newSubject);
+		assertEquals(3, professor.getSubjects().size());
 	}
 }

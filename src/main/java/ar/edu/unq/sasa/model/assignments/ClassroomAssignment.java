@@ -176,4 +176,11 @@ public class ClassroomAssignment extends AssignmentByRequest {
 	public boolean isResourceAssignment() {
 		return false;
 	}
+
+	public Period getPeriod() {
+		for (Entry<Period, Assignment> entry : getAssignableItem().getAssignments().entrySet())
+			if (entry.getValue().equals(this))
+				return entry.getKey();
+		return null;
+	}
 }

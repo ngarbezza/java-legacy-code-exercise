@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -28,7 +27,6 @@ import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.period.NewPeriodWindow;
 import ar.edu.unq.sasa.gui.util.PeriodHolder;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
-import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
@@ -60,12 +58,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	public EditAssignmentWindow(AssignmentsDepartment assignmentsDepartment, ClassroomAssignment assignmentSelection) {
 		department = assignmentsDepartment;
 		assignment = assignmentSelection;
-		// TODO why is this logic here?
-		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet())
-			if (entry.getValue().equals(assignmentSelection)){
-				period = entry.getKey();
-				break;
-			}
+		period = assignmentSelection.getPeriod();
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

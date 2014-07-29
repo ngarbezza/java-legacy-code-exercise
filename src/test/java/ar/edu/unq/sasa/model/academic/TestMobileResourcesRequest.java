@@ -28,7 +28,7 @@ public class TestMobileResourcesRequest {
 
 	@Before
 	public void setUp() {
-		subject = new Subject("AOP Programming", 53455);
+		subject = new Subject("AOP Programming");
 		LinkedList<Subject> subjects = new LinkedList<Subject>();
 		subjects.add(subject);
 		professor = new Professor("prof", "123456", "profe@univ.com", subjects);

@@ -112,7 +112,7 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 	@SuppressWarnings({ "serial", "unchecked" })
 	@Override
 	protected Component makeSearchField() {
-		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(department.getProfessors());
+		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(getProfessors());
 		final JComboBox<Professor> combo = new JComboBox<Professor>(comboModel);
 		combo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			@Override
@@ -129,6 +129,10 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 			}
 		});
 		return combo;
+	}
+
+	private List<Professor> getProfessors() {
+		return department.getProfessorsDepartment().getProfessors();
 	}
 
 	@Override

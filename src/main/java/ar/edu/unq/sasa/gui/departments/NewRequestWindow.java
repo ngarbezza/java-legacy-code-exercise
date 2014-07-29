@@ -227,7 +227,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				return subject.getName();
 			}
 		});
-		EasyComboBoxModel<Professor> professorsModel = new EasyComboBoxModel<Professor>(department.getProfessors());
+		EasyComboBoxModel<Professor> professorsModel = new EasyComboBoxModel<Professor>(getProfessors());
 		professorCombo = new JComboBox<Professor>(professorsModel);
 		professorCombo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			@Override
@@ -245,6 +245,10 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 					.setModel(modelToSet);
 			}
 		});
+	}
+
+	private List<Professor> getProfessors() {
+		return department.getProfessorsDepartment().getProfessors();
 	}
 
 	private void createCapacityWidgets() {

@@ -9,8 +9,11 @@ import ar.edu.unq.sasa.model.academic.University;
 
 public class ProfessorsDepartment extends Department {
 
+	private List<Professor> professors;
+
 	public ProfessorsDepartment(University university) {
 		super(university);
+		professors = new LinkedList<Professor>();
 	}
 
 	public Professor createProfessor(String name, String phone, String mail) {
@@ -19,22 +22,30 @@ public class ProfessorsDepartment extends Department {
 
 	public Professor createProfessor(String name, String phone, String mail, List<Subject> subjects) {
 		Professor professor = new Professor(name, phone, mail, subjects);
-		this.getUniversity().addProfessor(professor);
+		addProfessor(professor);
 
-		this.getPublisher().changed("professorsChanged", this.getProfessors());
+		getPublisher().changed("professorsChanged", professors);
 
 		return professor;
 	}
 
-	public void deleteProfessor(Professor professor) {
-		this.getUniversity().getProfessors().remove(professor);
+	public List<Professor> getProfessors() {
+		return professors;
+	}
 
-		this.getPublisher().changed("professorsChanged", this.getUniversity().getProfessors());
+	public void addProfessor(Professor professor) {
+		professors.add(professor);
+	}
+
+	public void deleteProfessor(Professor professor) {
+		professors.remove(professor);
+
+		getPublisher().changed("professorsChanged", professors);
 	}
 
 	public List<Professor> searchProfessor(String text) {
 		List<Professor> res = new LinkedList<Professor>();
-		for (Professor p : this.getUniversity().getProfessors())
+		for (Professor p : getProfessors())
 			if (p.getName().contains(text))
 				res.add(p);
 		return res;
@@ -48,11 +59,6 @@ public class ProfessorsDepartment extends Department {
 		for (Subject s : subjects)
 			p.addNewSubject(s);
 
-		this.getPublisher().changed("professorsChanged", this.getUniversity().getProfessors());
-	}
-
-	@Override
-	public List<Professor> getProfessors() {
-		return getUniversity().getProfessors();
+		getPublisher().changed("professorsChanged", professors);
 	}
 }

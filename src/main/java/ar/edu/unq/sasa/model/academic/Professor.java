@@ -14,10 +14,10 @@ public class Professor {
 	private List<Subject> subjects;
 
 	public Professor(String aName, String aPhoneNumber, String aMail, List<Subject> aSubjectList) {
-		this.name = aName;
-		this.phoneNumber = aPhoneNumber;
-		this.mail = aMail;
-		this.subjects = aSubjectList;
+		name = aName;
+		phoneNumber = aPhoneNumber;
+		mail = aMail;
+		subjects = aSubjectList;
 	}
 
 	public Professor(String name, String phone, String mail) {
@@ -53,8 +53,12 @@ public class Professor {
 	}
 
 	public void addNewSubject(Subject aSubject) {
-		if (!(this.getSubjects().contains(aSubject)))
-			this.getSubjects().add(aSubject);
+		if (!(teaches(aSubject)))
+			subjects.add(aSubject);
+	}
+
+	public boolean teaches(Subject aSubject) {
+		return subjects.contains(aSubject);
 	}
 
 	@Override

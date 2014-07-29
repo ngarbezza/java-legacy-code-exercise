@@ -25,7 +25,7 @@ public class TestClassroomAssignment {
 		Classroom classroom = new Classroom("Aula 1", 10);
 		List<ResourceAssignment> listaRes = new ArrayList<ResourceAssignment>();
 		Period desHours = null;
-		Subject subject = new Subject("Creacion de Shortcuts", 12);
+		Subject subject = new Subject("Creacion de Shortcuts");
 		Professor professor = new Professor("Pable", "42244556", "pablo@gmail.com");
 		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
@@ -44,7 +44,7 @@ public class TestClassroomAssignment {
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optionalResources = new HashMap<Resource, Integer>();
 		Period desiredHours = null;
-		Subject subject = new Subject("Matematica", 0);
+		Subject subject = new Subject("Matematica");
 		Professor professor = new Professor("Pablo", "44445555", "pablo@gmail.com");
 		ClassroomRequest classroomRequest = new ClassroomRequest(desiredHours, subject, professor, 0, requiredResources, optionalResources, 25);
 		Classroom classroom = new Classroom("Aula 1", 20);

@@ -21,7 +21,7 @@ public class TestResourceAssignment {
 		String name = "Proyector";
 		MobileResource resource = new MobileResource(name, 0);
 		Period desHours = null;
-		Subject subject = new Subject("Creacion de Shortcuts", 12);
+		Subject subject = new Subject("Creacion de Shortcuts");
 		Professor professor = new Professor("Pable", "42244556", "pablo@gmail.com");
 		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();

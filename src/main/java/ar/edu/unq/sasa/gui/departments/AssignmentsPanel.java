@@ -123,7 +123,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	@SuppressWarnings({ "unchecked", "serial" })
 	private Component makeProfessorsComboBox() {
-		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(department.getProfessors());
+		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(getProfessors());
 		JComboBox<Professor> combo = new JComboBox<Professor>(comboModel);
 		combo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			@Override
@@ -140,6 +140,10 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 		combo.setPreferredSize(new Dimension(120, 20));
 		return combo;
+	}
+
+	private List<Professor> getProfessors() {
+		return department.getProfessorsDepartment().getProfessors();
 	}
 
 	private void createButtons() {
