@@ -28,7 +28,9 @@ import ar.edu.unq.sasa.model.time.hour.Timestamp;
 /**
  * Clase que se encarga de iniciar el sistema, con algunos datos de prueba.
  */
-public class Main {
+public final class Main {
+
+	private Main() { }
 
 	public static void main(String[] args) {
 		// MODELO
@@ -36,7 +38,7 @@ public class Main {
 		addSampleValues(university);
 
 		// INTERFAZ GRÁFICA
-		try {UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());}
+		try { UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); }
 		catch (Exception e) { throw new RuntimeException(e); }
 
 		new MainWindow(university);
@@ -95,13 +97,13 @@ public class Main {
 		//************************************************************************\\
 
 		//Creacion de 30 Computadoras y las agrego a 3 aulas de 30
-		classroomsDepartment.modifyClassroomAddResource("Aula 1", resourcesDepartment.createFixedResource("Computadora", 30)   );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 2", resourcesDepartment.createFixedResource("Computadora", 30)   );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 3", resourcesDepartment.createFixedResource("Computadora", 30)   );
+		classroomsDepartment.modifyClassroomAddResource("Aula 1", resourcesDepartment.createFixedResource("Computadora", 30));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 2", resourcesDepartment.createFixedResource("Computadora", 30));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 3", resourcesDepartment.createFixedResource("Computadora", 30));
 
 	    //Agrego 1 Proyector a 2 aulas de 30
-	    classroomsDepartment.modifyClassroomAddResource("Aula 2", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 3", resourcesDepartment.createFixedResource("Proyector", 1)   );
+	    classroomsDepartment.modifyClassroomAddResource("Aula 2", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 3", resourcesDepartment.createFixedResource("Proyector", 1));
 
 	    //Agrego a 5 aulas de 15, 15 computadoras
 	    classroomsDepartment.modifyClassroomAddResource("Aula 11", resourcesDepartment.createFixedResource("Computadora", 30) );
@@ -111,26 +113,26 @@ public class Main {
 	    classroomsDepartment.modifyClassroomAddResource("Aula 15", resourcesDepartment.createFixedResource("Computadora", 30) );
 
 	    //Agrego a 8 aulas de 15, 1 proyector
-	    classroomsDepartment.modifyClassroomAddResource("Aula 11", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 12", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 13", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 14", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 16", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 17", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 18", resourcesDepartment.createFixedResource("Proyector", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 19", resourcesDepartment.createFixedResource("Proyector", 1) );
+	    classroomsDepartment.modifyClassroomAddResource("Aula 11", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 12", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 13", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 14", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 16", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 17", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 18", resourcesDepartment.createFixedResource("Proyector", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 19", resourcesDepartment.createFixedResource("Proyector", 1));
 
 	    //Agrego luz natural a las aulas de 25 y de 40
-	    classroomsDepartment.modifyClassroomAddResource("Aula 20", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 21", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 22", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 23", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 24", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 25", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 26", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 27", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 28", resourcesDepartment.createFixedResource("Luz Natural", 1) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 29", resourcesDepartment.createFixedResource("Luz Natural", 1) );
+	    classroomsDepartment.modifyClassroomAddResource("Aula 20", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 21", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 22", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 23", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 24", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 25", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 26", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 27", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 28", resourcesDepartment.createFixedResource("Luz Natural", 1));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 29", resourcesDepartment.createFixedResource("Luz Natural", 1));
 
 
 	    //************************************************************************\\
@@ -196,11 +198,11 @@ public class Main {
 	    //Pedido 1
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources = new HashMap<Resource,Integer>();
-	    requiredResources.put( resourcesDepartment.createFixedResource("Computadora", 20) , 20) ;
+	    Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
+	    requiredResources.put(resourcesDepartment.createFixedResource("Computadora", 20), 20);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources = new HashMap<Resource,Integer>();
-	    optionalResources.put( resourcesDepartment.createFixedResource("Luz Natural", 1) , 1) ;
+	    Map<Resource, Integer> optionalResources = new HashMap<Resource, Integer>();
+	    optionalResources.put(resourcesDepartment.createFixedResource("Luz Natural", 1), 1);
 	    	//fecha y hora
 	    GregorianCalendar calendar = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart1 = new Timestamp(8);
@@ -216,11 +218,11 @@ public class Main {
 	    //Pedido 2
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources2 = new HashMap<Resource,Integer>();
-	    requiredResources2.put( resourcesDepartment.createFixedResource("Computadora", 20) , 20) ;
+	    Map<Resource, Integer> requiredResources2 = new HashMap<Resource, Integer>();
+	    requiredResources2.put(resourcesDepartment.createFixedResource("Computadora", 20), 20);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources2 = new HashMap<Resource,Integer>();
-	    optionalResources2.put( resourcesDepartment.createFixedResource("Luz Natural", 1) , 1) ;
+	    Map<Resource, Integer> optionalResources2 = new HashMap<Resource, Integer>();
+	    optionalResources2.put(resourcesDepartment.createFixedResource("Luz Natural", 1), 1);
 	    	//fecha y hora
 	    GregorianCalendar calendar2 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart2 = new Timestamp(8);
@@ -229,18 +231,19 @@ public class Main {
 	    Period desiredHours2 = new SimplePeriod(hour2, calendar2);
 
 	    //crear pedido
-	    requestsDepartment.createClassroomRequest(requiredResources2, optionalResources2, desiredHours2, am1, profesorPepe , 20);
+	    requestsDepartment.createClassroomRequest(
+	    		requiredResources2, optionalResources2, desiredHours2, am1, profesorPepe, 20);
 
-	    /******************************************************************************************************************/
+	    /************************************************************************************************************/
 
 	    //Pedido 3
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources3 = new HashMap<Resource,Integer>();
-	    requiredResources3.put( resourcesDepartment.createFixedResource("Computadora", 20) , 20) ;
+	    Map<Resource, Integer> requiredResources3 = new HashMap<Resource, Integer>();
+	    requiredResources3.put(resourcesDepartment.createFixedResource("Computadora", 20), 20);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources3 = new HashMap<Resource,Integer>();
-	    optionalResources3.put( resourcesDepartment.createFixedResource("Luz Natural", 1) , 1) ;
+	    Map<Resource, Integer> optionalResources3 = new HashMap<Resource, Integer>();
+	    optionalResources3.put(resourcesDepartment.createFixedResource("Luz Natural", 1), 1);
 	    	//fecha y hora
 	    GregorianCalendar calendar3 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart3 = new Timestamp(8);
@@ -249,19 +252,20 @@ public class Main {
 	    Period desiredHours3 = new SimplePeriod(hour3, calendar3);
 
 	    //crear pedido
-	    requestsDepartment.createClassroomRequest(requiredResources3, optionalResources3, desiredHours3, ha2, profesorJose , 20);
+	    requestsDepartment.createClassroomRequest(
+	    		requiredResources3, optionalResources3, desiredHours3, ha2, profesorJose, 20);
 
-	    /******************************************************************************************************************/
+	    /************************************************************************************************************/
 
 
 	  //Pedido 4
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources4 = new HashMap<Resource,Integer>();
+	    Map<Resource, Integer> requiredResources4 = new HashMap<Resource, Integer>();
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources4 = new HashMap<Resource,Integer>();
-	    optionalResources4.put( resourcesDepartment.createFixedResource("Computadora", 15) , 15) ;
-	    optionalResources4.put( resourcesDepartment.createFixedResource("Luz Natural", 1) , 1) ;
+	    Map<Resource, Integer> optionalResources4 = new HashMap<Resource, Integer>();
+	    optionalResources4.put(resourcesDepartment.createFixedResource("Computadora", 15), 15);
+	    optionalResources4.put(resourcesDepartment.createFixedResource("Luz Natural", 1), 1);
 	    	//fecha y hora
 	    GregorianCalendar calendar4 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart4 = new Timestamp(8);
@@ -270,18 +274,19 @@ public class Main {
 	    Period desiredHours4 = new SimplePeriod(hour4, calendar4);
 
 	    //crear pedido
-	    requestsDepartment.createClassroomRequest(requiredResources4, optionalResources4, desiredHours4, ha2, profesorJuan , 20);
+	    requestsDepartment.createClassroomRequest(
+	    		requiredResources4, optionalResources4, desiredHours4, ha2, profesorJuan , 20);
 
 	    /************************************************************************************************************/
 
 	    //Pedido 5
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources5 = new HashMap<Resource,Integer>();
-	    requiredResources5.put( resourcesDepartment.createFixedResource("Computadora", 20) , 20) ;
+	    Map<Resource,Integer> requiredResources5 = new HashMap<Resource, Integer>();
+	    requiredResources5.put(resourcesDepartment.createFixedResource("Computadora", 20), 20);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources5 = new HashMap<Resource,Integer>();
-	    optionalResources5.put( resourcesDepartment.createFixedResource("Luz Natural", 20) , 20) ;
+	    Map<Resource,Integer> optionalResources5 = new HashMap<Resource, Integer>();
+	    optionalResources5.put(resourcesDepartment.createFixedResource("Luz Natural", 20), 20);
 	    	//fecha y hora
 	    GregorianCalendar calendar5 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart5 = new Timestamp(8);
@@ -290,40 +295,42 @@ public class Main {
 	    Period desiredHours5 = new SimplePeriod(hour5, calendar5);
 
 	    //crear pedido
-	    ClassroomRequest classReq5 = requestsDepartment.createClassroomRequest(requiredResources5, optionalResources5, desiredHours5, pc, profesorEsteban , 20);
+	    ClassroomRequest classReq5 = requestsDepartment.createClassroomRequest(
+	    		requiredResources5, optionalResources5, desiredHours5, pc, profesorEsteban , 20);
 
-	    /******************************************************************************************************************/
+	    /************************************************************************************************************/
 
 	    //Pedido 6
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources6 = new HashMap<Resource,Integer>();
-	    requiredResources6.put( resourcesDepartment.createFixedResource("Proyector", 1) , 1) ;
+	    Map<Resource,Integer> requiredResources6 = new HashMap<Resource, Integer>();
+	    requiredResources6.put(resourcesDepartment.createFixedResource("Proyector", 1), 1);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources6 = new HashMap<Resource,Integer>();
-	    optionalResources6.put( resourcesDepartment.createFixedResource("Luz Natural", 1) , 1) ;
+	    Map<Resource,Integer> optionalResources6 = new HashMap<Resource, Integer>();
+	    optionalResources6.put(resourcesDepartment.createFixedResource("Luz Natural", 1), 1);
 	    	//fecha y hora
 	    GregorianCalendar calendar6 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart6 = new Timestamp(8);
 	    Timestamp timeEnd6  = new Timestamp(10);
-	    LogicalHourFulfiller hour6 = new HourInterval(timeStart6,timeEnd6);
+	    LogicalHourFulfiller hour6 = new HourInterval(timeStart6, timeEnd6);
 	    Period desiredHours6 = new SimplePeriod(hour6, calendar6);
 
 	    //crear pedido
-	    ClassroomRequest classReq6 = requestsDepartment.createClassroomRequest(requiredResources6, optionalResources6, desiredHours6, i1, profesorErnesto, 25);
+	    ClassroomRequest classReq6 = requestsDepartment.createClassroomRequest(
+	    		requiredResources6, optionalResources6, desiredHours6, i1, profesorErnesto, 25);
 
 
-	    /******************************************************************************************************************/
+	    /************************************************************************************************************/
 
 	    // Asignacion 5
 	    assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classReq5);
 
-	    /******************************************************************************************************************/
+	    /************************************************************************************************************/
 
 	    // Asignacion 6
 	    assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classReq6);
 
-	    /******************************************************************************************************************/
+	    /************************************************************************************************************/
 
 	    // Reserva
 	    Classroom classroom = classroomsDepartment.searchClassroom("Aula 20");

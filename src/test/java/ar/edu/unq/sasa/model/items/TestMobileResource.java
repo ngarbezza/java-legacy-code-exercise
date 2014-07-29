@@ -16,7 +16,7 @@ public class TestMobileResource {
 
 	@Test
     public void testConstructor() {
-    	MobileResource mobileResource = new MobileResource("Proyector", 0) ;
+    	MobileResource mobileResource = new MobileResource("Proyector", 0);
 		String name = mobileResource.getName();
      	Map<Period, Assignment> assigments = mobileResource.getAssignments();
 		Map<Period, Assignment> emptyMap = new HashMap<Period, Assignment>();
@@ -28,10 +28,10 @@ public class TestMobileResource {
 	public void testGetAssigment() {
 		Period period = new SimplePeriod(null, null);
 		ClassroomAssignment assignment = null;
-		MobileResource mobileResource = new MobileResource("Proyector", 0) ;
+		MobileResource mobileResource = new MobileResource("Proyector", 0);
 		mobileResource.addAssignment(period, assignment);
 		Map<Period, Assignment> assignments = new HashMap<Period, Assignment>();
 		assignments.put(period, assignment);
-		assertEquals( assignments,  mobileResource.getAssignments() );
+		assertEquals(assignments, mobileResource.getAssignments());
      }
 }

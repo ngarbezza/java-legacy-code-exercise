@@ -120,7 +120,7 @@ public class AssignmentsDepartment extends Department {
 		int lowestMinutesSuperposed = 0;
 		Period freePeriod = null;
 
-		for (Classroom c : getClassroomsDepartment().getClassrooms()){
+		for (Classroom c : getClassroomsDepartment().getClassrooms()) {
 			float cRequiredPercentage = getPercentage(classroomRequest.getRequiredResources(), c);
 			float cOptionalPercentage = getPercentage(classroomRequest.getOptionalResources(), c);
 			Map<Integer, Object> percentageAndPeriod = getPercentageAndPeriod(classroomRequest, c);
@@ -128,42 +128,38 @@ public class AssignmentsDepartment extends Department {
 			Period cFreePeriod = (Period) percentageAndPeriod.get(1);
 			int cCapacityDifference = c.getCapacity() - classroomRequest.getCapacity();
 
-			if (bestClassroom == null){
+			if (bestClassroom == null) {
 				bestClassroom = c;
 				bestRequiredPercentage = cRequiredPercentage;
 				bestOptionalPercentage = cOptionalPercentage;
 				bestCapacityDifference = cCapacityDifference;
 				lowestMinutesSuperposed = cMinutesSuperposed;
 				freePeriod = cFreePeriod;
-			}
-			else if (cMinutesSuperposed < lowestMinutesSuperposed){
+			} else if (cMinutesSuperposed < lowestMinutesSuperposed) {
 					bestClassroom = c;
 					bestRequiredPercentage = cRequiredPercentage;
 					bestOptionalPercentage = cOptionalPercentage;
 					bestCapacityDifference = cCapacityDifference;
 					lowestMinutesSuperposed = cMinutesSuperposed;
 					freePeriod = cFreePeriod;
-				}
-				else if (cMinutesSuperposed == lowestMinutesSuperposed &&
-						cRequiredPercentage > bestRequiredPercentage){
+				} else if (cMinutesSuperposed == lowestMinutesSuperposed
+						&& cRequiredPercentage > bestRequiredPercentage) {
 						bestClassroom = c;
 						bestRequiredPercentage = cRequiredPercentage;
 						bestOptionalPercentage = cOptionalPercentage;
 						bestCapacityDifference = cCapacityDifference;
 						lowestMinutesSuperposed = cMinutesSuperposed;
 						freePeriod = cFreePeriod;
-					}
-					else if (cRequiredPercentage == bestRequiredPercentage &&
-							cCapacityDifference < bestCapacityDifference &&
-							cCapacityDifference > 0){
+					} else if (cRequiredPercentage == bestRequiredPercentage
+							&& cCapacityDifference < bestCapacityDifference
+							&& cCapacityDifference > 0) {
 							bestClassroom = c;
 							bestRequiredPercentage = cRequiredPercentage;
 							bestOptionalPercentage = cOptionalPercentage;
 							lowestMinutesSuperposed = cMinutesSuperposed;
 							freePeriod = cFreePeriod;
-						}
-						else if (cCapacityDifference == bestCapacityDifference &&
-								cOptionalPercentage > bestOptionalPercentage){
+						} else if (cCapacityDifference == bestCapacityDifference
+								&& cOptionalPercentage > bestOptionalPercentage) {
 								bestClassroom = c;
 								bestRequiredPercentage = cRequiredPercentage;
 								bestOptionalPercentage = cOptionalPercentage;
@@ -175,13 +171,15 @@ public class AssignmentsDepartment extends Department {
 		return asignateClassroomAssignment(classroomRequest, bestClassroom, freePeriod);
 	}
 
-	public ClassroomAssignment asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(ClassroomRequest classroomRequest, Classroom classroom, Period period, Map<Resource, Integer> resources) {
+	public ClassroomAssignment asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(
+			ClassroomRequest classroomRequest, Classroom classroom, Period period, Map<Resource, Integer> resources) {
 		Map<Resource, Integer> oldRequiredResources = classroomRequest.getRequiredResources();
 		Map<Resource, Integer> oldOptionalResources = classroomRequest.getOptionalResources();
 		classroomRequest.setRequiredResources(resources);
 		classroomRequest.setOptionalResources(new HashMap<Resource, Integer>());
 
-		ClassroomAssignment classroomAssignment = asignateClassroomAssignmentWithoutSatisfaction(classroomRequest, classroom, period);
+		ClassroomAssignment classroomAssignment = asignateClassroomAssignmentWithoutSatisfaction(
+				classroomRequest, classroom, period);
 		classroomAssignment.getRequest().setRequiredResources(oldRequiredResources);
 		classroomAssignment.getRequest().setOptionalResources(oldOptionalResources);
 
@@ -202,26 +200,24 @@ public class AssignmentsDepartment extends Department {
 		List<Period> periodDivisions = classroomRequest.getDesiredHours().convertToConcrete();
 
 		boolean isUsefullPeriod = true;
-		for (Period reqPeriod : periodDivisions){
-			if (bestPeriod == null){
+		for (Period reqPeriod : periodDivisions) {
+			if (bestPeriod == null) {
 				bestPeriod = reqPeriod;
 				minutesShared = searchForHighestSuperposedMinutes(reqPeriod, classroom);
 				if (minutesShared > 0)
 					isUsefullPeriod = false;
 				else
 					isUsefullPeriod = true;
-			}
-			else {
+			} else {
 				int currentMinutesShared = searchForHighestSuperposedMinutes(reqPeriod, classroom);
-				if (currentMinutesShared > 0){
-					if (currentMinutesShared < minutesShared){
+				if (currentMinutesShared > 0) {
+					if (currentMinutesShared < minutesShared) {
 						bestPeriod = reqPeriod;
 						minutesShared = 0;
 						isUsefullPeriod = true;
 					} else
 						isUsefullPeriod = false;
-				}
-				else {
+				} else {
 					bestPeriod = reqPeriod;
 					minutesShared = 0;
 					isUsefullPeriod = true;
@@ -240,7 +236,7 @@ public class AssignmentsDepartment extends Department {
 
 	private int searchForHighestSuperposedMinutes(Period period, Classroom classroom) {
 		int highestMinutesSuperposed = 0;
-		for (Period classroomPeriod : classroom.getAssignments().keySet()){
+		for (Period classroomPeriod : classroom.getAssignments().keySet()) {
 			int minutesSharedWithPeriod = classroomPeriod.minutesSharedWithPeriod(period);
 			if (minutesSharedWithPeriod > highestMinutesSuperposed)
 				highestMinutesSuperposed = minutesSharedWithPeriod;
@@ -252,7 +248,7 @@ public class AssignmentsDepartment extends Department {
 		int cantMatched = 0;
 		int cantTotal = 0;
 
-		for (Entry<Resource, Integer> entry : requestResources.entrySet()){
+		for (Entry<Resource, Integer> entry : requestResources.entrySet()) {
 			if (classroom.hasResource(entry.getKey().getName())) {
 				int classAmount = classroom.getResource(entry.getKey().getName()).getAmount();
 				if (entry.getValue() > classAmount)
@@ -293,7 +289,7 @@ public class AssignmentsDepartment extends Department {
 		ClassroomAssignment classroomAssignment = null;
 		for (Assignment assignment : getUniversity().getAssignments())
 			if (assignment.isClassroomAssignment())
-				if (assignment.getRequest().equals(request)){
+				if (assignment.getRequest().equals(request)) {
 					classroomAssignment = (ClassroomAssignment) assignment;
 					deleteAssignment(assignment);
 					break;
@@ -304,7 +300,7 @@ public class AssignmentsDepartment extends Department {
 
 		Map<Period, Assignment> classroomAssignments = classroomAssignment.getAssignableItem().getAssignments();
 		for (Entry<Period, Assignment> entry : classroomAssignments.entrySet())
-			if (entry.getValue().equals(classroomAssignment)){
+			if (entry.getValue().equals(classroomAssignment)) {
 				classroomAssignment.getAssignableItem().removeAssignment(entry.getKey());
 				break;
 			}
@@ -323,7 +319,7 @@ public class AssignmentsDepartment extends Department {
 			Map<Period, Assignment> assignments = assignableItem.getAssignments();
 
 			for (Entry<Period, Assignment> entry : assignments.entrySet())
-				if (entry.getValue().equals(searchedAssignment)){
+				if (entry.getValue().equals(searchedAssignment)) {
 					assignableItem.removeAssignment(entry.getKey());
 					break;
 				}
@@ -333,14 +329,13 @@ public class AssignmentsDepartment extends Department {
 			this.getPublisher().changed("assignmentsChanged", this.getAssignments());
 			this.getPublisher().changed("requestsChanged", this.getRequests());
 			///////////////////////////////////////////////////////////
-		}
-		catch (ConcurrentModificationException e){
+		} catch (ConcurrentModificationException e) {
 			// TODO try to fix this, maybe it was cause by the way we are iterating some collection
 			deleteAssignment(searchedAssignment);
 		}
 	}
 
-	public Assignment searchForAssignment(AssignableItem assignableItem, Period period){
+	public Assignment searchForAssignment(AssignableItem assignableItem, Period period) {
 		return assignableItem.getAssignments().get(period);
 	}
 
@@ -357,23 +352,23 @@ public class AssignmentsDepartment extends Department {
 
 	public ClassroomAssignment moveAssignmentOfClassroom(ClassroomAssignment assigment, Classroom classroom) {
 		Period period = null;
-		for (Entry<Period, Assignment> currentEntry : (assigment.getAssignableItem().getAssignments().entrySet())  )
-			if (currentEntry.getValue().equals(assigment)){
-				   period =  currentEntry.getKey();
-			       break;
-			    }
+		for (Entry<Period, Assignment> currentEntry : (assigment.getAssignableItem().getAssignments().entrySet()))
+			if (currentEntry.getValue().equals(assigment)) {
+				period = currentEntry.getKey();
+				break;
+			}
 		ClassroomRequest request = assigment.getRequest();
 		this.deleteClassroomAssignmentFromARequest(request);
-		return this.asignateClassroomAssignment(request,classroom,period);
+		return this.asignateClassroomAssignment(request, classroom, period);
 	}
 
     public void moveAssignmentOfHour(ClassroomAssignment assignment, LogicalHourFulfiller hour) {
 		Period period = null;
-		for (Entry<Period, Assignment> currentEntry : (assignment.getAssignableItem().getAssignments().entrySet())  )
-			if (currentEntry.getValue().equals(assignment)){
-				   period =  currentEntry.getKey();
-			       break;
-			    }
+		for (Entry<Period, Assignment> currentEntry : (assignment.getAssignableItem().getAssignments().entrySet()))
+			if (currentEntry.getValue().equals(assignment)) {
+				period = currentEntry.getKey();
+				break;
+			}
 		deleteClassroomAssignmentFromARequest(assignment.getRequest());
 		period.setHourFulfiller(hour);
 		asignateClassroomAssignment(assignment.getRequest(), assignment.getAssignableItem(), period);

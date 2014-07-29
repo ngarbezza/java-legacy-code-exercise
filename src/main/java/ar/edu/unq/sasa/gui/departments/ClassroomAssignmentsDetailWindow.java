@@ -79,13 +79,14 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 	@SuppressWarnings("unchecked")
 	protected void whenAssignmentsTableSelectionChanged(
 			ListSelectionEvent e) {
-		DefaultListSelectionModel selection = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel selection = (DefaultListSelectionModel) e.getSource();
 		if (selection.isSelectionEmpty()) {
 			if (bookedAssignments.getSelectionModel().isSelectionEmpty())
 				periodDetail.setText("");
 		} else {
-			((DefaultListSelectionModel)bookedAssignments.getSelectionModel()).clearSelection();
-			List<ClassroomAssignment> listModel = ((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel()).getModel();
+			((DefaultListSelectionModel) bookedAssignments.getSelectionModel()).clearSelection();
+			List<ClassroomAssignment> listModel =
+					((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel()).getModel();
 			int index = selection.getMinSelectionIndex();
 			periodDetail.setText(assignableItem.searchPeriod(listModel.get(index)).toString());
 		}
@@ -95,22 +96,21 @@ public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Cl
 	@Override
 	protected void createOtherWidgets() {
 		ReadOnlyTableModel<BookedAssignment> model =
-			new ReadOnlyTableModel<BookedAssignment>
-				(assignableItem.getBookedAssignments());
+			new ReadOnlyTableModel<BookedAssignment>(assignableItem.getBookedAssignments());
 		model.addColumn("Causa", "cause");
 		bookedAssignments = new JTable(model);
 		bookedAssignments.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void valueChanged(ListSelectionEvent e) {
-				DefaultListSelectionModel selection = (DefaultListSelectionModel)e.getSource();
+				DefaultListSelectionModel selection = (DefaultListSelectionModel) e.getSource();
 				if (selection.isSelectionEmpty()) {
 					if (assignmentsTable.getSelectionModel().isSelectionEmpty())
 						periodDetail.setText("");
-				}
-				else {
-					((DefaultListSelectionModel)assignmentsTable.getSelectionModel()).clearSelection();
-					List<BookedAssignment> listModel = ((ReadOnlyTableModel<BookedAssignment>) bookedAssignments.getModel()).getModel();
+				} else {
+					((DefaultListSelectionModel) assignmentsTable.getSelectionModel()).clearSelection();
+					List<BookedAssignment> listModel =
+							((ReadOnlyTableModel<BookedAssignment>) bookedAssignments.getModel()).getModel();
 					int index = selection.getMinSelectionIndex();
 					periodDetail.setText(assignableItem.searchPeriod(listModel.get(index)).toString());
 				}

@@ -50,7 +50,7 @@ public class TestResourcesDepartment {
 		assertEquals(res1, res2);
 	}
 
-	@Test(expected=ResourceException.class)
+	@Test(expected = ResourceException.class)
 	public void testCreatePositiveAmountFixedResource() {
 		resourcesDepartment.createFixedResource("Proyector", -10);
 	}

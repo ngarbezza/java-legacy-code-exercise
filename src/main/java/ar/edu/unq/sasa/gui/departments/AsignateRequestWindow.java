@@ -40,10 +40,7 @@ import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Ventana para Asignar un {@link ClassroomRequest}
- */
-public class AsignateRequestWindow extends JFrame implements PeriodHolder{
+public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 
 	private static final long serialVersionUID = -744274987094722160L;
 
@@ -52,8 +49,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 	protected ClassroomRequest classroomRequestSelection;
 	protected Classroom classroomSelection;
 	protected Period periodSelection;
-	protected List<Pair<Resource, Integer>> resourcesSelection = new ArrayList<Pair<Resource,Integer>>();
-	protected List<Pair<Resource, Integer>> oldResourcesSelection = new ArrayList<Pair<Resource,Integer>>();
+	protected List<Pair<Resource, Integer>> resourcesSelection = new ArrayList<Pair<Resource, Integer>>();
+	protected List<Pair<Resource, Integer>> oldResourcesSelection = new ArrayList<Pair<Resource, Integer>>();
 
 	protected JLabel searchLabel;
 	protected JTextField searchTextField;
@@ -73,7 +70,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 
 	private AssignmentsDepartment department;
 
-	public AsignateRequestWindow(AssignmentsDepartment assignmentsDepartment, final AssignmentsPanel assignmentsPanel){
+	public AsignateRequestWindow(AssignmentsDepartment assignmentsDepartment, final AssignmentsPanel assignmentsPanel) {
 		department = assignmentsDepartment;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -102,7 +99,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 	}
 
 	@Override
-	public void setPeriod(Period period){
+	public void setPeriod(Period period) {
 		periodSelection = period;
 		periodTextArea.setText(period.toString());
 		validateButtons();
@@ -114,12 +111,12 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder{
 		return periodSelection;
 	}
 
-	public void setResourcesSelection(List<Pair<Resource, Integer>> resources){
+	public void setResourcesSelection(List<Pair<Resource, Integer>> resources) {
 		resourcesSelection.clear();
 		resourcesSelection.addAll(resources);
 	}
 
-	public void setOldResourcesSelection(List<Pair<Resource, Integer>> resources){
+	public void setOldResourcesSelection(List<Pair<Resource, Integer>> resources) {
 		oldResourcesSelection = resources;
 	}
 

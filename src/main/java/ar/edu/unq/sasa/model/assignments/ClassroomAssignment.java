@@ -53,8 +53,8 @@ public class ClassroomAssignment extends AssignmentByRequest {
 	private void substractResources() {
 		for (ResourceAssignment rAssignment : resourcesAssignments)
 			for (Entry<Resource, Integer> entry : tempSatisfactionResources.entrySet())
-				if (entry.getKey().getName().equals(rAssignment.getAssignableItem().getName())){
-					tempSatisfactionResources.put(entry.getKey(), entry.getValue()-1);
+				if (entry.getKey().getName().equals(rAssignment.getAssignableItem().getName())) {
+					tempSatisfactionResources.put(entry.getKey(), entry.getValue() - 1);
 					break;
 				}
 

@@ -8,9 +8,9 @@ public class TestFixedResources {
 
 	@Test
 	public void testFixedResource() {
-		FixedResource resource = new FixedResource("PC" , 10);
-        assertEquals("PC", resource.getName()) ;
-        assertEquals(10, resource.getAmount()) ;
+		FixedResource resource = new FixedResource("PC", 10);
+        assertEquals("PC", resource.getName());
+        assertEquals(10, resource.getAmount());
 	}
-	
+
 }

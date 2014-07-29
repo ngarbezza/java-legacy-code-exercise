@@ -34,21 +34,17 @@ import ar.edu.unq.sasa.gui.util.Pair;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxModel;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxRenderer;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
 
-/**
- * Ventana para elegir {@link Resource}s para la asignación de un {@link ClassroomRequest}
- */
 public class ResourcesSelectionWindow extends JFrame {
 
 	private static final long serialVersionUID = -5739243783412143543L;
 
 	private AsignateRequestWindow parentFrame;
 
-	private List<Pair<Resource, Integer>> resourcesSelected = new ArrayList<Pair<Resource,Integer>>();
+	private List<Pair<Resource, Integer>> resourcesSelected = new ArrayList<Pair<Resource, Integer>>();
 	private Pair<Resource, Integer> resourceSelection;
 	private Resource resource;
 	private Integer quantity;
@@ -170,17 +166,16 @@ public class ResourcesSelectionWindow extends JFrame {
 		field.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				String number = ((JTextField)e.getSource()).getText();
-				if (! number.equals("")) {
-					if (quantity != null){
+				String number = ((JTextField) e.getSource()).getText();
+				if (!number.equals("")) {
+					if (quantity != null) {
 						addResourceButton.setEnabled(false);
 						quantity = null;
 					}
 					quantity = Integer.parseInt(number);
 					if (resource != null)
 						addResourceButton.setEnabled(true);
-				}
-				else {
+				} else {
 					addResourceButton.setEnabled(false);
 					quantity = null;
 				}
@@ -194,7 +189,8 @@ public class ResourcesSelectionWindow extends JFrame {
 		EasyComboBoxModel<MobileResource> comboModel = new EasyComboBoxModel<MobileResource>(getResources());
 		JComboBox<MobileResource> combo = new JComboBox<MobileResource>(comboModel);
 		combo.setRenderer(new EasyComboBoxRenderer<MobileResource>() {
-			// TODO there are a lot of these inner classes, we can build an EasyComboBoxRenderer who asks for getName to its inner objects
+			// TODO there are a lot of these inner classes, we can build an EasyComboBoxRenderer
+			// who asks for getName to its inner objects
 			@Override
 			public String getDisplayName(MobileResource mobileResource) {
 				return mobileResource.getName();
@@ -204,18 +200,16 @@ public class ResourcesSelectionWindow extends JFrame {
 		    @Override
 			public void actionPerformed(ActionEvent e) {
 		    	// TODO refactor me!
-		    	if (!(((Resource) ((JComboBox<Resource>)e.getSource()).getSelectedItem()) == null)){
-	    			if (! isInResourcesList((((Resource) ((JComboBox<Resource>)e.getSource()).getSelectedItem())))){
-		    			resource = (Resource) ((JComboBox<Resource>)e.getSource()).getSelectedItem();
+		    	if (!(((Resource) ((JComboBox<Resource>) e.getSource()).getSelectedItem()) == null)) {
+	    			if (!isInResourcesList((((Resource) ((JComboBox<Resource>) e.getSource()).getSelectedItem())))) {
+		    			resource = (Resource) ((JComboBox<Resource>) e.getSource()).getSelectedItem();
 		    			if (quantity != null)
 							addResourceButton.setEnabled(true);
-	    			}
-	    			else {
+	    			} else {
 	    				addResourceButton.setEnabled(false);
 	    				resource = null;
 	    			}
-		    	}
-		    	else {
+		    	} else {
 	    			addResourceButton.setEnabled(false);
 	    			resource = null;
 	    		}
@@ -230,14 +224,14 @@ public class ResourcesSelectionWindow extends JFrame {
 	private List<MobileResource> getResources() {
 		List<MobileResource> resources = new ArrayList<MobileResource>();
 		for (MobileResource mobileResource : department.getResourcesDepartment().getMobileResources())
-			if (! resources.contains(mobileResource))
+			if (!resources.contains(mobileResource))
 				resources.add(mobileResource);
 		return resources;
 	}
 
-	private boolean isInResourcesList(Resource resource) {
+	private boolean isInResourcesList(Resource aResource) {
 		for (Pair<Resource, Integer> pair : resourcesSelected)
-			if (((Resource)pair.getFirst()).getName().equals(resource.getName()))
+			if (((Resource) pair.getFirst()).getName().equals(aResource.getName()))
 				return true;
 		return false;
 	}
@@ -284,14 +278,15 @@ public class ResourcesSelectionWindow extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	private void updateTable() {
-		((ReadOnlyTableModel<Pair<Resource, Integer>>)resourcesTable.getModel()).setModel(resourcesSelected);
+		((ReadOnlyTableModel<Pair<Resource, Integer>>) resourcesTable.getModel()).setModel(resourcesSelected);
 	}
 
 	private void createRemoveResourceButtonListeners() {
 		removeResourceButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar el recurso seleccionado?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar el recurso seleccionado?",
+						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					resourcesSelected.remove(resourceSelection);
 					resourcesComboBox.setSelectedItem(null);
 					resourcesComboBox.updateUI();
@@ -307,7 +302,8 @@ public class ResourcesSelectionWindow extends JFrame {
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea guardar los cambios?", "Aceptar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea guardar los cambios?", "Aceptar",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					parentFrame.setResourcesSelection(resourcesSelected);
 					parentFrame.validateButtons();
 					parentFrame.updateResourcesTable();
@@ -321,7 +317,8 @@ public class ResourcesSelectionWindow extends JFrame {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?", "Cancelar",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					dispose();
 			}
 		});
@@ -344,14 +341,13 @@ public class ResourcesSelectionWindow extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	protected void whenResourcesTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			resourceSelection = null;
 			removeResourceButton.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<Pair<Resource, Integer>> model = ((ReadOnlyTableModel<Pair<Resource, Integer>>)resourcesTable.getModel()).getModel();
+			List<Pair<Resource, Integer>> model = ((ReadOnlyTableModel<Pair<Resource, Integer>>) resourcesTable.getModel()).getModel();
 			resourceSelection = model.get(index);
 			removeResourceButton.setEnabled(true);
 		}
@@ -361,13 +357,13 @@ public class ResourcesSelectionWindow extends JFrame {
 		tableModel.addColumn("Recurso", "first", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Resource)obj).getName();
+				return ((Resource) obj).getName();
 			};
 		});
 		tableModel.addColumn("Cantidad", "second", new ObjectToStringConverter() {
 			@Override
 			public String convert(Object obj) {
-				return ((Integer)obj).toString();
+				return ((Integer) obj).toString();
 			};
 		});
 	}
