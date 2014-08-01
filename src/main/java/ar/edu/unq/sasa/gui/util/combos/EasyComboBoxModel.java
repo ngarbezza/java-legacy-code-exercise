@@ -5,43 +5,39 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
 
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 
-/**
- * Model para {@link JComboBox} que facilita su uso.
- */
 public class EasyComboBoxModel<T> extends AbstractListModel<T> implements ComboBoxModel<T> {
 
 	private static final long serialVersionUID = -7637136543588118644L;
 
 	protected List<T> model;
 	protected T selection;
-	protected ObjectToStringConverter converter;
-	
+	protected ToStringConverter<T> converter;
+
 	public EasyComboBoxModel() {
 		this(new ArrayList<T>());
 	}
- 	
-	public EasyComboBoxModel(List<T> theModel) {		
-		this(theModel, new ObjectToStringConverter());
+
+	public EasyComboBoxModel(List<T> theModel) {
+		this(theModel, new ToStringConverter<T>());
 	}
-	
-	public EasyComboBoxModel(List<T> theModel, ObjectToStringConverter conv) {
-		this.model = theModel;
-		this.converter = conv;
+
+	public EasyComboBoxModel(List<T> aModel, ToStringConverter<T> aConverter) {
+		model = aModel;
+		converter = aConverter;
 	}
 
 	public List<T> getModel() {
 		return model;
 	}
-	
-	public void setModel(List<T> theModel) {
-		model = theModel;
-		fireContentsChanged(theModel, 0, getSize());
+
+	public void setModel(List<T> aModel) {
+		model = aModel;
+		fireContentsChanged(aModel, 0, getSize());
 	}
-	
+
 	@Override
 	public T getSelectedItem() {
 		return selection;
@@ -50,14 +46,14 @@ public class EasyComboBoxModel<T> extends AbstractListModel<T> implements ComboB
 	@Override
 	@SuppressWarnings("unchecked")
 	public void setSelectedItem(Object anItem) {
-		selection = (T)anItem;
+		selection = (T) anItem;
 	}
 
 	@Override
-	public T getElementAt(int index) {
+	public T getElementAt(int anIndex) {
 		// null indica "ningún elemento seleccionado"
 		// y no forma parte de la lista "model"
-		return (index == 0)? null : model.get(index - 1);
+		return (anIndex == 0) ? null : model.get(anIndex - 1);
 	}
 
 	@Override

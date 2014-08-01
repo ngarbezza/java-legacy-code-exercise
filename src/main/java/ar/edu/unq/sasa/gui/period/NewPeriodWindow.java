@@ -391,7 +391,7 @@ public class NewPeriodWindow extends JFrame {
 			}
 			newNode.updateChanges(this);
 		}
-		DefaultTreeModel model = ((DefaultTreeModel)periodsTree.getModel());
+		DefaultTreeModel model = ((DefaultTreeModel) periodsTree.getModel());
 		model.reload();
 		periodsTree.clearSelection();
 	}
@@ -490,11 +490,11 @@ public class NewPeriodWindow extends JFrame {
 	}
 
 	public void updateChangesFromSimple(SimplePeriodTreeNode sptn) {
-		sptn.setStartHour(new Timestamp((Integer)fromHoursCombo.getSelectedItem(),
-				(Integer)fromMinutesCombo.getSelectedItem()));
-		sptn.setEndHour(new Timestamp((Integer)toHoursCombo.getSelectedItem(),
-				(Integer)toMinutesCombo.getSelectedItem()));
-		sptn.setMinutesInRange(Math.round((Float)minutesInRange.getValue() * 60));
+		sptn.setStartHour(new Timestamp((Integer) fromHoursCombo.getSelectedItem(),
+				(Integer) fromMinutesCombo.getSelectedItem()));
+		sptn.setEndHour(new Timestamp((Integer) toHoursCombo.getSelectedItem(),
+				(Integer) toMinutesCombo.getSelectedItem()));
+		sptn.setMinutesInRange(Math.round((Float) minutesInRange.getValue() * 60));
 		sptn.setStartDate(fromDate.getSelectedCalendar());
 		if (noneRadioButton.isSelected())
 			sptn.setRepetition(new None());

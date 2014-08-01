@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
@@ -61,13 +61,13 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 
 	protected void createWidgets() {
 		ReadOnlyTableModel<B> model = new ReadOnlyTableModel<B>(getAssigments());
-		model.addColumn("Profesor", "request", new ObjectToStringConverter() {
+		model.addColumn("Profesor", "request", new ToStringConverter() {
 			@Override
 			public String convert(Object obj) {
 				return ((Request)obj).getProfessor().getName();
 			}
 		});
-		model.addColumn("Materia", "request", new ObjectToStringConverter() {
+		model.addColumn("Materia", "request", new ToStringConverter() {
 			@Override
 			public String convert(Object obj) {
 				return ((Request)obj).getSubject().getName();

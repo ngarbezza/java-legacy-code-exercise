@@ -41,32 +41,32 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		return false;
 	}
 
-	public void setStartDate(Calendar startDate) {
-		this.startDate = startDate;
+	public void setStartDate(Calendar aDate) {
+		startDate = aDate;
 	}
 
 	public Calendar getStartDate() {
 		return startDate;
 	}
 
-	public void setRepetition(Repetition repetition) {
-		this.repetition = repetition;
+	public void setRepetition(Repetition aRepetition) {
+		repetition = aRepetition;
 	}
 
 	public Repetition getRepetition() {
 		return repetition;
 	}
 
-	public void setStartHour(Timestamp startHour) {
-		this.startHour = startHour;
+	public void setStartHour(Timestamp aTimestamp) {
+		startHour = aTimestamp;
 	}
 
 	public Timestamp getStartHour() {
 		return startHour;
 	}
 
-	public void setEndHour(Timestamp endHour) {
-		this.endHour = endHour;
+	public void setEndHour(Timestamp aTimestamp) {
+		endHour = aTimestamp;
 	}
 
 	public Timestamp getEndHour() {
@@ -76,10 +76,9 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	@Override
 	public Period makePeriod() {
 		if (!(getRepetition() instanceof None))
-			if (!CalendarUtils.compareGreater(((EndingRepetition)getRepetition()).getEnd(), getStartDate()))
+			if (!CalendarUtils.compareGreater(((EndingRepetition) repetition).getEnd(), startDate))
 				throw new PeriodException("La fecha de finalización debe ser posterior a la de inicio");
-		return new SimplePeriod(new HourInterval(getStartHour(), getEndHour(),
-				getMinutesInRange()), getStartDate(), getRepetition());
+		return new SimplePeriod(new HourInterval(startHour, endHour, minutesInRange), startDate, repetition);
 	}
 
 	@Override
@@ -87,8 +86,8 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		return "Condición Simple";
 	}
 
-	public void setMinutesInRange(int minutesInRange) {
-		this.minutesInRange = minutesInRange;
+	public void setMinutesInRange(int someMinutes) {
+		minutesInRange = someMinutes;
 	}
 
 	public int getMinutesInRange() {
@@ -96,8 +95,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	}
 
 	@Override
-	public boolean matchPeriodType(boolean simple, boolean or, boolean and,
-			boolean minus) {
+	public boolean matchPeriodType(boolean simple, boolean or, boolean and, boolean minus) {
 		return simple;
 	}
 

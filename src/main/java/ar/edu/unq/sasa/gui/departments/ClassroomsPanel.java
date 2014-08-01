@@ -18,9 +18,6 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
 
-/**
- * Panel para la administración de {@link Classroom}s.
- */
 public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 
 	private static final long serialVersionUID = -3693454191114811772L;
@@ -95,9 +92,9 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+				String text = ((JTextField) e.getSource()).getText();
 				List<Classroom> res = department.searchClassroomByName(text);
-				((ReadOnlyTableModel<Classroom>)table.getModel()).setModel(res);
+				((ReadOnlyTableModel<Classroom>) table.getModel()).setModel(res);
 			}
 		});
 		return field;
@@ -130,7 +127,7 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<Classroom>)table.getModel())
-			.setModel((List<Classroom>)value);
+		((ReadOnlyTableModel<Classroom>) table.getModel())
+			.setModel((List<Classroom>) value);
 	}
 }

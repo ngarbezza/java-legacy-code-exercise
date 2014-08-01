@@ -28,7 +28,7 @@ import javax.swing.event.ListSelectionListener;
 import uic.layout.HorizontalLayout;
 import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.period.PeriodDetailWindow;
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
@@ -88,13 +88,13 @@ public class ShowSatisfactionWindow extends JFrame {
 	}
 
 	private void addResourceColumns(ReadOnlyTableModel<Pair<Resource, Integer>> tableModel) {
-		tableModel.addColumn("Recurso", "first", new ObjectToStringConverter() {
+		tableModel.addColumn("Recurso", "first", new ToStringConverter() {
 			@Override
 			public String convert(Object obj) {
 				return ((Resource) obj).getName();
 			};
 		});
-		tableModel.addColumn("Cantidad", "second", new ObjectToStringConverter() {
+		tableModel.addColumn("Cantidad", "second", new ToStringConverter() {
 			@Override
 			public String convert(Object obj) {
 				return ((Integer) obj).toString();
@@ -160,7 +160,7 @@ public class ShowSatisfactionWindow extends JFrame {
 	}
 
 	private void addPeriodSuperpositionsColumns(ReadOnlyTableModel<Pair<Period, Float>> tableModel) {
-		tableModel.addColumn("Tipo", "first", new ObjectToStringConverter() {
+		tableModel.addColumn("Tipo", "first", new ToStringConverter() {
 			@Override
 			public String convert(Object obj) {
 				return assignment.getAssignableItem().getAssignments().get(obj).isBookedAssignment()
@@ -168,7 +168,7 @@ public class ShowSatisfactionWindow extends JFrame {
 						: "(Asignacion por Pedido)";
 			};
 		});
-		tableModel.addColumn("Cantidad de Horas", "second", new ObjectToStringConverter() {
+		tableModel.addColumn("Cantidad de Horas", "second", new ToStringConverter() {
 			@Override
 			public String convert(Object obj) {
 				return "Superpuesta " + ((Float) obj).toString() + " hs";

@@ -57,7 +57,7 @@ public class TestClassroom {
 		assertFalse(classroom.hasResource("Proyector"));
 	}
 
-	@Test(expected=AssignmentException.class)
+	@Test(expected = AssignmentException.class)
 	public void testGetAssigment() {
 		Period period = new SimplePeriod(null, null);
 		ClassroomAssignment assignment = null;

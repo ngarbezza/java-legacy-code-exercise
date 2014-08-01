@@ -34,48 +34,49 @@ public class ClassroomsDepartment extends Department {
 		return addedClassroom;
 	}
 
-	public boolean hasClassroomNamed(String name) {
-		for(Classroom classroom: classrooms)
-			if (classroom.getName().equals(name))
+	public boolean hasClassroomNamed(String aName) {
+		for (Classroom classroom: classrooms)
+			if (classroom.getName().equals(aName))
 				return true;
 		return false;
 	}
 
-	public void deleteClassroom(Classroom classroom) {
-		classrooms.remove(classroom);
+	public void deleteClassroom(Classroom aClassroom) {
+		classrooms.remove(aClassroom);
 
 		getPublisher().changed("classroomsChanged", classrooms);
 	}
 
-	public Classroom searchClassroom(String name) {
+	public Classroom searchClassroom(String aName) {
 		for (Classroom currentClassroom : classrooms)
-			if(currentClassroom.getName().equals(name))
+			if (currentClassroom.getName().equals(aName))
 				return currentClassroom;
 		throw new ClassroomException("No existe el aula");
 	}
 
-	public void modifyClassroom(String name, int capacity) {
-	 	searchClassroom(name).setCapacity(capacity);
+	public void modifyClassroom(String aName, int aCapacity) {
+	 	searchClassroom(aName).setCapacity(aCapacity);
 	}
 
-	public void modifyClassroomAddResource(String name, FixedResource resource) {
-		searchClassroom(name).addResource(resource);
+	public void modifyClassroomAddResource(String aName, FixedResource aResource) {
+		searchClassroom(aName).addResource(aResource);
 	}
 
-	public List<Classroom> searchClassroomByName(String name) {
+	public List<Classroom> searchClassroomByName(String aName) {
 		List<Classroom> res = new LinkedList<Classroom>();
 		for (Classroom c : classrooms)
-			if (c.getName().contains(name))
+			if (c.getName().contains(aName))
 				res.add(c);
 		return res;
 	}
 
-	public void modifyClassroomProperties(Classroom c, String name, int cap, List<FixedResource> resources) {
-		c.setName(name);
-		c.setCapacity(cap);
-		c.getResources().clear();
+	public void modifyClassroomProperties(Classroom aClassroom, String aName, int aCapacity,
+			List<FixedResource> resources) {
+		aClassroom.setName(aName);
+		aClassroom.setCapacity(aCapacity);
+		aClassroom.getResources().clear();
 		for (FixedResource r : resources)
-			c.addResource(r);
+			aClassroom.addResource(r);
 
 		getPublisher().changed("classroomsChanged", classrooms);
 	}

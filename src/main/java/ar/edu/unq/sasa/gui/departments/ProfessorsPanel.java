@@ -15,9 +15,6 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.departments.ProfessorsDepartment;
 
-/**
- * Panel para la administración de {@link Professor}s.
- */
 public class ProfessorsPanel extends AbstractDepartmentPanel<Professor> {
 
 	private static final long serialVersionUID = -2846696085344808896L;
@@ -37,8 +34,8 @@ public class ProfessorsPanel extends AbstractDepartmentPanel<Professor> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<Professor>)table.getModel())
-			.setModel((List<Professor>)value);
+		((ReadOnlyTableModel<Professor>) table.getModel())
+			.setModel((List<Professor>) value);
 	}
 
 	@Override
@@ -70,9 +67,9 @@ public class ProfessorsPanel extends AbstractDepartmentPanel<Professor> {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+				String text = ((JTextField) e.getSource()).getText();
 				List<Professor> res = ProfessorsPanel.this.department.searchProfessor(text);
-				((ReadOnlyTableModel<Professor>)table.getModel()).setModel(res);
+				((ReadOnlyTableModel<Professor>) table.getModel()).setModel(res);
 			}
 		});
 		return field;

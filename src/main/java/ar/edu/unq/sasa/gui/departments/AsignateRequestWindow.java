@@ -30,9 +30,9 @@ import javax.swing.event.ListSelectionListener;
 
 import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.period.NewPeriodWindow;
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
 import ar.edu.unq.sasa.gui.util.PeriodHolder;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
@@ -223,7 +223,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		asignateClassroomAssignment = new JButton("Asignar Pedido en el Aula y Periodo Seleccionados");
 		createAsignateClassroomAssignmentListeners();
 
-		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources = new JButton("Asignar Pedido en el Aula, Periodo y Recursos Seleccionados");
+		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources =
+				new JButton("Asignar Pedido en el Aula, Periodo y Recursos Seleccionados");
 		createAsignateClassroomAssignmentWithDesiredPeriodAndRequiredResourcesListeners();
 
 		cancelButton = new JButton("Cancelar");
@@ -238,7 +239,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la asignacion?", "Cancelar Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la asignacion?",
+						"Cancelar Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					dispose();
 			}
 		});
@@ -249,7 +251,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					Map<Resource, Integer> resources = resourcesSelectionToMap(resourcesSelection);
 					department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(
 							classroomRequestSelection, classroomSelection, periodSelection, resources);
@@ -260,9 +262,9 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		});
 	}
 
-	private Map<Resource, Integer> resourcesSelectionToMap(List<Pair<Resource, Integer>> resourcesSelection) {
+	private Map<Resource, Integer> resourcesSelectionToMap(List<Pair<Resource, Integer>> aResourcesSelection) {
 		Map<Resource, Integer> resources = new HashMap<Resource, Integer>();
-		for (Pair<Resource, Integer> pair : resourcesSelection)
+		for (Pair<Resource, Integer> pair : aResourcesSelection)
 			resources.put((Resource) pair.getFirst(), (Integer) pair.getSecond());
 		return resources;
 	}
@@ -286,7 +288,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		asignateRequestInAClassroom.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?",
+						"Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					department.asignateRequestInAClassroom(classroomRequestSelection, classroomSelection);
 					parentPanel.updateTables();
 					dispose();
@@ -312,7 +315,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	private void createSelectResourcesListeners() {
 		selectResources.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new ResourcesSelectionWindow(department, AsignateRequestWindow.this);
 			}
 		});
@@ -321,14 +324,15 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	private void createSelectPeriodListeners() {
 		selectPeriod.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new NewPeriodWindow(AsignateRequestWindow.this);
 			}
 		});
 	}
 
 	private void createClassroomsTable() {
-		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(department.getClassroomsDepartment().getClassrooms());
+		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(
+				department.getClassroomsDepartment().getClassrooms());
 		addClassroomColumns(tableModel);
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -376,7 +380,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	private void createResourcesTable() {
-		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel = new ReadOnlyTableModel<Pair<Resource, Integer>>(resourcesSelection);
+		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel =
+				new ReadOnlyTableModel<Pair<Resource, Integer>>(resourcesSelection);
 		addResourcesColumns(tableModel);
 		resourcesTable = new JTable(tableModel);
 		resourcesScrollPane = new JScrollPane(resourcesTable);
@@ -384,16 +389,16 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	private void addResourcesColumns(ReadOnlyTableModel<Pair<Resource, Integer>> tableModel) {
-		tableModel.addColumn("Recurso", "first", new ObjectToStringConverter() {
+		tableModel.addColumn("Recurso", "first", new ToStringConverter<Resource>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Resource) obj).getName();
+			public String convert(Resource aResource) {
+				return aResource.getName();
 			};
 		});
-		tableModel.addColumn("Cantidad", "second", new ObjectToStringConverter() {
+		tableModel.addColumn("Cantidad", "second", new ToStringConverter<Integer>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Integer) obj).toString();
+			public String convert(Integer anAmount) {
+				return anAmount.toString();
 			};
 		});
 	}
@@ -412,5 +417,4 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	public void updateResourcesTable() {
 		((ReadOnlyTableModel<Pair<Resource, Integer>>) resourcesTable.getModel()).setModel(resourcesSelection);
 	}
-
 }

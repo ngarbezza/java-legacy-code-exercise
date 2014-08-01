@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxModel;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxRenderer;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
@@ -23,9 +23,6 @@ import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.departments.RequestsDepartment;
 
-/**
- * Panel de consulta sobre {@link Request}s (Pedidos).
- */
 public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 
 	private static final long serialVersionUID = -6791066586292230725L;
@@ -46,22 +43,22 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 
 	@Override
 	protected void addColumns(ReadOnlyTableModel<Request> tableModel) {
-		tableModel.addColumn("Profesor", "professor", new ObjectToStringConverter() {
+		tableModel.addColumn("Profesor", "professor", new ToStringConverter<Professor>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Professor)obj).getName();
+			public String convert(Professor aProfessor) {
+				return aProfessor.getName();
 			};
 		});
-		tableModel.addColumn("Materia", "subject", new ObjectToStringConverter() {
+		tableModel.addColumn("Materia", "subject", new ToStringConverter<Subject>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Subject)obj).getName();
+			public String convert(Subject aSubject) {
+				return aSubject.getName();
 			};
 		});
-		tableModel.addColumn("Asignado", "asignated", new ObjectToStringConverter() {
+		tableModel.addColumn("Asignado", "asignated", new ToStringConverter<Boolean>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Boolean) obj)? "Sí" : "No";
+			public String convert(Boolean aBoolean) {
+				return aBoolean ? "Sí" : "No";
 			}
 		});
 	}
@@ -162,7 +159,7 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<Request>)table.getModel())
+		((ReadOnlyTableModel<Request>) table.getModel())
 			.setModel(getListModel());
 	}
 }

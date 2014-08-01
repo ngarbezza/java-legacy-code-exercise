@@ -28,7 +28,8 @@ public class AssignmentsDepartment extends Department {
 		super(university);
 	}
 
-	public ResourceAssignment asignateResourceAssignment(Request request, MobileResource mobileResource, Period period) {
+	public ResourceAssignment asignateResourceAssignment(
+			Request request, MobileResource mobileResource, Period period) {
 		ResourceAssignment resourceAssignment = new ResourceAssignment(request, mobileResource);
 		mobileResource.addAssignment(period, resourceAssignment);
 		addAssignment(resourceAssignment);
@@ -51,18 +52,21 @@ public class AssignmentsDepartment extends Department {
 		getUniversity().addAssignment(assignment);
 	}
 
-	public ClassroomAssignment asignateClassroomAssignment(ClassroomRequest classroomRequest, Classroom classroom, Period period) {
-		ClassroomAssignment classroomAssignment = asignateClassroomAssignmentWithoutSatisfaction(classroomRequest, classroom, period);
+	public ClassroomAssignment asignateClassroomAssignment(
+			ClassroomRequest classroomRequest, Classroom classroom, Period period) {
+		ClassroomAssignment classroomAssignment = asignateClassroomAssignmentWithoutSatisfaction(
+				classroomRequest, classroom, period);
 		classroomAssignment.createSatisfaction();
 		updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-		this.getPublisher().changed("requestsChanged", this.getRequests());
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequests());
 		///////////////////////////////////////////////////////////
 		return classroomAssignment;
 	}
 
-	private ClassroomAssignment asignateClassroomAssignmentWithoutSatisfaction(ClassroomRequest classroomRequest, Classroom classroom, Period period) {
+	private ClassroomAssignment asignateClassroomAssignmentWithoutSatisfaction(
+			ClassroomRequest classroomRequest, Classroom classroom, Period period) {
 		List<ResourceAssignment> resourcesAssignmentsList = new ArrayList<ResourceAssignment>();
 		Set<Entry<Resource, Integer>> requiredResources = classroomRequest.getRequiredResources().entrySet();
 		Set<Entry<Resource, Integer>> optionalResources = classroomRequest.getOptionalResources().entrySet();
@@ -70,7 +74,8 @@ public class AssignmentsDepartment extends Department {
 		asignateInFreeResources(requiredResources, classroomRequest, resourcesAssignmentsList, period);
 		asignateInFreeResources(optionalResources, classroomRequest, resourcesAssignmentsList, period);
 
-		ClassroomAssignment classroomAssignment = new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
+		ClassroomAssignment classroomAssignment = new ClassroomAssignment(
+				classroomRequest, classroom, resourcesAssignmentsList);
 		classroom.addAssignment(period, classroomAssignment);
 		addAssignment(classroomAssignment);
 
@@ -79,11 +84,12 @@ public class AssignmentsDepartment extends Department {
 
 	private void updateAssignmentsSatisfactionSuperpositions(Period period, Assignment assignment) {
 		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet())
-			if (! entry.getValue().equals(assignment))
+			if (!entry.getValue().equals(assignment))
 				if (entry.getKey().intersectsWith(period))
 					if (entry.getValue().isClassroomAssignment()) {
 						float minutesShared = entry.getKey().minutesSharedWithPeriod(period) / 60;
-						((ClassroomAssignment) entry.getValue()).getSatisfaction().addPeriodSuperposition(period, minutesShared);
+						((ClassroomAssignment) entry.getValue()).getSatisfaction()
+							.addPeriodSuperposition(period, minutesShared);
 					}
 	}
 
@@ -186,8 +192,8 @@ public class AssignmentsDepartment extends Department {
 		classroomAssignment.createSatisfaction();
 		updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-		this.getPublisher().changed("requestsChanged", this.getRequests());
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequests());
 		///////////////////////////////////////////////////////////
 		return classroomAssignment;
 	}
@@ -268,8 +274,8 @@ public class AssignmentsDepartment extends Department {
 	public void modifyBookedAssignmentCause(BookedAssignment searchedAssignment, String newCause) {
 		searchedAssignment.setCause(newCause);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-		this.getPublisher().changed("requestsChanged", this.getRequests());
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequests());
 		///////////////////////////////////////////////////////////
 	}
 
@@ -280,16 +286,16 @@ public class AssignmentsDepartment extends Department {
 			if (entry.getValue().equals(resourceAssignment))
 				resourceAssignment.getAssignableItem().removeAssignment(entry.getKey());
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-		this.getPublisher().changed("requestsChanged", this.getRequests());
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequests());
 		///////////////////////////////////////////////////////////
 	}
 
-	public void deleteClassroomAssignmentFromARequest(Request request) {
+	public void deleteClassroomAssignmentFromARequest(Request aRequest) {
 		ClassroomAssignment classroomAssignment = null;
-		for (Assignment assignment : getUniversity().getAssignments())
+		for (Assignment assignment : getAssignments())
 			if (assignment.isClassroomAssignment())
-				if (assignment.getRequest().equals(request)) {
+				if (assignment.getRequest().equals(aRequest)) {
 					classroomAssignment = (ClassroomAssignment) assignment;
 					deleteAssignment(assignment);
 					break;
@@ -306,8 +312,8 @@ public class AssignmentsDepartment extends Department {
 			}
 
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-		this.getPublisher().changed("requestsChanged", this.getRequests());
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequests());
 		///////////////////////////////////////////////////////////
 	}
 
@@ -326,8 +332,8 @@ public class AssignmentsDepartment extends Department {
 			getUniversity().deleteAssignment(searchedAssignment);
 
 			///////////////////////////////////////////////////////////
-			this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-			this.getPublisher().changed("requestsChanged", this.getRequests());
+			getPublisher().changed("assignmentsChanged", getAssignments());
+			getPublisher().changed("requestsChanged", getRequests());
 			///////////////////////////////////////////////////////////
 		} catch (ConcurrentModificationException e) {
 			// TODO try to fix this, maybe it was cause by the way we are iterating some collection
@@ -359,7 +365,7 @@ public class AssignmentsDepartment extends Department {
 			}
 		ClassroomRequest request = assigment.getRequest();
 		this.deleteClassroomAssignmentFromARequest(request);
-		return this.asignateClassroomAssignment(request, classroom, period);
+		return asignateClassroomAssignment(request, classroom, period);
 	}
 
     public void moveAssignmentOfHour(ClassroomAssignment assignment, LogicalHourFulfiller hour) {

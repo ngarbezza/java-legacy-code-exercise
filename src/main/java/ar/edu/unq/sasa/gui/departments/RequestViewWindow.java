@@ -24,8 +24,8 @@ import javax.swing.SwingUtilities;
 
 import uic.layout.HorizontalLayout;
 import ar.edu.unq.sasa.gui.period.PeriodDetailWindow;
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.assignments.Assignment;
@@ -91,30 +91,32 @@ public class RequestViewWindow extends JFrame {
 
 	private void createRequiredResourcesTable() {
 		List<Pair<Resource, Integer>> requiredResources = resourcesMapToList(request.getRequiredResources());
-		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel = new ReadOnlyTableModel<Pair<Resource, Integer>>(requiredResources);
+		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel =
+				new ReadOnlyTableModel<Pair<Resource, Integer>>(requiredResources);
 		addResourceColumns(tableModel);
 		requiredResourcesTable = new JTable(tableModel);
 		requiredResourcesScrollPane = new JScrollPane(requiredResourcesTable);
 	}
 
 	private void addResourceColumns(ReadOnlyTableModel<Pair<Resource, Integer>> tableModel) {
-		tableModel.addColumn("Recurso", "first", new ObjectToStringConverter() {
+		tableModel.addColumn("Recurso", "first", new ToStringConverter<Resource>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Resource)obj).getName();
+			public String convert(Resource aResource) {
+				return aResource.getName();
 			};
 		});
-		tableModel.addColumn("Cantidad", "second", new ObjectToStringConverter() {
+		tableModel.addColumn("Cantidad", "second", new ToStringConverter<Integer>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Integer)obj).toString();
+			public String convert(Integer anAmount) {
+				return anAmount.toString();
 			};
 		});
 	}
 
 	private void createOptionalResourcesTable() {
 		List<Pair<Resource, Integer>> optionalResources = resourcesMapToList(request.getOptionalResources());
-		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel = new ReadOnlyTableModel<Pair<Resource, Integer>>(optionalResources);
+		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel =
+				new ReadOnlyTableModel<Pair<Resource, Integer>>(optionalResources);
 		addResourceColumns(tableModel);
 		optionalResourcesTable = new JTable(tableModel);
 		optionalResourcesScrollPane = new JScrollPane(optionalResourcesTable);
@@ -123,7 +125,7 @@ public class RequestViewWindow extends JFrame {
 	private List<Pair<Resource, Integer>> resourcesMapToList(Map<Resource, Integer> resourcesMap) {
 		List<Pair<Resource, Integer>> resourcesList = new ArrayList<Pair<Resource, Integer>>();
 		for (Entry<Resource, Integer> entry : resourcesMap.entrySet())
-			resourcesList.add(new Pair<Resource, Integer>(entry.getKey(),entry.getValue()));
+			resourcesList.add(new Pair<Resource, Integer>(entry.getKey(), entry.getValue()));
 		return resourcesList;
 	}
 

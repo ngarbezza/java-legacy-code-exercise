@@ -23,7 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxModel;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxRenderer;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
@@ -58,7 +58,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	protected JLabel searchLabel;
 	protected JComboBox<Professor> professorsComboBox;
 
-	public AssignmentsPanel(AssignmentsDepartment assignmentsDepartment){
+	public AssignmentsPanel(AssignmentsDepartment assignmentsDepartment) {
 		department = assignmentsDepartment;
 		registerAsSubscriber();
 		createSearchComponents();
@@ -110,9 +110,11 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		List<ClassroomAssignment> assignments = new ArrayList<ClassroomAssignment>();
 		for (Assignment assignment : getDepartment().getAssignments())
 			if (assignment.isClassroomAssignment())
-				if (professorsComboBox.getModel().getSelectedItem() == null ||
-						professorsComboBox.getModel().getSelectedItem().equals(assignment.getRequest().getProfessor()))
-					assignments.add((ClassroomAssignment)assignment);
+				// TODO refactor next question
+				if (professorsComboBox.getModel().getSelectedItem() == null
+					|| professorsComboBox.getModel().getSelectedItem().equals(
+							assignment.getRequest().getProfessor()))
+					assignments.add((ClassroomAssignment) assignment);
 		return assignments;
 	}
 
@@ -239,22 +241,22 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	}
 
 	private void addAssignmentColumns(ReadOnlyTableModel<ClassroomAssignment> tableModel) {
-		tableModel.addColumn("Profesor", "request", new ObjectToStringConverter() {
+		tableModel.addColumn("Profesor", "request", new ToStringConverter<Request>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Request) obj).getProfessor().getName();
+			public String convert(Request aRequest) {
+				return aRequest.getProfessor().getName();
 			};
 		});
-		tableModel.addColumn("Materia", "request", new ObjectToStringConverter() {
+		tableModel.addColumn("Materia", "request", new ToStringConverter<Request>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Request) obj).getSubject().getName();
+			public String convert(Request aRequest) {
+				return aRequest.getSubject().getName();
 			};
 		});
-		tableModel.addColumn("Aula", "assignableItem", new ObjectToStringConverter() {
+		tableModel.addColumn("Aula", "assignableItem", new ToStringConverter<Classroom>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Classroom) obj).getName();
+			public String convert(Classroom aClassroom) {
+				return aClassroom.getName();
 			};
 		});
 	}
@@ -275,8 +277,8 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void whenRequestsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+	protected void whenRequestsTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			requestSelection = null;
 			asignateButton.setEnabled(false);
@@ -288,17 +290,17 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		}
 	}
 
-	private void addRequestsColumns(ReadOnlyTableModel<ClassroomRequest> tableModel) {
-		tableModel.addColumn("Profesor", "professor", new ObjectToStringConverter() {
+	private void addRequestsColumns(ReadOnlyTableModel<ClassroomRequest> aTableModel) {
+		aTableModel.addColumn("Profesor", "professor", new ToStringConverter<Professor>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Professor) obj).getName();
+			public String convert(Professor aProfessor) {
+				return aProfessor.getName();
 			};
 		});
-		tableModel.addColumn("Materia", "subject", new ObjectToStringConverter() {
+		aTableModel.addColumn("Materia", "subject", new ToStringConverter<Subject>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Subject) obj).getName();
+			public String convert(Subject aSubject) {
+				return aSubject.getName();
 			};
 		});
 	}
@@ -359,9 +361,9 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	@SuppressWarnings("unchecked")
 	public void updateTables() {
-		((ReadOnlyTableModel<ClassroomAssignment>)assignmentsTable.getModel())
+		((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel())
 			.setModel(getAssignments());
-		((ReadOnlyTableModel<ClassroomRequest>)requestsTable.getModel())
+		((ReadOnlyTableModel<ClassroomRequest>) requestsTable.getModel())
 			.setModel(getRequests());
 	}
 

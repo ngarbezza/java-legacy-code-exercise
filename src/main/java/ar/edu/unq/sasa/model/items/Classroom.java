@@ -18,10 +18,10 @@ public class Classroom extends AssignableItem {
 
 	private List<FixedResource> resources;
 
-	public Classroom(String name, int capacity) {
-		super(name);
-		this.capacity = capacity;
-		this.resources = new LinkedList<FixedResource>();
+	public Classroom(String aName, int aCapacity) {
+		super(aName);
+		capacity = aCapacity;
+		resources = new LinkedList<FixedResource>();
 	}
 
 	public List<FixedResource> getResources() {
@@ -32,8 +32,8 @@ public class Classroom extends AssignableItem {
 		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setCapacity(int aCapacity) {
+		capacity = aCapacity;
 	}
 
 	public void addResource(FixedResource resource) {

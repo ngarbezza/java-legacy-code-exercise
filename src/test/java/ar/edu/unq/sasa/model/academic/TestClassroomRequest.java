@@ -24,8 +24,8 @@ public class TestClassroomRequest {
 	private Subject subject;
 	private Professor professor;
 
-	private Map<Resource,Integer> reqResources;
-	private Map<Resource,Integer> optResources;
+	private Map<Resource, Integer> reqResources;
+	private Map<Resource, Integer> optResources;
 
 	@Before
 	public void setUp() {
@@ -34,43 +34,44 @@ public class TestClassroomRequest {
 		subjects.add(subject);
 		professor = new Professor("prof", "123456", "profe@univ.com", subjects);
 		desiredHours = new SimplePeriod(new HourInterval(new Timestamp(8), new Timestamp(9)), new GregorianCalendar());
-		reqResources = new HashMap<Resource,Integer>();
-		optResources = new HashMap<Resource,Integer>();
-		classroomRequest = new ClassroomRequest(desiredHours, subject, professor, 98346, reqResources, optResources, 45);
+		reqResources = new HashMap<Resource, Integer>();
+		optResources = new HashMap<Resource, Integer>();
+		classroomRequest = new ClassroomRequest(
+				desiredHours, subject, professor, 98346, reqResources, optResources, 45);
 	}
 
 	@Test
-	public void test_elementsDoesNotRepeat() {
-		Set<Resource> optResources = this.classroomRequest.getOptionalResources().keySet();
-		Set<Resource> reqResources = this.classroomRequest.getRequiredResources().keySet();
+	public void elementsDoesNotRepeat() {
+		Set<Resource> optionalResourcesSet = classroomRequest.getOptionalResources().keySet();
+		Set<Resource> requiredResourcesSet = classroomRequest.getRequiredResources().keySet();
 
-		assertTrue(this.classroomRequest.getOptionalResources().size()==optResources.size());
-		assertTrue(this.classroomRequest.getRequiredResources().size()==reqResources.size());
+		assertTrue(classroomRequest.getOptionalResources().size() == optionalResourcesSet.size());
+		assertTrue(classroomRequest.getRequiredResources().size() == requiredResourcesSet.size());
 
-		for(Resource it1: optResources){
+		for (Resource it1 : optionalResourcesSet) {
 			int repQt = 0;
-			for(Resource it2: optResources)
-				if(it1.equals(it2))
+			for (Resource it2 : optionalResourcesSet)
+				if (it1.equals(it2))
 					repQt++;
-			assertTrue("Elements have repetitions",repQt<=1); //Because the element checked with itself counts
+			assertTrue("Elements have repetitions", repQt <= 1); //Because the element checked with itself counts
 		}
 	}
 
 	@Test
-	public void test_professorCanTeachTheSubjectInRequest() {
-		Subject subjectRequest = this.classroomRequest.getSubject();
+	public void professorCanTeachTheSubjectInRequest() {
+		Subject subjectRequest = classroomRequest.getSubject();
 		boolean founded = false;
 
-		for(Subject it : this.classroomRequest.getProfessor().getSubjects())
-			if(it.equals(subjectRequest))
+		for (Subject it : classroomRequest.getProfessor().getSubjects())
+			if (it.equals(subjectRequest))
 				founded = true;
 
-		assertTrue("The professor cannot teach the subject in request",founded);
+		assertTrue("The professor cannot teach the subject in request", founded);
 	}
 
 	@Test
-	public void test_capacityIsCorrectlySetted() {
-		assertTrue("Capacity is not rightly setted",this.classroomRequest.getCapacity()>0);
+	public void capacityIsCorrectlySetted() {
+		assertTrue("Capacity is not rightly setted", classroomRequest.getCapacity() > 0);
 	}
 
 }

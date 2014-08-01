@@ -62,7 +62,7 @@ public final class Main {
 		classroomsDepartment.createClassroom("Aula 7", 30);
 		classroomsDepartment.createClassroom("Aula 8", 30);
 		classroomsDepartment.createClassroom("Aula 9", 30);
-		classroomsDepartment.createClassroom("Aula 10",30);
+		classroomsDepartment.createClassroom("Aula 10", 30);
 
 		//creacion de 10 aulas de capacidad 15
 		classroomsDepartment.createClassroom("Aula 11", 15);
@@ -228,7 +228,7 @@ public final class Main {
 	    GregorianCalendar calendar2 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart2 = new Timestamp(8);
 	    Timestamp timeEnd2  = new Timestamp(12);
-	    LogicalHourFulfiller hour2 = new HourInterval(timeStart2,timeEnd2);
+	    LogicalHourFulfiller hour2 = new HourInterval(timeStart2, timeEnd2);
 	    Period desiredHours2 = new SimplePeriod(hour2, calendar2);
 
 	    //crear pedido
@@ -249,7 +249,7 @@ public final class Main {
 	    GregorianCalendar calendar3 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart3 = new Timestamp(8);
 	    Timestamp timeEnd3  = new Timestamp(12);
-	    LogicalHourFulfiller hour3 = new HourInterval(timeStart3,timeEnd3);
+	    LogicalHourFulfiller hour3 = new HourInterval(timeStart3, timeEnd3);
 	    Period desiredHours3 = new SimplePeriod(hour3, calendar3);
 
 	    //crear pedido
@@ -292,7 +292,7 @@ public final class Main {
 	    GregorianCalendar calendar5 = new GregorianCalendar(2010, Calendar.MARCH, 3);
 	    Timestamp timeStart5 = new Timestamp(8);
 	    Timestamp timeEnd5  = new Timestamp(12);
-	    LogicalHourFulfiller hour5 = new HourInterval(timeStart5,timeEnd5);
+	    LogicalHourFulfiller hour5 = new HourInterval(timeStart5, timeEnd5);
 	    Period desiredHours5 = new SimplePeriod(hour5, calendar5);
 
 	    //crear pedido
@@ -304,10 +304,10 @@ public final class Main {
 	    //Pedido 6
 	    //crear requisitos para los pedidos
 	    	//obligatorios
-	    Map<Resource,Integer> requiredResources6 = new HashMap<Resource, Integer>();
+	    Map<Resource, Integer> requiredResources6 = new HashMap<Resource, Integer>();
 	    requiredResources6.put(resourcesDepartment.createFixedResource("Proyector", 1), 1);
 	    	//opcionales
-	    Map<Resource,Integer> optionalResources6 = new HashMap<Resource, Integer>();
+	    Map<Resource, Integer> optionalResources6 = new HashMap<Resource, Integer>();
 	    optionalResources6.put(resourcesDepartment.createFixedResource("Luz Natural", 1), 1);
 	    	//fecha y hora
 	    GregorianCalendar calendar6 = new GregorianCalendar(2010, Calendar.MARCH, 3);

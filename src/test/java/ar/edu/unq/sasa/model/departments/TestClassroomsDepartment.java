@@ -38,7 +38,7 @@ public class TestClassroomsDepartment {
 		assertSame(foundClassroom, classroom);
 	}
 
-	@Test(expected=ClassroomException.class)
+	@Test(expected = ClassroomException.class)
 	public void testSearchClassroomInexistente() {
 		department.createClassroom("Aula 2", 40);
 		department.searchClassroom("Aula 5");
@@ -59,7 +59,7 @@ public class TestClassroomsDepartment {
 		assertEquals(30, classroom.getCapacity());
 	}
 
-	@Test(expected=ClassroomException.class)
+	@Test(expected = ClassroomException.class)
 	public void testModificarClassroomCapacityConNameErroneo() {
 		department.createClassroom("Aula 2", 40);
 		department.modifyClassroom("Aula 5", 30);
@@ -73,7 +73,7 @@ public class TestClassroomsDepartment {
 		assertEquals(resource, department.searchClassroom("Aula 2").getResource("PC"));
 	}
 
-	@Test(expected=ClassroomException.class)
+	@Test(expected = ClassroomException.class)
 	public void testModificarClassroomAddResourceConNameErroneo() {
 		FixedResource resource = new FixedResource("PC", 5);
 		department.createClassroom("Aula 2", 40);

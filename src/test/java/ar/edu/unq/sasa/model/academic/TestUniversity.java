@@ -20,11 +20,11 @@ public class TestUniversity {
 	}
 
 	@Test
-	public void testAddResource(){
+	public void testAddResource() {
 		MobileResource res = new MobileResource("Proyector", 0);
 		university.addResource(res);
 		List<MobileResource> resources = new LinkedList<MobileResource>();
-		resources.add(res) ;
+		resources.add(res);
  		assertEquals(resources, university.getMobileResources());
 	}
 }

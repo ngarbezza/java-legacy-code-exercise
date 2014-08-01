@@ -128,7 +128,8 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	private void createAddResourceWidgets() {
 		labelResource = new JLabel("Recurso");
 		labelAmount = new JLabel("Cantidad");
-		EasyComboBoxModel<Resource> comboModel = new EasyComboBoxModel<Resource>(department.getResourcesDepartment().getAllResources());
+		EasyComboBoxModel<Resource> comboModel = new EasyComboBoxModel<Resource>(
+				department.getResourcesDepartment().getAllResources());
 		resourceCombo = new JComboBox<Resource>(comboModel);
 		resourceCombo.addActionListener(new ActionListener() {
 			@Override
@@ -155,13 +156,13 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ResourceView newRes = new ResourceView(
-						(Resource)resourceCombo.getSelectedItem(),
-						(Integer)amountSelector.getValue());
+						(Resource) resourceCombo.getSelectedItem(),
+						(Integer) amountSelector.getValue());
 				List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
 				List<ResourceView> modelReq = getListModelFrom(requiredResourcesTable);
 				if (requiredRadioButton.isSelected()) {
 					addResource(modelReq, modelOpt, newRes);
-					((ReadOnlyTableModel<ResourceView>)requiredResourcesTable.getModel()).setModel(modelReq);
+					((ReadOnlyTableModel<ResourceView>) requiredResourcesTable.getModel()).setModel(modelReq);
 				} else {
 					addResource(modelOpt, modelReq, newRes);
 					((ReadOnlyTableModel<ResourceView>) optionalResourcesTable.getModel()).setModel(modelOpt);
@@ -178,11 +179,11 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				if (requiredResourcesTable.getSelectionModel().isSelectionEmpty()) {
 					ResourceView selection = getSelectionFrom(optionalResourcesTable);
 					modelOpt.remove(selection);
-					((ReadOnlyTableModel<ResourceView>)optionalResourcesTable.getModel()).setModel(modelOpt);
+					((ReadOnlyTableModel<ResourceView>) optionalResourcesTable.getModel()).setModel(modelOpt);
 				} else {
 					ResourceView selection = getSelectionFrom(requiredResourcesTable);
 					modelReq.remove(selection);
-					((ReadOnlyTableModel<ResourceView>)requiredResourcesTable.getModel()).setModel(modelReq);
+					((ReadOnlyTableModel<ResourceView>) requiredResourcesTable.getModel()).setModel(modelReq);
 				}
 			}
 		});
@@ -194,8 +195,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				for (ResourceView rv : model)
 					if (rv.getResource().equals(newRes.getResource()))
 						rv.setAmount(rv.getAmount() + (Integer) amountSelector.getValue());
-			}
-			else
+			} else
 				model.add(newRes);
 	}
 

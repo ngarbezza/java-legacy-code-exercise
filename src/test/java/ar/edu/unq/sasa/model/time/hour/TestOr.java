@@ -14,7 +14,7 @@ public class TestOr {
 	@Before
 	public void setUp() {
 		mockLeftOp = new HourInterval(new Timestamp(12), new Timestamp(13, 30));
-		mockRightOp= new HourInterval(new Timestamp(13), new Timestamp(17, 15));
+		mockRightOp = new HourInterval(new Timestamp(13), new Timestamp(17, 15));
 		orUnderTest = new Or(mockLeftOp, mockRightOp);
 	}
 

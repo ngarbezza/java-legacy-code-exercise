@@ -31,15 +31,11 @@ import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.period.NewPeriodWindow;
 import ar.edu.unq.sasa.gui.util.PeriodHolder;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
-import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Ventana para crear Reservas ({@link BookedAssignment})
- */
 public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder {
 
 	private static final long serialVersionUID = -2647344481569383686L;
@@ -101,7 +97,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 	}
 
 	private void createClassroomsTable() {
-		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(getClassroomsDepartment().searchClassroomByName(""));
+		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(
+				getClassroomsDepartment().searchClassroomByName(""));
 		addClassroomsColumns(tableModel);
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -121,15 +118,14 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelected = null;
 			acceptButton.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<Classroom> model = ((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).getModel();
+			List<Classroom> model = ((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).getModel();
 			classroomSelected = model.get(index);
 			if (period == null || cause.equals("") || cause == null)
 				acceptButton.setEnabled(false);
@@ -174,10 +170,10 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		searchTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
 				List<Classroom> res = getClassroomsDepartment().searchClassroomByName(text);
-				((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).setModel(res);
+				((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).setModel(res);
 			}
 		});
 	}
@@ -186,8 +182,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		JTextField field = new JTextField(20);
 		field.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
-				cause = ((JTextField)e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				cause = ((JTextField) anEvent.getSource()).getText();
 				if (cause.equals("") || period == null || classroomSelected == null)
 					acceptButton.setEnabled(false);
 				else
@@ -201,7 +197,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea crear la Reseva con esos datos?", "Aceptar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea crear la Reseva con esos datos?",
+						"Aceptar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					department.asignateBookedAssignment(classroomSelected, cause, period);
 					dispose();
 				}
@@ -213,7 +210,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la creacion de la Reserva?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la creacion de la Reserva?",
+						"Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					dispose();
 			}
 		});

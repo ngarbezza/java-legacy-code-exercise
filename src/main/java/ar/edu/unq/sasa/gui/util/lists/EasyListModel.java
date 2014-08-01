@@ -19,36 +19,36 @@ public class EasyListModel<T> extends AbstractListModel<T> {
 		this(new ArrayList<T>());
 	}
 
-	public EasyListModel(List<T> model) {
-		this.model = model;
+	public EasyListModel(List<T> aModel) {
+		model = aModel;
 	}
 
 	public List<T> getModel() {
 		return model;
 	}
 
-	public void setModel(List<T> model) {
-		this.model = model;
+	public void setModel(List<T> aModel) {
+		model = aModel;
 		fireContentsChanged(this, 0, getSize());
 	}
 
-	public void addItem(T item) {
-		this.model.add(item);
+	public void addItem(T anItem) {
+		model.add(anItem);
 		fireIntervalAdded(this, getSize() - 1, getSize());
 	}
 
-	public void removeItem(T item) {
-		this.model.remove(item);
+	public void removeItem(T anItem) {
+		model.remove(anItem);
 		fireIntervalRemoved(this, 0, getSize());
 	}
 
 	@Override
-	public T getElementAt(int index) {
-		return this.getModel().get(index);
+	public T getElementAt(int anIndex) {
+		return getModel().get(anIndex);
 	}
 
 	@Override
 	public int getSize() {
-		return this.getModel().size();
+		return getModel().size();
 	}
 }

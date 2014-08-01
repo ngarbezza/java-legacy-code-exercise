@@ -28,7 +28,8 @@ public class ClassroomAssignment extends AssignmentByRequest {
 
 	private Map<Resource, Integer> tempSatisfactionResources = new HashMap<Resource, Integer>();
 
-	public ClassroomAssignment(ClassroomRequest classroomRequest, Classroom aClassroom, List<ResourceAssignment> resourcesAssignmentsList) {
+	public ClassroomAssignment(ClassroomRequest classroomRequest, Classroom aClassroom,
+			List<ResourceAssignment> resourcesAssignmentsList) {
 		super(classroomRequest);
 		classroom = aClassroom;
 		resourcesAssignments = resourcesAssignmentsList;
@@ -81,8 +82,8 @@ public class ClassroomAssignment extends AssignmentByRequest {
 		Map<Period, Float> periodSuperpositions = new HashMap<Period, Float>();
 		float hours;
 		for (Entry<Period, Assignment> entryClass : classroom.getAssignments().entrySet())
-			if (! entryClass.getValue().equals(this))
-				if (entryClass.getKey().intersectsWith(period)){
+			if (!entryClass.getValue().equals(this))
+				if (entryClass.getKey().intersectsWith(period)) {
 					hours = entryClass.getKey().minutesSharedWithPeriod(period) / 60;
 					periodSuperpositions.put(entryClass.getKey(), hours);
 				}

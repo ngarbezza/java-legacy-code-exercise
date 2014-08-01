@@ -18,9 +18,6 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
 import ar.edu.unq.sasa.model.items.MobileResource;
 
-/**
- * ABM de recursos móviles. Permite también búsqueda por nombre.
- */
 public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource> {
 
 	private static final long serialVersionUID = -484671956803489488L;
@@ -94,10 +91,10 @@ public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource
 		input.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
 				List<MobileResource> res = department.searchResources(text);
-				((ReadOnlyTableModel<MobileResource>)table.getModel()).setModel(res);
+				((ReadOnlyTableModel<MobileResource>) table.getModel()).setModel(res);
 			}
 		});
 		return input;
@@ -130,7 +127,7 @@ public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<MobileResource>)table.getModel())
-		.setModel((List<MobileResource>)value);
+		((ReadOnlyTableModel<MobileResource>) table.getModel())
+		.setModel((List<MobileResource>) value);
 	}
 }

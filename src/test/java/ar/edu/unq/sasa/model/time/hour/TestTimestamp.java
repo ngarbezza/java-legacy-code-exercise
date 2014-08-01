@@ -15,14 +15,14 @@ public class TestTimestamp {
 
 	@Before
 	public void setUp() {
-		this.t_9_50 = new Timestamp(9, 50);
-		this.t_15_35 = new Timestamp(15, 35);
-		this.t_17_00 = new Timestamp(17);
-		this.t_22_15 = new Timestamp(22, 15);
+		t_9_50 = new Timestamp(9, 50);
+		t_15_35 = new Timestamp(15, 35);
+		t_17_00 = new Timestamp(17);
+		t_22_15 = new Timestamp(22, 15);
 	}
 
 	@Test
-	public void test_constructor() {
+	public void constructor() {
 		Timestamp t1 = new Timestamp(0, 45);
 		Timestamp t2 = new Timestamp(19);
 
@@ -32,48 +32,48 @@ public class TestTimestamp {
 		assertEquals(0, t2.getMinutes());
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnConstructWithNegativeHours() {
+	@Test(expected = TimestampException.class)
+	public void failOnConstructWithNegativeHours() {
 		new Timestamp(-1, 10);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnConstructWithNegativeMinutes() {
+	@Test(expected = TimestampException.class)
+	public void failOnConstructWithNegativeMinutes() {
 		new Timestamp(13, -4);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnSetNegativeHours() {
+	@Test(expected = TimestampException.class)
+	public void failOnSetNegativeHours() {
 		new Timestamp(12).setHour(-3);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnSetNegativeMinutes() {
+	@Test(expected = TimestampException.class)
+	public void failOnSetNegativeMinutes() {
 		new Timestamp(22, 10).setMinutes(-21);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnConstructWithMinutesGreaterThanAdmitted() {
+	@Test(expected = TimestampException.class)
+	public void failOnConstructWithMinutesGreaterThanAdmitted() {
 		new Timestamp(12, 62);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnConstructWithMinutesLessThanAdmitted() {
+	@Test(expected = TimestampException.class)
+	public void failOnConstructWithMinutesLessThanAdmitted() {
 		new Timestamp(8, -1);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnConstructWithHoursGreaterThanAdmitted() {
+	@Test(expected = TimestampException.class)
+	public void failOnConstructWithHoursGreaterThanAdmitted() {
 		new Timestamp(25);
 	}
 
-	@Test(expected=TimestampException.class)
-	public void test_failOnConstructWithHoursLessThanAdmitted() {
+	@Test(expected = TimestampException.class)
+	public void failOnConstructWithHoursLessThanAdmitted() {
 		new Timestamp(-1);
 	}
 
 	@Test
-	public void test_equalsOnEqualTimestamps() {
+	public void equalsOnEqualTimestamps() {
 		Timestamp t1 = new Timestamp(22, 15);
 		Timestamp t2 = new Timestamp(17, 0);
 
@@ -82,7 +82,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_equalsOnDifferentTimestamps() {
+	public void equalsOnDifferentTimestamps() {
 		Timestamp t1 = new Timestamp(23, 35);
 		Timestamp t2 = new Timestamp(9, 05);
 
@@ -91,7 +91,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_lessThanWhenTheConditionIsSatisfied() {
+	public void lessThanWhenTheConditionIsSatisfied() {
 		Timestamp t1 = new Timestamp(6, 45);
 		Timestamp t2 = new Timestamp(15, 8);
 
@@ -100,7 +100,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_lessThanWhenTheConditionIsntSatisfied() {
+	public void lessThanWhenTheConditionIsntSatisfied() {
 		Timestamp t1 = new Timestamp(10, 06);
 		Timestamp t2 = new Timestamp(15, 44);
 
@@ -109,7 +109,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_greaterThanWhenTheConditionIsSatisfied() {
+	public void greaterThanWhenTheConditionIsSatisfied() {
 		Timestamp t1 = new Timestamp(18, 40);
 		Timestamp t2 = new Timestamp(22, 16);
 
@@ -118,7 +118,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_greaterThanWhenTheConditionIsntSatisfied() {
+	public void greaterThanWhenTheConditionIsntSatisfied() {
 		Timestamp t1 = new Timestamp(7, 59);
 		Timestamp t2 = new Timestamp(15, 34);
 
@@ -127,7 +127,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_greaterEqual() {
+	public void greaterEqual() {
 		Timestamp t1 = new Timestamp(9, 50);
 		Timestamp t2 = new Timestamp(10);
 		Timestamp t3 = new Timestamp(9, 49);
@@ -138,7 +138,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_lessEqual() {
+	public void lessEqual() {
 		Timestamp t1 = new Timestamp(9, 49);
 		Timestamp t2 = new Timestamp(9);
 		Timestamp t3 = new Timestamp(9, 51);
@@ -149,10 +149,10 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_add() {
+	public void add() {
 		Timestamp t1exp = new Timestamp(9, 55); // sumo 5 a t_9_50
-		Timestamp t2exp = new Timestamp(10, 15);// sumo 25 a t_9_50
-		Timestamp t3exp = new Timestamp(11, 15);// sumo 85 a t_9_50
+		Timestamp t2exp = new Timestamp(10, 15); // sumo 25 a t_9_50
+		Timestamp t3exp = new Timestamp(11, 15); // sumo 85 a t_9_50
 
 		assertEquals(t1exp, t_9_50.add(5));
 		assertEquals(t2exp, t_9_50.add(25));
@@ -160,11 +160,11 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_substract() {
+	public void substract() {
 		Timestamp t1exp = new Timestamp(22, 10); // resto 5 a t_22_15
-		Timestamp t2exp = new Timestamp(21, 50);// resto 25 a t_22_15
-		Timestamp t3exp = new Timestamp(20, 50);// resto 85 a t_22_15
-		Timestamp t4exp = new Timestamp(20);// resto 135 a t_22_15
+		Timestamp t2exp = new Timestamp(21, 50); // resto 25 a t_22_15
+		Timestamp t3exp = new Timestamp(20, 50); // resto 85 a t_22_15
+		Timestamp t4exp = new Timestamp(20); // resto 135 a t_22_15
 
 		assertEquals(t1exp, t_22_15.substract(5));
 		assertEquals(t2exp, t_22_15.substract(25));
@@ -173,7 +173,7 @@ public class TestTimestamp {
 	}
 
 	@Test
-	public void test_minutesBetween() {
+	public void minutesBetween() {
 		assertEquals(t_9_50.minutesBetween(t_15_35), 345);
 		assertEquals(t_15_35.minutesBetween(t_17_00), 85);
 		assertEquals(t_17_00.minutesBetween(t_22_15), 315);

@@ -10,7 +10,8 @@ public class ClassroomRequest extends Request {
 
 	public int capacity;
 
-	public ClassroomRequest(Period desHours, Subject aSubject, Professor aProfessor, long anID, Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources, int aCapacity) {
+	public ClassroomRequest(Period desHours, Subject aSubject, Professor aProfessor,
+			long anID, Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources, int aCapacity) {
 		super(desHours, aSubject, aProfessor, anID, reqResources, optResources);
 
 		if (aCapacity <= 0)
@@ -19,11 +20,11 @@ public class ClassroomRequest extends Request {
 	}
 
 	public int getCapacity() {
-		return this.capacity;
+		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setCapacity(int aCapacity) {
+		capacity = aCapacity;
 	}
 
 	@Override

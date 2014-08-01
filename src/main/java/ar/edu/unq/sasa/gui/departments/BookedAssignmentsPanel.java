@@ -12,16 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import ar.edu.unq.sasa.gui.util.ObjectToStringConverter;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
 
-/**
- * Panel para mostrar las Reservas ({@link BookedAssignment}) del Sistema
- */
 public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssignment> {
 
 	private static final long serialVersionUID = -408242049018068843L;
@@ -40,10 +37,10 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 
 	@Override
 	protected void addColumns(ReadOnlyTableModel<BookedAssignment> tableModel) {
-		tableModel.addColumn("Aula", "assignableItem", new ObjectToStringConverter(){
+		tableModel.addColumn("Aula", "assignableItem", new ToStringConverter<Classroom>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Classroom)obj).getName();
+			public String convert(Classroom aClassroom) {
+				return aClassroom.getName();
 			};
 		});
 		tableModel.addColumn("Causa", "cause");
@@ -64,7 +61,8 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la reserva seleccionada?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la reserva seleccionada?",
+						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 				      department.deleteAssignment(selection);
 			}
 		});
@@ -101,9 +99,9 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 			@Override
 			@SuppressWarnings("unchecked")
 			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+				String text = ((JTextField) e.getSource()).getText();
 				List<BookedAssignment> res = BookedAssignmentsPanel.this.department.searchForBookedAssignment(text);
-				((ReadOnlyTableModel<BookedAssignment>)table.getModel()).setModel(res);
+				((ReadOnlyTableModel<BookedAssignment>) table.getModel()).setModel(res);
 			}
 		});
 		return field;
@@ -117,7 +115,6 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<BookedAssignment>)table.getModel()).setModel(getListModel());
+		((ReadOnlyTableModel<BookedAssignment>) table.getModel()).setModel(getListModel());
 	}
-
 }

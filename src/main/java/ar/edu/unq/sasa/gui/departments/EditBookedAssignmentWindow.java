@@ -17,10 +17,7 @@ import javax.swing.SwingUtilities;
 import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 
-/**
- * Ventana para editar una Reserva ({@link BookedAssignment})
- */
-public class EditBookedAssignmentWindow extends JFrame{
+public class EditBookedAssignmentWindow extends JFrame {
 
 	private static final long serialVersionUID = 2343559759639534499L;
 	private AssignmentsDepartment department;
@@ -60,8 +57,8 @@ public class EditBookedAssignmentWindow extends JFrame{
 		newCauseTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				String cause = ((JTextField)e.getSource()).getText();
-				if (! cause.equals("")){
+				String cause = ((JTextField) e.getSource()).getText();
+				if (!cause.equals("")) {
 					newCause = cause;
 					acceptButton.setEnabled(true);
 				} else
@@ -113,6 +110,4 @@ public class EditBookedAssignmentWindow extends JFrame{
 		bottomPanel.add(acceptButton);
 		bottomPanel.add(cancelButton);
 	}
-
-
 }
