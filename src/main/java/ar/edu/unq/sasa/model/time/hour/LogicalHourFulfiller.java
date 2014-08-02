@@ -2,9 +2,7 @@ package ar.edu.unq.sasa.model.time.hour;
 
 import java.util.List;
 
-/**
- * Representa todo lo referente a condiciones de intervalos flexibles de horas.
- */
+// TODO rename
 public abstract class LogicalHourFulfiller {
 
 	public abstract boolean contains(Timestamp t);

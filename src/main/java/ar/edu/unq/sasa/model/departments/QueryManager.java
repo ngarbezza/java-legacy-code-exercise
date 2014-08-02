@@ -45,15 +45,16 @@ public class QueryManager extends Department {
 		return this.classroomsThatSatisfyTheWholeRequest(req, true);
 	}
 
-	protected Collection<Classroom> classroomsThatSatisfyTheWholeRequest(ClassroomRequest req, boolean ignoreCommonAssignments) {
+	protected Collection<Classroom> classroomsThatSatisfyTheWholeRequest(
+			ClassroomRequest aRequest, boolean ignoreCommonAssignments) {
 		Collection<Classroom> result = this
-				.classroomsThatSatisfyCapacityRequirement(req);
-		result.retainAll(this.classroomsThatSatisfyTimeRequirements(req,
+				.classroomsThatSatisfyCapacityRequirement(aRequest);
+		result.retainAll(this.classroomsThatSatisfyTimeRequirements(aRequest,
 				ignoreCommonAssignments));
 
 		Map<FixedResource, Integer> resources = new HashMap<FixedResource, Integer>();
-		Map<Resource, Integer> totalResources = req.getRequiredResources();
-		totalResources.putAll(req.getOptionalResources());
+		Map<Resource, Integer> totalResources = aRequest.getRequiredResources();
+		totalResources.putAll(aRequest.getOptionalResources());
 		for (Entry<Resource, Integer> res : totalResources.entrySet())
 			if (res.getKey().isFixedResource())
 				resources.put((FixedResource) res.getKey(), res.getValue());
@@ -62,10 +63,11 @@ public class QueryManager extends Department {
 		return result;
 	}
 
-	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(ClassroomRequest req, boolean ignoreCommonAssignments) {
+	public Collection<Classroom> classroomsThatSatisfyTimeRequirements(
+			ClassroomRequest aRequest, boolean ignoreCommonAssignments) {
 		Set<Classroom> result = new HashSet<Classroom>();
 		for (Classroom c : getClassroomsDepartment().getClassrooms())
-			if (c.satisfyTimeRequirements(req, ignoreCommonAssignments))
+			if (c.satisfyTimeRequirements(aRequest, ignoreCommonAssignments))
 				result.add(c);
 		return result;
 	}
@@ -116,8 +118,7 @@ public class QueryManager extends Department {
 							|| day.get(Calendar.MINUTE) != 0)
 						currentStart = currentStart.substract(Period.MIN_HOUR_BLOCK);
 				}
-			}
-			else if (currentStart != null) {
+			} else if (currentStart != null) {
 				// cerrar el HourInterval y agregarlo a la lista
 				Timestamp end = new Timestamp(day.get(Calendar.HOUR_OF_DAY),
 						day.get(Calendar.MINUTE));

@@ -68,7 +68,7 @@ public class EditMobileResourceWindow extends AbstractEditWindow<MobileResource>
 
 	@Override
 	protected String getWindowTitle() {
-		return (inEditMode())? "Editar Recurso móvil" : "Nuevo Recurso móvil";
+		return inEditMode() ? "Editar Recurso móvil" : "Nuevo Recurso móvil";
 	}
 
 	@Override

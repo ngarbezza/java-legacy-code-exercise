@@ -28,8 +28,8 @@ import javax.swing.event.ListSelectionListener;
 import uic.layout.HorizontalLayout;
 import uic.layout.VerticalLayout;
 import ar.edu.unq.sasa.gui.period.PeriodDetailWindow;
-import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.items.Resource;
@@ -88,16 +88,16 @@ public class ShowSatisfactionWindow extends JFrame {
 	}
 
 	private void addResourceColumns(ReadOnlyTableModel<Pair<Resource, Integer>> tableModel) {
-		tableModel.addColumn("Recurso", "first", new ToStringConverter() {
+		tableModel.addColumn("Recurso", "first", new ToStringConverter<Resource>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Resource) obj).getName();
+			public String convert(Resource aResource) {
+				return aResource.getName();
 			};
 		});
-		tableModel.addColumn("Cantidad", "second", new ToStringConverter() {
+		tableModel.addColumn("Cantidad", "second", new ToStringConverter<Integer>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Integer) obj).toString();
+			public String convert(Integer anAmount) {
+				return anAmount.toString();
 			};
 		});
 	}
@@ -121,27 +121,24 @@ public class ShowSatisfactionWindow extends JFrame {
 		periodSuperpositionsTable = new JTable(tableModel);
 		periodSuperpositionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		periodSuperpositionsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				ShowSatisfactionWindow.this.whenPeriodTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				ShowSatisfactionWindow.this.whenPeriodTableSelectionChanged(anEvent);
 			}
 		});
-
 		periodSuperpositionsScrollPane = new JScrollPane(periodSuperpositionsTable);
-
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void whenPeriodTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
+	protected void whenPeriodTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			selectedPeriod = null;
 			showPeriodButton.setEnabled(false);
 		} else {
 			int index = source.getMinSelectionIndex();
 			List<Pair<Period, Float>> model =
-					((ReadOnlyTableModel<Pair<Period, Float>>)periodSuperpositionsTable.getModel()).getModel();
+					((ReadOnlyTableModel<Pair<Period, Float>>) periodSuperpositionsTable.getModel()).getModel();
 			selectedPeriod = (Period) model.get(index).getFirst();
 			showPeriodButton.setEnabled(true);
 		}
@@ -160,18 +157,18 @@ public class ShowSatisfactionWindow extends JFrame {
 	}
 
 	private void addPeriodSuperpositionsColumns(ReadOnlyTableModel<Pair<Period, Float>> tableModel) {
-		tableModel.addColumn("Tipo", "first", new ToStringConverter() {
+		tableModel.addColumn("Tipo", "first", new ToStringConverter<Period>() {
 			@Override
-			public String convert(Object obj) {
-				return assignment.getAssignableItem().getAssignments().get(obj).isBookedAssignment()
+			public String convert(Period aPeriod) {
+				return assignment.getAssignableItem().getAssignments().get(aPeriod).isBookedAssignment()
 						? "(Reserva)"
 						: "(Asignacion por Pedido)";
 			};
 		});
-		tableModel.addColumn("Cantidad de Horas", "second", new ToStringConverter() {
+		tableModel.addColumn("Cantidad de Horas", "second", new ToStringConverter<Float>() {
 			@Override
-			public String convert(Object obj) {
-				return "Superpuesta " + ((Float) obj).toString() + " hs";
+			public String convert(Float anAmount) {
+				return "Superpuesta " + anAmount.toString() + " hs";
 			};
 		});
 	}

@@ -23,13 +23,15 @@ public class TestAnd {
 	@Before
 	public void setUp() {
 		someHourInterval = new HourInterval(new Timestamp(10), new Timestamp(14));
-		leftExpression = new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 22), new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 5)));
-		rightExpression= new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 24), new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 3)));
+		leftExpression = new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 22),
+				new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 5)));
+		rightExpression = new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 24),
+				new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 3)));
 		andUnderTest = new And(leftExpression, rightExpression);
 	}
 
 	@Test
-	public void test_containsCalendar() {
+	public void containsCalendar() {
 		// TODO split and put good names
 		assertFalse(andUnderTest.contains(new GregorianCalendar(2014, Calendar.JULY, 23, 11, 0)));
 		assertFalse(andUnderTest.contains(new GregorianCalendar(2014, Calendar.AUGUST, 4, 11, 0)));
@@ -38,7 +40,7 @@ public class TestAnd {
 	}
 
 	@Test
-	public void test_containsLogicalDateFulfiller() {
+	public void containsLogicalDateFulfiller() {
 		assertFalse(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 23))));
 		assertFalse(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 4))));
 		assertFalse(andUnderTest.contains(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 12))));
@@ -46,13 +48,13 @@ public class TestAnd {
 	}
 
 	@Test
-	public void test_isIn() {
+	public void isIn() {
 		assertTrue(andUnderTest.isIn(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
 		assertFalse(andUnderTest.isIn(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
 	}
 
 	@Test
-	public void test_intersectsWith() {
+	public void intersectsWith() {
 		assertTrue(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Daily(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
 		assertFalse(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.JULY, 21), new Weekly(new GregorianCalendar(2014, Calendar.AUGUST, 6)))));
 		assertFalse(andUnderTest.intersectsWith(new SimplePeriod(someHourInterval, new GregorianCalendar(2014, Calendar.AUGUST, 10))));

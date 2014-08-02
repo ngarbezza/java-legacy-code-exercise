@@ -21,14 +21,14 @@ public class SimplePeriod extends Period {
 
 	private LogicalHourFulfiller hourFulfiller;
 
-	public SimplePeriod(LogicalHourFulfiller lhf, Calendar start) {
-		this(lhf, start, new None());
+	public SimplePeriod(LogicalHourFulfiller lhf, Calendar aStartDate) {
+		this(lhf, aStartDate, new None());
 	}
 
-	public SimplePeriod(LogicalHourFulfiller lhf, Calendar start, Repetition rep) {
-		this.hourFulfiller = lhf;
-		this.start = start;
-		this.repetition = rep;
+	public SimplePeriod(LogicalHourFulfiller lhf, Calendar aStartDate, Repetition aRepetition) {
+		hourFulfiller = lhf;
+		start = aStartDate;
+		repetition = aRepetition;
 	}
 
 	public LogicalHourFulfiller getHourFulfiller() {

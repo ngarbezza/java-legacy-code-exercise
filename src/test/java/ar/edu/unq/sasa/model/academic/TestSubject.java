@@ -15,7 +15,7 @@ public class TestSubject {
 	}
 
 	@Test
-	public void test_GetName() {
+	public void getName() {
 		assertEquals("Álgebra y Geometría Analítica", subject.getName());
 	}
 }

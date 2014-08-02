@@ -18,11 +18,11 @@ public class TestHourInterval {
 
 	@Before
 	public void setUp() {
-		this.hInterval = new HourInterval(new Timestamp(17, 30), new Timestamp(19));
+		hInterval = new HourInterval(new Timestamp(17, 30), new Timestamp(19));
 	}
 
 	@Test
-	public void test_constructor() {
+	public void constructor() {
 		Timestamp t1 = new Timestamp(1, 20);
 		Timestamp t2 = new Timestamp(5, 30);
 		HourInterval hi = new HourInterval(t1, t2);
@@ -32,7 +32,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_containsTimestampWhenTheConditionIsSatisfied() {
+	public void containsTimestampWhenTheConditionIsSatisfied() {
 		Timestamp t1 = new Timestamp(17, 30);
 		Timestamp t2 = new Timestamp(19);
 		Timestamp t3 = new Timestamp(18, 22);
@@ -46,7 +46,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_containsTimestampWhenTheConditionIsntSatisfied() {
+	public void containsTimestampWhenTheConditionIsntSatisfied() {
 		Timestamp t1 = new Timestamp(17);
 		Timestamp t2 = new Timestamp(22);
 
@@ -57,7 +57,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_containsLogicalHourFulfiller() {
+	public void containsLogicalHourFulfiller() {
 		// sólo se testea por envío de mensaje, pues este método
 		// se resuelve por double-dispatching.
 		LogicalHourFulfiller mock = createMock(LogicalHourFulfiller.class);
@@ -68,7 +68,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_isInWhenTheConditionIsSatisfied() {
+	public void isInWhenTheConditionIsSatisfied() {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(22));
 		HourInterval hi2 = new HourInterval(new Timestamp(17, 30), new Timestamp(23));
 		HourInterval hi3 = new HourInterval(new Timestamp(16, 30), new Timestamp(19));
@@ -82,7 +82,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_isInWhenTheConditionIsntSatisfied() {
+	public void isInWhenTheConditionIsntSatisfied() {
 		HourInterval hi1 = new HourInterval(new Timestamp(9), new Timestamp(12));
 		HourInterval hi2 = new HourInterval(new Timestamp(19, 30), new Timestamp(23));
 		HourInterval hi3 = new HourInterval(new Timestamp(16), new Timestamp(18));
@@ -99,7 +99,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_intersectsWithWhenTheConditionIsSatisfied() {
+	public void intersectsWithWhenTheConditionIsSatisfied() {
 		// lo contiene, por lo tanto lo intersecta
 		HourInterval hi1 = new HourInterval(new Timestamp(18), new Timestamp(18, 30));
 		// es contenido, por lo tanto hay intersección también
@@ -115,7 +115,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_intersectsWithWhenTheConditionIsntSatisfied() {
+	public void intersectsWithWhenTheConditionIsntSatisfied() {
 		// intervalos totalmente disjuntos
 		HourInterval hi1 = new HourInterval(new Timestamp(8), new Timestamp(12));
 		HourInterval hi2 = new HourInterval(new Timestamp(19, 30), new Timestamp(22));
@@ -130,7 +130,7 @@ public class TestHourInterval {
 	}
 
 	@Test
-	public void test_getConcreteIntervals() {
+	public void getConcreteIntervals() {
 		HourInterval hi1 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 120);
 		HourInterval hi2 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 60);
 		HourInterval hi3 = new HourInterval(new Timestamp(12), new Timestamp(16, 30), 150);

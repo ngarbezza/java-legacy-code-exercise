@@ -29,8 +29,8 @@ import javax.swing.event.ListSelectionListener;
 
 import uic.layout.HorizontalLayout;
 import uic.layout.VerticalLayout;
-import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.Pair;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxModel;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxRenderer;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
@@ -65,7 +65,7 @@ public class ResourcesSelectionWindow extends JFrame {
 
 	private AssignmentsDepartment department;
 
-	public ResourcesSelectionWindow(AssignmentsDepartment assignmentsDepartment, AsignateRequestWindow aParentFrame){
+	public ResourcesSelectionWindow(AssignmentsDepartment assignmentsDepartment, AsignateRequestWindow aParentFrame) {
 		department = assignmentsDepartment;
 		parentFrame = aParentFrame;
 		resourcesSelected.addAll(aParentFrame.getResourcesSelection());
@@ -325,7 +325,8 @@ public class ResourcesSelectionWindow extends JFrame {
 	}
 
 	private void createResourcesTable() {
-		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel = new ReadOnlyTableModel<Pair<Resource, Integer>>(resourcesSelected);
+		ReadOnlyTableModel<Pair<Resource, Integer>> tableModel =
+				new ReadOnlyTableModel<Pair<Resource, Integer>>(resourcesSelected);
 		addResourcesColumns(tableModel);
 		resourcesTable = new JTable(tableModel);
 		resourcesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -347,23 +348,24 @@ public class ResourcesSelectionWindow extends JFrame {
 			removeResourceButton.setEnabled(false);
 		} else {
 			int index = source.getMinSelectionIndex();
-			List<Pair<Resource, Integer>> model = ((ReadOnlyTableModel<Pair<Resource, Integer>>) resourcesTable.getModel()).getModel();
+			List<Pair<Resource, Integer>> model =
+					((ReadOnlyTableModel<Pair<Resource, Integer>>) resourcesTable.getModel()).getModel();
 			resourceSelection = model.get(index);
 			removeResourceButton.setEnabled(true);
 		}
 	}
 
 	private void addResourcesColumns(ReadOnlyTableModel<Pair<Resource, Integer>> tableModel) {
-		tableModel.addColumn("Recurso", "first", new ToStringConverter() {
+		tableModel.addColumn("Recurso", "first", new ToStringConverter<Resource>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Resource) obj).getName();
+			public String convert(Resource aResource) {
+				return aResource.getName();
 			};
 		});
-		tableModel.addColumn("Cantidad", "second", new ToStringConverter() {
+		tableModel.addColumn("Cantidad", "second", new ToStringConverter<Integer>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Integer) obj).toString();
+			public String convert(Integer anAmount) {
+				return anAmount.toString();
 			};
 		});
 	}

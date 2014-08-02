@@ -45,7 +45,7 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_satisfactionsFromClassroomAndRequest()	{
+	public void satisfactionsFromClassroomAndRequest()	{
 		LogicalHourFulfiller logicHourFul1 = new HourInterval(new Timestamp(10), new Timestamp(12));
 
 		Period desHours = new SimplePeriod(logicHourFul1, new GregorianCalendar(2010, Calendar.DECEMBER, 5));
@@ -71,7 +71,7 @@ public class TestQueryManager {
 
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
 	@Test
-	public void test_freeHoursInAnAssignableItemInADayWhenAllIsBusy() {
+	public void freeHoursInAnAssignableItemInADayWhenAllIsBusy() {
 		AssignableItem itemMock = createMock(AssignableItem.class);
 		Calendar day = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		for (int i = 0; i < 47; i++) {
@@ -85,7 +85,7 @@ public class TestQueryManager {
 
 	// asumiendo que Period.MIN_HOUR_BLOCK vale 30 siempre
 	@Test
-	public void test_freeHoursInAnAssignableItemInADayOnlyOneIntervalFree() {
+	public void freeHoursInAnAssignableItemInADayOnlyOneIntervalFree() {
 		AssignableItem itemMock = createMock(AssignableItem.class);
 		Calendar day = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		for (int i = 0; i < 22; i++) {		// ocupada hasta las 10:30 hs
@@ -109,7 +109,7 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_freeHoursInAnAssignableItemInADayMoreThanOneIntervalFree() {
+	public void freeHoursInAnAssignableItemInADayMoreThanOneIntervalFree() {
 		AssignableItem itemMock = createMock(AssignableItem.class);
 		Calendar day = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		for (int i = 0; i < 22; i++) {	// ocupada hasta las 10:30 hs
@@ -142,7 +142,7 @@ public class TestQueryManager {
 	}
 
 	@Test
-	public void test_classroomsThatSatisfyCapacityRequirement() {
+	public void classroomsThatSatisfyCapacityRequirement() {
 		Classroom classroom1 = new Classroom("Aula 30", 15);
 		Classroom classroom2 = new Classroom("Aula 62", 22);
 		Classroom classroom3 = new Classroom("Aula 15", 8);

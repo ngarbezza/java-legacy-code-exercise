@@ -17,8 +17,8 @@ public abstract class EndingRepetition extends Repetition {
 
 	private Calendar end;
 
-	public EndingRepetition(Calendar end) {
-		this.end = end;
+	public EndingRepetition(Calendar anEndDate) {
+		end = anEndDate;
 	}
 
 	public Calendar getEnd() {
@@ -61,19 +61,18 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	protected boolean isOutOfBounds(Calendar c, Calendar start) {
-		return compareLess(c, start) || compareEquals(c, start)
-			||compareGreater(c, getEnd());
+		return compareLess(c, start) || compareEquals(c, start) || compareGreater(c, end);
 	}
 
 	protected boolean hasNextDate(Calendar c) {
-		return !compareGreater(getNextDate(c), getEnd());
+		return !compareGreater(getNextDate(c), end);
 	}
 
 	protected abstract Calendar getNextDate(Calendar c);
 
 	@Override
 	protected String getRepetitionText() {
-		return " hasta el " + new SimpleDateFormat("dd/MM/yyyy").format(getEnd().getTime());
+		return " hasta el " + new SimpleDateFormat("dd/MM/yyyy").format(end.getTime());
 	}
 
 	@Override

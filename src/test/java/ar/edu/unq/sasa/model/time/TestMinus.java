@@ -19,14 +19,14 @@ public class TestMinus {
 
 	@Before
 	public void setUp() {
-		this.mockLeftOp = createMock(Period.class);
-		this.mockRightOp= createMock(Period.class);
-		this.minusUnderTest = new Minus(mockLeftOp, mockRightOp);
+		mockLeftOp = createMock(Period.class);
+		mockRightOp = createMock(Period.class);
+		minusUnderTest = new Minus(mockLeftOp, mockRightOp);
 	}
 
 	@Test
-	public void test_containsCalendar() {
-		Calendar calendarMock= createMock(Calendar.class);
+	public void containsCalendar() {
+		Calendar calendarMock = createMock(Calendar.class);
 		expect(mockLeftOp.contains(calendarMock))
 			.andReturn(false).andReturn(false)
 			.andReturn(true).andReturn(true);
@@ -44,7 +44,7 @@ public class TestMinus {
 	}
 
 	@Test
-	public void test_containsLogicalDateFulfiller() {
+	public void containsLogicalDateFulfiller() {
 		Period ldfMock = createMock(Period.class);
 		expect(mockLeftOp.contains(ldfMock))
 			.andReturn(false).andReturn(false)
@@ -61,7 +61,7 @@ public class TestMinus {
 	}
 
 	@Test
-	public void test_isIn() {
+	public void isIn() {
 		SimplePeriod sdfMock = createMock(SimplePeriod.class);
 		expect(mockLeftOp.isIn(sdfMock))
 			.andReturn(false).andReturn(false)
@@ -78,7 +78,7 @@ public class TestMinus {
 	}
 
 	@Test
-	public void test_intersectsWith() {
+	public void intersectsWith() {
 		Period ldfMock = createMock(Period.class);
 		expect(mockLeftOp.intersectsWith(ldfMock))
 			.andReturn(false).andReturn(false)

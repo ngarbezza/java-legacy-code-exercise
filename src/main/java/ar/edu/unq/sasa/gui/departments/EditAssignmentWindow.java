@@ -32,9 +32,6 @@ import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Ventana para Editar una {@link ClassroomAssignment}.
- */
 public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 
 	private static final long serialVersionUID = 4976218465593759722L;
@@ -100,15 +97,16 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField)e.getSource()).getText();
+				String text = ((JTextField) e.getSource()).getText();
 				List<Classroom> res = department.getClassroomsDepartment().searchClassroomByName(text);
-				((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).setModel(res);
+				((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).setModel(res);
 			}
 		});
 	}
 
 	private void createClassroomsTable() {
-		ReadOnlyTableModel<Classroom> tableModel = new ReadOnlyTableModel<Classroom>(department.getClassroomsDepartment().searchClassroomByName(""));
+		ReadOnlyTableModel<Classroom> tableModel =
+				new ReadOnlyTableModel<Classroom>(department.getClassroomsDepartment().searchClassroomByName(""));
 		addClassroomsColumns(tableModel);
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -128,21 +126,17 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelected = null;
 			moveAssignmentOfClassroomButton.setEnabled(false);
 			System.out.println("Entre!!");
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<Classroom> model = ((ReadOnlyTableModel<Classroom>)classroomsTable.getModel()).getModel();
+			List<Classroom> model = ((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).getModel();
 			classroomSelected = model.get(index);
-			if (classroomSelected.equals(assignment.getAssignableItem()))
-				moveAssignmentOfClassroomButton.setEnabled(false);
-			else
-				moveAssignmentOfClassroomButton.setEnabled(true);
+			moveAssignmentOfClassroomButton.setEnabled(!classroomSelected.equals(assignment.getAssignableItem()));
 		}
 	}
 
@@ -162,7 +156,7 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	private void createChangePeriodButtonListeners() {
 		changePeriodButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new NewPeriodWindow(EditAssignmentWindow.this);
 			}
 		});
@@ -171,8 +165,9 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	private void createMoveAssignmentOfClassroomButtonButtonListeners() {
 		moveAssignmentOfClassroomButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar la asignación al aula elegida?", "Cambio de Aula", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			public void actionPerformed(ActionEvent anEvent) {
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar la asignación al aula elegida?",
+						"Cambio de Aula", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					department.moveAssignmentOfClassroom(assignment, classroomSelected);
 					dispose();
 				}
@@ -183,8 +178,9 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	private void createMoveAssignmentOfPeriodButtonButtonListeners() {
 		moveAssignmentOfPeriodButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar el periodo de la asignación?", "Cambio de Periodo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			public void actionPerformed(ActionEvent anEvent) {
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar el periodo de la asignación?",
+						"Cambio de Periodo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					department.moveAssignmentOfPeriod(assignment, period);
 					dispose();
 				}
@@ -195,8 +191,9 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	private void createCancelButtonListeners() {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?", "Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			public void actionPerformed(ActionEvent anEvent) {
+				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?",
+						"Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					dispose();
 			}
 		});

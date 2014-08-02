@@ -81,7 +81,7 @@ public class TestResourcesDepartment {
 		verify(fixedResource);
 	}
 
-	@Test(expected=ResourceException.class)
+	@Test(expected = ResourceException.class)
 	public void testModifyPositiveResourceAmount() {
 		resourcesDepartment.modifyResource(fixedResource, -10);
 	}

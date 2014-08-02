@@ -27,7 +27,7 @@ public class TestDaily {
 	}
 
 	@Test
-	public void test_containsInSomeRepetitionWhenTheConditionIsSatisfied() {
+	public void containsInSomeRepetitionWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		Calendar current = (Calendar) start.clone();
 		current.add(Calendar.DAY_OF_MONTH, 1);
@@ -38,7 +38,7 @@ public class TestDaily {
 	}
 
 	@Test
-	public void test_containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
+	public void containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		Calendar c1 = new GregorianCalendar(2010, Calendar.MAY, 28);
 		Calendar c2 = new GregorianCalendar(2010, Calendar.JULY, 11);
@@ -52,14 +52,14 @@ public class TestDaily {
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() {
+	public void thereIsSomeDayInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 28), dailyRep);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		assertTrue(dailyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() {
+	public void thereIsSomeDayInWhenTheConditionIsntSatisfied() {
 		Repetition dailyRepetitionUntilJune14 = new Daily(new GregorianCalendar(2010, Calendar.JUNE, 14));
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 2), dailyRepetitionUntilJune14);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
@@ -67,14 +67,14 @@ public class TestDaily {
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsSatisfied() {
+	public void isAllDaysInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 16), dailyRep);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		assertTrue(dailyRep.isAllDaysIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsntSatisfied() {
+	public void isAllDaysInWhenTheConditionIsntSatisfied() {
 		Repetition dailyRepetitionUntilJune14 = new Daily(new GregorianCalendar(2010, Calendar.JUNE, 14));
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 2), dailyRepetitionUntilJune14);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);

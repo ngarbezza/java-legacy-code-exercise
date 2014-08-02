@@ -16,18 +16,18 @@ public class HourInterval extends LogicalHourFulfiller {
 
 	private final int minutesInRange;
 
-	public HourInterval(Timestamp start, Timestamp end) {
-		this(start, end, start.minutesBetween(end));
+	public HourInterval(Timestamp aStartTimestamp, Timestamp anEndTimestamp) {
+		this(aStartTimestamp, anEndTimestamp, aStartTimestamp.minutesBetween(anEndTimestamp));
 	}
 
-	public HourInterval(Timestamp start, Timestamp end, int range) {
-		if (start.greaterEqual(end))
+	public HourInterval(Timestamp aStartTimestamp, Timestamp anEndTimestamp, int someMinutes) {
+		if (aStartTimestamp.greaterEqual(anEndTimestamp))
 			throw new PeriodException("La hora inicial debe ser menor a la final");
-		if (range > start.minutesBetween(end))
+		if (someMinutes > aStartTimestamp.minutesBetween(anEndTimestamp))
 			throw new PeriodException("La cantidad de horas en el rango es incorrecta");
-		this.minutesInRange = range;
-		this.start = start;
-		this.end = end;
+		minutesInRange = someMinutes;
+		start = aStartTimestamp;
+		end = anEndTimestamp;
 	}
 
 	public Timestamp getStart() {

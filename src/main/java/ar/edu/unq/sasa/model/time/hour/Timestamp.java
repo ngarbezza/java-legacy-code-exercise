@@ -8,17 +8,19 @@ import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
  */
 public class Timestamp {
 
+	// TODO try to not have setters
+
 	private int hour;
 
 	private int minutes;
 
-	public Timestamp(int h) {
-		this.setHour(h);
+	public Timestamp(int anHour) {
+		setHour(anHour);
 	}
 
-	public Timestamp(int h, int m) {
-		this(h);
-		this.setMinutes(m);
+	public Timestamp(int anHour, int someMinutes) {
+		this(anHour);
+		setMinutes(someMinutes);
 	}
 
 	public int getHour() {
@@ -29,16 +31,16 @@ public class Timestamp {
 		return minutes;
 	}
 
-	public void setHour(int hour) {
-		if (hour >= 0 && hour < 24)
-			this.hour = hour;
+	public void setHour(int anHour) {
+		if (anHour >= 0 && anHour < 24)
+			hour = anHour;
 		else
 			throw new TimestampException("Hour out of range");
 	}
 
-	public void setMinutes(int minutes) {
-		if (minutes >= 0 && minutes < 60)
-			this.minutes = minutes;
+	public void setMinutes(int someMinutes) {
+		if (someMinutes >= 0 && someMinutes < 60)
+			minutes = someMinutes;
 		else
 			throw new TimestampException("Minutes out of range");
 	}
@@ -64,28 +66,29 @@ public class Timestamp {
 		return !this.greaterThan(other);
 	}
 
-	public Timestamp add(int min) {
-		int minutes = min + this.getMinutes();
-		int hours = this.getHour();
-		while (minutes >= 60) {
-			minutes = minutes - 60;
-			hours++;
+	public Timestamp add(int someMinutes) {
+		int newMinutes = someMinutes + getMinutes();
+		int newHours = getHour();
+		while (newMinutes >= 60) {
+			newMinutes = newMinutes - 60;
+			newHours++;
 		}
-		return new Timestamp(hours, minutes);
+		return new Timestamp(newHours, newMinutes);
 	}
 
-	public Timestamp substract(int min) {
-		int minutes = this.getMinutes() - min;
-		int hours = this.getHour();
-		while (minutes < 0) {
-			minutes = minutes + 60;
-			hours--;
+	public Timestamp substract(int someMinutes) {
+		int newMinutes = getMinutes() - someMinutes;
+		int newHours = getHour();
+		while (newMinutes < 0) {
+			newMinutes = newMinutes + 60;
+			newHours--;
 		}
-		return new Timestamp(hours, minutes);
+		return new Timestamp(newHours, newMinutes);
 	}
 
 	public int minutesBetween(Timestamp t) {
-		int myMinutes = this.getHour() * 60 + this.getMinutes();
+		// TODO have a message #totalMinutes
+		int myMinutes = getHour() * 60 + getMinutes();
 		int tMinutes = t.getHour() * 60 + t.getMinutes();
 		return tMinutes - myMinutes;
 	}

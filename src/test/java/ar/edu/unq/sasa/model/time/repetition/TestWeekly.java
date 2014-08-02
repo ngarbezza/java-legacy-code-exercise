@@ -26,7 +26,7 @@ public class TestWeekly {
 	}
 
 	@Test
-	public void test_containsInSomeRepetitionWhenTheConditionIsSatisfied() {
+	public void containsInSomeRepetitionWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		// todos los resultados semanales posibles
 		Calendar c1 = new GregorianCalendar(2010, Calendar.JUNE, 21);
@@ -43,7 +43,7 @@ public class TestWeekly {
 	}
 
 	@Test
-	public void test_containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
+	public void containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
 		// TODO hacer tests separados por cada caso
 		// 14/6 : es fecha inicial.
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
@@ -64,28 +64,28 @@ public class TestWeekly {
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() {
+	public void thereIsSomeDayInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 28));
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertTrue(weeklyRepetition.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() {
+	public void thereIsSomeDayInWhenTheConditionIsntSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 13));
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertFalse(weeklyRepetition.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsSatisfied() {
+	public void isAllDaysInWhenTheConditionIsSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 21), weeklyRepetition);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertTrue(weeklyRepetition.isAllDaysIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsntSatisfied() {
+	public void isAllDaysInWhenTheConditionIsntSatisfied() {
 		SimplePeriod period = new SimplePeriod(someHourInterval, new GregorianCalendar(2010, Calendar.JUNE, 21), weeklyRepetition);
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 15);
 		assertFalse(weeklyRepetition.isAllDaysIn(period, start));

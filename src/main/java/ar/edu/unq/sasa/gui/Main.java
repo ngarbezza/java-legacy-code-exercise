@@ -38,8 +38,11 @@ public final class Main {
 		addSampleValues(university);
 
 		// INTERFAZ GRÁFICA
-		try { UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); }
-		catch (Exception e) { throw new RuntimeException(e); }
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
 		new MainWindow(university);
 	}
@@ -106,11 +109,11 @@ public final class Main {
 	    classroomsDepartment.modifyClassroomAddResource("Aula 3", resourcesDepartment.createFixedResource("Proyector", 1));
 
 	    //Agrego a 5 aulas de 15, 15 computadoras
-	    classroomsDepartment.modifyClassroomAddResource("Aula 11", resourcesDepartment.createFixedResource("Computadora", 30) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 12", resourcesDepartment.createFixedResource("Computadora", 30) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 13", resourcesDepartment.createFixedResource("Computadora", 30) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 14", resourcesDepartment.createFixedResource("Computadora", 30) );
-	    classroomsDepartment.modifyClassroomAddResource("Aula 15", resourcesDepartment.createFixedResource("Computadora", 30) );
+	    classroomsDepartment.modifyClassroomAddResource("Aula 11", resourcesDepartment.createFixedResource("Computadora", 30));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 12", resourcesDepartment.createFixedResource("Computadora", 30));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 13", resourcesDepartment.createFixedResource("Computadora", 30));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 14", resourcesDepartment.createFixedResource("Computadora", 30));
+	    classroomsDepartment.modifyClassroomAddResource("Aula 15", resourcesDepartment.createFixedResource("Computadora", 30));
 
 	    //Agrego a 8 aulas de 15, 1 proyector
 	    classroomsDepartment.modifyClassroomAddResource("Aula 11", resourcesDepartment.createFixedResource("Proyector", 1));

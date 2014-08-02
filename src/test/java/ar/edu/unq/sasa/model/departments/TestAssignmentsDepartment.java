@@ -90,12 +90,14 @@ public class TestAssignmentsDepartment {
 		Period desHours2 = period2;
 		Map<Resource, Integer> reqResources2 = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources2 = new HashMap<Resource, Integer>();
-		classroomRequest = new ClassroomRequest(desHours2, subject, professor, anID, reqResources2, optResources2, capacity);
+		classroomRequest =
+				new ClassroomRequest(desHours2, subject, professor, anID, reqResources2, optResources2, capacity);
 	}
 
 	@Test
-	public void test_asignateResourceAssignment() {
-		ResourceAssignment resourceAssignment1 = assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
+	public void asignateResourceAssignment() {
+		ResourceAssignment resourceAssignment1 =
+				assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
 		ResourceAssignment resourceAssignment2 = new ResourceAssignment(mobileResourcesRequest, mobileResource1);
 
 		assertEquals(resourceAssignment1, resourceAssignment2);
@@ -103,8 +105,9 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_asignateBookedAssignment() {
-		BookedAssignment bookedAssignment1 = assignmentsDepartment.asignateBookedAssignment(classroom1, "Limpieza", period1);
+	public void asignateBookedAssignment() {
+		BookedAssignment bookedAssignment1 =
+				assignmentsDepartment.asignateBookedAssignment(classroom1, "Limpieza", period1);
 		BookedAssignment bookedAssignment2 = new BookedAssignment("Limpieza", classroom1);
 
 		BookedAssignment storedBookeadAssignment = null;
@@ -119,10 +122,12 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_asignateClassroomAssignment() {
-		ClassroomAssignment classroomAssignment1 = assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period1);
+	public void asignateClassroomAssignment() {
+		ClassroomAssignment classroomAssignment1 =
+				assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period1);
 		List<ResourceAssignment> resourcesAssignmentsList = new ArrayList<ResourceAssignment>();
-		ClassroomAssignment classroomAssignment2 = new ClassroomAssignment(classroomRequest, classroom1, resourcesAssignmentsList);
+		ClassroomAssignment classroomAssignment2 =
+				new ClassroomAssignment(classroomRequest, classroom1, resourcesAssignmentsList);
 		classroom1.addAssignment(period2, classroomAssignment2);
 		classroomAssignment2.createSatisfaction();
 
@@ -136,15 +141,17 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_asignateRequestInAClassroom() {
-		ClassroomAssignment classroomAssignment1 = assignmentsDepartment.asignateRequestInAClassroom(classroomRequest, classroom1);
-		ClassroomAssignment classroomAssignment2 = assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period2);
+	public void asignateRequestInAClassroom() {
+		ClassroomAssignment classroomAssignment1 =
+				assignmentsDepartment.asignateRequestInAClassroom(classroomRequest, classroom1);
+		ClassroomAssignment classroomAssignment2 =
+				assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period2);
 
 		assertEquals(classroomAssignment1, classroomAssignment2);
 	}
 
 	@Test
-	public void test_asignateRequestInMostSatisfactoryClassroom() {
+	public void asignateRequestInMostSatisfactoryClassroom() {
 		university.addRequest(classroomRequest);
 		ClassroomAssignment asig = assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classroomRequest);
 		assertEquals(classroomRequest, asig.getRequest());
@@ -152,8 +159,9 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_modifyBookedAssignmentCause() {
-		BookedAssignment bookedAssignment = assignmentsDepartment.asignateBookedAssignment(classroom1, "Restauracion", period1);
+	public void modifyBookedAssignmentCause() {
+		BookedAssignment bookedAssignment =
+				assignmentsDepartment.asignateBookedAssignment(classroom1, "Restauracion", period1);
 		String newCause = "Robado";
 		assignmentsDepartment.modifyBookedAssignmentCause(bookedAssignment, newCause);
 
@@ -161,8 +169,9 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_deleteResourceAssignmentFromARequest() {
-		ResourceAssignment resourceAssignment = assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
+	public void deleteResourceAssignmentFromARequest() {
+		ResourceAssignment resourceAssignment =
+				assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
 		assignmentsDepartment.deleteResourceAssignment(resourceAssignment);
 		Map<Period, Assignment> map = new HashMap<Period, Assignment>();
 
@@ -177,8 +186,9 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_deleteClassroomAssignment() {
-		ClassroomAssignment classroomAssignment = assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period1);
+	public void deleteClassroomAssignment() {
+		ClassroomAssignment classroomAssignment =
+				assignmentsDepartment.asignateClassroomAssignment(classroomRequest, classroom1, period1);
 		assignmentsDepartment.deleteClassroomAssignmentFromARequest(classroomRequest);
 		Map<Period, Assignment> map = new HashMap<Period, Assignment>();
 
@@ -193,8 +203,9 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_deleteBookedAssignment() {
-		BookedAssignment bookedAssignment = assignmentsDepartment.asignateBookedAssignment(classroom1, "Reparacion", period1);
+	public void deleteBookedAssignment() {
+		BookedAssignment bookedAssignment =
+				assignmentsDepartment.asignateBookedAssignment(classroom1, "Reparacion", period1);
 		assignmentsDepartment.deleteAssignment(bookedAssignment);
 		Map<Period, Assignment> map = new HashMap<Period, Assignment>();
 
@@ -209,9 +220,11 @@ public class TestAssignmentsDepartment {
 	}
 
 	@Test
-	public void test_searchForAssignment() {
-		ResourceAssignment resourceAssignment1 = assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
-		ResourceAssignment resourceAssignment2 = (ResourceAssignment) assignmentsDepartment.searchForAssignment(mobileResource1, period1);
+	public void searchForAssignment() {
+		ResourceAssignment resourceAssignment1 =
+				assignmentsDepartment.asignateResourceAssignment(mobileResourcesRequest, mobileResource1, period1);
+		ResourceAssignment resourceAssignment2 =
+				(ResourceAssignment) assignmentsDepartment.searchForAssignment(mobileResource1, period1);
 
 		assertSame(resourceAssignment1, resourceAssignment2);
 	}
@@ -239,9 +252,11 @@ public class TestAssignmentsDepartment {
 		Classroom oldClassroom = new Classroom("Aula 3", 20);
 
 		// crear asignacion y aula para asignar
-		ClassroomAssignment classroomAssignment = assignmentsDepartment.asignateRequestInAClassroom(pedido6, oldClassroom);
+		ClassroomAssignment classroomAssignment =
+				assignmentsDepartment.asignateRequestInAClassroom(pedido6, oldClassroom);
 		Classroom newClassroom = new Classroom("Aula 4", 20);
-		ClassroomAssignment newAssignment = assignmentsDepartment.moveAssignmentOfClassroom(classroomAssignment, newClassroom);
+		ClassroomAssignment newAssignment =
+				assignmentsDepartment.moveAssignmentOfClassroom(classroomAssignment, newClassroom);
 
 		assertEquals(newClassroom, newAssignment.getAssignableItem());
 	}

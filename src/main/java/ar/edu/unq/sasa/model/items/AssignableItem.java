@@ -16,9 +16,9 @@ public abstract class AssignableItem {
 
 	private final Map<Period, Assignment> assignments;
 
-	public AssignableItem(String name) {
-		this.name = name;
-		this.assignments = new HashMap<Period, Assignment>();
+	public AssignableItem(String aName) {
+		name = aName;
+		assignments = new HashMap<Period, Assignment>();
 	}
 
 	public String getName() {
@@ -78,9 +78,9 @@ public abstract class AssignableItem {
 	}
 
 	public Period searchPeriod(Assignment assignment) {
-		for (Entry<Period, Assignment> assignments : getAssignments().entrySet())
-			if (assignments.getValue() == assignment)
-				return assignments.getKey();
+		for (Entry<Period, Assignment> assignmentKeys : getAssignments().entrySet())
+			if (assignmentKeys.getValue() == assignment)
+				return assignmentKeys.getKey();
 		return null;
 	}
 

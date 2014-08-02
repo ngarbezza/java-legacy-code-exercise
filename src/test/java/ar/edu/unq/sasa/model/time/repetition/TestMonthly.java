@@ -26,7 +26,7 @@ public class TestMonthly {
 	}
 
 	@Test
-	public void test_containsInSomeRepetitionWhenTheConditionIsSatisfied() {
+	public void containsInSomeRepetitionWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
 		// todos los resultados semanales posibles
 		Calendar c1 = new GregorianCalendar(2010, Calendar.JULY, 8);
@@ -37,7 +37,7 @@ public class TestMonthly {
 	}
 
 	@Test
-	public void test_containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
+	public void containsInSomeRepetitionWhenTheConditionIsntSatisfied() {
 		// 8/6 : es fecha inicial.
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
 		// 15/7 : está dentro del rango pero no cumple con la condición mensual.
@@ -57,25 +57,25 @@ public class TestMonthly {
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsSatisfied() {
+	public void thereIsSomeDayInWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
 		assertTrue(monthlyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_thereIsSomeDayInWhenTheConditionIsntSatisfied() {
+	public void thereIsSomeDayInWhenTheConditionIsntSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 14);
 		assertFalse(monthlyRep.thereIsSomeDayIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsSatisfied() {
+	public void isAllDaysInWhenTheConditionIsSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 8);
 		assertTrue(monthlyRep.isAllDaysIn(period, start));
 	}
 
 	@Test
-	public void test_isAllDaysInWhenTheConditionIsntSatisfied() {
+	public void isAllDaysInWhenTheConditionIsntSatisfied() {
 		Calendar start = new GregorianCalendar(2010, Calendar.JUNE, 9);
 		assertFalse(monthlyRep.isAllDaysIn(period, start));
 	}

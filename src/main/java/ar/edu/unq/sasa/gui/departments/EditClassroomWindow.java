@@ -91,7 +91,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 			List<FixedResource> copy = new LinkedList<FixedResource>();
 			for (FixedResource fr : item.getResources())
 				copy.add(fr);
-			((ReadOnlyTableModel<FixedResource>)resourcesTable.getModel()).setModel(copy);
+			((ReadOnlyTableModel<FixedResource>) resourcesTable.getModel()).setModel(copy);
 		}
 	}
 
@@ -254,6 +254,6 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 
 	@Override
 	protected String getWindowTitle() {
-		return inEditMode()? "Edición de un Aula" : "Agregar Aula";
+		return inEditMode() ? "Edición de un Aula" : "Agregar Aula";
 	}
 }

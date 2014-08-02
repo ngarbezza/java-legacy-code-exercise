@@ -16,14 +16,7 @@ import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
 import ar.edu.unq.sasa.model.items.AssignableItem;
-import ar.edu.unq.sasa.model.items.Classroom;
-import ar.edu.unq.sasa.model.items.MobileResource;
 
-/**
- * Ventana que muestra el detalle de todas las asignaciones de un
- * {@link AssignableItem}. Es abstracta para que puedan mostrarse
- * {@link Classroom}'s y {@link MobileResource}'s con algunas diferencias.
- */
 public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 	B extends AssignmentByRequest> extends JFrame {
 
@@ -33,11 +26,11 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 	protected JTable assignmentsTable;
 	protected JTextArea periodDetail;
 
-	public AssignmentsDetailWindow(final A item) {
+	public AssignmentsDetailWindow(final A anAssignableItem) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				assignableItem = item;
+				assignableItem = anAssignableItem;
 				createWidgets();
 				addWidgets();
 
@@ -61,16 +54,16 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 
 	protected void createWidgets() {
 		ReadOnlyTableModel<B> model = new ReadOnlyTableModel<B>(getAssigments());
-		model.addColumn("Profesor", "request", new ToStringConverter() {
+		model.addColumn("Profesor", "request", new ToStringConverter<Request>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Request)obj).getProfessor().getName();
+			public String convert(Request aRequest) {
+				return aRequest.getProfessor().getName();
 			}
 		});
-		model.addColumn("Materia", "request", new ToStringConverter() {
+		model.addColumn("Materia", "request", new ToStringConverter<Request>() {
 			@Override
-			public String convert(Object obj) {
-				return ((Request)obj).getSubject().getName();
+			public String convert(Request aRequest) {
+				return aRequest.getSubject().getName();
 			}
 		});
 		assignmentsTable = new JTable(model);
@@ -87,8 +80,7 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 		createOtherWidgets();
 	}
 
-	protected abstract void whenAssignmentsTableSelectionChanged(
-			ListSelectionEvent e);
+	protected abstract void whenAssignmentsTableSelectionChanged(ListSelectionEvent anEvent);
 	protected abstract void createOtherWidgets();
 	protected abstract void addWidgets();
 	protected abstract List<B> getAssigments();

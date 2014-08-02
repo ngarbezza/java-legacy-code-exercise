@@ -20,32 +20,32 @@ public class Professor {
 		subjects = aSubjectList;
 	}
 
-	public Professor(String name, String phone, String mail) {
-		this(name, phone, mail, new LinkedList<Subject>());
+	public Professor(String aName, String phone, String anEmail) {
+		this(aName, phone, anEmail, new LinkedList<Subject>());
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String aName) {
+		name = aName;
 	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhoneNumber(String aPhoneNumber) {
+		phoneNumber = aPhoneNumber;
 	}
 
 	public String getMail() {
 		return mail;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setMail(String anEmail) {
+		mail = anEmail;
 	}
 
 	public List<Subject> getSubjects() {

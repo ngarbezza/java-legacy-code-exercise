@@ -20,8 +20,8 @@ public abstract class Department {
 
 	private final Publisher publisher = new Publisher();
 
-	public Department(University university) {
-		this.university = university;
+	public Department(University anUniversity) {
+		university = anUniversity;
 	}
 
 	protected University getUniversity() {

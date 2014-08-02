@@ -78,8 +78,8 @@ public class Classroom extends AssignableItem {
 		return retorno;
 	}
 
-	public boolean satisfyFixedResources(Map<FixedResource, Integer> resources) {
-		for (Entry<FixedResource, Integer> res : resources.entrySet())
+	public boolean satisfyFixedResources(Map<FixedResource, Integer> someResources) {
+		for (Entry<FixedResource, Integer> res : someResources.entrySet())
 			if (!this.satisfyFixedResource(res.getKey(), res.getValue()))
 				return false;
 		return true;

@@ -74,7 +74,7 @@ public class TestClassroom {
 		assertTrue(classroom.hasResource("Pc"));
 	}
 
-	@Test(expected=ResourceException.class)
+	@Test(expected = ResourceException.class)
 	public void testVerificarErroneo() {
 		Classroom classroom = new Classroom("ZAZA", 20);
 		FixedResource resource2 = null;
@@ -82,7 +82,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_isFreeAt() {
+	public void isFreeAt() {
 		// TODO make 3 tests:
 		// * free if no assignments at all
 		// * free if assignments in other periods
@@ -104,7 +104,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_canAssignWithoutIgnoringCommonAssignments() {
+	public void canAssignWithoutIgnoringCommonAssignments() {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Period periodMock = createMock(Period.class);
 		Period p1Mock = createMock(Period.class);
@@ -119,7 +119,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_canAssignIgnoringCommonAssignments() {
+	public void canAssignIgnoringCommonAssignments() {
 		Classroom classroom = new Classroom("La 37B", 30);
 		Period periodMock = createMock(Period.class);
 		Period p1Mock = createMock(Period.class);
@@ -146,7 +146,7 @@ public class TestClassroom {
 	}
 
 	@Test
-	public void test_satisfyFixedResource() {
+	public void satisfyFixedResource() {
 		Classroom classroom = new Classroom("La 37B", 30);
 		FixedResource classroomResource = new FixedResource("Pizarron", 1);
 		FixedResource resource = new FixedResource("Pizarron");

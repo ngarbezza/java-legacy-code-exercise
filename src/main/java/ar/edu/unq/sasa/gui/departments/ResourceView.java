@@ -10,22 +10,22 @@ public class ResourceView {
 
 	private Resource resource;
 	private int amount;
-	
+
 	public ResourceView(Resource r, int c) {
 		resource = r;
 		amount = c;
 	}
 
-	public void setResource(Resource resource) {
-		this.resource = resource;
+	public void setResource(Resource aResource) {
+		resource = aResource;
 	}
 
 	public Resource getResource() {
 		return resource;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setAmount(int anAmount) {
+		amount = anAmount;
 	}
 
 	public int getAmount() {

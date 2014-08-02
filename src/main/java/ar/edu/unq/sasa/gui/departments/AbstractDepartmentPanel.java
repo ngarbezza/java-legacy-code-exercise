@@ -98,19 +98,18 @@ public abstract class AbstractDepartmentPanel<T> extends JPanel implements Subsc
 		bottomPanel.add(deleteButton);
 	}
 
-	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {}
+	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) { }
 
 	@SuppressWarnings("unchecked")
 	protected void whenTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel)e.getSource();
+		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			selection = null;
 			deleteButton.setEnabled(false);
 			modifyButton.setEnabled(false);
-		}
-		else {
+		} else {
 			int index = source.getMinSelectionIndex();
-			List<T> model = ((ReadOnlyTableModel<T>)table.getModel()).getModel();
+			List<T> model = ((ReadOnlyTableModel<T>) table.getModel()).getModel();
 			selection = model.get(index);
 			deleteButton.setEnabled(true);
 			modifyButton.setEnabled(true);

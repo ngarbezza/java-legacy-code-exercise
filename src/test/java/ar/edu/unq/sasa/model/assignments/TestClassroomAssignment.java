@@ -21,7 +21,7 @@ import ar.edu.unq.sasa.model.time.Period;
 public class TestClassroomAssignment {
 
 	@Test
-	public void test_shouldConstructCorrectly() {
+	public void shouldConstructCorrectly() {
 		Classroom classroom = new Classroom("Aula 1", 10);
 		List<ResourceAssignment> listaRes = new ArrayList<ResourceAssignment>();
 		Period desHours = null;
@@ -29,7 +29,8 @@ public class TestClassroomAssignment {
 		Professor professor = new Professor("Pable", "42244556", "pablo@gmail.com");
 		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
-		ClassroomRequest classReq = new ClassroomRequest(desHours, subject, professor, 10, reqResources, optResources, 20);
+		ClassroomRequest classReq =
+				new ClassroomRequest(desHours, subject, professor, 10, reqResources, optResources, 20);
 		ClassroomAssignment asig = new ClassroomAssignment(classReq, classroom, listaRes);
 
 		boolean listaResIgual = asig.getResourcesAssignments().equals(listaRes);
@@ -40,21 +41,24 @@ public class TestClassroomAssignment {
 	}
 
 	@Test
-	public void test_createSatisfaction() {
+	public void createSatisfaction() {
 		Map<Resource, Integer> requiredResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optionalResources = new HashMap<Resource, Integer>();
 		Period desiredHours = null;
 		Subject subject = new Subject("Matematica");
 		Professor professor = new Professor("Pablo", "44445555", "pablo@gmail.com");
-		ClassroomRequest classroomRequest = new ClassroomRequest(desiredHours, subject, professor, 0, requiredResources, optionalResources, 25);
+		ClassroomRequest classroomRequest =
+				new ClassroomRequest(desiredHours, subject, professor, 0, requiredResources, optionalResources, 25);
 		Classroom classroom = new Classroom("Aula 1", 20);
 		FixedResource fr1 = new FixedResource("Proyector", 1);
 		FixedResource fr2 = new FixedResource("Pizarron", 2);
 		classroom.addResource(fr1);
 		classroom.addResource(fr2);
 		List<ResourceAssignment> resourcesAssignmentsList = new ArrayList<ResourceAssignment>();
-		ClassroomAssignment classroomAssignment1 = new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
-		ClassroomAssignment classroomAssignment2 = new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
+		ClassroomAssignment classroomAssignment1 =
+				new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
+		ClassroomAssignment classroomAssignment2 =
+				new ClassroomAssignment(classroomRequest, classroom, resourcesAssignmentsList);
 		Satisfaction satisfaction1 = classroomAssignment1.createSatisfaction();
 		Satisfaction satisfaction2 = classroomAssignment2.createSatisfaction();
 

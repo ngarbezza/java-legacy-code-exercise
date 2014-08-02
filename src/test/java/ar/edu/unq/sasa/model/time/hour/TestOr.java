@@ -19,7 +19,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_containsTimestamp() {
+	public void containsTimestamp() {
 		assertTrue(orUnderTest.contains(new Timestamp(13, 15)));
 		assertTrue(orUnderTest.contains(new Timestamp(16)));
 		assertTrue(orUnderTest.contains(new Timestamp(12)));
@@ -29,7 +29,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_containsLogicalHourFulfiller() {
+	public void containsLogicalHourFulfiller() {
 		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(12), new Timestamp(12, 15))));
 		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(13, 15), new Timestamp(13, 30))));
 		assertTrue(orUnderTest.contains(new HourInterval(new Timestamp(16), new Timestamp(17))));
@@ -39,7 +39,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_isIn() {
+	public void isIn() {
 		assertTrue(orUnderTest.isIn(new HourInterval(new Timestamp(11), new Timestamp(18))));
 		// TODO split in another test(s)
 		assertFalse(orUnderTest.isIn(new HourInterval(new Timestamp(12, 30), new Timestamp(16))));
@@ -48,7 +48,7 @@ public class TestOr {
 	}
 
 	@Test
-	public void test_intersectsWith() {
+	public void intersectsWith() {
 		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(11), new Timestamp(18))));
 		// TODO split in another test(s)
 		assertTrue(orUnderTest.intersectsWith(new HourInterval(new Timestamp(12, 30), new Timestamp(16))));

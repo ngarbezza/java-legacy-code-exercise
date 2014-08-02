@@ -4,43 +4,46 @@ import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 
 /**
- * Assignment que se utiliza para representar asignaciones hechas sin un 
+ * Assignment que se utiliza para representar asignaciones hechas sin un
  * pedido, que representan reservas.
  */
 public class BookedAssignment implements Assignment {
 	private AssignableItem assignableItem;
 	private String cause;
-	
+
 	public BookedAssignment(String aCause, AssignableItem anAssignableItem) {
 		cause = aCause;
 		assignableItem = anAssignableItem;
 	}
-	
-	public String getCause(){
+
+	public String getCause() {
 		return cause;
 	}
-	
-	public void setCause(String c) {
-		cause = c;
+
+	public void setCause(String aCause) {
+		cause = aCause;
 	}
 
+	@Override
 	public AssignableItem getAssignableItem() {
 		return assignableItem;
 	}
-	
+
+	@Override
 	public Request getRequest() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean isBookedAssignment() {
 		return true;
 	}
-	
+
+	@Override
 	public boolean isClassroomAssignment() {
-		return false;		
+		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

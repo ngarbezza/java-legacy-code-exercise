@@ -34,7 +34,7 @@ public class FixedResource implements Resource {
 
 	@Override
 	public void setName(String newName) {
-		this.name = newName;
+		name = newName;
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class FixedResource implements Resource {
 		return true;
 	}
 
-	public boolean equalsName(Resource anotherResource){
-		return this.getName().equals(anotherResource.getName());
+	public boolean equalsName(Resource anotherResource) {
+		return name.equals(anotherResource.getName());
 	}
 }

@@ -17,7 +17,7 @@ import ar.edu.unq.sasa.model.time.Period;
 public class TestResourceAssignment {
 
 	@Test
-	public void test_shouldConstructCorrectly() {
+	public void shouldConstructCorrectly() {
 		String name = "Proyector";
 		MobileResource resource = new MobileResource(name, 0);
 		Period desHours = null;
@@ -26,7 +26,8 @@ public class TestResourceAssignment {
 		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
 		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
 
-		MobileResourcesRequest request = new MobileResourcesRequest(desHours, subject, professor, 12, reqResources, optResources);
+		MobileResourcesRequest request =
+				new MobileResourcesRequest(desHours, subject, professor, 12, reqResources, optResources);
 		ResourceAssignment asig = new ResourceAssignment(request, resource);
 
 		boolean resourceIgual = asig.getAssignableItem().equals(resource);

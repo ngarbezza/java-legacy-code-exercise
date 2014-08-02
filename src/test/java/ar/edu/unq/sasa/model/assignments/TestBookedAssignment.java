@@ -9,7 +9,7 @@ import ar.edu.unq.sasa.model.items.MobileResource;
 public class TestBookedAssignment {
 
 	@Test
-	public void test_shouldConstructCorrectly(){
+	public void shouldConstructCorrectly() {
 		String motivo = "Reparaciones";
 		MobileResource item = new MobileResource("Proyector", 0);
 

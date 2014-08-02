@@ -13,10 +13,10 @@ import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
 public class MobileResource extends AssignableItem implements Resource {
 
 	private final int id;
-	
-	public MobileResource(String name, int id) {
+
+	public MobileResource(String name, int anId) {
 		super(name);
-		this.id = id;
+		id = anId;
 	}
 
 	@Override

@@ -368,7 +368,7 @@ public class NewPeriodWindow extends JFrame {
 
 	protected void saveChanges() {
 		PeriodTreeNode selectedNode = (PeriodTreeNode) periodsTree.getLastSelectedPathComponent();
-		if(selectedNode.matchPeriodType(simpleRadioButton.isSelected(), orRadioButton.isSelected(),
+		if (selectedNode.matchPeriodType(simpleRadioButton.isSelected(), orRadioButton.isSelected(),
 				andRadioButton.isSelected(), minusRadioButton.isSelected()))
 			selectedNode.updateChanges(this);
 		else {
