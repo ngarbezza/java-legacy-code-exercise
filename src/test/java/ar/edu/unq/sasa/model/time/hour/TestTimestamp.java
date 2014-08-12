@@ -150,34 +150,38 @@ public class TestTimestamp {
 
 	@Test
 	public void add() {
-		Timestamp t1exp = new Timestamp(9, 55); // sumo 5 a t_9_50
-		Timestamp t2exp = new Timestamp(10, 15); // sumo 25 a t_9_50
-		Timestamp t3exp = new Timestamp(11, 15); // sumo 85 a t_9_50
-
-		assertEquals(t1exp, t_9_50.add(5));
-		assertEquals(t2exp, t_9_50.add(25));
-		assertEquals(t3exp, t_9_50.add(85));
+		assertEquals(new Timestamp(9, 55), t_9_50.add(5));   // sumo 5  a t_9_50
+		assertEquals(new Timestamp(10, 15), t_9_50.add(25)); // sumo 25 a t_9_50
+		assertEquals(new Timestamp(11, 15), t_9_50.add(85)); // sumo 85 a t_9_50
 	}
 
 	@Test
 	public void substract() {
-		Timestamp t1exp = new Timestamp(22, 10); // resto 5 a t_22_15
-		Timestamp t2exp = new Timestamp(21, 50); // resto 25 a t_22_15
-		Timestamp t3exp = new Timestamp(20, 50); // resto 85 a t_22_15
-		Timestamp t4exp = new Timestamp(20); // resto 135 a t_22_15
-
-		assertEquals(t1exp, t_22_15.substract(5));
-		assertEquals(t2exp, t_22_15.substract(25));
-		assertEquals(t3exp, t_22_15.substract(85));
-		assertEquals(t4exp, t_22_15.substract(135));
+		assertEquals(new Timestamp(22, 10), t_22_15.substract(5));   // resto 5   a t_22_15
+		assertEquals(new Timestamp(21, 50), t_22_15.substract(25));  // resto 25  a t_22_15
+		assertEquals(new Timestamp(20, 50), t_22_15.substract(85));  // resto 85  a t_22_15
+		assertEquals(new Timestamp(20), t_22_15.substract(135));     // resto 135 a t_22_15
 	}
 
 	@Test
-	public void minutesBetween() {
-		assertEquals(t_9_50.minutesBetween(t_15_35), 345);
-		assertEquals(t_15_35.minutesBetween(t_17_00), 85);
-		assertEquals(t_17_00.minutesBetween(t_22_15), 315);
-		assertEquals(t_22_15.minutesBetween(t_9_50), -745);
-		assertEquals(t_9_50.minutesBetween(t_9_50), 0);
+	public void minutesBetweenZero() {
+		assertEquals(0, t_9_50.minutesBetween(t_9_50));
+	}
+
+	@Test
+	public void minutesBetweenPositive() {
+		assertEquals(345, t_9_50.minutesBetween(t_15_35));
+		assertEquals(85, t_15_35.minutesBetween(t_17_00));
+		assertEquals(315, t_17_00.minutesBetween(t_22_15));
+	}
+
+	@Test
+	public void minutesBetweenNegative() {
+		assertEquals(-745, t_22_15.minutesBetween(t_9_50));
+	}
+
+	@Test
+	public void totalMinutesWithSomeHoursAndMinutes() {
+		assertEquals(590, t_9_50.totalMinutes());
 	}
 }

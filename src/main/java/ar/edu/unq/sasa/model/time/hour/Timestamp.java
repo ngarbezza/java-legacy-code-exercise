@@ -87,10 +87,11 @@ public class Timestamp {
 	}
 
 	public int minutesBetween(Timestamp t) {
-		// TODO have a message #totalMinutes
-		int myMinutes = getHour() * 60 + getMinutes();
-		int tMinutes = t.getHour() * 60 + t.getMinutes();
-		return tMinutes - myMinutes;
+		return t.totalMinutes() - totalMinutes();
+	}
+
+	public int totalMinutes() {
+		return getHour() * 60 + getMinutes();
 	}
 
 	@Override
