@@ -1,5 +1,7 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -99,11 +101,10 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	@Override
-	public void setPeriod(Period period) {
-		periodSelection = period;
-		periodTextArea.setText(period.toString());
+	public void setPeriod(Period aPeriod) {
+		periodSelection = aPeriod;
+		periodTextArea.setText(aPeriod.toString());
 		validateButtons();
-
 	}
 
 	@Override
@@ -230,9 +231,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		cancelButton = new JButton("Cancelar");
 		createCancelButtonListeners();
 
-		asignateRequestInAClassroom.setEnabled(false);
-		asignateClassroomAssignment.setEnabled(false);
-		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.setEnabled(false);
+		disableAll(asignateRequestInAClassroom, asignateClassroomAssignment,
+				asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources);
 	}
 
 	private void createCancelButtonListeners() {
@@ -357,9 +357,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelection = null;
-			asignateRequestInAClassroom.setEnabled(false);
-			asignateClassroomAssignment.setEnabled(false);
-			asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.setEnabled(false);
+			disableAll(asignateRequestInAClassroom, asignateClassroomAssignment,
+					asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources);
 		} else {
 			int index = source.getMinSelectionIndex();
 			List<Classroom> model = ((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).getModel();

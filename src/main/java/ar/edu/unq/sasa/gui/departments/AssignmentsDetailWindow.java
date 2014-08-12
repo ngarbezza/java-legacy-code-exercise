@@ -70,8 +70,8 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
 		assignmentsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		assignmentsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				whenAssignmentsTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				whenAssignmentsTableSelectionChanged(anEvent);
 			}
 		});
 		periodDetail = new JTextArea();

@@ -81,8 +81,8 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	}
 
 	@Override
-	public void setPeriod(Period p) {
-		period = p;
+	public void setPeriod(Period aPeriod) {
+		period = aPeriod;
 		moveAssignmentOfPeriodButton.setEnabled(true);
 	}
 
@@ -113,8 +113,8 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 		classroomsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				EditAssignmentWindow.this.whenClassroomsTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				EditAssignmentWindow.this.whenClassroomsTableSelectionChanged(anEvent);
 			}
 		});
 		classroomsTableScrollPane = new JScrollPane(classroomsTable);
@@ -131,7 +131,6 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 		if (source.isSelectionEmpty()) {
 			classroomSelected = null;
 			moveAssignmentOfClassroomButton.setEnabled(false);
-			System.out.println("Entre!!");
 		} else {
 			int index = source.getMinSelectionIndex();
 			List<Classroom> model = ((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).getModel();

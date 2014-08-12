@@ -12,9 +12,6 @@ import ar.edu.unq.sasa.gui.departments.ProfessorsPanel;
 import ar.edu.unq.sasa.gui.departments.RequestsPanel;
 import ar.edu.unq.sasa.model.academic.University;
 
-/**
- * Panel con todos los componentes de la ventana principal.
- */
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = -1524127390983723901L;

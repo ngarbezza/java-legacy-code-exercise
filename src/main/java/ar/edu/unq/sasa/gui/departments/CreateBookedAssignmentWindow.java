@@ -105,8 +105,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		classroomsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				CreateBookedAssignmentWindow.this.whenClassroomsTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				CreateBookedAssignmentWindow.this.whenClassroomsTableSelectionChanged(anEvent);
 			}
 		});
 		classroomsTableScrollPane = new JScrollPane(classroomsTable);
@@ -124,13 +124,9 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 			classroomSelected = null;
 			acceptButton.setEnabled(false);
 		} else {
-			int index = source.getMinSelectionIndex();
 			List<Classroom> model = ((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).getModel();
-			classroomSelected = model.get(index);
-			if (period == null || cause.equals("") || cause == null)
-				acceptButton.setEnabled(false);
-			else
-				acceptButton.setEnabled(true);
+			classroomSelected = model.get(source.getMinSelectionIndex());
+			acceptButton.setEnabled(!(period == null || cause.equals("") || cause == null));
 		}
 	}
 
@@ -184,10 +180,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 			@Override
 			public void keyReleased(KeyEvent anEvent) {
 				cause = ((JTextField) anEvent.getSource()).getText();
-				if (cause.equals("") || period == null || classroomSelected == null)
-					acceptButton.setEnabled(false);
-				else
-					acceptButton.setEnabled(true);
+				acceptButton.setEnabled(!(cause.equals("") || period == null || classroomSelected == null));
 			}
 		});
 		return field;

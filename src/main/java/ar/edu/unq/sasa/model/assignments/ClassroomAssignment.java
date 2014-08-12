@@ -12,12 +12,6 @@ import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * {@link Assignment} que se utiliza para representar asignaciones hechas a un
- * {@link Classroom}. Conoce además las asignaciones que se hicieron a los
- * {@link Resource}s relacionados al ClassroomAssignment del cual fue
- * generada esta ClassroomAssignment.
- */
 public class ClassroomAssignment extends AssignmentByRequest {
 
 	private Classroom classroom;

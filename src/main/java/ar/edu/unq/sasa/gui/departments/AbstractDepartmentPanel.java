@@ -1,5 +1,8 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.enableAll;
+
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.List;
@@ -63,8 +66,8 @@ public abstract class AbstractDepartmentPanel<T> extends JPanel implements Subsc
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				whenTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				whenTableSelectionChanged(anEvent);
 			}
 		});
 		scrollPane = new JScrollPane(table);
@@ -77,8 +80,7 @@ public abstract class AbstractDepartmentPanel<T> extends JPanel implements Subsc
 		createModifyButtonListeners();
 		deleteButton = new JButton("Eliminar");
 		createDeleteButtonListeners();
-		deleteButton.setEnabled(false);
-		modifyButton.setEnabled(false);
+		disableAll(deleteButton, modifyButton);
 	}
 
 	protected void addAllWidgets() {
@@ -101,18 +103,15 @@ public abstract class AbstractDepartmentPanel<T> extends JPanel implements Subsc
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) { }
 
 	@SuppressWarnings("unchecked")
-	protected void whenTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
+	protected void whenTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			selection = null;
-			deleteButton.setEnabled(false);
-			modifyButton.setEnabled(false);
+			disableAll(deleteButton, modifyButton);
 		} else {
-			int index = source.getMinSelectionIndex();
 			List<T> model = ((ReadOnlyTableModel<T>) table.getModel()).getModel();
-			selection = model.get(index);
-			deleteButton.setEnabled(true);
-			modifyButton.setEnabled(true);
+			selection = model.get(source.getMinSelectionIndex());
+			enableAll(deleteButton, modifyButton);
 		}
 	}
 

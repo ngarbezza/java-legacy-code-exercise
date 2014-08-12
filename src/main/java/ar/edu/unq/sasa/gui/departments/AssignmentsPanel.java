@@ -1,5 +1,8 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.enableAll;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -37,9 +40,6 @@ import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.util.Subscriber;
 
-/**
- * Crea un panel para manejar asignaciones de pedidos.
- */
 public class AssignmentsPanel extends JPanel implements Subscriber {
 
 	private static final long serialVersionUID = -39425443658019906L;
@@ -158,10 +158,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		createModifyButtonListeners();
 		deleteButton = new JButton("Eliminar Asignacion");
 		createDeleteButtonListeners();
-		viewDetailsButton.setEnabled(false);
-		asignateButton.setEnabled(false);
-		deleteButton.setEnabled(false);
-		modifyButton.setEnabled(false);
+		disableAll(viewDetailsButton, asignateButton, deleteButton, modifyButton);
 	}
 
 	private void createViewDetailsButtonListeners() {
@@ -225,18 +222,14 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
 		if (source.isSelectionEmpty()) {
 			assignmentSelection = null;
-			viewDetailsButton.setEnabled(false);
-			deleteButton.setEnabled(false);
-			modifyButton.setEnabled(false);
+			disableAll(viewDetailsButton, deleteButton, modifyButton);
 		} else {
 			int index = source.getMinSelectionIndex();
 			// TODO there are a lot of casts like this. try to avoid them
 			List<ClassroomAssignment> model =
 					((ReadOnlyTableModel<ClassroomAssignment>) assignmentsTable.getModel()).getModel();
 			assignmentSelection = model.get(index);
-			viewDetailsButton.setEnabled(true);
-			deleteButton.setEnabled(true);
-			modifyButton.setEnabled(true);
+			enableAll(viewDetailsButton, deleteButton, modifyButton);
 		}
 	}
 
@@ -269,8 +262,8 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		requestsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				AssignmentsPanel.this.whenRequestsTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				AssignmentsPanel.this.whenRequestsTableSelectionChanged(anEvent);
 			}
 		});
 		requestsScrollPane = new JScrollPane(requestsTable);

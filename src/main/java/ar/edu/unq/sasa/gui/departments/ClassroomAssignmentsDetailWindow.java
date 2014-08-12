@@ -18,9 +18,6 @@ import ar.edu.unq.sasa.model.assignments.BookedAssignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.items.Classroom;
 
-/**
- * Ventana para el detalle de asignaciones de {@link Classroom}'s.
- */
 public class ClassroomAssignmentsDetailWindow extends AssignmentsDetailWindow<Classroom, ClassroomAssignment> {
 
 	private static final long serialVersionUID = -6375987318161190231L;

@@ -50,7 +50,7 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 	protected void createAddButtonListeners() {
 		addButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new CreateBookedAssignmentWindow(department);
 			}
 		});
@@ -60,7 +60,7 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 	protected void createDeleteButtonListeners() {
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la reserva seleccionada?",
 						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 				      department.deleteAssignment(selection);

@@ -56,8 +56,8 @@ public class EditBookedAssignmentWindow extends JFrame {
 		newCauseTextField = new JTextField(20);
 		newCauseTextField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
-				String cause = ((JTextField) e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String cause = ((JTextField) anEvent.getSource()).getText();
 				if (!cause.equals("")) {
 					newCause = cause;
 					acceptButton.setEnabled(true);
@@ -76,7 +76,7 @@ public class EditBookedAssignmentWindow extends JFrame {
 	private void createAcceptButtonListener() {
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				department.modifyBookedAssignmentCause(bookedAssignmentSelection, newCause);
 				dispose();
 			}
@@ -86,7 +86,7 @@ public class EditBookedAssignmentWindow extends JFrame {
 	private void createCancelButtonListener() {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				dispose();
 			}
 		});

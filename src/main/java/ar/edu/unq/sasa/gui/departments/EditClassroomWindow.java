@@ -161,7 +161,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 			resNameField.setText(selectedName);
 			resAmountField.setValue(Integer.parseInt(selectedAmount));
 		}
-		WidgetUtilities.enableOrDisableWidgets(!visibility,
+		WidgetUtilities.toggleAll(!visibility,
 				resAmountField, resAmountLabel, resNameField, resNameLabel,
 				saveResButton, deleteResButton);
 	}

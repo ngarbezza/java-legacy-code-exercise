@@ -33,11 +33,9 @@ public final class Main {
 	private Main() { }
 
 	public static void main(String[] args) {
-		// MODELO
 		University university = new University();
 		addSampleValues(university);
 
-		// INTERFAZ GRÁFICA
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {

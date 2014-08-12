@@ -69,7 +69,7 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 		acceptButton = new JButton("Aceptar");
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if (inEditMode())
 					doAcceptActionInEditMode();
 				else
@@ -80,7 +80,7 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 		cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				dispose();
 			}
 		});

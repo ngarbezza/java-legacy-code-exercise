@@ -69,7 +69,7 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 	protected void createModifyButtonListeners() {
 		modifyButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new EditClassroomWindow(department, selection);
 			}
 		});
@@ -91,8 +91,8 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 		field.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField) e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
 				List<Classroom> res = department.searchClassroomByName(text);
 				((ReadOnlyTableModel<Classroom>) table.getModel()).setModel(res);
 			}
@@ -101,8 +101,8 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 	}
 
 	@Override
-	protected void whenTableSelectionChanged(ListSelectionEvent e) {
-		super.whenTableSelectionChanged(e);
+	protected void whenTableSelectionChanged(ListSelectionEvent anEvent) {
+		super.whenTableSelectionChanged(anEvent);
 		assignmentsDetailButton.setEnabled(selection != null);
 	}
 
@@ -112,7 +112,7 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 		assignmentsDetailButton.setEnabled(false);
 		assignmentsDetailButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new ClassroomAssignmentsDetailWindow(selection);
 			}
 		});
@@ -126,8 +126,8 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public void update(String aspect, Object value) {
+	public void update(String anAspect, Object aValue) {
 		((ReadOnlyTableModel<Classroom>) table.getModel())
-			.setModel((List<Classroom>) value);
+			.setModel((List<Classroom>) aValue);
 	}
 }

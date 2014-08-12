@@ -94,7 +94,7 @@ public class NewPeriodWindow extends JFrame {
 	}
 
 	protected void disableWidgets() {
-		WidgetUtilities.enableOrDisableWidgets(false, fromDateLabel, fromDate,
+		WidgetUtilities.toggleAll(false, fromDateLabel, fromDate,
 				toDateLabel, toDate, fromHourLabel, fromHoursCombo, toHourLabel,
 				toHoursCombo, fromMinutesCombo, toMinutesCombo, simpleRadioButton,
 				compositeRadioButton, orRadioButton, andRadioButton,
@@ -151,7 +151,7 @@ public class NewPeriodWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.enableOrDisableWidgets(!visibility,
+				WidgetUtilities.toggleAll(!visibility,
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 						toDateLabel, toDate);
 			}
@@ -160,7 +160,7 @@ public class NewPeriodWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.enableOrDisableWidgets(visibility,
+				WidgetUtilities.toggleAll(visibility,
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 						toDateLabel, toDate);
 				weeklyRadioButton.setSelected(true); // por defecto
@@ -189,15 +189,15 @@ public class NewPeriodWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.enableOrDisableWidgets(!visibility,
+				WidgetUtilities.toggleAll(!visibility,
 						orRadioButton, andRadioButton, minusRadioButton);
-				WidgetUtilities.enableOrDisableWidgets(visibility,
+				WidgetUtilities.toggleAll(visibility,
 						fromDateLabel, fromDate, toHourLabel,
 						toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
 						fromMinutesCombo, noneRadioButton, repetitionRadioButton,
 						minutesInRangeLabel, minutesInRange);
 				if (repetitionRadioButton.isSelected())
-					WidgetUtilities.enableOrDisableWidgets(true, toDateLabel, toDate,
+					WidgetUtilities.toggleAll(true, toDateLabel, toDate,
 							dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
 			}
 		});
@@ -205,9 +205,9 @@ public class NewPeriodWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.enableOrDisableWidgets(visibility,
+				WidgetUtilities.toggleAll(visibility,
 						orRadioButton, andRadioButton, minusRadioButton);
-				WidgetUtilities.enableOrDisableWidgets(!visibility,
+				WidgetUtilities.toggleAll(!visibility,
 						fromDateLabel, fromDate, toDateLabel, toDate, toHourLabel,
 						toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
 						fromMinutesCombo, noneRadioButton, repetitionRadioButton,
@@ -280,13 +280,13 @@ public class NewPeriodWindow extends JFrame {
 		if (periodNode == null)
 			disableWidgets();
 		else if (periodNode.isCompositePeriodNode()) {
-			WidgetUtilities.enableOrDisableWidgets(false,
+			WidgetUtilities.toggleAll(false,
 					toDateLabel, toDate, fromDateLabel, fromDate, fromHourLabel,
 					fromHoursCombo, toHourLabel, toHoursCombo, toMinutesCombo,
 					fromMinutesCombo, noneRadioButton, repetitionRadioButton,
 					dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 					minutesInRangeLabel, minutesInRange);
-			WidgetUtilities.enableOrDisableWidgets(true,
+			WidgetUtilities.toggleAll(true,
 					simpleRadioButton, compositeRadioButton,
 					orRadioButton, andRadioButton, minusRadioButton, saveButton);
 			simpleRadioButton.setSelected(false);
@@ -294,14 +294,14 @@ public class NewPeriodWindow extends JFrame {
 			((CompositePeriodTreeNode) periodNode).selectOrDeselect(
 					orRadioButton, andRadioButton, minusRadioButton);
 		} else {
-			WidgetUtilities.enableOrDisableWidgets(true,
+			WidgetUtilities.toggleAll(true,
 					toDateLabel, toDate, fromDateLabel, fromDate, fromHourLabel,
 					fromHoursCombo, toHourLabel, toHoursCombo, toMinutesCombo,
 					fromMinutesCombo, noneRadioButton, repetitionRadioButton,
 					dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 					simpleRadioButton, compositeRadioButton,
 					minutesInRangeLabel, minutesInRange, saveButton);
-			WidgetUtilities.enableOrDisableWidgets(false,
+			WidgetUtilities.toggleAll(false,
 					orRadioButton, andRadioButton, minusRadioButton);
 			simpleRadioButton.setSelected(true);
 			compositeRadioButton.setSelected(false);
@@ -310,7 +310,7 @@ public class NewPeriodWindow extends JFrame {
 			// De nuevo, pregunto por la clase ya que si hago double
 			// dispatching, meto lógica de interfaz gráfica en el modelo.
 			if (rep instanceof None) {
-				WidgetUtilities.enableOrDisableWidgets(false, toDateLabel, toDate,
+				WidgetUtilities.toggleAll(false, toDateLabel, toDate,
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
 				noneRadioButton.setSelected(true);
 				repetitionRadioButton.setSelected(false);
