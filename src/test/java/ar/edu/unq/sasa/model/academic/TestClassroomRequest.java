@@ -16,6 +16,7 @@ import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
+import ar.edu.unq.sasa.util.PreconditionNotMetException;
 
 public class TestClassroomRequest {
 	private ClassroomRequest classroomRequest;
@@ -74,4 +75,13 @@ public class TestClassroomRequest {
 		assertTrue("Capacity is not rightly setted", classroomRequest.getCapacity() > 0);
 	}
 
+	@Test(expected = PreconditionNotMetException.class)
+	public void aClassroomRequestCannotBeBuiltIfCapacityIsZero() {
+		new ClassroomRequest(desiredHours, subject, professor, 15423, reqResources, optResources, 0);
+	}
+
+	@Test(expected = PreconditionNotMetException.class)
+	public void aClassroomRequestCannotBeBuiltIfCapacityIsLessThanZero() {
+		new ClassroomRequest(desiredHours, subject, professor, 15423, reqResources, optResources, -1);
+	}
 }

@@ -96,7 +96,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	private List<ClassroomRequest> getRequests() {
 		// TODO too much logic to be here
 		List<ClassroomRequest> requests = new ArrayList<ClassroomRequest>();
-		for (Request request : getDepartment().getRequests())
+		for (Request request : getDepartment().getRequestsDepartment().getRequests())
 			if (request.isClassroomRequest())
 				if (!request.isAsignated())
 					if (professorsComboBox.getModel().getSelectedItem() == null)

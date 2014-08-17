@@ -2,7 +2,6 @@ package ar.edu.unq.sasa.model.departments;
 
 import java.util.List;
 
-import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.util.Publisher;
@@ -36,10 +35,6 @@ public abstract class Department {
 		return university.getAssignments();
 	}
 
-	public List<Request> getRequests() {
-		return university.getRequests();
-	}
-
 	public ClassroomsDepartment getClassroomsDepartment() {
 		return university.getClassroomsDepartment();
 	}
@@ -58,5 +53,9 @@ public abstract class Department {
 
 	public SubjectsDepartment getSubjectsDepartment() {
 		return university.getSubjectsDepartment();
+	}
+
+	public RequestsDepartment getRequestsDepartment() {
+		return university.getRequestsDepartment();
 	}
 }

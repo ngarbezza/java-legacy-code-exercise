@@ -152,7 +152,7 @@ public class TestAssignmentsDepartment {
 
 	@Test
 	public void asignateRequestInMostSatisfactoryClassroom() {
-		university.addRequest(classroomRequest);
+		university.getRequestsDepartment().addRequest(classroomRequest);
 		ClassroomAssignment asig = assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classroomRequest);
 		assertEquals(classroomRequest, asig.getRequest());
 		assertTrue(university.getAssignments().contains(asig));

@@ -12,7 +12,6 @@ import ar.edu.unq.sasa.model.departments.RequestsDepartment;
 import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
 import ar.edu.unq.sasa.model.departments.SubjectsDepartment;
 import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
-import ar.edu.unq.sasa.model.exceptions.departments.RequestException;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
@@ -24,7 +23,6 @@ import ar.edu.unq.sasa.model.items.Resource;
  */
 public class University {
 
-	private List<Request> requests;
 	private List<MobileResource> mobileResources;
 	private List<Assignment> assignments;
 
@@ -36,7 +34,7 @@ public class University {
 	private SubjectsDepartment subjectsDepartment;
 
 	public University() {
-		requests = new LinkedList<Request>();
+
 		mobileResources = new LinkedList<MobileResource>();
 		assignments = new ArrayList<Assignment>();
 		classroomsDepartment = new ClassroomsDepartment(this);
@@ -49,10 +47,6 @@ public class University {
 
 	public List<Assignment> getAssignments() {
 		return assignments;
-	}
-
-	public List<Request> getRequests() {
-		return requests;
 	}
 
 	public List<MobileResource> getMobileResources() {
@@ -79,11 +73,6 @@ public class University {
 		return false;
 	}
 
-	public void addRequest(Request aRequest) {
-		// TODO move to requests department
-		getRequests().add(aRequest);
-	}
-
 	public void addAssignment(Assignment anAssignment) {
 		getAssignments().add(anAssignment);
 	}
@@ -94,10 +83,6 @@ public class University {
 
 	public void deleteAssignment(Assignment searchedAssignment) {
 		getAssignments().remove(searchedAssignment);
-	}
-
-	public void deleteRequest(Request request) {
-		getRequests().remove(request);
 	}
 
 	public void deleteResource(MobileResource resource) {
@@ -119,14 +104,6 @@ public class University {
 			if (r.getName().equals(name))
 				return r;
 		return null;
-	}
-
-	public Request getRequest(Professor professor, Subject subject) {
-		for (Request request : getRequests())
-			if (request.getProfessor().equals(professor)
-					&& request.getSubject().equals(subject))
-				return request;
-		throw new RequestException("No existe un pedido con ese ID");
 	}
 
 	public List<MobileResource> getNResources(Resource resource, Integer n) {

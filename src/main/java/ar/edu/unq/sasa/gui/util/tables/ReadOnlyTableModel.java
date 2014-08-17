@@ -40,12 +40,14 @@ public class ReadOnlyTableModel<T> extends AbstractTableModel {
 	/**
 	 * Los convertidores de Object a String que usa para cada columna.
 	 */
+	@SuppressWarnings("rawtypes")
 	private final List<ToStringConverter> converters;
 
 	public ReadOnlyTableModel() {
 		this(new ArrayList<T>());
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReadOnlyTableModel(List<T> aModel) {
 		model = aModel;
 		attributes = new ArrayList<String>();
@@ -62,10 +64,12 @@ public class ReadOnlyTableModel<T> extends AbstractTableModel {
 		fireTableChanged(new TableModelEvent(this));
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void addColumn(String columnName, String attribute) {
 		addColumn(columnName, attribute, new ToStringConverter());
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void addColumn(String columnName, String attribute, ToStringConverter converter) {
 		columnNames.add(columnName);
 		attributes.add(attribute);
@@ -93,6 +97,7 @@ public class ReadOnlyTableModel<T> extends AbstractTableModel {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public String getValueAt(int rowIndex, int columnIndex) {
 		T object = getModel().get(rowIndex);
 		Object result = invokeJavaBean(object, attributes.get(columnIndex));

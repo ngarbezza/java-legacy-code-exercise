@@ -7,15 +7,15 @@ import ar.edu.unq.sasa.model.time.Period;
 
 public class MobileResourcesRequest extends Request {
 
-	public MobileResourcesRequest(Period desHours,
+	public MobileResourcesRequest(Period aPeriod,
 			Subject aSubject, Professor aProfessor, long anID,
 			Map<Resource, Integer> reqResources,
 			Map<Resource, Integer> optResources) {
-		super(desHours, aSubject, aProfessor, anID, reqResources, optResources);
+		super(aPeriod, aSubject, aProfessor, anID, reqResources, optResources);
 	}
 
 	@Override
-	public boolean isClassroomRequest() {
+	public Boolean isClassroomRequest() {
 		return false;
 	}
 }

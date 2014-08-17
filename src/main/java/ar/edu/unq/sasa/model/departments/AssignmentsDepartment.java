@@ -41,10 +41,7 @@ public class AssignmentsDepartment extends Department {
 		classroom.addAssignment(period, bookedAssignment);
 		addAssignment(bookedAssignment);
 		updateAssignmentsSatisfactionSuperpositions(period, bookedAssignment);
-		///////////////////////////////////////////////////////////
-		getPublisher().changed("assignmentsChanged", getAssignments());
-		getPublisher().changed("requestsChanged", getRequests());
-		///////////////////////////////////////////////////////////
+		changedAssignmentsAndRequests();
 		return bookedAssignment;
 	}
 
@@ -58,10 +55,7 @@ public class AssignmentsDepartment extends Department {
 				classroomRequest, classroom, period);
 		classroomAssignment.createSatisfaction();
 		updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
-		///////////////////////////////////////////////////////////
-		getPublisher().changed("assignmentsChanged", getAssignments());
-		getPublisher().changed("requestsChanged", getRequests());
-		///////////////////////////////////////////////////////////
+		changedAssignmentsAndRequests();
 		return classroomAssignment;
 	}
 
@@ -190,10 +184,7 @@ public class AssignmentsDepartment extends Department {
 
 		classroomAssignment.createSatisfaction();
 		updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
-		///////////////////////////////////////////////////////////
-		getPublisher().changed("assignmentsChanged", getAssignments());
-		getPublisher().changed("requestsChanged", getRequests());
-		///////////////////////////////////////////////////////////
+		changedAssignmentsAndRequests();
 		return classroomAssignment;
 	}
 
@@ -269,10 +260,7 @@ public class AssignmentsDepartment extends Department {
 
 	public void modifyBookedAssignmentCause(BookedAssignment searchedAssignment, String newCause) {
 		searchedAssignment.setCause(newCause);
-		///////////////////////////////////////////////////////////
-		getPublisher().changed("assignmentsChanged", getAssignments());
-		getPublisher().changed("requestsChanged", getRequests());
-		///////////////////////////////////////////////////////////
+		changedAssignmentsAndRequests();
 	}
 
 	public void deleteResourceAssignment(ResourceAssignment resourceAssignment) {
@@ -281,10 +269,7 @@ public class AssignmentsDepartment extends Department {
 		for (Entry<Period, Assignment> entry : resourceAssignments.entrySet())
 			if (entry.getValue().equals(resourceAssignment))
 				resourceAssignment.getAssignableItem().removeAssignment(entry.getKey());
-		///////////////////////////////////////////////////////////
-		getPublisher().changed("assignmentsChanged", getAssignments());
-		getPublisher().changed("requestsChanged", getRequests());
-		///////////////////////////////////////////////////////////
+		changedAssignmentsAndRequests();
 	}
 
 	public void deleteClassroomAssignmentFromARequest(Request aRequest) {
@@ -307,10 +292,7 @@ public class AssignmentsDepartment extends Department {
 				break;
 			}
 
-		///////////////////////////////////////////////////////////
-		getPublisher().changed("assignmentsChanged", getAssignments());
-		getPublisher().changed("requestsChanged", getRequests());
-		///////////////////////////////////////////////////////////
+		changedAssignmentsAndRequests();
 	}
 
 	public void deleteAssignment(Assignment searchedAssignment) {
@@ -327,10 +309,7 @@ public class AssignmentsDepartment extends Department {
 				}
 			getUniversity().deleteAssignment(searchedAssignment);
 
-			///////////////////////////////////////////////////////////
-			getPublisher().changed("assignmentsChanged", getAssignments());
-			getPublisher().changed("requestsChanged", getRequests());
-			///////////////////////////////////////////////////////////
+			changedAssignmentsAndRequests();
 		} catch (ConcurrentModificationException e) {
 			// TODO try to fix this, maybe it was cause by the way we are iterating some collection
 			deleteAssignment(searchedAssignment);
@@ -379,5 +358,10 @@ public class AssignmentsDepartment extends Department {
 	public void moveAssignmentOfPeriod(ClassroomAssignment assignment, Period newPeriod) {
 		deleteClassroomAssignmentFromARequest(assignment.getRequest());
 		asignateClassroomAssignment(assignment.getRequest(), assignment.getAssignableItem(), newPeriod);
+	}
+
+	private void changedAssignmentsAndRequests() {
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequestsDepartment().getRequests());
 	}
 }

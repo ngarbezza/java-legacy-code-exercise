@@ -12,18 +12,16 @@ import ar.edu.unq.sasa.model.academic.University;
 public class TestRequestsDepartment {
 
 	private RequestsDepartment requestsDepartment;
-	private University university;
 
 	@Before
 	public void setUp() {
-		university = new University();
-		requestsDepartment = new RequestsDepartment(university);
+		requestsDepartment = new RequestsDepartment(new University());
 	}
 
 	@Test
 	public void testDeleteRequest() {
 		Request classroomRequest = new ClassroomRequest(null, null, null, 0, null, null, 1);
-		university.addRequest(classroomRequest);
+		requestsDepartment.addRequest(classroomRequest);
 		requestsDepartment.deleteRequest(classroomRequest);
 		assertFalse(requestsDepartment.getRequests().contains(classroomRequest));
 	}

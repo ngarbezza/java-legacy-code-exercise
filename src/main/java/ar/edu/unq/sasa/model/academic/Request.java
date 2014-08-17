@@ -20,7 +20,8 @@ public abstract class Request {
 
 	public Map<Resource, Integer> optionalResources;
 
-	private boolean asignated = false;
+	// TODO model status?
+	private Boolean asignated = false;
 
 	public Request(Period aPeriod, Subject aSubject, Professor aProfessor, long anID,
 			Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources) {
@@ -68,7 +69,7 @@ public abstract class Request {
 		return optionalResources;
 	}
 
-	public boolean isAsignated() {
+	public Boolean isAsignated() {
 		return asignated;
 	}
 
@@ -76,69 +77,21 @@ public abstract class Request {
 		asignated = estado;
 	}
 
-	public abstract boolean isClassroomRequest();
+	public abstract Boolean isClassroomRequest();
 
-	public boolean getAsignated() {
+	public Boolean getAsignated() {
 		return isAsignated();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((desiredHours == null) ? 0 : desiredHours.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime
-				* result
-				+ ((optionalResources == null) ? 0 : optionalResources
-						.hashCode());
-		result = prime * result
-				+ ((professor == null) ? 0 : professor.hashCode());
-		result = prime
-				* result
-				+ ((requiredResources == null) ? 0 : requiredResources
-						.hashCode());
-		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
-		return result;
+		return prime + (int) (id ^ (id >>> 32));
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Request other = (Request) obj;
-		if (desiredHours == null) {
-			if (other.desiredHours != null)
-				return false;
-		} else if (!desiredHours.equals(other.desiredHours))
-			return false;
-		if (id != other.id)
-			return false;
-		if (optionalResources == null) {
-			if (other.optionalResources != null)
-				return false;
-		} else if (!optionalResources.equals(other.optionalResources))
-			return false;
-		if (professor == null) {
-			if (other.professor != null)
-				return false;
-		} else if (!professor.equals(other.professor))
-			return false;
-		if (requiredResources == null) {
-			if (other.requiredResources != null)
-				return false;
-		} else if (!requiredResources.equals(other.requiredResources))
-			return false;
-		if (subject == null) {
-			if (other.subject != null)
-				return false;
-		} else if (!subject.equals(other.subject))
-			return false;
-		return true;
+		return getClass() == other.getClass() && id == other.id;
 	}
 }
