@@ -1,11 +1,10 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
 import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -200,8 +198,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		searchTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField) e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
 				List<Classroom> res = department.getClassroomsDepartment().searchClassroomByName(text);
 				((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).setModel(res);
 			}
@@ -236,29 +234,22 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	private void createCancelButtonListeners() {
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la asignacion?",
-						"Cancelar Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					dispose();
-			}
+		cancelButton.addActionListener(anEvent -> {
+			withConfirmation("Cancelar asignación", "¿Desea cancelar la asignación?", () -> {
+				dispose();
+			});
 		});
 	}
 
 	private void createAsignateClassroomAssignmentWithDesiredPeriodAndRequiredResourcesListeners() {
-		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					Map<Resource, Integer> resources = resourcesSelectionToMap(resourcesSelection);
-					department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(
-							classroomRequestSelection, classroomSelection, periodSelection, resources);
-					parentPanel.updateTables();
-					dispose();
-				}
-			}
+		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.addActionListener(anEvent -> {
+			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
+				Map<Resource, Integer> resources = resourcesSelectionToMap(resourcesSelection);
+				department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(
+					classroomRequestSelection, classroomSelection, periodSelection, resources);
+				parentPanel.updateTables();
+				dispose();
+			});
 		});
 	}
 
@@ -270,63 +261,44 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	private void createAsignateClassroomAssignmentListeners() {
-		asignateClassroomAssignment.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?", "Asignacion",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					department.asignateClassroomAssignment(
-							classroomRequestSelection, classroomSelection, periodSelection);
-					parentPanel.updateTables();
-					dispose();
-				}
-			}
+		asignateClassroomAssignment.addActionListener(anEvent -> {
+			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
+				department.asignateClassroomAssignment(classroomRequestSelection, classroomSelection, periodSelection);
+				parentPanel.updateTables();
+				dispose();
+			});
 		});
 	}
 
 	private void createAsignateRequestInAClassroomListeners() {
-		asignateRequestInAClassroom.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?",
-						"Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					department.asignateRequestInAClassroom(classroomRequestSelection, classroomSelection);
-					parentPanel.updateTables();
-					dispose();
-				}
-			}
+		asignateRequestInAClassroom.addActionListener(anEvent -> {
+			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
+				department.asignateRequestInAClassroom(classroomRequestSelection, classroomSelection);
+				parentPanel.updateTables();
+				dispose();
+			});
 		});
 	}
 
 	private void createAsignateRequestInMostSatisfactoryClassroomListeners() {
-		asignateRequestInMostSatisfactoryClassroom.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea realizar la Asignacion elegida?",
-						"Asignacion", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					department.asignateRequestInMostSatisfactoryClassroom(classroomRequestSelection);
-					parentPanel.updateTables();
-					dispose();
-				}
-			}
+		asignateRequestInMostSatisfactoryClassroom.addActionListener(anEvent -> {
+			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
+				department.asignateRequestInMostSatisfactoryClassroom(classroomRequestSelection);
+				parentPanel.updateTables();
+				dispose();
+			});
 		});
 	}
 
 	private void createSelectResourcesListeners() {
-		selectResources.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new ResourcesSelectionWindow(department, AsignateRequestWindow.this);
-			}
+		selectResources.addActionListener(anEvent -> {
+			new ResourcesSelectionWindow(department, AsignateRequestWindow.this);
 		});
 	}
 
 	private void createSelectPeriodListeners() {
-		selectPeriod.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new NewPeriodWindow(AsignateRequestWindow.this);
-			}
+		selectPeriod.addActionListener(anEvent -> {
+			new NewPeriodWindow(AsignateRequestWindow.this);
 		});
 	}
 
@@ -337,10 +309,9 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		classroomsTable = new JTable(tableModel);
 		classroomsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		classroomsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				AsignateRequestWindow.this.whenClassroomsTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				AsignateRequestWindow.this.whenClassroomsTableSelectionChanged(anEvent);
 			}
 		});
 		classroomsScrollPane = new JScrollPane(classroomsTable);
@@ -353,8 +324,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
+	protected void whenClassroomsTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			classroomSelection = null;
 			disableAll(asignateRequestInAClassroom, asignateClassroomAssignment,

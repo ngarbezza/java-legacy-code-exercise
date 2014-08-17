@@ -1,10 +1,10 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -15,7 +15,6 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -87,12 +86,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 	@Override
 	public void setPeriod(Period newPeriod) {
 		period = newPeriod;
-		if (cause == null || classroomSelected == null)
-			acceptButton.setEnabled(false);
-		else if (cause.equals(""))
-			acceptButton.setEnabled(false);
-		else
-			acceptButton.setEnabled(true);
+		acceptButton.setEnabled(cause != null && !cause.equals("") && classroomSelected != null);
 		periodDetailTextArea.setText(period.toString());
 	}
 
@@ -154,11 +148,8 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 
 
 	private void createNewPeriodButtonListeners() {
-		newPeriodButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new NewPeriodWindow(CreateBookedAssignmentWindow.this);
- 			}
+		newPeriodButton.addActionListener(anEvent -> {
+			new NewPeriodWindow(CreateBookedAssignmentWindow.this);
 		});
 	}
 
@@ -187,26 +178,19 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 	}
 
 	private void createAcceptButtonListeners() {
-		acceptButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea crear la Reseva con esos datos?",
-						"Aceptar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					department.asignateBookedAssignment(classroomSelected, cause, period);
-					dispose();
-				}
-			}
+		acceptButton.addActionListener(anEvent -> {
+			withConfirmation("Aceptar", "¿Desea crear la Reseva con esos datos?", () -> {
+				department.asignateBookedAssignment(classroomSelected, cause, period);
+				dispose();
+			});
 		});
 	}
 
 	private void createCancelButtonListeners() {
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar la creacion de la Reserva?",
-						"Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					dispose();
-			}
+		cancelButton.addActionListener(anEvent -> {
+			withConfirmation("Cancelar", "¿Desea cancelar la creación de la reserva?", () -> {
+				dispose();
+			});
 		});
 	}
 
@@ -267,6 +251,7 @@ public class CreateBookedAssignmentWindow extends JFrame implements PeriodHolder
 		leftTopPanel.add(classroomsSearchPanel);
 		leftTopPanel.add(classroomsTableScrollPane);
 
+		// TODO refactor - spaces or something like that
 		rightTopPanel.add(new JPanel().add(new JLabel(" ")));
 		rightTopPanel.add(new JPanel().add(new JLabel(" ")));
 		rightTopPanel.add(periodSelectionPanel);

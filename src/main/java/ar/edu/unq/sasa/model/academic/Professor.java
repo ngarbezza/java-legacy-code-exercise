@@ -75,7 +75,7 @@ public class Professor {
 	@Override
 	public boolean equals(Object obj) {
 		Professor other = (Professor) obj;
-		return mail.equals(other.mail) && name.equals(other.name)
+		return other != null && mail.equals(other.mail) && name.equals(other.name)
 				&& phoneNumber.equals(other.phoneNumber) && subjects.equals(other.subjects);
 	}
 }

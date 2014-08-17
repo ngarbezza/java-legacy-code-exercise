@@ -1,15 +1,13 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -44,34 +42,22 @@ public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource
 
 	@Override
 	protected void createAddButtonListeners() {
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditMobileResourceWindow(department);
-			}
-		});
+		addButton.addActionListener(anEvent -> { new EditMobileResourceWindow(department); });
 	}
 
 	@Override
 	protected void createDeleteButtonListeners() {
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"¿Desea eliminar el recurso seleccionado?", "Eliminar",
-				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					department.deleteResource(selection);
-			}
+		deleteButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar el recurso seleccionado?", () -> {
+				department.deleteResource(selection);
+			});
 		});
 	}
 
 	@Override
 	protected void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditMobileResourceWindow(department, selection);
-			}
+		modifyButton.addActionListener(anEvent -> {
+			new EditMobileResourceWindow(department, selection);
 		});
 	}
 
@@ -101,8 +87,8 @@ public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource
 	}
 
 	@Override
-	protected void whenTableSelectionChanged(ListSelectionEvent e) {
-		super.whenTableSelectionChanged(e);
+	protected void whenTableSelectionChanged(ListSelectionEvent anEvent) {
+		super.whenTableSelectionChanged(anEvent);
 		assignmentsDetailButton.setEnabled(selection != null);
 	}
 
@@ -110,11 +96,8 @@ public class MobileResourcesPanel extends AbstractDepartmentPanel<MobileResource
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {
 		assignmentsDetailButton = new JButton("Ver asignaciones");
 		assignmentsDetailButton.setEnabled(false);
-		assignmentsDetailButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new MobileResourceAssignmentsDetailWindow(selection);
-			}
+		assignmentsDetailButton.addActionListener(anEvent -> {
+			new MobileResourceAssignmentsDetailWindow(selection);
 		});
 		bottomPanel.add(assignmentsDetailButton);
 	}

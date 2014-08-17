@@ -2,8 +2,6 @@ package ar.edu.unq.sasa.gui.departments;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,9 +26,6 @@ import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 
-/**
- * Ventana de edición de aulas. También sirve para agregar aulas nuevas.
- */
 public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 
 	private static final long serialVersionUID = -238543135195643014L;
@@ -82,8 +77,8 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 		resourcesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				whenResourcesListSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				whenResourcesListSelectionChanged(anEvent);
 			}
 		});
 
@@ -98,40 +93,31 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 	private void createButtons() {
 		saveResButton = new JButton("Guardar");
 		saveResButton.setEnabled(false);
-		saveResButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FixedResource res = getResourceTableSelection();
-				String text = resNameField.getText();
-				if (text.equals(""))
-					JOptionPane.showMessageDialog(EditClassroomWindow.this,
-							"Falta especificar el nombre al recurso",
-							"Advertencia", JOptionPane.WARNING_MESSAGE);
-				res.setName(text);
-				res.setAmount((Integer) resAmountField.getValue());
-				setResourceChanged(false);
-				refreshTable();
-			}
+		saveResButton.addActionListener(anEvent -> {
+			FixedResource res = getResourceTableSelection();
+			String text = resNameField.getText();
+			if (text.equals(""))
+				JOptionPane.showMessageDialog(EditClassroomWindow.this,
+						"Falta especificar el nombre al recurso",
+						"Advertencia", JOptionPane.WARNING_MESSAGE);
+			res.setName(text);
+			res.setAmount((Integer) resAmountField.getValue());
+			setResourceChanged(false);
+			refreshTable();
 		});
 		newResButton = new JButton("Nuevo");
-		newResButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FixedResource newRes = new FixedResource("", 1);
-				getListModel().add(newRes);
-				refreshTable();
-				int index = getListModel().indexOf(newRes);
-				resourcesTable.getSelectionModel().setSelectionInterval(index, index);
-			}
+		newResButton.addActionListener(anEvent -> {
+			FixedResource newRes = new FixedResource("", 1);
+			getListModel().add(newRes);
+			refreshTable();
+			Integer index = getListModel().indexOf(newRes);
+			resourcesTable.getSelectionModel().setSelectionInterval(index, index);
 		});
 		deleteResButton = new JButton("Eliminar");
 		deleteResButton.setEnabled(false);
-		deleteResButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				getListModel().remove(getResourceTableSelection());
-				refreshTable();
-			}
+		deleteResButton.addActionListener(anEvent -> {
+			getListModel().remove(getResourceTableSelection());
+			refreshTable();
 		});
 	}
 
@@ -140,13 +126,12 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 		((ReadOnlyTableModel<FixedResource>) resourcesTable.getModel()).fireTableDataChanged();
 	}
 
-	protected void setResourceChanged(boolean b) {
-		saveResButton.setEnabled(b);
+	protected void setResourceChanged(boolean status) {
+		saveResButton.setEnabled(status);
 	}
 
 	private FixedResource getResourceTableSelection() {
-		int index = resourcesTable.getSelectionModel().getMinSelectionIndex();
-		return getListModel().get(index);
+		return getListModel().get(resourcesTable.getSelectionModel().getMinSelectionIndex());
 	}
 
 	protected void whenResourcesListSelectionChanged(ListSelectionEvent e) {
@@ -243,17 +228,17 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 	}
 
 	@Override
-	protected int getWindowHeight() {
+	protected Integer getWindowHeight() {
 		return 350;
 	}
 
 	@Override
-	protected int getWindowWidth() {
+	protected Integer getWindowWidth() {
 		return 450;
 	}
 
 	@Override
 	protected String getWindowTitle() {
-		return inEditMode() ? "Edición de un Aula" : "Agregar Aula";
+		return inEditMode() ? "Edición de un aula" : "Agregar aula";
 	}
 }

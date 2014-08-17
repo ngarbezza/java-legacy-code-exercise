@@ -1,15 +1,13 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 
@@ -65,34 +63,22 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 
 	@Override
 	protected void createAddButtonListeners() {
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new NewRequestWindow(department);
-			}
-		});
+		addButton.addActionListener(anEvent -> { new NewRequestWindow(department); });
 	}
 
 	@Override
 	protected void createDeleteButtonListeners() {
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"¿Desea eliminar el pedido seleccionado?", "Eliminar",
-				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-				      department.deleteRequest(selection);
-			}
+		deleteButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar el pedido seleccionado?", () -> {
+				department.deleteRequest(selection);
+			});
 		});
 	}
 
 	@Override
 	protected void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Abrir ventana de Modificar Pedido
-			}
+		modifyButton.addActionListener(anEvent -> {
+			// TODO Abrir ventana de Modificar Pedido
 		});
 	}
 
@@ -112,18 +98,16 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(getProfessors());
 		final JComboBox<Professor> combo = new JComboBox<Professor>(comboModel);
 		combo.setRenderer(new EasyComboBoxRenderer<Professor>() {
+			// TODO implement with lambdas
 			@Override
 			public String getDisplayName(Professor professor) {
 				return professor.getName();
 			}
 		});
 		combo.setPreferredSize(new Dimension(120, 20));
-		combo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				List<Request> search = department.searchByProfessor((Professor) combo.getSelectedItem());
-				((ReadOnlyTableModel<Request>) table.getModel()).setModel(search);
-			}
+		combo.addActionListener(anEvent -> {
+			List<Request> search = department.searchByProfessor((Professor) combo.getSelectedItem());
+			((ReadOnlyTableModel<Request>) table.getModel()).setModel(search);
 		});
 		return combo;
 	}
@@ -136,18 +120,15 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {
 		requestDetail = new JButton("Detalle de Pedido");
 		requestDetail.setEnabled(false);
-		requestDetail.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new RequestViewWindow(department.getAssignmentsDepartment(), (ClassroomRequest) selection);
-			}
+		requestDetail.addActionListener(anEvent -> {
+			new RequestViewWindow(department.getAssignmentsDepartment(), (ClassroomRequest) selection);
 		});
 		bottomPanel.add(requestDetail);
 	}
 
 	@Override
-	protected void whenTableSelectionChanged(ListSelectionEvent e) {
-		super.whenTableSelectionChanged(e);
+	protected void whenTableSelectionChanged(ListSelectionEvent anEvent) {
+		super.whenTableSelectionChanged(anEvent);
 		requestDetail.setEnabled(selection != null);
 	}
 
@@ -159,7 +140,6 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<Request>) table.getModel())
-			.setModel(getListModel());
+		((ReadOnlyTableModel<Request>) table.getModel()).setModel(getListModel());
 	}
 }

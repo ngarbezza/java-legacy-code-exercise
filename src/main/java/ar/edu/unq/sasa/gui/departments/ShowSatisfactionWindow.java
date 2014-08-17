@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -221,23 +219,11 @@ public class ShowSatisfactionWindow extends JFrame {
 	}
 
 	private void createCloseButtonListeners() {
-		closeButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
+		closeButton.addActionListener(anEvent -> { dispose(); });
 	}
 
 	private void createShowPeriodButtonListeners() {
-		showPeriodButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new PeriodDetailWindow(selectedPeriod);
-			}
-		});
+		showPeriodButton.addActionListener(anEvent -> { new PeriodDetailWindow(selectedPeriod); });
 	}
 
 	private void organizeComponents() {

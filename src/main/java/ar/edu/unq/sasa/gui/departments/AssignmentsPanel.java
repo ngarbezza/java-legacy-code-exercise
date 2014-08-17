@@ -1,13 +1,12 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
 import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
 import static ar.edu.unq.sasa.gui.util.WidgetUtilities.enableAll;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -72,11 +69,11 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		return department;
 	}
 
-	protected int getWindowWidth() {
+	protected Integer getWindowWidth() {
 		return 500;
 	}
 
-	protected int getWindowHeight() {
+	protected Integer getWindowHeight() {
 		return 500;
 	}
 
@@ -134,13 +131,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 				return professor.getName();
 			}
 		});
-		combo.addActionListener(new ActionListener() {
-		    @Override
-			public void actionPerformed(ActionEvent e) {
-		    	updateTables();
-		    }
-		});
-
+		combo.addActionListener(anEvent -> { updateTables(); });
 		combo.setPreferredSize(new Dimension(120, 20));
 		return combo;
 	}
@@ -162,42 +153,29 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	}
 
 	private void createViewDetailsButtonListeners() {
-		viewDetailsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new RequestViewWindow(department, assignmentSelection.getRequest());
-			}
+		viewDetailsButton.addActionListener(anEvent -> {
+			new RequestViewWindow(department, assignmentSelection.getRequest());
 		});
 	}
 
 	private void createAsignateButtonListeners() {
-		asignateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new AsignateRequestWindow(department, AssignmentsPanel.this);
-			}
+		asignateButton.addActionListener(anEvent -> {
+			new AsignateRequestWindow(department, AssignmentsPanel.this);
 		});
 	}
 
 	private void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditAssignmentWindow(department, assignmentSelection);
-			}
+		modifyButton.addActionListener(anEvent -> {
+			new EditAssignmentWindow(department, assignmentSelection);
 		});
 	}
 
 	private void createDeleteButtonListeners() {
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la asignacion seleccionada?",
-						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					getDepartment().deleteAssignment(assignmentSelection);
-					updateTables();
-				}
-			}
+		deleteButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar la asignacion seleccionada?", () -> {
+				getDepartment().deleteAssignment(assignmentSelection);
+				updateTables();
+			});
 		});
 	}
 
@@ -208,10 +186,9 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 		assignmentsTable = new JTable(tableModel);
 		assignmentsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		assignmentsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				AssignmentsPanel.this.whenAssignmentsTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				AssignmentsPanel.this.whenAssignmentsTableSelectionChanged(anEvent);
 			}
 		});
 		assignmentsScrollPane = new JScrollPane(assignmentsTable);
@@ -364,5 +341,4 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 	public void update(String aspect, Object value) {
 		updateTables();
 	}
-
 }

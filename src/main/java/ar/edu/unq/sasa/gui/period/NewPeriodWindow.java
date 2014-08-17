@@ -1,10 +1,10 @@
 package ar.edu.unq.sasa.gui.period;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
 import static ar.edu.unq.sasa.gui.util.WidgetUtilities.toggleAll;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -153,22 +152,14 @@ public class NewPeriodWindow extends JFrame {
 	}
 
 	private void createRepetitionListeners() {
-		noneRadioButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				toggleAll(!radioButtonFromEventIsSelected(anEvent),
-						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
-						toDateLabel, toDate);
-			}
+		noneRadioButton.addActionListener(anEvent -> {
+			toggleAll(!radioButtonFromEventIsSelected(anEvent),
+					dailyRadioButton, weeklyRadioButton, monthlyRadioButton, toDateLabel, toDate);
 		});
-		repetitionRadioButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				toggleAll(radioButtonFromEventIsSelected(anEvent),
-						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
-						toDateLabel, toDate);
-				weeklyRadioButton.setSelected(true); // por defecto
-			}
+		repetitionRadioButton.addActionListener(anEvent -> {
+			toggleAll(radioButtonFromEventIsSelected(anEvent),
+					dailyRadioButton, weeklyRadioButton, monthlyRadioButton, toDateLabel, toDate);
+			weeklyRadioButton.setSelected(true); // por defecto
 		});
 	}
 
@@ -189,33 +180,27 @@ public class NewPeriodWindow extends JFrame {
 	}
 
 	private void createConditionListeners() {
-		simpleRadioButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				toggleAll(!radioButtonFromEventIsSelected(anEvent),
-						orRadioButton, andRadioButton, minusRadioButton);
-				toggleAll(radioButtonFromEventIsSelected(anEvent),
-						fromDateLabel, fromDate, toHourLabel,
-						toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
-						fromMinutesCombo, noneRadioButton, repetitionRadioButton,
-						minutesInRangeLabel, minutesInRange);
-				toggleAll(repetitionRadioButton.isSelected(), toDateLabel, toDate,
-						dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
-			}
+		simpleRadioButton.addActionListener(anEvent -> {
+			toggleAll(!radioButtonFromEventIsSelected(anEvent),
+					orRadioButton, andRadioButton, minusRadioButton);
+			toggleAll(radioButtonFromEventIsSelected(anEvent),
+					fromDateLabel, fromDate, toHourLabel,
+					toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
+					fromMinutesCombo, noneRadioButton, repetitionRadioButton,
+					minutesInRangeLabel, minutesInRange);
+			toggleAll(repetitionRadioButton.isSelected(), toDateLabel, toDate,
+					dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
 		});
-		compositeRadioButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				toggleAll(radioButtonFromEventIsSelected(anEvent),
-						orRadioButton, andRadioButton, minusRadioButton);
-				toggleAll(!radioButtonFromEventIsSelected(anEvent),
-						fromDateLabel, fromDate, toDateLabel, toDate, toHourLabel,
-						toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
-						fromMinutesCombo, noneRadioButton, repetitionRadioButton,
-						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
-						minutesInRangeLabel, minutesInRange);
-				orRadioButton.setSelected(true);
-			}
+		compositeRadioButton.addActionListener(anEvent -> {
+			toggleAll(radioButtonFromEventIsSelected(anEvent),
+					orRadioButton, andRadioButton, minusRadioButton);
+			toggleAll(!radioButtonFromEventIsSelected(anEvent),
+					fromDateLabel, fromDate, toDateLabel, toDate, toHourLabel,
+					toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
+					fromMinutesCombo, noneRadioButton, repetitionRadioButton,
+					dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
+					minutesInRangeLabel, minutesInRange);
+			orRadioButton.setSelected(true);
 		});
 	}
 
@@ -276,7 +261,7 @@ public class NewPeriodWindow extends JFrame {
 		return newSP;
 	}
 
-	protected void whenSelectedPeriodChanged(TreeSelectionEvent e) {
+	protected void whenSelectedPeriodChanged(TreeSelectionEvent anEvent) {
 		PeriodTreeNode periodNode = (PeriodTreeNode) periodsTree.getLastSelectedPathComponent();
 		if (periodNode == null)
 			disableWidgets();
@@ -335,35 +320,21 @@ public class NewPeriodWindow extends JFrame {
 
 	protected void createButtons() {
 		saveButton = new JButton("Guardar");
-		saveButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				saveChanges();
-			}
-		});
+		saveButton.addActionListener(anEvent -> { saveChanges(); });
 		acceptButton = new JButton("Aceptar");
-		acceptButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if ((PeriodTreeNode) periodsTree.getLastSelectedPathComponent() != null)
-					saveChanges();
-				Period period = ((PeriodTreeNode)
-				periodsTree.getModel().getRoot()).makePeriod();
-				if (period != null) {
-					periodHolder.setPeriod(period);
-					dispose();
-				}
+		acceptButton.addActionListener(anEvent -> {
+			if ((PeriodTreeNode) periodsTree.getLastSelectedPathComponent() != null)
+				saveChanges();
+			Period period = ((PeriodTreeNode)
+			periodsTree.getModel().getRoot()).makePeriod();
+			if (period != null) {
+				periodHolder.setPeriod(period);
+				dispose();
 			}
 		});
 		cancelButton = new JButton("Cancelar");
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"¿Desea salir de la ventana y perder los cambios?", "Salir",
-				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-				      dispose();
-			}
+		cancelButton.addActionListener(anEvent -> {
+			withConfirmation("Salir", "¿Desea salir de la ventana y perder los cambios?", () -> { dispose(); });
 		});
 	}
 

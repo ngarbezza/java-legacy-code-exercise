@@ -62,7 +62,7 @@ public class EditMobileResourceWindow extends AbstractEditWindow<MobileResource>
 	}
 
 	@Override
-	protected int getWindowHeight() {
+	protected Integer getWindowHeight() {
 		return 120;
 	}
 
@@ -72,7 +72,7 @@ public class EditMobileResourceWindow extends AbstractEditWindow<MobileResource>
 	}
 
 	@Override
-	protected int getWindowWidth() {
+	protected Integer getWindowWidth() {
 		return 300;
 	}
 

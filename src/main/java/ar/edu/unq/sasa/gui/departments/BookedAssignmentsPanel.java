@@ -1,15 +1,13 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import ar.edu.unq.sasa.gui.util.ToStringConverter;
@@ -48,34 +46,21 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 
 	@Override
 	protected void createAddButtonListeners() {
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new CreateBookedAssignmentWindow(department);
-			}
-		});
+		addButton.addActionListener(anEvent -> { new CreateBookedAssignmentWindow(department); });
 	}
 
 	@Override
 	protected void createDeleteButtonListeners() {
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar la reserva seleccionada?",
-						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-				      department.deleteAssignment(selection);
-			}
+		deleteButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar la reserva seleccionada?", () -> {
+				department.deleteAssignment(selection);
+			});
 		});
 	}
 
 	@Override
 	protected void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditBookedAssignmentWindow(department, selection);
-			}
-		});
+		modifyButton.addActionListener(anEvent -> { new EditBookedAssignmentWindow(department, selection); });
 	}
 
 	@Override
@@ -98,8 +83,8 @@ public class BookedAssignmentsPanel extends AbstractDepartmentPanel<BookedAssign
 		field.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField) e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
 				List<BookedAssignment> res = BookedAssignmentsPanel.this.department.searchForBookedAssignment(text);
 				((ReadOnlyTableModel<BookedAssignment>) table.getModel()).setModel(res);
 			}

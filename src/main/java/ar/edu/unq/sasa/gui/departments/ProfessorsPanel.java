@@ -1,14 +1,12 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
@@ -34,8 +32,7 @@ public class ProfessorsPanel extends AbstractDepartmentPanel<Professor> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void update(String aspect, Object value) {
-		((ReadOnlyTableModel<Professor>) table.getModel())
-			.setModel((List<Professor>) value);
+		((ReadOnlyTableModel<Professor>) table.getModel()).setModel((List<Professor>) value);
 	}
 
 	@Override
@@ -66,10 +63,10 @@ public class ProfessorsPanel extends AbstractDepartmentPanel<Professor> {
 		field.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField) e.getSource()).getText();
-				List<Professor> res = ProfessorsPanel.this.department.searchProfessor(text);
-				((ReadOnlyTableModel<Professor>) table.getModel()).setModel(res);
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
+				List<Professor> result = ProfessorsPanel.this.department.searchProfessor(text);
+				((ReadOnlyTableModel<Professor>) table.getModel()).setModel(result);
 			}
 		});
 		return field;
@@ -77,34 +74,22 @@ public class ProfessorsPanel extends AbstractDepartmentPanel<Professor> {
 
 	@Override
 	protected void createAddButtonListeners() {
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditProfessorWindow(department);
-			}
-		});
+		addButton.addActionListener(anEvent -> { new EditProfessorWindow(department); });
 	}
 
 	@Override
 	protected void createDeleteButtonListeners() {
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"¿Desea eliminar el profesor seleccionado?", "Eliminar",
-				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-				      department.deleteProfessor(selection);
-			}
+		deleteButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar el profesor seleccionado?", () -> {
+				department.deleteProfessor(selection);
+			});
 		});
 	}
 
 	@Override
 	protected void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditProfessorWindow(department, selection);
-			}
+		modifyButton.addActionListener(anEvent -> {
+			new EditProfessorWindow(department, selection);
 		});
 	}
 }

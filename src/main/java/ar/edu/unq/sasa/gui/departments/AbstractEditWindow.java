@@ -1,8 +1,6 @@
 package ar.edu.unq.sasa.gui.departments;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -57,33 +55,25 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 	}
 
 	// puede redefinirse !
-	protected boolean mustBeResizable() {
+	protected Boolean mustBeResizable() {
 		return true;
 	}
 
-	protected boolean inEditMode() {
+	protected Boolean inEditMode() {
 		return item != null;
 	}
 
 	protected void createWidgetsBottomPanel() {
 		acceptButton = new JButton("Aceptar");
-		acceptButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (inEditMode())
-					doAcceptActionInEditMode();
-				else
-					doAcceptInAddingMode();
-				dispose();
-			}
+		acceptButton.addActionListener(anEvent -> {
+			if (inEditMode())
+				doAcceptActionInEditMode();
+			else
+				doAcceptInAddingMode();
+			dispose();
 		});
 		cancelButton = new JButton("Cancelar");
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				dispose();
-			}
-		});
+		cancelButton.addActionListener(anEvent -> { dispose(); });
 	}
 
 	protected void doValidations() { }
@@ -91,8 +81,8 @@ public abstract class AbstractEditWindow<A> extends JFrame {
 	protected void setAnotherConfigurations() { }
 
 	protected abstract String getWindowTitle();
-	protected abstract int getWindowWidth();
-	protected abstract int getWindowHeight();
+	protected abstract Integer getWindowWidth();
+	protected abstract Integer getWindowHeight();
 
 	// widgets particulares a cada ventana de edición
 	protected abstract void createWidgetsTopPanel();

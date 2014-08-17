@@ -1,15 +1,13 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -44,35 +42,21 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 
 	@Override
 	protected void createAddButtonListeners() {
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new EditClassroomWindow(department);
-			}
-		});
+		addButton.addActionListener(anEvent -> { new EditClassroomWindow(department); });
 	}
 
 	@Override
 	protected void createDeleteButtonListeners() {
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"¿Desea eliminar el pedido seleccionado?", "Eliminar",
-				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					department.deleteClassroom(selection);
-			}
+		deleteButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar el pedido seleccionado?", () -> {
+				department.deleteClassroom(selection);
+			});
 		});
 	}
 
 	@Override
 	protected void createModifyButtonListeners() {
-		modifyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new EditClassroomWindow(department, selection);
-			}
-		});
+		modifyButton.addActionListener(anEvent -> { new EditClassroomWindow(department, selection); });
 	}
 
 	@Override
@@ -110,11 +94,8 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {
 		assignmentsDetailButton = new JButton("Ver asignaciones");
 		assignmentsDetailButton.setEnabled(false);
-		assignmentsDetailButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new ClassroomAssignmentsDetailWindow(selection);
-			}
+		assignmentsDetailButton.addActionListener(anEvent -> {
+			new ClassroomAssignmentsDetailWindow(selection);
 		});
 		bottomPanel.add(assignmentsDetailButton);
 	}

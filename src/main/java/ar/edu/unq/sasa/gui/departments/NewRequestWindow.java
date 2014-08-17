@@ -1,10 +1,10 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,9 +94,9 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent anEvent) {
-				boolean b = requiredResourcesTable.getSelectionModel().isSelectionEmpty();
-				deleteResourceButton.setEnabled(!b);
-				if (!b)
+				Boolean someSelectedItem = requiredResourcesTable.getSelectionModel().isSelectionEmpty();
+				deleteResourceButton.setEnabled(!someSelectedItem);
+				if (!someSelectedItem)
 					optionalResourcesTable.getSelectionModel().clearSelection();
 			}
 		});
@@ -106,10 +106,10 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		optionalResourcesTable.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				boolean b = optionalResourcesTable.getSelectionModel().isSelectionEmpty();
-				deleteResourceButton.setEnabled(!b);
-				if (!b)
+			public void valueChanged(ListSelectionEvent anEvent) {
+				Boolean someSelectedItem = optionalResourcesTable.getSelectionModel().isSelectionEmpty();
+				deleteResourceButton.setEnabled(!someSelectedItem);
+				if (!someSelectedItem)
 					requiredResourcesTable.getSelectionModel().clearSelection();
 			}
 		});
@@ -131,11 +131,8 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		EasyComboBoxModel<Resource> comboModel = new EasyComboBoxModel<Resource>(
 				department.getResourcesDepartment().getAllResources());
 		resourceCombo = new JComboBox<Resource>(comboModel);
-		resourceCombo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addResourceButton.setEnabled(resourceCombo.getSelectedItem() != null);
-			}
+		resourceCombo.addActionListener(anEvent -> {
+			addResourceButton.setEnabled(resourceCombo.getSelectedItem() != null);
 		});
 		resourceCombo.setRenderer(new EasyComboBoxRenderer<Resource>() {
 			@Override
@@ -152,39 +149,33 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		resourcesRadioButtonGroup.add(optionalRadioButton);
 		addResourceButton = new JButton("Agregar");
 		addResourceButton.setEnabled(false);
-		addResourceButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ResourceView newRes = new ResourceView(
-						(Resource) resourceCombo.getSelectedItem(),
-						(Integer) amountSelector.getValue());
-				List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
-				List<ResourceView> modelReq = getListModelFrom(requiredResourcesTable);
-				if (requiredRadioButton.isSelected()) {
-					addResource(modelReq, modelOpt, newRes);
-					((ReadOnlyTableModel<ResourceView>) requiredResourcesTable.getModel()).setModel(modelReq);
-				} else {
-					addResource(modelOpt, modelReq, newRes);
-					((ReadOnlyTableModel<ResourceView>) optionalResourcesTable.getModel()).setModel(modelOpt);
-				}
+		addResourceButton.addActionListener(anEvent -> {
+			ResourceView newRes = new ResourceView(
+					(Resource) resourceCombo.getSelectedItem(),
+					(Integer) amountSelector.getValue());
+			List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
+			List<ResourceView> modelReq = getListModelFrom(requiredResourcesTable);
+			if (requiredRadioButton.isSelected()) {
+				addResource(modelReq, modelOpt, newRes);
+				((ReadOnlyTableModel<ResourceView>) requiredResourcesTable.getModel()).setModel(modelReq);
+			} else {
+				addResource(modelOpt, modelReq, newRes);
+				((ReadOnlyTableModel<ResourceView>) optionalResourcesTable.getModel()).setModel(modelOpt);
 			}
 		});
 		deleteResourceButton = new JButton("Eliminar recurso seleccionado");
 		deleteResourceButton.setEnabled(false);
-		deleteResourceButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
-				List<ResourceView> modelReq = getListModelFrom(requiredResourcesTable);
-				if (requiredResourcesTable.getSelectionModel().isSelectionEmpty()) {
-					ResourceView selection = getSelectionFrom(optionalResourcesTable);
-					modelOpt.remove(selection);
-					((ReadOnlyTableModel<ResourceView>) optionalResourcesTable.getModel()).setModel(modelOpt);
-				} else {
-					ResourceView selection = getSelectionFrom(requiredResourcesTable);
-					modelReq.remove(selection);
-					((ReadOnlyTableModel<ResourceView>) requiredResourcesTable.getModel()).setModel(modelReq);
-				}
+		deleteResourceButton.addActionListener(anEvent -> {
+			List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
+			List<ResourceView> modelReq = getListModelFrom(requiredResourcesTable);
+			if (requiredResourcesTable.getSelectionModel().isSelectionEmpty()) {
+				ResourceView selection = getSelectionFrom(optionalResourcesTable);
+				modelOpt.remove(selection);
+				((ReadOnlyTableModel<ResourceView>) optionalResourcesTable.getModel()).setModel(modelOpt);
+			} else {
+				ResourceView selection = getSelectionFrom(requiredResourcesTable);
+				modelReq.remove(selection);
+				((ReadOnlyTableModel<ResourceView>) requiredResourcesTable.getModel()).setModel(modelReq);
 			}
 		});
 	}
@@ -235,15 +226,11 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 				return professor.getName();
 			}
 		});
-		professorCombo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				List<Subject> modelToSet = new LinkedList<Subject>();
-				if (getSelectedProfessor() != null)
-					modelToSet = getSelectedProfessor().getSubjects();
-				((EasyComboBoxModel<Subject>) subjectCombo.getModel())
-					.setModel(modelToSet);
-			}
+		professorCombo.addActionListener(anEvent -> {
+			List<Subject> modelToSet = new LinkedList<Subject>();
+			if (getSelectedProfessor() != null)
+				modelToSet = getSelectedProfessor().getSubjects();
+			((EasyComboBoxModel<Subject>) subjectCombo.getModel()).setModel(modelToSet);
 		});
 	}
 
@@ -260,39 +247,29 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		periodDetailArea = new JTextArea("Ningún período seleccionado");
 		periodDetailArea.setEditable(false);
 		addPeriodButton = new JButton("Especificar Período");
-		addPeriodButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new NewPeriodWindow(NewRequestWindow.this);
-			}
+		addPeriodButton.addActionListener(anEvent -> {
+			new NewPeriodWindow(NewRequestWindow.this);
 		});
 	}
 
 	private void createButtons() {
 		createRequestButton = new JButton("Crear Pedido");
-		createRequestButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (validateCurrentRequest()) {
-					department.createClassroomRequest(
-						makeResourcesFrom(requiredResourcesTable),
-						makeResourcesFrom(optionalResourcesTable),
-						specifiedPeriod, getSelectedSubject(),
-						getSelectedProfessor(),
-						(Integer) capacitySelector.getValue());
-					dispose();
-				}
+		createRequestButton.addActionListener(anEvent -> {
+			if (validateCurrentRequest()) {
+				department.createClassroomRequest(
+					makeResourcesFrom(requiredResourcesTable),
+					makeResourcesFrom(optionalResourcesTable),
+					specifiedPeriod, getSelectedSubject(),
+					getSelectedProfessor(),
+					(Integer) capacitySelector.getValue());
+				dispose();
 			}
 		});
 		cancelButton = new JButton("Cancelar");
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"¿Desea salir de la ventana y perder los cambios?", "Salir",
-				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-				      dispose();
-			}
+		cancelButton.addActionListener(anEvent -> {
+			withConfirmation("Salir", "¿Desea salir de la ventana y perder los cambios?", () -> {
+				dispose();
+			});
 		});
 	}
 

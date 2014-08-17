@@ -1,10 +1,10 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -165,8 +164,8 @@ public class ResourcesSelectionWindow extends JFrame {
 		JTextField field = new JTextField(10);
 		field.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
-				String number = ((JTextField) e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String number = ((JTextField) anEvent.getSource()).getText();
 				if (!number.equals("")) {
 					if (quantity != null) {
 						addResourceButton.setEnabled(false);
@@ -196,25 +195,21 @@ public class ResourcesSelectionWindow extends JFrame {
 				return mobileResource.getName();
 			}
 		});
-		combo.addActionListener(new ActionListener() {
-		    @Override
-			public void actionPerformed(ActionEvent e) {
-		    	// TODO refactor me!
-		    	if (!(((Resource) ((JComboBox<Resource>) e.getSource()).getSelectedItem()) == null)) {
-	    			if (!isInResourcesList((((Resource) ((JComboBox<Resource>) e.getSource()).getSelectedItem())))) {
-		    			resource = (Resource) ((JComboBox<Resource>) e.getSource()).getSelectedItem();
-		    			if (quantity != null)
-							addResourceButton.setEnabled(true);
-	    			} else {
-	    				addResourceButton.setEnabled(false);
-	    				resource = null;
-	    			}
-		    	} else {
-	    			addResourceButton.setEnabled(false);
-	    			resource = null;
-	    		}
-		    }
-
+		combo.addActionListener(anEvent -> {
+	    	// TODO refactor me!
+	    	if (!(((Resource) ((JComboBox<Resource>) anEvent.getSource()).getSelectedItem()) == null)) {
+    			if (!isInResourcesList((((Resource) ((JComboBox<Resource>) anEvent.getSource()).getSelectedItem())))) {
+	    			resource = (Resource) ((JComboBox<Resource>) anEvent.getSource()).getSelectedItem();
+	    			if (quantity != null)
+						addResourceButton.setEnabled(true);
+    			} else {
+    				addResourceButton.setEnabled(false);
+    				resource = null;
+    			}
+	    	} else {
+    			addResourceButton.setEnabled(false);
+    			resource = null;
+    		}
 		});
 
 		combo.setPreferredSize(new Dimension(120, 20));
@@ -252,27 +247,21 @@ public class ResourcesSelectionWindow extends JFrame {
 	}
 
 	private void createViewDetailsButtonListeners() {
-		viewDetailsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new RequestViewWindow(department, parentFrame.getParentPanel().getRequestSelection());
-			}
+		viewDetailsButton.addActionListener(anEvent -> {
+			new RequestViewWindow(department, parentFrame.getParentPanel().getRequestSelection());
 		});
 	}
 
 	private void createAddResourceButtonListeners() {
-		addResourceButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				resourcesSelected.add(new Pair<Resource, Integer>(resource, quantity));
-				resource = null;
-				quantity = null;
-				resourcesComboBox.setSelectedItem(null);
-				resourcesComboBox.updateUI();
-				resourcesQuantity.setText("");
-				addResourceButton.setEnabled(false);
-				updateTable();
-			}
+		addResourceButton.addActionListener(anEvent -> {
+			resourcesSelected.add(new Pair<Resource, Integer>(resource, quantity));
+			resource = null;
+			quantity = null;
+			resourcesComboBox.setSelectedItem(null);
+			resourcesComboBox.updateUI();
+			resourcesQuantity.setText("");
+			addResourceButton.setEnabled(false);
+			updateTable();
 		});
 	}
 
@@ -282,45 +271,32 @@ public class ResourcesSelectionWindow extends JFrame {
 	}
 
 	private void createRemoveResourceButtonListeners() {
-		removeResourceButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea eliminar el recurso seleccionado?",
-						"Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					resourcesSelected.remove(resourceSelection);
-					resourcesComboBox.setSelectedItem(null);
-					resourcesComboBox.updateUI();
-					resourcesQuantity.setText("");
-					addResourceButton.setEnabled(false);
-					updateTable();
-				}
-			}
+		removeResourceButton.addActionListener(anEvent -> {
+			withConfirmation("Eliminar", "¿Desea eliminar el recurso seleccionado?", () -> {
+				resourcesSelected.remove(resourceSelection);
+				resourcesComboBox.setSelectedItem(null);
+				resourcesComboBox.updateUI();
+				resourcesQuantity.setText("");
+				addResourceButton.setEnabled(false);
+				updateTable();
+			});
 		});
 	}
 
 	private void createAcceptButtonListeners() {
-		acceptButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea guardar los cambios?", "Aceptar",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					parentFrame.setResourcesSelection(resourcesSelected);
-					parentFrame.validateButtons();
-					parentFrame.updateResourcesTable();
-					dispose();
-				}
-			}
+		acceptButton.addActionListener(anEvent -> {
+			withConfirmation("Aceptar", "¿Desea guardar los cambios?", () -> {
+				parentFrame.setResourcesSelection(resourcesSelected);
+				parentFrame.validateButtons();
+				parentFrame.updateResourcesTable();
+				dispose();
+			});
 		});
 	}
 
 	private void createCancelButtonListeners() {
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?", "Cancelar",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					dispose();
-			}
+		cancelButton.addActionListener(anEvent -> {
+			withConfirmation("Cancelar", "¿Desea cancelar los cambios?", () -> { dispose(); });
 		});
 	}
 
@@ -331,18 +307,17 @@ public class ResourcesSelectionWindow extends JFrame {
 		resourcesTable = new JTable(tableModel);
 		resourcesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				ResourcesSelectionWindow.this.whenResourcesTableSelectionChanged(e);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				ResourcesSelectionWindow.this.whenResourcesTableSelectionChanged(anEvent);
 			}
 		});
 		resourcesScrollPane = new JScrollPane(resourcesTable);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void whenResourcesTableSelectionChanged(ListSelectionEvent e) {
-		DefaultListSelectionModel source = (DefaultListSelectionModel) e.getSource();
+	protected void whenResourcesTableSelectionChanged(ListSelectionEvent anEvent) {
+		DefaultListSelectionModel source = (DefaultListSelectionModel) anEvent.getSource();
 		if (source.isSelectionEmpty()) {
 			resourceSelection = null;
 			removeResourceButton.setEnabled(false);

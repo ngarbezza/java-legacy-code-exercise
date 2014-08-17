@@ -1,8 +1,6 @@
 package ar.edu.unq.sasa.gui.departments;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -74,22 +72,14 @@ public class EditBookedAssignmentWindow extends JFrame {
 	}
 
 	private void createAcceptButtonListener() {
-		acceptButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				department.modifyBookedAssignmentCause(bookedAssignmentSelection, newCause);
-				dispose();
-			}
+		acceptButton.addActionListener(anEvent -> {
+			department.modifyBookedAssignmentCause(bookedAssignmentSelection, newCause);
+			dispose();
 		});
 	}
 
 	private void createCancelButtonListener() {
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				dispose();
-			}
-		});
+		cancelButton.addActionListener(anEvent -> { dispose(); });
 	}
 
 	private void organizeComponents() {

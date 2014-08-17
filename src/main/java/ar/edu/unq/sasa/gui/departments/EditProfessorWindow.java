@@ -3,8 +3,6 @@ package ar.edu.unq.sasa.gui.departments;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -85,14 +83,14 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		nameField = new JTextField(12);
 		nameField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent anEvent) {
 				doValidations();
 			}
 		});
 		phoneField = new JTextField(12);
 		phoneField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent anEvent) {
 				doValidations();
 			}
 		});
@@ -111,18 +109,15 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		addSubjectLabel = new JLabel("Agregar Materia");
 		List<Subject> allSubjects = department.getSubjectsDepartment().getSubjects();
 		allSubjectsCombo = new JComboBox<Subject>(new EasyComboBoxModel<Subject>(allSubjects));
-		allSubjectsCombo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Subject s = (Subject) allSubjectsCombo.getSelectedItem();
-				currentSubjectName = (s == null) ? "" : s.getName();
-				validateCurrentSubjectName();
-			}
+		allSubjectsCombo.addActionListener(anEvent -> {
+			Subject subject = (Subject) allSubjectsCombo.getSelectedItem();
+			currentSubjectName = (subject == null) ? "" : subject.getName();
+			validateCurrentSubjectName();
 		});
 		newSubjectField = new JTextField(24);
 		newSubjectField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent anEvent) {
 				currentSubjectName = newSubjectField.getText();
 				validateCurrentSubjectName();
 			}
@@ -130,9 +125,8 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		subjectList = new JList<Subject>(new EasyListModel<Subject>());
 		subjectList.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				boolean visibility = subjectList.getSelectionModel().isSelectionEmpty();
-				deleteSubject.setEnabled(!visibility);
+			public void valueChanged(ListSelectionEvent anEvent) {
+				deleteSubject.setEnabled(!subjectList.getSelectionModel().isSelectionEmpty());
 			}
 		});
 		subjectList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -151,28 +145,21 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 		ButtonGroup subjectCreating = new ButtonGroup();
 		chooseExistingSubject = new JRadioButton("Existente", true);
 		newSubjectField.setEnabled(!chooseExistingSubject.isSelected());
-		chooseExistingSubject.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Subject subjectSelected = (Subject) allSubjectsCombo
-						.getSelectedItem();
-				currentSubjectName = (subjectSelected != null) ? getName() : "";
-				newSubjectField.setEnabled(!chooseExistingSubject.isSelected());
-				newSubjectField.setText("");
-				allSubjectsCombo.setEnabled(chooseExistingSubject.isSelected());
-				validateCurrentSubjectName();
-			}
+		chooseExistingSubject.addActionListener(anEvent -> {
+			Subject subjectSelected = (Subject) allSubjectsCombo.getSelectedItem();
+			currentSubjectName = (subjectSelected != null) ? getName() : "";
+			newSubjectField.setEnabled(!chooseExistingSubject.isSelected());
+			newSubjectField.setText("");
+			allSubjectsCombo.setEnabled(chooseExistingSubject.isSelected());
+			validateCurrentSubjectName();
 		});
 		chooseNewSubject = new JRadioButton("Nueva");
-		chooseNewSubject.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				currentSubjectName = newSubjectField.getText();
-				allSubjectsCombo.setEnabled(!chooseNewSubject.isSelected());
-				allSubjectsCombo.setSelectedIndex(0);
-				newSubjectField.setEnabled(chooseNewSubject.isSelected());
-				validateCurrentSubjectName();
-			}
+		chooseNewSubject.addActionListener(anEvent -> {
+			currentSubjectName = newSubjectField.getText();
+			allSubjectsCombo.setEnabled(!chooseNewSubject.isSelected());
+			allSubjectsCombo.setSelectedIndex(0);
+			newSubjectField.setEnabled(chooseNewSubject.isSelected());
+			validateCurrentSubjectName();
 		});
 		subjectCreating.add(chooseExistingSubject);
 		subjectCreating.add(chooseNewSubject);
@@ -181,31 +168,25 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 	private void createSubjectButtons() {
 		addSubject = new JButton("Agregar");
 		addSubject.setEnabled(false);
-		addSubject.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SubjectsDepartment sh = department.getSubjectsDepartment();
-				if (!sh.existSubjectNamed(currentSubjectName)) {
-					Subject subjectToAdd;
-					if (!sh.existSubjectNamed(currentSubjectName))
-						subjectToAdd = sh.createSubject(currentSubjectName);
-					else
-						subjectToAdd = sh.getSubjectNamed(currentSubjectName);
-					((EasyListModel<Subject>) subjectList.getModel()).addItem(subjectToAdd);
-					((EasyComboBoxModel<Subject>) allSubjectsCombo.getModel()).setModel(sh.getSubjects());
-					cleanSubjectFields();
-				}
+		addSubject.addActionListener(anEvent -> {
+			SubjectsDepartment sh = department.getSubjectsDepartment();
+			if (!sh.existSubjectNamed(currentSubjectName)) {
+				Subject subjectToAdd;
+				if (!sh.existSubjectNamed(currentSubjectName))
+					subjectToAdd = sh.createSubject(currentSubjectName);
+				else
+					subjectToAdd = sh.getSubjectNamed(currentSubjectName);
+				((EasyListModel<Subject>) subjectList.getModel()).addItem(subjectToAdd);
+				((EasyComboBoxModel<Subject>) allSubjectsCombo.getModel()).setModel(sh.getSubjects());
+				cleanSubjectFields();
 			}
 		});
 		deleteSubject = new JButton("Eliminar Materia seleccionada");
 		deleteSubject.setEnabled(false);
-		deleteSubject.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Subject selection = subjectList.getSelectedValue();
-				if (selection != null)
-					((EasyListModel<Subject>) subjectList.getModel()).removeItem(selection);
-			}
+		deleteSubject.addActionListener(anEvent -> {
+			Subject selection = subjectList.getSelectedValue();
+			if (selection != null)
+				((EasyListModel<Subject>) subjectList.getModel()).removeItem(selection);
 		});
 	}
 
@@ -221,17 +202,17 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 	}
 
 	@Override
-	protected int getWindowHeight() {
+	protected Integer getWindowHeight() {
 		return 380;
 	}
 
 	@Override
-	protected int getWindowWidth() {
+	protected Integer getWindowWidth() {
 		return 420;
 	}
 
 	@Override
-	protected boolean mustBeResizable() {
+	protected Boolean mustBeResizable() {
 		return true;
 	}
 

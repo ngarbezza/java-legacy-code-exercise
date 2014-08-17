@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -177,21 +175,15 @@ public class RequestViewWindow extends JFrame {
 	}
 
 	private void createDesiredPeriodButtonListeners() {
-		showDesiredPeriodButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new PeriodDetailWindow(request.getDesiredHours());
-			}
+		showDesiredPeriodButton.addActionListener(anEvent -> {
+			new PeriodDetailWindow(request.getDesiredHours());
 		});
 	}
 
 	private void createAsignatedPeriodButtonListeners() {
-		showAsignatedPeriodButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (request.isAsignated())
-					new PeriodDetailWindow(getAsignatedPeriod());
-			}
+		showAsignatedPeriodButton.addActionListener(anEvent -> {
+			if (request.isAsignated())
+				new PeriodDetailWindow(getAsignatedPeriod());
 		});
 	}
 
@@ -207,21 +199,13 @@ public class RequestViewWindow extends JFrame {
 	}
 
 	private void createSatisfactionButtonListeners() {
-		showSatisfactionButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new ShowSatisfactionWindow(requestAssignment);
-			}
+		showSatisfactionButton.addActionListener(anEvent -> {
+			new ShowSatisfactionWindow(requestAssignment);
 		});
 	}
 
 	private void createCloseButtonListeners() {
-		closeButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
+		closeButton.addActionListener(anEvent -> { dispose(); });
 	}
 
 	private void organizeComponents() {

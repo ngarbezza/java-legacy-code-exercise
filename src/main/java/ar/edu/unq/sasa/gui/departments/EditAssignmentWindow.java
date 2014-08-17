@@ -1,8 +1,8 @@
 package ar.edu.unq.sasa.gui.departments;
 
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -13,7 +13,6 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -96,8 +95,8 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 		searchTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
-			public void keyReleased(KeyEvent e) {
-				String text = ((JTextField) e.getSource()).getText();
+			public void keyReleased(KeyEvent anEvent) {
+				String text = ((JTextField) anEvent.getSource()).getText();
 				List<Classroom> res = department.getClassroomsDepartment().searchClassroomByName(text);
 				((ReadOnlyTableModel<Classroom>) classroomsTable.getModel()).setModel(res);
 			}
@@ -153,48 +152,32 @@ public class EditAssignmentWindow extends JFrame implements PeriodHolder {
 	}
 
 	private void createChangePeriodButtonListeners() {
-		changePeriodButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				new NewPeriodWindow(EditAssignmentWindow.this);
-			}
+		changePeriodButton.addActionListener(anEvent -> {
+			new NewPeriodWindow(EditAssignmentWindow.this);
 		});
 	}
 
 	private void createMoveAssignmentOfClassroomButtonButtonListeners() {
-		moveAssignmentOfClassroomButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar la asignación al aula elegida?",
-						"Cambio de Aula", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					department.moveAssignmentOfClassroom(assignment, classroomSelected);
-					dispose();
-				}
-			}
+		moveAssignmentOfClassroomButton.addActionListener(anEvent -> {
+			withConfirmation("Cambio de aula", "¿Desea cambiar la asignación al aula elegida?", () -> {
+				department.moveAssignmentOfClassroom(assignment, classroomSelected);
+				dispose();
+			});
 		});
 	}
 
 	private void createMoveAssignmentOfPeriodButtonButtonListeners() {
-		moveAssignmentOfPeriodButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cambiar el periodo de la asignación?",
-						"Cambio de Periodo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					department.moveAssignmentOfPeriod(assignment, period);
-					dispose();
-				}
-			}
+		moveAssignmentOfPeriodButton.addActionListener(anEvent -> {
+			withConfirmation("Cambio de período", "¿Desea cambiar el periodo de la asignación?", () -> {
+				department.moveAssignmentOfPeriod(assignment, period);
+				dispose();
+			});
 		});
 	}
 
 	private void createCancelButtonListeners() {
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent anEvent) {
-				if (JOptionPane.showConfirmDialog(new JFrame(),	"¿Desea cancelar los cambios?",
-						"Cancelar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-					dispose();
-			}
+		cancelButton.addActionListener(anEvent -> {
+			withConfirmation("Cancelar", "¿Desea cancelar los cambios?", () -> { dispose(); });
 		});
 	}
 
