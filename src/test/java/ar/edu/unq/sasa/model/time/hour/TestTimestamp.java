@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
+import ar.edu.unq.sasa.util.PreconditionNotMetException;
 
 public class TestTimestamp {
 
@@ -21,131 +21,84 @@ public class TestTimestamp {
 		t_22_15 = new Timestamp(22, 15);
 	}
 
-	@Test
-	public void constructor() {
-		Timestamp t1 = new Timestamp(0, 45);
-		Timestamp t2 = new Timestamp(19);
-
-		assertEquals(0, t1.getHour());
-		assertEquals(45, t1.getMinutes());
-		assertEquals(19, t2.getHour());
-		assertEquals(0, t2.getMinutes());
-	}
-
-	@Test(expected = TimestampException.class)
+	@Test(expected = PreconditionNotMetException.class)
 	public void failOnConstructWithNegativeHours() {
 		new Timestamp(-1, 10);
 	}
 
-	@Test(expected = TimestampException.class)
+	@Test(expected = PreconditionNotMetException.class)
 	public void failOnConstructWithNegativeMinutes() {
 		new Timestamp(13, -4);
 	}
 
-	@Test(expected = TimestampException.class)
-	public void failOnSetNegativeHours() {
-		new Timestamp(12).setHour(-3);
-	}
-
-	@Test(expected = TimestampException.class)
-	public void failOnSetNegativeMinutes() {
-		new Timestamp(22, 10).setMinutes(-21);
-	}
-
-	@Test(expected = TimestampException.class)
+	@Test(expected = PreconditionNotMetException.class)
 	public void failOnConstructWithMinutesGreaterThanAdmitted() {
 		new Timestamp(12, 62);
 	}
 
-	@Test(expected = TimestampException.class)
+	@Test(expected = PreconditionNotMetException.class)
 	public void failOnConstructWithMinutesLessThanAdmitted() {
 		new Timestamp(8, -1);
 	}
 
-	@Test(expected = TimestampException.class)
+	@Test(expected = PreconditionNotMetException.class)
 	public void failOnConstructWithHoursGreaterThanAdmitted() {
 		new Timestamp(25);
 	}
 
-	@Test(expected = TimestampException.class)
+	@Test(expected = PreconditionNotMetException.class)
 	public void failOnConstructWithHoursLessThanAdmitted() {
 		new Timestamp(-1);
 	}
 
 	@Test
 	public void equalsOnEqualTimestamps() {
-		Timestamp t1 = new Timestamp(22, 15);
-		Timestamp t2 = new Timestamp(17, 0);
-
-		assertTrue("equals() failed", t1.equals(t_22_15));
-		assertTrue("equals() failed", t2.equals(t_17_00));
+		assertTrue(new Timestamp(22, 15).equals(t_22_15));
+		assertTrue(new Timestamp(17, 0).equals(t_17_00));
 	}
 
 	@Test
 	public void equalsOnDifferentTimestamps() {
-		Timestamp t1 = new Timestamp(23, 35);
-		Timestamp t2 = new Timestamp(9, 05);
-
-		assertFalse("23:35 != 15:35", t1.equals(t_15_35));
-		assertFalse("9:05 != 9:50", t2.equals(t_9_50));
+		assertFalse(new Timestamp(23, 35).equals(t_15_35));
+		assertFalse(new Timestamp(9, 05).equals(t_9_50));
 	}
 
 	@Test
 	public void lessThanWhenTheConditionIsSatisfied() {
-		Timestamp t1 = new Timestamp(6, 45);
-		Timestamp t2 = new Timestamp(15, 8);
-
-		assertTrue("6:45 must be less than 9:50", t1.lessThan(t_9_50));
-		assertTrue("15:08 must be less than 15:35", t2.lessThan(t_15_35));
+		assertTrue(new Timestamp(6, 45).lessThan(t_9_50));
+		assertTrue(new Timestamp(15, 8).lessThan(t_15_35));
 	}
 
 	@Test
 	public void lessThanWhenTheConditionIsntSatisfied() {
-		Timestamp t1 = new Timestamp(10, 06);
-		Timestamp t2 = new Timestamp(15, 44);
-
-		assertFalse("10:06 should not be less than 9:50", t1.lessThan(t_9_50));
-		assertFalse("15:44 should not be less than 15:35", t2.lessThan(t_15_35));
+		assertFalse(new Timestamp(10, 06).lessThan(t_9_50));
+		assertFalse(new Timestamp(15, 44).lessThan(t_15_35));
 	}
 
 	@Test
 	public void greaterThanWhenTheConditionIsSatisfied() {
-		Timestamp t1 = new Timestamp(18, 40);
-		Timestamp t2 = new Timestamp(22, 16);
-
-		assertTrue("18:40 must be greater than 17:00", t1.greaterThan(t_17_00));
-		assertTrue("22:16 must be greater than 22:15", t2.greaterThan(t_22_15));
+		assertTrue(new Timestamp(18, 40).greaterThan(t_17_00));
+		assertTrue(new Timestamp(22, 16).greaterThan(t_22_15));
 	}
 
 	@Test
 	public void greaterThanWhenTheConditionIsntSatisfied() {
-		Timestamp t1 = new Timestamp(7, 59);
-		Timestamp t2 = new Timestamp(15, 34);
-
-		assertFalse("7:59 should not be greater than 9:50", t1.greaterThan(t_9_50));
-		assertFalse("15:34 should not be greater than 15:35", t2.greaterThan(t_15_35));
+		assertFalse(new Timestamp(7, 59).greaterThan(t_9_50));
+		assertFalse(new Timestamp(15, 34).greaterThan(t_15_35));
 	}
 
 	@Test
 	public void greaterEqual() {
-		Timestamp t1 = new Timestamp(9, 50);
-		Timestamp t2 = new Timestamp(10);
-		Timestamp t3 = new Timestamp(9, 49);
-
-		assertTrue("9:50 must be >= than 9:50", t1.greaterEqual(t_9_50));
-		assertTrue("10 must be >= than 9:50", t2.greaterEqual(t_9_50));
-		assertFalse("9:49 should not be >= than 9:50", t3.greaterEqual(t_9_50));
+		assertTrue(new Timestamp(9, 50).greaterEqual(t_9_50));
+		assertTrue(new Timestamp(10).greaterEqual(t_9_50));
+		assertFalse(new Timestamp(9, 49).greaterEqual(t_9_50));
 	}
 
 	@Test
 	public void lessEqual() {
-		Timestamp t1 = new Timestamp(9, 49);
-		Timestamp t2 = new Timestamp(9);
-		Timestamp t3 = new Timestamp(9, 51);
-
-		assertTrue("9:49 must be <= than 9:50", t1.lessEqual(t_9_50));
-		assertTrue("9 must be <= than 9:50", t2.lessEqual(t_9_50));
-		assertFalse("9:51 should not be <= than 9:50", t3.lessEqual(t_9_50));
+		assertTrue(new Timestamp(9, 49).lessEqual(t_9_50));
+		assertTrue(new Timestamp(9).lessEqual(t_9_50));
+		assertFalse(new Timestamp(9, 51).lessEqual(t_9_50));
 	}
 
 	@Test

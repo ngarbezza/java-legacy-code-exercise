@@ -1,26 +1,22 @@
 package ar.edu.unq.sasa.model.time.hour;
 
-import ar.edu.unq.sasa.model.exceptions.time.TimestampException;
+import static ar.edu.unq.sasa.util.Preconditions.precondition;
 
-/**
- * Entidad que modela una hora particular, con minutos. Las horas se representan
- * en formato 24 hs.
- */
 public class Timestamp {
-
-	// TODO try to not have setters
 
 	private int hour;
 
 	private int minutes;
 
 	public Timestamp(int anHour) {
-		setHour(anHour);
+		precondition("Hours should be a number between 0 and 23", anHour >= 0 && anHour < 24);
+		hour = anHour;
 	}
 
 	public Timestamp(int anHour, int someMinutes) {
 		this(anHour);
-		setMinutes(someMinutes);
+		precondition("Minutes should be between 0 and 59", someMinutes >= 0 && someMinutes < 60);
+		minutes = someMinutes;
 	}
 
 	public int getHour() {
@@ -31,39 +27,20 @@ public class Timestamp {
 		return minutes;
 	}
 
-	public void setHour(int anHour) {
-		if (anHour >= 0 && anHour < 24)
-			hour = anHour;
-		else
-			throw new TimestampException("Hour out of range");
-	}
-
-	public void setMinutes(int someMinutes) {
-		if (someMinutes >= 0 && someMinutes < 60)
-			minutes = someMinutes;
-		else
-			throw new TimestampException("Minutes out of range");
-	}
-
 	public boolean lessThan(Timestamp other) {
-		if (this.getHour() < other.getHour())
-			return true;
-		else if (this.getHour() == other.getHour())
-			return this.getMinutes() < other.getMinutes();
-		else
-			return false;
+		return hour < other.getHour() || (hour == other.getHour() && minutes < other.getMinutes());
 	}
 
 	public boolean greaterThan(Timestamp other) {
-		return !(this.lessThan(other) || this.equals(other));
+		return !(lessThan(other) || equals(other));
 	}
 
 	public boolean greaterEqual(Timestamp other) {
-		return !this.lessThan(other);
+		return !lessThan(other);
 	}
 
 	public boolean lessEqual(Timestamp other) {
-		return !this.greaterThan(other);
+		return !greaterThan(other);
 	}
 
 	public Timestamp add(int someMinutes) {
@@ -86,17 +63,17 @@ public class Timestamp {
 		return new Timestamp(newHours, newMinutes);
 	}
 
-	public int minutesBetween(Timestamp t) {
-		return t.totalMinutes() - totalMinutes();
+	public int minutesBetween(Timestamp other) {
+		return other.totalMinutes() - totalMinutes();
 	}
 
 	public int totalMinutes() {
-		return getHour() * 60 + getMinutes();
+		return hour * 60 + minutes;
 	}
 
 	@Override
 	public String toString() {
-		return getHour() + ":" + getMinutes();
+		return hour + ":" + minutes;
 	}
 
 	@Override
@@ -110,17 +87,7 @@ public class Timestamp {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Timestamp other = (Timestamp) obj;
-		if (hour != other.hour)
-			return false;
-		if (minutes != other.minutes)
-			return false;
-		return true;
+		return hour == other.getHour() && minutes == other.getMinutes();
 	}
 }
