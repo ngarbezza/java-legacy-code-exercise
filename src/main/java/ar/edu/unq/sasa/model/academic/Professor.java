@@ -65,40 +65,17 @@ public class Professor {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((phoneNumber == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((subjects == null) ? 0 : subjects.hashCode());
+		result = prime * result + mail.hashCode();
+		result = prime * result + name.hashCode();
+		result = prime * result + phoneNumber.hashCode();
+		result = prime * result + subjects.hashCode();
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Professor other = (Professor) obj;
-		if (mail == null) {
-			if (other.mail != null)
-				return false;
-		} else if (!mail.equals(other.mail))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (phoneNumber != other.phoneNumber)
-			return false;
-		if (subjects == null) {
-			if (other.subjects != null)
-				return false;
-		} else if (!subjects.equals(other.subjects))
-			return false;
-		return true;
+		return mail.equals(other.mail) && name.equals(other.name)
+				&& phoneNumber.equals(other.phoneNumber) && subjects.equals(other.subjects);
 	}
 }

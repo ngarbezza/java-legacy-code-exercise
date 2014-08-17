@@ -1,5 +1,7 @@
 package ar.edu.unq.sasa.gui.period;
 
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.toggleAll;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -146,21 +148,23 @@ public class NewPeriodWindow extends JFrame {
 		createRepetitionListeners();
 	}
 
+	private boolean radioButtonFromEventIsSelected(ActionEvent anEvent) {
+		return ((JRadioButton) anEvent.getSource()).isSelected();
+	}
+
 	private void createRepetitionListeners() {
 		noneRadioButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.toggleAll(!visibility,
+			public void actionPerformed(ActionEvent anEvent) {
+				toggleAll(!radioButtonFromEventIsSelected(anEvent),
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 						toDateLabel, toDate);
 			}
 		});
 		repetitionRadioButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.toggleAll(visibility,
+			public void actionPerformed(ActionEvent anEvent) {
+				toggleAll(radioButtonFromEventIsSelected(anEvent),
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 						toDateLabel, toDate);
 				weeklyRadioButton.setSelected(true); // por defecto
@@ -187,27 +191,24 @@ public class NewPeriodWindow extends JFrame {
 	private void createConditionListeners() {
 		simpleRadioButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.toggleAll(!visibility,
+			public void actionPerformed(ActionEvent anEvent) {
+				toggleAll(!radioButtonFromEventIsSelected(anEvent),
 						orRadioButton, andRadioButton, minusRadioButton);
-				WidgetUtilities.toggleAll(visibility,
+				toggleAll(radioButtonFromEventIsSelected(anEvent),
 						fromDateLabel, fromDate, toHourLabel,
 						toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
 						fromMinutesCombo, noneRadioButton, repetitionRadioButton,
 						minutesInRangeLabel, minutesInRange);
-				if (repetitionRadioButton.isSelected())
-					WidgetUtilities.toggleAll(true, toDateLabel, toDate,
-							dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
+				toggleAll(repetitionRadioButton.isSelected(), toDateLabel, toDate,
+						dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
 			}
 		});
 		compositeRadioButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean visibility = ((JRadioButton) e.getSource()).isSelected();
-				WidgetUtilities.toggleAll(visibility,
+			public void actionPerformed(ActionEvent anEvent) {
+				toggleAll(radioButtonFromEventIsSelected(anEvent),
 						orRadioButton, andRadioButton, minusRadioButton);
-				WidgetUtilities.toggleAll(!visibility,
+				toggleAll(!radioButtonFromEventIsSelected(anEvent),
 						fromDateLabel, fromDate, toDateLabel, toDate, toHourLabel,
 						toHoursCombo, toMinutesCombo, fromHourLabel, fromHoursCombo,
 						fromMinutesCombo, noneRadioButton, repetitionRadioButton,
@@ -235,8 +236,8 @@ public class NewPeriodWindow extends JFrame {
 		};
 		periodsTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				whenSelectedPeriodChanged(e);
+			public void valueChanged(TreeSelectionEvent anEvent) {
+				whenSelectedPeriodChanged(anEvent);
 			}
 		});
 	}
@@ -280,13 +281,13 @@ public class NewPeriodWindow extends JFrame {
 		if (periodNode == null)
 			disableWidgets();
 		else if (periodNode.isCompositePeriodNode()) {
-			WidgetUtilities.toggleAll(false,
+			toggleAll(false,
 					toDateLabel, toDate, fromDateLabel, fromDate, fromHourLabel,
 					fromHoursCombo, toHourLabel, toHoursCombo, toMinutesCombo,
 					fromMinutesCombo, noneRadioButton, repetitionRadioButton,
 					dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 					minutesInRangeLabel, minutesInRange);
-			WidgetUtilities.toggleAll(true,
+			toggleAll(true,
 					simpleRadioButton, compositeRadioButton,
 					orRadioButton, andRadioButton, minusRadioButton, saveButton);
 			simpleRadioButton.setSelected(false);
@@ -294,14 +295,14 @@ public class NewPeriodWindow extends JFrame {
 			((CompositePeriodTreeNode) periodNode).selectOrDeselect(
 					orRadioButton, andRadioButton, minusRadioButton);
 		} else {
-			WidgetUtilities.toggleAll(true,
+			toggleAll(true,
 					toDateLabel, toDate, fromDateLabel, fromDate, fromHourLabel,
 					fromHoursCombo, toHourLabel, toHoursCombo, toMinutesCombo,
 					fromMinutesCombo, noneRadioButton, repetitionRadioButton,
 					dailyRadioButton, weeklyRadioButton, monthlyRadioButton,
 					simpleRadioButton, compositeRadioButton,
 					minutesInRangeLabel, minutesInRange, saveButton);
-			WidgetUtilities.toggleAll(false,
+			toggleAll(false,
 					orRadioButton, andRadioButton, minusRadioButton);
 			simpleRadioButton.setSelected(true);
 			compositeRadioButton.setSelected(false);
@@ -310,7 +311,7 @@ public class NewPeriodWindow extends JFrame {
 			// De nuevo, pregunto por la clase ya que si hago double
 			// dispatching, meto lógica de interfaz gráfica en el modelo.
 			if (rep instanceof None) {
-				WidgetUtilities.toggleAll(false, toDateLabel, toDate,
+				toggleAll(false, toDateLabel, toDate,
 						dailyRadioButton, weeklyRadioButton, monthlyRadioButton);
 				noneRadioButton.setSelected(true);
 				repetitionRadioButton.setSelected(false);
@@ -336,14 +337,14 @@ public class NewPeriodWindow extends JFrame {
 		saveButton = new JButton("Guardar");
 		saveButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				saveChanges();
 			}
 		});
 		acceptButton = new JButton("Aceptar");
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if ((PeriodTreeNode) periodsTree.getLastSelectedPathComponent() != null)
 					saveChanges();
 				Period period = ((PeriodTreeNode)
@@ -357,7 +358,7 @@ public class NewPeriodWindow extends JFrame {
 		cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
 						"¿Desea salir de la ventana y perder los cambios?", "Salir",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)

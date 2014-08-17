@@ -21,7 +21,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	private Repetition repetition = new None();
 	private Timestamp endHour;
 	private Timestamp startHour;
-	private int minutesInRange;
+	private Integer minutesInRange;
 
 	public SimplePeriodTreeNode() {
 		startDate = new GregorianCalendar();
@@ -75,9 +75,9 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 
 	@Override
 	public Period makePeriod() {
-		if (!(getRepetition() instanceof None))
-			if (!CalendarUtils.compareGreater(((EndingRepetition) repetition).getEnd(), startDate))
-				throw new PeriodException("La fecha de finalización debe ser posterior a la de inicio");
+		if (!(getRepetition().isNone())
+				&& (!CalendarUtils.compareGreater(((EndingRepetition) repetition).getEnd(), startDate)))
+			throw new PeriodException("La fecha de finalización debe ser posterior a la de inicio");
 		return new SimplePeriod(new HourInterval(startHour, endHour, minutesInRange), startDate, repetition);
 	}
 
@@ -86,7 +86,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 		return "Condición Simple";
 	}
 
-	public void setMinutesInRange(int someMinutes) {
+	public void setMinutesInRange(Integer someMinutes) {
 		minutesInRange = someMinutes;
 	}
 
@@ -95,7 +95,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	}
 
 	@Override
-	public boolean matchPeriodType(boolean simple, boolean or, boolean and, boolean minus) {
+	public boolean matchPeriodType(Boolean simple, Boolean or, Boolean and, Boolean minus) {
 		return simple;
 	}
 

@@ -3,18 +3,18 @@ package ar.edu.unq.sasa.model.assignments;
 import ar.edu.unq.sasa.model.academic.Request;
 
 /**
- * Clase abstracta, que representa las {@link Assignment} que fueron hechas 
+ * Clase abstracta, que representa las {@link Assignment} que fueron hechas
  * por medio de un {@link Request}.
  */
 public abstract class AssignmentByRequest implements Assignment {
-	
+
 	private Request request;
-	
-	public AssignmentByRequest(Request req) {
-		req.setAsignated(true);
-		request = req;
+
+	public AssignmentByRequest(Request aRequest) {
+		aRequest.setAsignated(true);
+		request = aRequest;
 	}
-	
+
 	@Override
 	public Request getRequest() {
 		return request;

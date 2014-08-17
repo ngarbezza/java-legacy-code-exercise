@@ -4,27 +4,28 @@ import java.util.Calendar;
 
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
-/**
- * Representa la "no repetición", ésta se utiliza para eventos que sólo ocurren
- * una vez.
- */
 public class None extends Repetition {
 
 	@Override
-	public boolean containsInSomeRepetition(Calendar c, Calendar start) {
+	public Boolean containsInSomeRepetition(Calendar aDate, Calendar startDate) {
 		return false;
 	}
 
 	@Override
-	public boolean isAllDaysIn(SimplePeriod sp, Calendar start) {
+	public Boolean isAllDaysIn(SimplePeriod aSimplePeriod, Calendar startDate) {
 		return true;
 	}
 
 	@Override
-	public boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start) {
+	public Boolean thereIsSomeDayIn(SimplePeriod aSimplePeriod, Calendar startDate) {
 		return false;
 	}
-	
+
+	@Override
+	public Boolean isNone() {
+		return true;
+	}
+
 	@Override
 	public Repetition copy() {
 		return new None();

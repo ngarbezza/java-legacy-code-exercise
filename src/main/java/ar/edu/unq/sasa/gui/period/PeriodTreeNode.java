@@ -4,10 +4,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import ar.edu.unq.sasa.model.time.Period;
 
-/**
- * Clase que sirve para representar los nodos del árbol de las condiciones
- * horarias de la ventana {@link NewPeriodWindow}.
- */
 public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 
 	private static final long serialVersionUID = -7096834986627776873L;
@@ -20,8 +16,7 @@ public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 
 	public abstract Period makePeriod();
 
-	public abstract boolean matchPeriodType(boolean simple, boolean or,
-			boolean and, boolean minus);
+	public abstract boolean matchPeriodType(Boolean simple, Boolean or, Boolean and, Boolean minus);
 
 	public abstract void updateChanges(NewPeriodWindow pw);
 }

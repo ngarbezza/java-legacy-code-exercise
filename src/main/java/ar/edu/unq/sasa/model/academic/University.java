@@ -36,9 +36,9 @@ public class University {
 	private SubjectsDepartment subjectsDepartment;
 
 	public University() {
-		this.requests = new LinkedList<Request>();
-		this.mobileResources = new LinkedList<MobileResource>();
-		this.assignments = new ArrayList<Assignment>();
+		requests = new LinkedList<Request>();
+		mobileResources = new LinkedList<MobileResource>();
+		assignments = new ArrayList<Assignment>();
 		classroomsDepartment = new ClassroomsDepartment(this);
 		professorsDepartment = new ProfessorsDepartment(this);
 		assignmentsDepartment = new AssignmentsDepartment(this);
@@ -72,33 +72,32 @@ public class University {
 		return resources;
 	}
 
-	private boolean containsResource(List<Resource> resources,
-			Resource aResource) {
+	private boolean containsResource(List<Resource> resources, Resource aResource) {
 		for (Resource resource : resources)
 			if (aResource.getName().equals(resource.getName()))
 				return true;
 		return false;
 	}
 
-	public void addRequest(Request request) {
+	public void addRequest(Request aRequest) {
 		// TODO move to requests department
-		this.getRequests().add(request);
+		getRequests().add(aRequest);
 	}
 
-	public void addAssignment(Assignment assignment) {
-		this.getAssignments().add(assignment);
+	public void addAssignment(Assignment anAssignment) {
+		getAssignments().add(anAssignment);
 	}
 
-	public void addResource(MobileResource res) {
-		this.getMobileResources().add(res);
+	public void addResource(MobileResource aMobileResource) {
+		getMobileResources().add(aMobileResource);
 	}
 
 	public void deleteAssignment(Assignment searchedAssignment) {
-		this.getAssignments().remove(searchedAssignment);
+		getAssignments().remove(searchedAssignment);
 	}
 
 	public void deleteRequest(Request request) {
-		this.getRequests().remove(request);
+		getRequests().remove(request);
 	}
 
 	public void deleteResource(MobileResource resource) {
@@ -107,33 +106,33 @@ public class University {
 
 	public Assignment getAssignmentByRequest(Request request) {
 		Assignment resultado = null;
-		for (Assignment a : this.getAssignments())
-			if (a.getRequest().equals(request))
-				resultado = a;
+		for (Assignment assignment : getAssignments())
+			if (assignment.getRequest().equals(request))
+				resultado = assignment;
 		if (resultado == null)
 			throw new AssignmentException("No existe una asignacion para ese pedido");
 		return resultado;
 	}
 
 	public MobileResource getResource(String name) {
-		for (MobileResource r : this.getMobileResources())
+		for (MobileResource r : getMobileResources())
 			if (r.getName().equals(name))
 				return r;
 		return null;
 	}
 
 	public Request getRequest(Professor professor, Subject subject) {
-		for (Request request : this.getRequests())
+		for (Request request : getRequests())
 			if (request.getProfessor().equals(professor)
 					&& request.getSubject().equals(subject))
 				return request;
 		throw new RequestException("No existe un pedido con ese ID");
 	}
 
-	public List<MobileResource> getNResources(Resource resource, int n) {
+	public List<MobileResource> getNResources(Resource resource, Integer n) {
 		List<MobileResource> listaRecursos = new ArrayList<MobileResource>();
 		int cant = n;
-		for (MobileResource m : this.getMobileResources())
+		for (MobileResource m : getMobileResources())
 			if (m.getName().equals(resource.getName()) && cant > 0) {
 				listaRecursos.add(m);
 				cant--;

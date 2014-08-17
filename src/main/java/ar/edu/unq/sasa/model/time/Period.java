@@ -16,27 +16,27 @@ public abstract class Period {
 
 	public static final int MIN_HOUR_BLOCK = 30;
 
-	public abstract boolean intersectsWith(Period p);
+	public abstract Boolean intersectsWith(Period aPeriod);
 
-	protected abstract boolean intersectsWithSimple(SimplePeriod sp);
+	protected abstract Boolean intersectsWithSimple(SimplePeriod aSimplePeriod);
 
-	public abstract boolean contains(Calendar c);
+	public abstract Boolean contains(Calendar aDate);
 
-	public abstract boolean contains(Period p);
+	public abstract Boolean contains(Period aPeriod);
 
-	protected abstract boolean isIn(SimplePeriod sp);
+	protected abstract Boolean isIn(SimplePeriod aSimplePeriod);
 
 	public abstract List<Period> convertToConcrete();
 
-	public abstract boolean isConcrete();
+	public abstract Boolean isConcrete();
 
-	public abstract int minutesSharedWithPeriod(Period p);
+	public abstract Integer minutesSharedWithPeriod(Period aPeriod);
 
-	protected abstract int minutesSharedWithSimplePeriod(SimplePeriod sp);
+	protected abstract Integer minutesSharedWithSimplePeriod(SimplePeriod aSimplePeriod);
 
 	public abstract Period copy();
 
-	public abstract void setHourFulfiller(LogicalHourFulfiller hf);
+	public abstract void setHourFulfiller(LogicalHourFulfiller anHourFulfiller);
 
-	public abstract List<HourInterval> hourIntervalsInADay(Calendar c);
+	public abstract List<HourInterval> hourIntervalsInADay(Calendar aDate);
 }

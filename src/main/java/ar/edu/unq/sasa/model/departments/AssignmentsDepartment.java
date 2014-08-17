@@ -42,14 +42,14 @@ public class AssignmentsDepartment extends Department {
 		addAssignment(bookedAssignment);
 		updateAssignmentsSatisfactionSuperpositions(period, bookedAssignment);
 		///////////////////////////////////////////////////////////
-		this.getPublisher().changed("assignmentsChanged", this.getAssignments());
-		this.getPublisher().changed("requestsChanged", this.getRequests());
+		getPublisher().changed("assignmentsChanged", getAssignments());
+		getPublisher().changed("requestsChanged", getRequests());
 		///////////////////////////////////////////////////////////
 		return bookedAssignment;
 	}
 
-	private void addAssignment(Assignment assignment) {
-		getUniversity().addAssignment(assignment);
+	private void addAssignment(Assignment anAssignment) {
+		getUniversity().addAssignment(anAssignment);
 	}
 
 	public ClassroomAssignment asignateClassroomAssignment(
@@ -84,13 +84,12 @@ public class AssignmentsDepartment extends Department {
 
 	private void updateAssignmentsSatisfactionSuperpositions(Period period, Assignment assignment) {
 		for (Entry<Period, Assignment> entry : assignment.getAssignableItem().getAssignments().entrySet())
-			if (!entry.getValue().equals(assignment))
-				if (entry.getKey().intersectsWith(period))
-					if (entry.getValue().isClassroomAssignment()) {
-						float minutesShared = entry.getKey().minutesSharedWithPeriod(period) / 60;
-						((ClassroomAssignment) entry.getValue()).getSatisfaction()
-							.addPeriodSuperposition(period, minutesShared);
-					}
+			if (!entry.getValue().equals(assignment) && entry.getKey().intersectsWith(period)
+					&& entry.getValue().isClassroomAssignment()) {
+				float minutesShared = entry.getKey().minutesSharedWithPeriod(period) / 60;
+				((ClassroomAssignment) entry.getValue()).getSatisfaction()
+					.addPeriodSuperposition(period, minutesShared);
+			}
 	}
 
 	private void asignateInFreeResources(Set<Entry<Resource, Integer>> resources, ClassroomRequest classroomRequest,
@@ -99,7 +98,7 @@ public class AssignmentsDepartment extends Department {
 			Integer cant = entry.getValue();
 			for (MobileResource resource : getUniversity().getMobileResources())
 				if (resource.getName().equals(entry.getKey().getName()) && cant > 0) {
-					boolean isUsefullPeriod = true;
+					Boolean isUsefullPeriod = true;
 					for (Period resourcePeriod : resource.getAssignments().keySet())
 						if (resourcePeriod.intersectsWith(period))
 							isUsefullPeriod = false;
@@ -257,10 +256,7 @@ public class AssignmentsDepartment extends Department {
 		for (Entry<Resource, Integer> entry : requestResources.entrySet()) {
 			if (classroom.hasResource(entry.getKey().getName())) {
 				int classAmount = classroom.getResource(entry.getKey().getName()).getAmount();
-				if (entry.getValue() > classAmount)
-					cantMatched += classAmount;
-				else
-					cantMatched += entry.getValue();
+				cantMatched += Math.min(entry.getValue(), classAmount);
 			}
 			cantTotal += entry.getValue();
 		}
@@ -364,7 +360,7 @@ public class AssignmentsDepartment extends Department {
 				break;
 			}
 		ClassroomRequest request = assigment.getRequest();
-		this.deleteClassroomAssignmentFromARequest(request);
+		deleteClassroomAssignmentFromARequest(request);
 		return asignateClassroomAssignment(request, classroom, period);
 	}
 

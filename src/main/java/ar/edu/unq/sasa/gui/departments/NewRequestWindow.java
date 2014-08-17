@@ -93,7 +93,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		requiredResourcesTable.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
+			public void valueChanged(ListSelectionEvent anEvent) {
 				boolean b = requiredResourcesTable.getSelectionModel().isSelectionEmpty();
 				deleteResourceButton.setEnabled(!b);
 				if (!b)
@@ -173,7 +173,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		deleteResourceButton.setEnabled(false);
 		deleteResourceButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				List<ResourceView> modelOpt = getListModelFrom(optionalResourcesTable);
 				List<ResourceView> modelReq = getListModelFrom(requiredResourcesTable);
 				if (requiredResourcesTable.getSelectionModel().isSelectionEmpty()) {
@@ -262,7 +262,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		addPeriodButton = new JButton("Especificar Período");
 		addPeriodButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				new NewPeriodWindow(NewRequestWindow.this);
 			}
 		});
@@ -272,7 +272,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		createRequestButton = new JButton("Crear Pedido");
 		createRequestButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if (validateCurrentRequest()) {
 					department.createClassroomRequest(
 						makeResourcesFrom(requiredResourcesTable),
@@ -287,7 +287,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 		cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
 						"¿Desea salir de la ventana y perder los cambios?", "Salir",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
@@ -297,24 +297,15 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	protected boolean validateCurrentRequest() {
-		if (specifiedPeriod == null) {
-			warningWithMessage("Por favor especifique un Periodo");
-			return false;
-		}
-		if (getSelectedProfessor() == null) {
-			warningWithMessage("Por favor especifique un Profesor");
-			return false;
-		}
-		if (getSelectedSubject() == null) {
-			warningWithMessage("Por favor especifique una Materia");
-			return false;
-		}
-		return true;
+		warningIf(specifiedPeriod == null, "Por favor especifique un Periodo");
+		warningIf(getSelectedProfessor() == null, "Por favor especifique un Profesor");
+		warningIf(getSelectedSubject() == null, "Por favor especifique una Materia");
+		return specifiedPeriod != null && getSelectedProfessor() != null && getSelectedSubject() != null;
 	}
 
-	protected void warningWithMessage(String msg) {
-		JOptionPane.showMessageDialog(this, msg,
-			"Advertencia", JOptionPane.WARNING_MESSAGE);
+	protected void warningIf(Boolean condition, String aMessage) {
+		if (condition)
+			JOptionPane.showMessageDialog(this, aMessage, "Advertencia", JOptionPane.WARNING_MESSAGE);
 	}
 
 	protected Subject getSelectedSubject() {
@@ -442,8 +433,8 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
 	}
 
 	@Override
-	public void setPeriod(Period p) {
-		specifiedPeriod = p;
+	public void setPeriod(Period aPeriod) {
+		specifiedPeriod = aPeriod;
 		periodDetailArea.setText(specifiedPeriod.toString());
 	}
 }

@@ -32,8 +32,7 @@ public class AndPeriodTreeNode extends CompositePeriodTreeNode {
 	}
 
 	@Override
-	public boolean matchPeriodType(boolean simple, boolean or, boolean and,
-			boolean minus) {
+	public boolean matchPeriodType(Boolean simple, Boolean or, Boolean and, Boolean minus) {
 		return and && !simple;
 	}
 }

@@ -5,35 +5,28 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-/**
- * Clase parte de la implementación del patrón Observer.
- */
 public class Publisher {
-	
+
 	private final Map<String, Collection<Subscriber>> subscribers;
-	
+
 	public Publisher() {
-		this.subscribers = new HashMap<String, Collection<Subscriber>>();
+		subscribers = new HashMap<String, Collection<Subscriber>>();
 	}
 
-	public Map<String, Collection<Subscriber>> getSubscribers() {
-		return subscribers;
+	public void addSubscriber(String aspect, Subscriber aSubscriber) {
+		if (!subscribers.containsKey(aspect))
+			subscribers.put(aspect, new HashSet<Subscriber>());
+		subscribers.get(aspect).add(aSubscriber);
 	}
-	
-	public void addSubscriber(String aspect, Subscriber s) {
-		if (!this.getSubscribers().containsKey(aspect))
-			this.getSubscribers().put(aspect, new HashSet<Subscriber>());
-		this.getSubscribers().get(aspect).add(s);
-	}
-	
-	public void removeSubscriber(String aspect, Subscriber s) {
+
+	public void removeSubscriber(String aspect, Subscriber aSubscriber) {
 		// PRECONDICION : el subscriber está en ese aspect
-		this.getSubscribers().get(aspect).remove(s);
+		subscribers.get(aspect).remove(aSubscriber);
 	}
-	
+
 	public void changed(String aspect, Object value) {
-		if (this.getSubscribers().containsKey(aspect))
-			for (Subscriber s : this.getSubscribers().get(aspect))
-				s.update(aspect, value);
+		if (subscribers.containsKey(aspect))
+			for (Subscriber aSubscriber : subscribers.get(aspect))
+				aSubscriber.update(aspect, value);
 	}
 }

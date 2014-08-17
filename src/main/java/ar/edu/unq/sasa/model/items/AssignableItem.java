@@ -26,7 +26,7 @@ public abstract class AssignableItem {
 	}
 
 	public void setName(String newName) {
-		this.name = newName;
+		name = newName;
 	}
 
 	public Map<Period, Assignment> getAssignments() {
@@ -41,7 +41,7 @@ public abstract class AssignableItem {
 		this.getAssignments().remove(period);
 	}
 
-	public boolean satisfyTimeRequirements(Request request, boolean ignoreCommonAssignments) {
+	public boolean satisfyTimeRequirements(Request request, Boolean ignoreCommonAssignments) {
 		Collection<Period> current = request.getDesiredHours().convertToConcrete();
 		for (Period p : current)
 			if (canAssign(p, ignoreCommonAssignments))
@@ -49,8 +49,8 @@ public abstract class AssignableItem {
 		return false;
 	}
 
-	protected boolean canAssign(Period period, boolean ignoreCommonAssignments) {
-		for (Entry<Period, Assignment> p : this.getAssignments().entrySet())
+	protected boolean canAssign(Period period, Boolean ignoreCommonAssignments) {
+		for (Entry<Period, Assignment> p : getAssignments().entrySet())
 			if (p.getKey().intersectsWith(period))
 				if (ignoreCommonAssignments)
 					if (p.getValue().isBookedAssignment())
@@ -71,7 +71,7 @@ public abstract class AssignableItem {
 	}
 
 	public boolean isFreeAt(Calendar calendar) {
-		for (Period p : this.getAssignments().keySet())
+		for (Period p : getAssignments().keySet())
 			if (p.contains(calendar))
 				return false;
 		return true;

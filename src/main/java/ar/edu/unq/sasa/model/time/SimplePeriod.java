@@ -36,8 +36,8 @@ public class SimplePeriod extends Period {
 	}
 
 	@Override
-	public void setHourFulfiller(LogicalHourFulfiller hf) {
-		this.hourFulfiller = hf;
+	public void setHourFulfiller(LogicalHourFulfiller anHourFulfiller) {
+		hourFulfiller = anHourFulfiller;
 	}
 
 	public Calendar getStart() {
@@ -48,40 +48,40 @@ public class SimplePeriod extends Period {
 		return repetition;
 	}
 
-	public void addHourCondition(LogicalHourFulfiller lhf) {
-		this.setHourFulfiller(new Or(getHourFulfiller(), lhf));
+	public void addHourCondition(LogicalHourFulfiller anHourFulfiller) {
+		setHourFulfiller(new Or(getHourFulfiller(), anHourFulfiller));
 	}
 
 	@Override
-	public boolean contains(Calendar c) {
-		Timestamp t = new Timestamp(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
-		return containsDate(c) && getHourFulfiller().contains(t);
+	public Boolean contains(Calendar aDate) {
+		Timestamp timestamp = new Timestamp(aDate.get(Calendar.HOUR_OF_DAY), aDate.get(Calendar.MINUTE));
+		return containsDate(aDate) && getHourFulfiller().contains(timestamp);
 	}
 
-	public boolean containsDate(Calendar c) {
-		return (compareEquals(getStart(), c) || getRepetition().containsInSomeRepetition(c, getStart()));
-	}
-
-	@Override
-	public boolean contains(Period p) {
-		return p.isIn(this);
+	public boolean containsDate(Calendar aDate) {
+		return (compareEquals(getStart(), aDate) || getRepetition().containsInSomeRepetition(aDate, getStart()));
 	}
 
 	@Override
-	public boolean intersectsWith(Period p) {
-		return p.intersectsWithSimple(this);
+	public Boolean contains(Period aPeriod) {
+		return aPeriod.isIn(this);
 	}
 
 	@Override
-	protected boolean intersectsWithSimple(SimplePeriod sp) {
-		return (sp.containsDate(getStart()) || getRepetition().thereIsSomeDayIn(sp, getStart()))
-			&& sp.getHourFulfiller().intersectsWith(getHourFulfiller());
+	public Boolean intersectsWith(Period aPeriod) {
+		return aPeriod.intersectsWithSimple(this);
 	}
 
 	@Override
-	protected boolean isIn(SimplePeriod sp) {
-		return sp.containsDate(getStart()) && getRepetition().isAllDaysIn(sp, getStart())
-			&& sp.getHourFulfiller().contains(getHourFulfiller());
+	protected Boolean intersectsWithSimple(SimplePeriod aSimplePeriod) {
+		return (aSimplePeriod.containsDate(getStart()) || getRepetition().thereIsSomeDayIn(aSimplePeriod, getStart()))
+			&& aSimplePeriod.getHourFulfiller().intersectsWith(getHourFulfiller());
+	}
+
+	@Override
+	protected Boolean isIn(SimplePeriod aSimplePeriod) {
+		return aSimplePeriod.containsDate(getStart()) && getRepetition().isAllDaysIn(aSimplePeriod, getStart())
+			&& aSimplePeriod.getHourFulfiller().contains(getHourFulfiller());
 	}
 
 	@Override
@@ -93,18 +93,19 @@ public class SimplePeriod extends Period {
 	}
 
 	@Override
-	public boolean isConcrete() {
+	public Boolean isConcrete() {
 		return getHourFulfiller().isConcrete();
 	}
 
 	@Override
-	public int minutesSharedWithPeriod(Period p) {
-		return p.minutesSharedWithSimplePeriod(this);
+	public Integer minutesSharedWithPeriod(Period aPeriod) {
+		return aPeriod.minutesSharedWithSimplePeriod(this);
 	}
 
 	@Override
-	protected int minutesSharedWithSimplePeriod(SimplePeriod sp) {
-		return sp.intersectsWithSimple(this) ? getHourFulfiller().minutesSharedWith(sp.getHourFulfiller()) : 0;
+	protected Integer minutesSharedWithSimplePeriod(SimplePeriod aSimplePeriod) {
+		return aSimplePeriod.intersectsWithSimple(this)
+				? getHourFulfiller().minutesSharedWith(aSimplePeriod.getHourFulfiller()) : 0;
 	}
 
 	@Override

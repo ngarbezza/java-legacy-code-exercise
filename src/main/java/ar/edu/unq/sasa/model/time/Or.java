@@ -6,11 +6,6 @@ import java.util.List;
 
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
-/**
- * Operador que sirve para combinar {@link Period}'s por medio de
- * la condición lógica O (or).
- *
- */
 public class Or extends CompositePeriod {
 
 	public Or(Period left, Period right) {
@@ -18,29 +13,28 @@ public class Or extends CompositePeriod {
 	}
 
 	@Override
-	public boolean contains(Period p) {
-		return getLeftPeriod().contains(p) || getRightPeriod().contains(p);
+	public Boolean contains(Period aPeriod) {
+		return getLeftPeriod().contains(aPeriod) || getRightPeriod().contains(aPeriod);
 	}
 
 	@Override
-	public boolean contains(Calendar c) {
-		return getLeftPeriod().contains(c) || getRightPeriod().contains(c);
+	public Boolean contains(Calendar aDate) {
+		return getLeftPeriod().contains(aDate) || getRightPeriod().contains(aDate);
 	}
 
 	@Override
-	public boolean intersectsWith(Period p) {
-		return getLeftPeriod().intersectsWith(p)
-			|| getRightPeriod().intersectsWith(p);
+	public Boolean intersectsWith(Period aPeriod) {
+		return getLeftPeriod().intersectsWith(aPeriod) || getRightPeriod().intersectsWith(aPeriod);
 	}
 
 	@Override
-	protected boolean intersectsWithSimple(SimplePeriod simple) {
-		return intersectsWith(simple);
+	protected Boolean intersectsWithSimple(SimplePeriod aSimplePeriod) {
+		return intersectsWith(aSimplePeriod);
 	}
 
 	@Override
-	protected boolean isIn(SimplePeriod sdf) {
-		return getLeftPeriod().isIn(sdf) || getRightPeriod().isIn(sdf);
+	protected Boolean isIn(SimplePeriod aSimplePeriod) {
+		return getLeftPeriod().isIn(aSimplePeriod) || getRightPeriod().isIn(aSimplePeriod);
 	}
 
 	@Override
@@ -57,7 +51,7 @@ public class Or extends CompositePeriod {
 	}
 
 	@Override
-	public boolean isConcrete() {
+	public Boolean isConcrete() {
 		return false;
 	}
 
@@ -71,7 +65,7 @@ public class Or extends CompositePeriod {
 	 * (pues no genera intervalos concretos).
 	 */
 	@Override
-	public List<HourInterval> hourIntervalsInADay(Calendar c) {
+	public List<HourInterval> hourIntervalsInADay(Calendar aDate) {
 		throw new UnsupportedOperationException();
 	}
 }

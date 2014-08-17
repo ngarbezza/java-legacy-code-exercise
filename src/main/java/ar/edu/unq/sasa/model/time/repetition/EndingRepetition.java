@@ -9,10 +9,6 @@ import java.util.Calendar;
 
 import ar.edu.unq.sasa.model.time.SimplePeriod;
 
-/**
- * Clase abstracta que representa aquellas repeticiones que requieren una fecha
- * de finalización.
- */
 public abstract class EndingRepetition extends Repetition {
 
 	private Calendar end;
@@ -26,49 +22,49 @@ public abstract class EndingRepetition extends Repetition {
 	}
 
 	@Override
-	public boolean containsInSomeRepetition(Calendar c, Calendar start) {
-		if (isOutOfBounds(c, start))
+	public Boolean containsInSomeRepetition(Calendar aDate, Calendar startDate) {
+		if (isOutOfBounds(aDate, startDate))
 			return false;
-		Calendar current = start;
+		Calendar current = startDate;
 		while (hasNextDate(current)) {
 			current = getNextDate(current);
-			if (compareEquals(c, current))
+			if (compareEquals(aDate, current))
 				return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean thereIsSomeDayIn(SimplePeriod sp, Calendar start) {
-		Calendar current = start;
+	public Boolean thereIsSomeDayIn(SimplePeriod aSimplePeriod, Calendar startDate) {
+		Calendar current = startDate;
 		while (hasNextDate(current)) {
 			current = getNextDate(current);
-			if (sp.containsDate(current))
+			if (aSimplePeriod.containsDate(current))
 				return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean isAllDaysIn(SimplePeriod sp, Calendar start) {
-		Calendar current = start;
+	public Boolean isAllDaysIn(SimplePeriod aSimplePeriod, Calendar startDate) {
+		Calendar current = startDate;
 		while (hasNextDate(current)) {
 			current = getNextDate(current);
-			if (!sp.containsDate(current))
+			if (!aSimplePeriod.containsDate(current))
 				return false;
 		}
 		return true;
 	}
 
-	protected boolean isOutOfBounds(Calendar c, Calendar start) {
-		return compareLess(c, start) || compareEquals(c, start) || compareGreater(c, end);
+	protected boolean isOutOfBounds(Calendar aDate, Calendar startDate) {
+		return compareLess(aDate, startDate) || compareEquals(aDate, startDate) || compareGreater(aDate, end);
 	}
 
-	protected boolean hasNextDate(Calendar c) {
-		return !compareGreater(getNextDate(c), end);
+	protected boolean hasNextDate(Calendar aDate) {
+		return !compareGreater(getNextDate(aDate), end);
 	}
 
-	protected abstract Calendar getNextDate(Calendar c);
+	protected abstract Calendar getNextDate(Calendar aDate);
 
 	@Override
 	protected String getRepetitionText() {
@@ -79,24 +75,13 @@ public abstract class EndingRepetition extends Repetition {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((end == null) ? 0 : end.hashCode());
+		result = prime * result + end.hashCode();
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		EndingRepetition other = (EndingRepetition) obj;
-		if (end == null) {
-			if (other.end != null)
-				return false;
-		} else if (!end.equals(other.end))
-			return false;
-		return true;
+		return getClass() == obj.getClass() && end.equals(other.end);
 	}
 }

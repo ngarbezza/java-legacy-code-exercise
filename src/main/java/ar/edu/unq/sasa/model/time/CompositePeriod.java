@@ -2,17 +2,13 @@ package ar.edu.unq.sasa.model.time;
 
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
-/**
- * Representa un {@link Period} complejo, compuesto de dos
- * {@link Period} relacionados por algún operador lógico.
- */
 public abstract class CompositePeriod extends Period {
 
 	private final Period leftPeriod, rightPeriod;
 
 	public CompositePeriod(Period left, Period right) {
-		this.leftPeriod = left;
-		this.rightPeriod = right;
+		leftPeriod = left;
+		rightPeriod = right;
 	}
 
 	public Period getLeftPeriod() {
@@ -24,56 +20,40 @@ public abstract class CompositePeriod extends Period {
 	}
 
 	@Override
-	public boolean isConcrete() {
-		return getLeftPeriod().isConcrete() && getRightPeriod().isConcrete();
+	public Boolean isConcrete() {
+		return leftPeriod.isConcrete() && rightPeriod.isConcrete();
 	}
 
 	@Override
-	public int minutesSharedWithPeriod(Period p) {
-		return Math.max(getLeftPeriod().minutesSharedWithPeriod(p), getRightPeriod().minutesSharedWithPeriod(p));
+	public Integer minutesSharedWithPeriod(Period aPeriod) {
+		return Math.max(leftPeriod.minutesSharedWithPeriod(aPeriod), rightPeriod.minutesSharedWithPeriod(aPeriod));
 	}
 
 	@Override
-	protected int minutesSharedWithSimplePeriod(SimplePeriod sp) {
-		return this.minutesSharedWithPeriod(sp);
+	protected Integer minutesSharedWithSimplePeriod(SimplePeriod aSimplePeriod) {
+		return minutesSharedWithPeriod(aSimplePeriod);
 	}
 
 	@Override
-	public void setHourFulfiller(LogicalHourFulfiller hf) {
-		this.getLeftPeriod().setHourFulfiller(hf);
-		this.getRightPeriod().setHourFulfiller(hf);
+	public void setHourFulfiller(LogicalHourFulfiller anHourFulfiller) {
+		leftPeriod.setHourFulfiller(anHourFulfiller);
+		rightPeriod.setHourFulfiller(anHourFulfiller);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-		+ ((leftPeriod == null) ? 0 : leftPeriod.hashCode());
-		result = prime * result
-		+ ((rightPeriod == null) ? 0 : rightPeriod.hashCode());
+		result = prime * result + leftPeriod.hashCode();
+		result = prime * result + rightPeriod.hashCode();
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof CompositePeriod))
-			return false;
 		CompositePeriod other = (CompositePeriod) obj;
-		if (leftPeriod == null) {
-			if (other.leftPeriod != null)
-				return false;
-		} else if (!leftPeriod.equals(other.leftPeriod))
-			return false;
-		if (rightPeriod == null) {
-			if (other.rightPeriod != null)
-				return false;
-		} else if (!rightPeriod.equals(other.rightPeriod))
-			return false;
-		return true;
+		return getClass() == other.getClass()
+				&& leftPeriod.equals(other.leftPeriod)
+				&& rightPeriod.equals(other.rightPeriod);
 	}
 }

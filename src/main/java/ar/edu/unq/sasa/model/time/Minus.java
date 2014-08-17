@@ -6,9 +6,6 @@ import java.util.List;
 
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 
-/**
- * Representa la resta de conjuntos aplicada a los {@link Period}.
- */
 public class Minus extends CompositePeriod {
 
 	public Minus(Period left, Period right) {
@@ -16,29 +13,28 @@ public class Minus extends CompositePeriod {
 	}
 
 	@Override
-	public boolean contains(Period p) {
-		return getLeftPeriod().contains(p) && !getRightPeriod().contains(p);
+	public Boolean contains(Period aPeriod) {
+		return getLeftPeriod().contains(aPeriod) && !getRightPeriod().contains(aPeriod);
 	}
 
 	@Override
-	public boolean contains(Calendar c) {
-		return getLeftPeriod().contains(c) && !getRightPeriod().contains(c);
+	public Boolean contains(Calendar aDate) {
+		return getLeftPeriod().contains(aDate) && !getRightPeriod().contains(aDate);
 	}
 
 	@Override
-	public boolean intersectsWith(Period p) {
-		return getLeftPeriod().intersectsWith(p)
-			&& !getRightPeriod().intersectsWith(p);
+	public Boolean intersectsWith(Period aPeriod) {
+		return getLeftPeriod().intersectsWith(aPeriod) && !getRightPeriod().intersectsWith(aPeriod);
 	}
 
 	@Override
-	protected boolean intersectsWithSimple(SimplePeriod simple) {
-		return this.intersectsWith(simple);
+	protected Boolean intersectsWithSimple(SimplePeriod aSimplePeriod) {
+		return intersectsWith(aSimplePeriod);
 	}
 
 	@Override
-	protected boolean isIn(SimplePeriod sdf) {
-		return getLeftPeriod().isIn(sdf) && !getRightPeriod().isIn(sdf);
+	protected Boolean isIn(SimplePeriod aSimplePeriod) {
+		return getLeftPeriod().isIn(aSimplePeriod) && !getRightPeriod().isIn(aSimplePeriod);
 	}
 
 	@Override
@@ -61,9 +57,9 @@ public class Minus extends CompositePeriod {
 	}
 
 	@Override
-	public List<HourInterval> hourIntervalsInADay(Calendar c) {
-		List<HourInterval> leftIntervals = getLeftPeriod().hourIntervalsInADay(c);
-		List<HourInterval> rightIntervals = getRightPeriod().hourIntervalsInADay(c);
+	public List<HourInterval> hourIntervalsInADay(Calendar aDate) {
+		List<HourInterval> leftIntervals = getLeftPeriod().hourIntervalsInADay(aDate);
+		List<HourInterval> rightIntervals = getRightPeriod().hourIntervalsInADay(aDate);
 		List<HourInterval> result = new LinkedList<HourInterval>();
 		for (HourInterval hl : leftIntervals)
 			for (HourInterval hr : rightIntervals) {

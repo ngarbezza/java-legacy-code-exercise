@@ -136,7 +136,7 @@ public class TestSimplePeriod {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(7), new Timestamp(9));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 23));
 
-		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), 0);
+		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), new Integer(0));
 	}
 
 	@Test
@@ -144,7 +144,7 @@ public class TestSimplePeriod {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(9), new Timestamp(13));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 6));
 
-		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), 0);
+		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), new Integer(0));
 	}
 
 	@Test
@@ -152,6 +152,6 @@ public class TestSimplePeriod {
 		LogicalHourFulfiller lhf = new HourInterval(new Timestamp(9), new Timestamp(13, 30));
 		Period period = new SimplePeriod(lhf, new GregorianCalendar(2010, Calendar.JUNE, 23));
 
-		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), 90);
+		assertEquals(periodUnderTest.minutesSharedWithPeriod(period), new Integer(90));
 	}
 }
