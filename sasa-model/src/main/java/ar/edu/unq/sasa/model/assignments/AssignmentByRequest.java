@@ -11,7 +11,7 @@ public abstract class AssignmentByRequest implements Assignment {
 	private Request request;
 
 	public AssignmentByRequest(Request aRequest) {
-		aRequest.setAsignated(true);
+		aRequest.setAssigned(true);
 		request = aRequest;
 	}
 

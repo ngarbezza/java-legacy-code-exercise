@@ -21,7 +21,7 @@ public abstract class Request {
 	public Map<Resource, Integer> optionalResources;
 
 	// TODO model status?
-	private Boolean asignated = false;
+	private Boolean assigned = false;
 
 	public Request(Period aPeriod, Subject aSubject, Professor aProfessor, long anID,
 			Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources) {
@@ -69,19 +69,15 @@ public abstract class Request {
 		return optionalResources;
 	}
 
-	public Boolean isAsignated() {
-		return asignated;
+	public Boolean isAssigned() {
+		return assigned;
 	}
 
-	public void setAsignated(Boolean estado) {
-		asignated = estado;
+	public void setAssigned(Boolean aState) {
+		assigned = aState;
 	}
 
 	public abstract Boolean isClassroomRequest();
-
-	public Boolean getAsignated() {
-		return isAsignated();
-	}
 
 	@Override
 	public int hashCode() {

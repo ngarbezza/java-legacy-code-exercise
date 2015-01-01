@@ -298,7 +298,7 @@ public class AssignmentsDepartment extends Department {
 	public void deleteAssignment(Assignment searchedAssignment) {
 		try {
 			if (searchedAssignment.getRequest() != null)
-				searchedAssignment.getRequest().setAsignated(false);
+				searchedAssignment.getRequest().setAssigned(false);
 			AssignableItem assignableItem = searchedAssignment.getAssignableItem();
 			Map<Period, Assignment> assignments = assignableItem.getAssignments();
 

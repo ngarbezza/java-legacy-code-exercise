@@ -21,7 +21,7 @@ public class Professor {
 	}
 
 	public Professor(String aName, String phone, String anEmail) {
-		this(aName, phone, anEmail, new LinkedList<Subject>());
+		this(aName, phone, anEmail, new LinkedList<>());
 	}
 
 	public String getName() {
