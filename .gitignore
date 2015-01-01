@@ -17,5 +17,7 @@ target/
 doc/
 .settings/
 
-.idea/
 .checkstyle
+
+.idea/
+*.iml
