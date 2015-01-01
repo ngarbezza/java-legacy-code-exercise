@@ -23,7 +23,7 @@ public class ReadOnlyTableModel<T> extends AbstractTableModel {
 
 	private List<T> model;
 
-	// INVARIANTE DE REPRESENTACION:
+	// INVARIANTE DE REPRESENTACIÓN:
 	//		las tres listas siguientes tienen el mismo tamaño.
 
 	/**

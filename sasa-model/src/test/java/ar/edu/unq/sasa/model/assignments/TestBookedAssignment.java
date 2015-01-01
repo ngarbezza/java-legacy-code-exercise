@@ -13,7 +13,7 @@ public class TestBookedAssignment {
 		String motivo = "Reparaciones";
 		MobileResource item = new MobileResource("Proyector", 0);
 
-		BookedAssignment asignacion = new BookedAssignment(motivo, item);
+		Booking asignacion = new Booking(motivo, item);
 		boolean motivoIgual = asignacion.getCause().equals(motivo);
 		boolean itemIgual = asignacion.getAssignableItem().equals(item);
 

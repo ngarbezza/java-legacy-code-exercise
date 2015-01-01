@@ -14,7 +14,7 @@ import java.util.List;
 import org.junit.Test;
 
 import ar.edu.unq.sasa.model.assignments.Assignment;
-import ar.edu.unq.sasa.model.assignments.BookedAssignment;
+import ar.edu.unq.sasa.model.assignments.Booking;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
@@ -137,7 +137,7 @@ public class TestClassroom {
 		assertTrue(classroom.canAssign(periodMock, true));
 		// creamos una combinación Period-Assignment tal que no se pueda asignar
 		Period p3Mock = createMock(Period.class);
-		BookedAssignment a3Mock = createMock(BookedAssignment.class);
+		Booking a3Mock = createMock(Booking.class);
 		expect(p3Mock.intersectsWith(periodMock)).andReturn(true).anyTimes();
 		expect(a3Mock.isBookedAssignment()).andReturn(true).anyTimes();
 		replay(p3Mock, a3Mock);

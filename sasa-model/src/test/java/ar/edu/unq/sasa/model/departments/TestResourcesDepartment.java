@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.University;
-import ar.edu.unq.sasa.model.assignments.BookedAssignment;
+import ar.edu.unq.sasa.model.assignments.Booking;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
 import ar.edu.unq.sasa.model.items.FixedResource;
@@ -102,7 +102,7 @@ public class TestResourcesDepartment {
 	public void testAddMobileResourceBookedAssignment() {
 		Period period = null;
 		String cause = "Necesita mantenimiento";
-		BookedAssignment resAsig = new BookedAssignment(cause, mobileResource);
+		Booking resAsig = new Booking(cause, mobileResource);
 		mobileResource.addAssignment(period, resAsig);
 		expectLastCall();
 		replay(mobileResource);

@@ -45,31 +45,17 @@ public abstract class AbstractDepartmentPanel<T> extends JPanel implements Subsc
 		addAllWidgets();
 	}
 
-	protected int getWindowWidth() {
-		return 500;
-	}
-
-	protected int getWindowHeight() {
-		return 500;
-	}
-
 	protected void createSearchComponents() {
 		searchLabel = new JLabel(getSearchLabelText());
 		searchField = makeSearchField();
 	}
 
 	protected void createTable() {
-		ReadOnlyTableModel<T> tableModel = new ReadOnlyTableModel<T>(getListModel());
+		ReadOnlyTableModel<T> tableModel = new ReadOnlyTableModel<>(getListModel());
 		addColumns(tableModel);
 		table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent anEvent) {
-				whenTableSelectionChanged(anEvent);
-			}
-		});
+		table.getSelectionModel().addListSelectionListener(AbstractDepartmentPanel.this::whenTableSelectionChanged);
 		scrollPane = new JScrollPane(table);
 	}
 

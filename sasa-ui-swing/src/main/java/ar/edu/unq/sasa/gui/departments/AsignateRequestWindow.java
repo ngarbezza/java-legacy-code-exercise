@@ -245,8 +245,8 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources.addActionListener(anEvent -> {
 			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
 				Map<Resource, Integer> resources = resourcesSelectionToMap(resourcesSelection);
-				department.asignateClassroomAssignmentWithDesiredPeriodAndRequiredResources(
-					classroomRequestSelection, classroomSelection, periodSelection, resources);
+				department.assignClassroomAssignmentWithDesiredPeriodAndRequiredResources(
+						classroomRequestSelection, classroomSelection, periodSelection, resources);
 				parentPanel.updateTables();
 				dispose();
 			});
@@ -263,7 +263,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	private void createAsignateClassroomAssignmentListeners() {
 		asignateClassroomAssignment.addActionListener(anEvent -> {
 			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
-				department.asignateClassroomAssignment(classroomRequestSelection, classroomSelection, periodSelection);
+				department.assignClassroomAssignment(classroomRequestSelection, classroomSelection, periodSelection);
 				parentPanel.updateTables();
 				dispose();
 			});
@@ -273,7 +273,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	private void createAsignateRequestInAClassroomListeners() {
 		asignateRequestInAClassroom.addActionListener(anEvent -> {
 			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
-				department.asignateRequestInAClassroom(classroomRequestSelection, classroomSelection);
+				department.assignRequestInAClassroom(classroomRequestSelection, classroomSelection);
 				parentPanel.updateTables();
 				dispose();
 			});
@@ -283,7 +283,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 	private void createAsignateRequestInMostSatisfactoryClassroomListeners() {
 		asignateRequestInMostSatisfactoryClassroom.addActionListener(anEvent -> {
 			withConfirmation("Asignación", "¿Desea realizar la asignación elegida?", () -> {
-				department.asignateRequestInMostSatisfactoryClassroom(classroomRequestSelection);
+				department.assignRequestInMostSatisfactoryClassroom(classroomRequestSelection);
 				parentPanel.updateTables();
 				dispose();
 			});

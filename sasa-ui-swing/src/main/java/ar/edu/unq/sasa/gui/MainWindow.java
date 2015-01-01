@@ -5,7 +5,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import ar.edu.unq.sasa.gui.departments.AssignmentsPanel;
-import ar.edu.unq.sasa.gui.departments.BookedAssignmentsPanel;
+import ar.edu.unq.sasa.gui.departments.BookingsPanel;
 import ar.edu.unq.sasa.gui.departments.ClassroomsPanel;
 import ar.edu.unq.sasa.gui.departments.MobileResourcesPanel;
 import ar.edu.unq.sasa.gui.departments.ProfessorsPanel;
@@ -41,7 +41,7 @@ public class MainWindow extends JFrame {
 		mainTabsPanel.add(new RequestsPanel(university.getRequestsDepartment()));
 		mainTabsPanel.add(new MobileResourcesPanel(university.getResourcesDepartment()));
 		mainTabsPanel.add(new AssignmentsPanel(university.getAssignmentsDepartment()));
-		mainTabsPanel.add(new BookedAssignmentsPanel(university.getAssignmentsDepartment()));
+		mainTabsPanel.add(new BookingsPanel(university.getAssignmentsDepartment()));
 		add(mainTabsPanel);
 	}
 }

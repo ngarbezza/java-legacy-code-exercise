@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import ar.edu.unq.sasa.model.assignments.Assignment;
-import ar.edu.unq.sasa.model.assignments.BookedAssignment;
+import ar.edu.unq.sasa.model.assignments.Booking;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.exceptions.departments.AssignmentException;
 import ar.edu.unq.sasa.model.exceptions.departments.ResourceException;
@@ -101,11 +101,11 @@ public class Classroom extends AssignableItem {
 		return result;
 	}
 
-	public List<BookedAssignment> getBookedAssignments() {
-		List<BookedAssignment> result = new LinkedList<BookedAssignment>();
+	public List<Booking> getBookings() {
+		List<Booking> result = new LinkedList<Booking>();
 		for (Assignment a : getAssignments().values())
 			if (a.isBookedAssignment())
-				result.add((BookedAssignment) a);
+				result.add((Booking) a);
 		return result;
 	}
 

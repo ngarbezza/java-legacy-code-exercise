@@ -34,7 +34,7 @@ public class QueryManager extends Department {
 	}
 
 	public Satisfaction satisfactionsFromClassroomAndRequest(ClassroomRequest classroomRequest, Classroom classroom) {
-		return getAssignmentsDepartment().asignateRequestInAClassroom(classroomRequest, classroom).getSatisfaction();
+		return getAssignmentsDepartment().assignRequestInAClassroom(classroomRequest, classroom).getSatisfaction();
 	}
 
 	public Collection<Classroom> classroomsThatSatisfyTheWholeRequest(ClassroomRequest req) {

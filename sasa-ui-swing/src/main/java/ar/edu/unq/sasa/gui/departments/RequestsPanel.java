@@ -53,7 +53,7 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 				return aSubject.getName();
 			};
 		});
-		tableModel.addColumn("Asignado", "asignated", new ToStringConverter<Boolean>() {
+		tableModel.addColumn("Asignado", "assigned", new ToStringConverter<Boolean>() {
 			@Override
 			public String convert(Boolean aBoolean) {
 				return aBoolean ? "Sí" : "No";

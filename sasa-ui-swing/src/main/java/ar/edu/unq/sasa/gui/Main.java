@@ -325,17 +325,17 @@ public final class Main {
 	    /************************************************************************************************************/
 
 	    // Asignacion 5
-	    assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classReq5);
+	    assignmentsDepartment.assignRequestInMostSatisfactoryClassroom(classReq5);
 
 	    /************************************************************************************************************/
 
 	    // Asignacion 6
-	    assignmentsDepartment.asignateRequestInMostSatisfactoryClassroom(classReq6);
+	    assignmentsDepartment.assignRequestInMostSatisfactoryClassroom(classReq6);
 
 	    /************************************************************************************************************/
 
 	    // Reserva
 	    Classroom classroom = classroomsDepartment.searchClassroom("Aula 20");
-	    assignmentsDepartment.asignateBookedAssignment(classroom, "Reparaciones", desiredHours2);
+	    assignmentsDepartment.assignBooking(classroom, "Reparaciones", desiredHours2);
 	}
 }

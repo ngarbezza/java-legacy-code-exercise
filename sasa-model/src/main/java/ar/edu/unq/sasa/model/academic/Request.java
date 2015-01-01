@@ -79,6 +79,11 @@ public abstract class Request {
 
 	public abstract Boolean isClassroomRequest();
 
+	public Boolean getAssigned() {
+		// do not remove, it is invoked by reflection
+		return assigned;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
