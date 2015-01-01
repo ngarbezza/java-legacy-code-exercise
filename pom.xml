@@ -10,7 +10,7 @@
 
     <modules>
         <module>sasa-model</module>
-        <!--<module>sasa-ui-swing</module>-->
+        <module>sasa-ui-swing</module>
     </modules>
 
     <properties>
