@@ -133,7 +133,7 @@ public class AssignmentsPanel extends JPanel implements Subscriber {
 
     private void createAssignButtonListeners() {
         assignButton.addActionListener(anEvent ->
-                new AsignateRequestWindow(department, AssignmentsPanel.this));
+                new AssignRequestWindow(department, AssignmentsPanel.this));
     }
 
     private void createModifyButtonListeners() {

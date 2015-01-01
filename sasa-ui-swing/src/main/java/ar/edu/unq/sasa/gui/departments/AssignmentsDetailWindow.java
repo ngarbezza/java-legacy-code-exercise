@@ -4,17 +4,14 @@ import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.model.academic.Request;
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
-import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-public abstract class AssignmentsDetailWindow<A extends AssignableItem,
-        B extends AssignmentByRequest> extends JFrame {
+public abstract class AssignmentsDetailWindow<A extends AssignableItem, B extends AssignmentByRequest> extends JFrame {
 
     private static final long serialVersionUID = 4835555392263678407L;
 
@@ -23,20 +20,17 @@ public abstract class AssignmentsDetailWindow<A extends AssignableItem,
     protected JTextArea periodDetail;
 
     public AssignmentsDetailWindow(final A anAssignableItem) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                assignableItem = anAssignableItem;
-                createWidgets();
-                addWidgets();
+        SwingUtilities.invokeLater(() -> {
+            assignableItem = anAssignableItem;
+            createWidgets();
+            addWidgets();
 
-                setTitle("Detalle de asignaciones");
-                setSize(new Dimension(getWindowWidth(), getWindowHeight()));
-                setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                setResizable(false);
-                setLocationRelativeTo(null);
-                setVisible(true);
-            }
+            setTitle("Detalle de asignaciones");
+            setSize(new Dimension(getWindowWidth(), getWindowHeight()));
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            setResizable(false);
+            setLocationRelativeTo(null);
+            setVisible(true);
         });
     }
 

@@ -63,16 +63,14 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 
 	@Override
 	protected void createAddButtonListeners() {
-		addButton.addActionListener(anEvent -> { new NewRequestWindow(department); });
+		addButton.addActionListener(anEvent -> new NewRequestWindow(department));
 	}
 
 	@Override
 	protected void createDeleteButtonListeners() {
-		deleteButton.addActionListener(anEvent -> {
-			withConfirmation("Eliminar", "¿Desea eliminar el pedido seleccionado?", () -> {
-				department.deleteRequest(selection);
-			});
-		});
+		deleteButton.addActionListener(anEvent ->
+				withConfirmation("Eliminar", "¿Desea eliminar el pedido seleccionado?", () ->
+						department.deleteRequest(selection)));
 	}
 
 	@Override
@@ -92,11 +90,11 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 		return "Búsqueda rápida por profesor";
 	}
 
-	@SuppressWarnings({ "serial", "unchecked" })
 	@Override
+	@SuppressWarnings({ "serial", "unchecked" })
 	protected Component makeSearchField() {
-		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<Professor>(getProfessors());
-		final JComboBox<Professor> combo = new JComboBox<Professor>(comboModel);
+		EasyComboBoxModel<Professor> comboModel = new EasyComboBoxModel<>(getProfessors());
+		final JComboBox<Professor> combo = new JComboBox<>(comboModel);
 		combo.setRenderer(new EasyComboBoxRenderer<Professor>() {
 			// TODO implement with lambdas
 			@Override
@@ -118,11 +116,10 @@ public class RequestsPanel extends AbstractDepartmentPanel<Request> {
 
 	@Override
 	protected void addOtherWidgetsToBottomPanel(JPanel bottomPanel) {
-		requestDetail = new JButton("Detalle de Pedido");
+		requestDetail = new JButton("Detalle de pedido");
 		requestDetail.setEnabled(false);
-		requestDetail.addActionListener(anEvent -> {
-			new RequestViewWindow(department.getAssignmentsDepartment(), (ClassroomRequest) selection);
-		});
+		requestDetail.addActionListener(anEvent ->
+				new RequestViewWindow(department.getAssignmentsDepartment(), (ClassroomRequest) selection));
 		bottomPanel.add(requestDetail);
 	}
 

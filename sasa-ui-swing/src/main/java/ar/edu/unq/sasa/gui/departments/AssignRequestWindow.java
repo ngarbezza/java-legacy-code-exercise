@@ -40,7 +40,7 @@ import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
 
-public class AsignateRequestWindow extends JFrame implements PeriodHolder {
+public class AssignRequestWindow extends JFrame implements PeriodHolder {
 
 	private static final long serialVersionUID = -744274987094722160L;
 
@@ -70,7 +70,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 
 	private AssignmentsDepartment department;
 
-	public AsignateRequestWindow(AssignmentsDepartment assignmentsDepartment, final AssignmentsPanel assignmentsPanel) {
+	public AssignRequestWindow(AssignmentsDepartment assignmentsDepartment, final AssignmentsPanel assignmentsPanel) {
 		department = assignmentsDepartment;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -292,13 +292,13 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 
 	private void createSelectResourcesListeners() {
 		selectResources.addActionListener(anEvent -> {
-			new ResourcesSelectionWindow(department, AsignateRequestWindow.this);
+			new ResourcesSelectionWindow(department, AssignRequestWindow.this);
 		});
 	}
 
 	private void createSelectPeriodListeners() {
 		selectPeriod.addActionListener(anEvent -> {
-			new NewPeriodWindow(AsignateRequestWindow.this);
+			new NewPeriodWindow(AssignRequestWindow.this);
 		});
 	}
 
@@ -311,7 +311,7 @@ public class AsignateRequestWindow extends JFrame implements PeriodHolder {
 		classroomsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent anEvent) {
-				AsignateRequestWindow.this.whenClassroomsTableSelectionChanged(anEvent);
+				AssignRequestWindow.this.whenClassroomsTableSelectionChanged(anEvent);
 			}
 		});
 		classroomsScrollPane = new JScrollPane(classroomsTable);
