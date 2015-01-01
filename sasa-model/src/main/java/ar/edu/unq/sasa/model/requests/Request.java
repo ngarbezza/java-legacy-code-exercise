@@ -25,15 +25,16 @@ public abstract class Request {
     // TODO model status?
     private Boolean assigned = false;
 
-    public Request(Period aPeriod, Subject aSubject, Professor aProfessor, long anID,
-                   Map<Resource, Integer> reqResources, Map<Resource, Integer> optResources) {
+    public Request(Period aPeriod, Subject aSubject, Professor aProfessor, long anID) {
+        this(aPeriod, aSubject, aProfessor, anID, new HashSet<>());
+    }
+
+    public Request(Period aPeriod, Subject aSubject, Professor aProfessor, long anID, Set<Requirement> listOfRequirements) {
         desiredHours = aPeriod;
         subject = aSubject;
         professor = aProfessor;
         id = anID;
-        requirements = new HashSet<>();
-        parseRequiredResources(reqResources);
-        parseOptionalResources(optResources);
+        requirements = listOfRequirements;
     }
 
     // TODO remove after requirements refactor

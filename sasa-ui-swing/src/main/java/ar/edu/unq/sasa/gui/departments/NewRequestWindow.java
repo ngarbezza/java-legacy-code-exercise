@@ -9,16 +9,15 @@ import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.departments.RequestsDepartment;
 import ar.edu.unq.sasa.model.items.Resource;
+import ar.edu.unq.sasa.model.requests.Requirement;
 import ar.edu.unq.sasa.model.time.Period;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
 import static ar.edu.unq.sasa.gui.util.LabelHelpers.requiredRedStar;
@@ -225,8 +224,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
         createRequestButton.addActionListener(anEvent -> {
             if (validateCurrentRequest()) {
                 department.createClassroomRequest(
-                        makeResourcesFrom(requiredResourcesTable),
-                        makeResourcesFrom(optionalResourcesTable),
+                        makeRequirementsFrom(requiredResourcesTable, optionalResourcesTable),
                         specifiedPeriod, getSelectedSubject(),
                         getSelectedProfessor(),
                         (Integer) capacitySelector.getValue());
@@ -258,12 +256,13 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
         return (Professor) professorCombo.getSelectedItem();
     }
 
-    protected Map<Resource, Integer> makeResourcesFrom(JTable table) {
-        Map<Resource, Integer> result = new HashMap<>();
-        List<ResourceView> resources = getListModelFrom(table);
-        for (ResourceView rv : resources)
-            result.put(rv.getResource(), rv.getAmount());
-        return result;
+    protected Set<Requirement> makeRequirementsFrom(JTable requiredTable, JTable optionalTable) {
+        Set<Requirement> requirements = new HashSet<>();
+        for (ResourceView rv : getListModelFrom(requiredTable))
+            requirements.add(new Requirement(rv.getResource(), rv.getAmount(), false));
+        for (ResourceView rv : getListModelFrom(optionalTable))
+            requirements.add(new Requirement(rv.getResource(), rv.getAmount(), true));
+        return requirements;
     }
 
     protected void addWidgets() {

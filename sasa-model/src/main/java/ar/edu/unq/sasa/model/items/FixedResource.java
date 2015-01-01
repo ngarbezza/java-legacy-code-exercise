@@ -2,6 +2,7 @@ package ar.edu.unq.sasa.model.items;
 
 /**
  * Representa aquellos recursos que pertenecen a un aula, de manera fija.
+ * TODO make a difference between what we request and we have already in a classroom
  */
 public class FixedResource implements Resource {
 
@@ -15,7 +16,6 @@ public class FixedResource implements Resource {
 	}
 
 	public FixedResource(String aName) {
-		// TODO this should not exist anymore when requirements are modeled
 		name = aName;
 	}
 

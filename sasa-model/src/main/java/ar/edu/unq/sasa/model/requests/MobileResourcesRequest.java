@@ -1,6 +1,7 @@
 package ar.edu.unq.sasa.model.requests;
 
 import java.util.Map;
+import java.util.Set;
 
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
@@ -12,9 +13,8 @@ public class MobileResourcesRequest extends Request {
 
 	public MobileResourcesRequest(Period aPeriod,
 			Subject aSubject, Professor aProfessor, long anID,
-			Map<Resource, Integer> reqResources,
-			Map<Resource, Integer> optResources) {
-		super(aPeriod, aSubject, aProfessor, anID, reqResources, optResources);
+			Set<Requirement> listOfRequirements) {
+		super(aPeriod, aSubject, aProfessor, anID, listOfRequirements);
 	}
 
 	@Override

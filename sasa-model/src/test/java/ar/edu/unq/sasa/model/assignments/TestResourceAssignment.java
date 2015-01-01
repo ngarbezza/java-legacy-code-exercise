@@ -1,38 +1,28 @@
 package ar.edu.unq.sasa.model.assignments;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-
-import ar.edu.unq.sasa.model.requests.MobileResourcesRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.items.MobileResource;
-import ar.edu.unq.sasa.model.items.Resource;
-import ar.edu.unq.sasa.model.time.Period;
+import ar.edu.unq.sasa.model.requests.MobileResourcesRequest;
+import org.junit.Test;
+
+import java.util.HashSet;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestResourceAssignment {
 
-	@Test
-	public void shouldConstructCorrectly() {
-		String name = "Proyector";
-		MobileResource resource = new MobileResource(name, 0);
-		Period desHours = null;
-		Subject subject = new Subject("Creacion de Shortcuts");
-		Professor professor = new Professor("Pable", "42244556", "pablo@gmail.com");
-		Map<Resource, Integer> reqResources = new HashMap<Resource, Integer>();
-		Map<Resource, Integer> optResources = new HashMap<Resource, Integer>();
+    @Test
+    public void shouldConstructCorrectly() {
+        String name = "Proyector";
+        MobileResource resource = new MobileResource(name, 0);
+        Subject subject = new Subject("Creación de Shortcuts");
+        Professor professor = new Professor("Pablo", "42244556", "pablo@gmail.com");
 
-		MobileResourcesRequest request =
-				new MobileResourcesRequest(desHours, subject, professor, 12, reqResources, optResources);
-		ResourceAssignment asig = new ResourceAssignment(request, resource);
+        MobileResourcesRequest request = new MobileResourcesRequest(null, subject, professor, 12, new HashSet<>());
+        ResourceAssignment assignment = new ResourceAssignment(request, resource);
 
-		boolean resourceIgual = asig.getAssignableItem().equals(resource);
-		boolean requestIgual = asig.getRequest().equals(request);
-
-		assertTrue(resourceIgual && requestIgual);
-	}
+        assertTrue(assignment.getAssignableItem().equals(resource));
+        assertTrue(assignment.getRequest().equals(request));
+    }
 }

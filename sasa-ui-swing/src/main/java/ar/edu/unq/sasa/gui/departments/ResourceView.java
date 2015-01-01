@@ -4,6 +4,7 @@ import ar.edu.unq.sasa.model.items.Resource;
 
 /**
  * Modelo de aplicación para representar recursos con su cantidad, en un pedido.
+ * TODO maybe not needed anymore after Requirement class is present
  */
 public class ResourceView {
 
