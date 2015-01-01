@@ -10,6 +10,8 @@ public interface Assignment {
 
 	// TODO conocer el Period?
 
+	// TODO conocer recursos asignados?
+
 	AssignableItem getAssignableItem();
 
 	Request getRequest();

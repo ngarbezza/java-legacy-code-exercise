@@ -1,10 +1,10 @@
 package ar.edu.unq.sasa.model.items;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Representa aquellos recursos denominados "móviles" porque pueden ser asignados
@@ -12,32 +12,31 @@ import ar.edu.unq.sasa.model.assignments.ResourceAssignment;
  */
 public class MobileResource extends AssignableItem implements Resource {
 
-	private final int id;
+    private final int id;
 
-	public MobileResource(String name, int anId) {
-		super(name);
-		id = anId;
-	}
+    public MobileResource(String name, int anId) {
+        super(name);
+        id = anId;
+    }
 
-	@Override
-	public void setName(String newName) {
-		super.setName(newName);
-	}
+    @Override
+    public void setName(String newName) {
+        super.setName(newName);
+    }
 
-	@Override
-	public boolean isFixedResource() {
-		return false;
-	}
+    @Override
+    public boolean isFixedResource() {
+        return false;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public List<ResourceAssignment> getResourceAssignments() {
-		List<ResourceAssignment> result = new LinkedList<ResourceAssignment>();
-		for (Assignment a : getAssignments().values())
-			if (a.isResourceAssignment())
-				result.add((ResourceAssignment) a);
-		return result;
-	}
+    public List<ResourceAssignment> getResourceAssignments() {
+        return getAssignments().values().stream()
+                .filter(Assignment::isResourceAssignment)
+                .map(a -> (ResourceAssignment) a)
+                .collect(Collectors.toList());
+    }
 }

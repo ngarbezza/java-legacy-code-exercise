@@ -5,9 +5,9 @@ package ar.edu.unq.sasa.model.items;
  */
 public interface Resource {
 
-	String getName();
-	
-	void setName(String newName);
-	
-	boolean isFixedResource();
+    String getName();
+
+    void setName(String newName);
+
+    boolean isFixedResource();
 }

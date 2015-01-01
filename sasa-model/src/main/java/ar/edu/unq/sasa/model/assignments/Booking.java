@@ -1,7 +1,7 @@
 package ar.edu.unq.sasa.model.assignments;
 
-import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.items.AssignableItem;
+import ar.edu.unq.sasa.model.requests.Request;
 
 /**
  * Reservas, es decir, asignaciones que no están asociadas a ningún pedido.

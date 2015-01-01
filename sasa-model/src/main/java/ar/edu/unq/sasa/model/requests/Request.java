@@ -37,29 +37,8 @@ public abstract class Request {
         requirements = listOfRequirements;
     }
 
-    // TODO remove after requirements refactor
-    private void parseRequiredResources(Map<Resource, Integer> reqResources) {
-        if (reqResources != null) {
-            reqResources.forEach((res, qty) -> requirements.add(new Requirement(res, qty, false)));
-        }
-    }
-
-    private void parseOptionalResources(Map<Resource, Integer> optResources) {
-        if (optResources != null) {
-            optResources.forEach((res, qty) -> requirements.add(new Requirement(res, qty, true)));
-        }
-    }
-
     public void setDesiredHours(Period aPeriod) {
         desiredHours = aPeriod;
-    }
-
-    public void setRequiredResources(Map<Resource, Integer> reqResources) {
-        parseRequiredResources(reqResources);
-    }
-
-    public void setOptionalResources(Map<Resource, Integer> optResources) {
-        parseOptionalResources(optResources);
     }
 
     public Period getDesiredHours() {
@@ -79,10 +58,6 @@ public abstract class Request {
     }
 
     public Map<Resource, Integer> getRequiredResources() {
-        return unparseRequiredResources();
-    }
-
-    private Map<Resource, Integer> unparseRequiredResources() {
         Map<Resource, Integer> reqResources = new HashMap<>();
         requirements.stream().filter(Requirement::isRequired).forEach(req ->
                 reqResources.put(req.getResource(), req.getQuantity()));

@@ -8,40 +8,40 @@ import ar.edu.unq.sasa.model.requests.Request;
  */
 public abstract class AssignmentByRequest implements Assignment {
 
-	private Request request;
+    private Request request;
 
-	public AssignmentByRequest(Request aRequest) {
-		aRequest.setAssigned(true);
-		request = aRequest;
-	}
+    public AssignmentByRequest(Request aRequest) {
+        aRequest.setAssigned(true);
+        request = aRequest;
+    }
 
-	@Override
-	public Request getRequest() {
-		return request;
-	}
+    @Override
+    public Request getRequest() {
+        return request;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((request == null) ? 0 : request.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((request == null) ? 0 : request.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AssignmentByRequest other = (AssignmentByRequest) obj;
-		if (request == null) {
-			if (other.request != null)
-				return false;
-		} else if (!request.equals(other.request))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AssignmentByRequest other = (AssignmentByRequest) obj;
+        if (request == null) {
+            if (other.request != null)
+                return false;
+        } else if (!request.equals(other.request))
+            return false;
+        return true;
+    }
 }

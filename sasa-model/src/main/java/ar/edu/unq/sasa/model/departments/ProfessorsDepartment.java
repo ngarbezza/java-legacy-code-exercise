@@ -1,64 +1,62 @@
 package ar.edu.unq.sasa.model.departments;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.academic.University;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProfessorsDepartment extends Department {
 
-	private List<Professor> professors;
+    private List<Professor> professors;
 
-	public ProfessorsDepartment(University university) {
-		super(university);
-		professors = new LinkedList<Professor>();
-	}
+    public ProfessorsDepartment(University university) {
+        super(university);
+        professors = new LinkedList<>();
+    }
 
-	public Professor createProfessor(String name, String phone, String mail) {
-		return createProfessor(name, phone, mail, new LinkedList<Subject>());
-	}
+    public Professor createProfessor(String name, String phone, String mail) {
+        return createProfessor(name, phone, mail, new LinkedList<>());
+    }
 
-	public Professor createProfessor(String name, String phone, String mail, List<Subject> subjects) {
-		Professor professor = new Professor(name, phone, mail, subjects);
-		addProfessor(professor);
+    public Professor createProfessor(String name, String phone, String mail, List<Subject> subjects) {
+        Professor professor = new Professor(name, phone, mail, subjects);
+        addProfessor(professor);
 
-		getPublisher().changed("professorsChanged", professors);
+        getPublisher().changed("professorsChanged", professors);
 
-		return professor;
-	}
+        return professor;
+    }
 
-	public List<Professor> getProfessors() {
-		return professors;
-	}
+    public List<Professor> getProfessors() {
+        return professors;
+    }
 
-	public void addProfessor(Professor professor) {
-		professors.add(professor);
-	}
+    public void addProfessor(Professor professor) {
+        professors.add(professor);
+    }
 
-	public void deleteProfessor(Professor professor) {
-		professors.remove(professor);
+    public void deleteProfessor(Professor professor) {
+        professors.remove(professor);
 
-		getPublisher().changed("professorsChanged", professors);
-	}
+        getPublisher().changed("professorsChanged", professors);
+    }
 
-	public List<Professor> searchProfessor(String text) {
-		List<Professor> res = new LinkedList<Professor>();
-		for (Professor p : getProfessors())
-			if (p.getName().contains(text))
-				res.add(p);
-		return res;
-	}
+    public List<Professor> searchProfessor(String text) {
+        return getProfessors().stream()
+                .filter(p -> p.getName().contains(text))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
 
-	public void modifyProfessor(Professor p, String name, String phone, String mail, List<Subject> subjects) {
-		p.setName(name);
-		p.setPhoneNumber(phone);
-		p.setMail(mail);
-		p.getSubjects().clear();
-		for (Subject s : subjects)
-			p.addNewSubject(s);
+    public void modifyProfessor(Professor aProfessor, String aName, String aPhoneNumber, String anEmail, List<Subject> subjects) {
+        aProfessor.setName(aName);
+        aProfessor.setPhoneNumber(aPhoneNumber);
+        aProfessor.setMail(anEmail);
+        aProfessor.getSubjects().clear();
+        subjects.forEach(aProfessor::addNewSubject);
 
-		getPublisher().changed("professorsChanged", professors);
-	}
+        getPublisher().changed("professorsChanged", professors);
+    }
 }

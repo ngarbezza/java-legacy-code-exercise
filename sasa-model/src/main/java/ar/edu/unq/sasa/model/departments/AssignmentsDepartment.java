@@ -163,23 +163,24 @@ public class AssignmentsDepartment extends Department {
         return assignClassroomAssignment(classroomRequest, bestClassroom, freePeriod);
     }
 
-    public ClassroomAssignment assignClassroomAssignmentWithDesiredPeriodAndRequiredResources(
-            ClassroomRequest classroomRequest, Classroom classroom, Period period, Map<Resource, Integer> resources) {
-        Map<Resource, Integer> oldRequiredResources = classroomRequest.getRequiredResources();
-        Map<Resource, Integer> oldOptionalResources = classroomRequest.getOptionalResources();
-        classroomRequest.setRequiredResources(resources);
-        classroomRequest.setOptionalResources(new HashMap<>());
-
-        ClassroomAssignment classroomAssignment = assignClassroomAssignmentWithoutSatisfaction(
-                classroomRequest, classroom, period);
-        classroomAssignment.getRequest().setRequiredResources(oldRequiredResources);
-        classroomAssignment.getRequest().setOptionalResources(oldOptionalResources);
-
-        classroomAssignment.createSatisfaction();
-        updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
-        changedAssignmentsAndRequests();
-        return classroomAssignment;
-    }
+    // TODO not supported for now - review
+//    public ClassroomAssignment assignClassroomAssignmentWithDesiredPeriodAndRequiredResources(
+//            ClassroomRequest classroomRequest, Classroom classroom, Period period, Map<Resource, Integer> resources) {
+//        Map<Resource, Integer> oldRequiredResources = classroomRequest.getRequiredResources();
+//        Map<Resource, Integer> oldOptionalResources = classroomRequest.getOptionalResources();
+//        classroomRequest.setRequiredResources(resources);
+//        classroomRequest.setOptionalResources(new HashMap<>());
+//
+//        ClassroomAssignment classroomAssignment = assignClassroomAssignmentWithoutSatisfaction(
+//                classroomRequest, classroom, period);
+//        classroomAssignment.getRequest().setRequiredResources(oldRequiredResources);
+//        classroomAssignment.getRequest().setOptionalResources(oldOptionalResources);
+//
+//        classroomAssignment.createSatisfaction();
+//        updateAssignmentsSatisfactionSuperpositions(period, classroomAssignment);
+//        changedAssignmentsAndRequests();
+//        return classroomAssignment;
+//    }
 
     private Map<Integer, Object> getPercentageAndPeriod(ClassroomRequest classroomRequest, Classroom classroom) {
         Map<Integer, Object> percentageAndPeriods = new HashMap<>();
