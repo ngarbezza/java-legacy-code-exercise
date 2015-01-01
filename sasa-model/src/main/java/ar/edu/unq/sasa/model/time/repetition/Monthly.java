@@ -7,24 +7,24 @@ import java.util.Calendar;
  */
 public class Monthly extends EndingRepetition {
 
-	public Monthly(Calendar end) {
-		super(end);
-	}
+    public Monthly(Calendar end) {
+        super(end);
+    }
 
-	@Override
-	protected Calendar getNextDate(Calendar c) {
-		Calendar newDate = (Calendar) c.clone();
-		newDate.add(Calendar.MONTH, 1);
-		return newDate;
-	}
-	
-	@Override
-	protected String getRepetitionText() {
-		return super.getRepetitionText() + " con repetición mensual";
-	}
-	
-	@Override
-	public Monthly copy() {
-		return new Monthly((Calendar) getEnd().clone());
-	}
+    @Override
+    protected Calendar getNextDate(Calendar aDate) {
+        Calendar newDate = (Calendar) aDate.clone();
+        newDate.add(Calendar.MONTH, 1);
+        return newDate;
+    }
+
+    @Override
+    protected String getRepetitionText() {
+        return super.getRepetitionText() + " con repetición mensual";
+    }
+
+    @Override
+    public Monthly copy() {
+        return new Monthly((Calendar) getEnd().clone());
+    }
 }

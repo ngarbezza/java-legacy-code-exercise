@@ -5,23 +5,23 @@ import java.util.List;
 // TODO rename
 public abstract class LogicalHourFulfiller {
 
-	public abstract boolean contains(Timestamp t);
+    public abstract boolean contains(Timestamp t);
 
-	public abstract boolean contains(LogicalHourFulfiller lhf);
+    public abstract boolean contains(LogicalHourFulfiller lhf);
 
-	public abstract boolean intersectsWith(LogicalHourFulfiller lhf);
+    public abstract boolean intersectsWith(LogicalHourFulfiller lhf);
 
-	protected abstract boolean intersectsWithHourInterval(HourInterval hi);
+    protected abstract boolean intersectsWithHourInterval(HourInterval hi);
 
-	protected abstract boolean isIn(HourInterval hi);
+    protected abstract boolean isIn(HourInterval hi);
 
-	public abstract List<HourInterval> getConcreteIntervals();
+    public abstract List<HourInterval> getConcreteIntervals();
 
-	public abstract int minutesSharedWith(LogicalHourFulfiller hf);
+    public abstract int minutesSharedWith(LogicalHourFulfiller hf);
 
-	protected abstract int minutesSharedWithHourInterval(HourInterval hi);
+    protected abstract int minutesSharedWithHourInterval(HourInterval hi);
 
-	public abstract LogicalHourFulfiller copy();
+    public abstract LogicalHourFulfiller copy();
 
-	public abstract boolean isConcrete();
+    public abstract boolean isConcrete();
 }
