@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ar.edu.unq.sasa.gui.util.LabelHelpers.requiredRedStar;
+
 public class EditProfessorWindow extends AbstractEditWindow<Professor> {
 
     private static final long serialVersionUID = -252220491365344826L;
@@ -210,9 +212,7 @@ public class EditProfessorWindow extends AbstractEditWindow<Professor> {
         topPanel.add(phonePanel);
         topPanel.add(mailPanel);
         topPanel.add(subjectsPanel);
-        JLabel label1 = new JLabel("*");
-        label1.setForeground(Color.RED);
-        namePanel.add(label1);
+        namePanel.add(requiredRedStar());
         namePanel.add(nameLabel);
         namePanel.add(nameField);
         phonePanel.add(phoneLabel);

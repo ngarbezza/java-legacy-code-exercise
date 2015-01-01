@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 
 import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+import static ar.edu.unq.sasa.gui.util.LabelHelpers.requiredRedStar;
 
 public class CreateBookingWindow extends JFrame implements PeriodHolder {
 
@@ -100,11 +101,14 @@ public class CreateBookingWindow extends JFrame implements PeriodHolder {
         }
     }
 
+    private void createNewPeriodButtonListeners() {
+        newPeriodButton.addActionListener(anEvent -> new NewPeriodWindow(CreateBookingWindow.this));
+    }
+
+
     private void createOtherComponents() {
-        obligatoryPeriodLabel = new JLabel("*");
-        obligatoryPeriodLabel.setForeground(Color.RED);
-        obligatoryCauseLabel = new JLabel("*");
-        obligatoryCauseLabel.setForeground(Color.RED);
+        obligatoryPeriodLabel = requiredRedStar();
+        obligatoryCauseLabel = requiredRedStar();
         searchTextLabel = new JLabel("Búsqueda por nombre");
         searchTextField = new JTextField(10);
         createSearchTextFieldListeners();
@@ -120,11 +124,6 @@ public class CreateBookingWindow extends JFrame implements PeriodHolder {
         periodDetailTextArea = new JTextArea("Todavía no se eligió ningún período");
         periodDetailScrollPane = new JScrollPane(periodDetailTextArea);
         periodDetailScrollPane.setPreferredSize(new Dimension(455, 50));
-    }
-
-
-    private void createNewPeriodButtonListeners() {
-        newPeriodButton.addActionListener(anEvent -> new NewPeriodWindow(CreateBookingWindow.this));
     }
 
     private void createSearchTextFieldListeners() {

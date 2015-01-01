@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ar.edu.unq.sasa.gui.util.LabelHelpers.requiredRedStar;
+
 public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
 
     private static final long serialVersionUID = -238543135195643014L;
@@ -156,9 +158,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
         topPanel.add(capacityPanel);
         topPanel.add(resPanel);
         namePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel label1 = new JLabel("*");
-        label1.setForeground(Color.RED);
-        namePanel.add(label1);
+        namePanel.add(requiredRedStar());
         namePanel.add(nameLabel);
         namePanel.add(nameField);
         capacityPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -177,9 +177,7 @@ public class EditClassroomWindow extends AbstractEditWindow<Classroom> {
         modifyResPanel.add(resAmountPanel);
         modifyResPanel.add(resButtonsPanel);
         resNamePanel.setLayout(new FlowLayout());
-        JLabel label2 = new JLabel("*");
-        label2.setForeground(Color.RED);
-        resNamePanel.add(label2);
+        resNamePanel.add(requiredRedStar());
         resNamePanel.add(resNameLabel);
         resNamePanel.add(resNameField);
         resAmountPanel.setLayout(new FlowLayout());

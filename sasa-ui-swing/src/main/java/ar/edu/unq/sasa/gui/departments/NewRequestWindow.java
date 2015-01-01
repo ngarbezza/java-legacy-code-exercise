@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+import static ar.edu.unq.sasa.gui.util.LabelHelpers.requiredRedStar;
 
 public class NewRequestWindow extends JFrame implements PeriodHolder {
 
@@ -335,21 +336,15 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
         professorAndSubject.add(subjectPanel);
         professorAndSubject.add(capacityPanel);
         professorPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel label1 = new JLabel("*");
-        label1.setForeground(Color.RED);
-        professorPanel.add(label1);
+        professorPanel.add(requiredRedStar());
         professorPanel.add(professorLabel);
         professorPanel.add(professorCombo);
         subjectPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel label2 = new JLabel("*");
-        label2.setForeground(Color.RED);
-        subjectPanel.add(label2);
+        subjectPanel.add(requiredRedStar());
         subjectPanel.add(subjectLabel);
         subjectPanel.add(subjectCombo);
         capacityPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel label3 = new JLabel("*");
-        label3.setForeground(Color.RED);
-        capacityPanel.add(label3);
+        capacityPanel.add(requiredRedStar());
         capacityPanel.add(capacityLabel);
         capacityPanel.add(capacitySelector);
         periodPanel.setLayout(new BoxLayout(periodPanel, BoxLayout.Y_AXIS));
@@ -358,9 +353,7 @@ public class NewRequestWindow extends JFrame implements PeriodHolder {
         periodPanel.add(scrollPanePeriod);
         JPanel aux = new JPanel();
         aux.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        JLabel label4 = new JLabel("*");
-        label4.setForeground(Color.RED);
-        aux.add(label4);
+        aux.add(requiredRedStar());
         aux.add(addPeriodButton);
         periodPanel.add(aux);
         mainButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));

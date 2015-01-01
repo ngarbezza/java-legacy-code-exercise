@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+import static ar.edu.unq.sasa.gui.util.LabelHelpers.requiredRedStar;
 
 public class ResourcesSelectionWindow extends JFrame {
 
@@ -135,9 +136,7 @@ public class ResourcesSelectionWindow extends JFrame {
         obligatoryResourceLabel.setForeground(Color.RED);
         resourcesComboBoxLabel = new JLabel("Seleccione un Recurso ");
         resourcesQuantityLabel = new JLabel("Indique la Cantidad");
-        // TODO refactor to LabelHelpers - requiredLabel
-        obligatoryQuantityLabel = new JLabel("*");
-        obligatoryQuantityLabel.setForeground(Color.RED);
+        obligatoryQuantityLabel = requiredRedStar();
         resourcesComboBox = makeResourcesComboBox();
         resourcesQuantity = makeQuantitySearchField();
     }
