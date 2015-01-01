@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.items.Resource;

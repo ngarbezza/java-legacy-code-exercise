@@ -1,6 +1,6 @@
 package ar.edu.unq.sasa.model.assignments;
 
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.Request;
 
 /**
  * Clase abstracta, que representa las {@link Assignment} que fueron hechas

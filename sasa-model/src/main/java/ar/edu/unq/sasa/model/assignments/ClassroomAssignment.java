@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.Resource;

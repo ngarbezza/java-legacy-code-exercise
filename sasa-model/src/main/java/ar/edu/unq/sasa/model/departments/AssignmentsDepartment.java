@@ -1,7 +1,7 @@
 package ar.edu.unq.sasa.model.departments;
 
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.Booking;

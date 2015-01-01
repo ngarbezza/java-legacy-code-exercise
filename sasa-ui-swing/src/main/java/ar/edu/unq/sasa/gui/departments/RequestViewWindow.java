@@ -4,7 +4,7 @@ import ar.edu.unq.sasa.gui.period.PeriodDetailWindow;
 import ar.edu.unq.sasa.gui.util.Pair;
 import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.ClassroomAssignment;
 import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;

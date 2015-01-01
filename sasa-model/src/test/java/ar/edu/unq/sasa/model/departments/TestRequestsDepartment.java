@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.academic.University;
 
 public class TestRequestsDepartment {

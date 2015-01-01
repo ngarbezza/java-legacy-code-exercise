@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.time.Period;
 

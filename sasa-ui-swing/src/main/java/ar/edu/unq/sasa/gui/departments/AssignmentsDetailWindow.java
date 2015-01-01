@@ -2,7 +2,7 @@ package ar.edu.unq.sasa.gui.departments;
 
 import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.assignments.AssignmentByRequest;
 import ar.edu.unq.sasa.model.items.AssignableItem;
 

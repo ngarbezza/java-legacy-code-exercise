@@ -15,9 +15,9 @@ import ar.edu.unq.sasa.gui.util.ToStringConverter;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxModel;
 import ar.edu.unq.sasa.gui.util.combos.EasyComboBoxRenderer;
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
-import ar.edu.unq.sasa.model.academic.Request;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.departments.RequestsDepartment;
 

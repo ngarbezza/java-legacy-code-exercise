@@ -1,6 +1,13 @@
 package ar.edu.unq.sasa.gui;
 
-import ar.edu.unq.sasa.model.academic.ClassroomRequest;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.UIManager;
+
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.academic.University;
@@ -12,12 +19,6 @@ import ar.edu.unq.sasa.model.time.SimplePeriod;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
-
-import javax.swing.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Clase que se encarga de iniciar el sistema, con algunos datos de prueba.

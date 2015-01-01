@@ -16,6 +16,7 @@ import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.FixedResource;
 import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
+import ar.edu.unq.sasa.model.requests.Request;
 
 /**
  * Represento a una universidad, quien tiene aulas, profesores, materias,

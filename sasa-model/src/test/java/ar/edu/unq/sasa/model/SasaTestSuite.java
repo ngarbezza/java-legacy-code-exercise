@@ -4,8 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import ar.edu.unq.sasa.model.academic.TestClassroomRequest;
-import ar.edu.unq.sasa.model.academic.TestMobileResourcesRequest;
+import ar.edu.unq.sasa.model.requests.TestClassroomRequest;
+import ar.edu.unq.sasa.model.requests.TestMobileResourcesRequest;
 import ar.edu.unq.sasa.model.academic.TestProfessor;
 import ar.edu.unq.sasa.model.academic.TestSubject;
 import ar.edu.unq.sasa.model.academic.TestUniversity;
