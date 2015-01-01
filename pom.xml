@@ -15,11 +15,6 @@
   </properties>
 
   <repositories>
-<!-- <repository> -->
-<!--   <id>kfgodel_mosquito</id> -->
-<!--   <name>Repo Mosquito</name> -->
-<!--   <url>http://kfgodel.info:8081/nexus/content/groups/public/</url> -->
-<!-- </repository> -->
     <repository>
       <id>project.local</id>
       <name>project</name>
@@ -54,12 +49,6 @@
       <version>3.2</version>
       <scope>test</scope>
     </dependency>
-    <!-- <dependency> -->
-      <!-- <groupId>ar.com.dgarcia</groupId> -->
-      <!-- <artifactId>java-spec</artifactId> -->
-      <!-- <version>2.0</version> -->
-      <!-- <scope>test</scope> -->
-    <!-- </dependency> -->
   </dependencies>
   <build>
     <plugins>
@@ -68,8 +57,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>
