@@ -1,7 +1,6 @@
 package ar.edu.unq.sasa.gui.util;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public final class Dialogs {
 

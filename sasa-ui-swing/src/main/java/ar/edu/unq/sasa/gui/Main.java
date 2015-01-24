@@ -1,22 +1,10 @@
 package ar.edu.unq.sasa.gui;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.UIManager;
-
 import ar.edu.unq.sasa.model.academic.ClassroomRequest;
 import ar.edu.unq.sasa.model.academic.Professor;
 import ar.edu.unq.sasa.model.academic.Subject;
 import ar.edu.unq.sasa.model.academic.University;
-import ar.edu.unq.sasa.model.departments.AssignmentsDepartment;
-import ar.edu.unq.sasa.model.departments.ClassroomsDepartment;
-import ar.edu.unq.sasa.model.departments.ProfessorsDepartment;
-import ar.edu.unq.sasa.model.departments.RequestsDepartment;
-import ar.edu.unq.sasa.model.departments.ResourcesDepartment;
-import ar.edu.unq.sasa.model.departments.SubjectsDepartment;
+import ar.edu.unq.sasa.model.departments.*;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.Resource;
 import ar.edu.unq.sasa.model.time.Period;
@@ -24,6 +12,12 @@ import ar.edu.unq.sasa.model.time.SimplePeriod;
 import ar.edu.unq.sasa.model.time.hour.HourInterval;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 import ar.edu.unq.sasa.model.time.hour.Timestamp;
+
+import javax.swing.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Clase que se encarga de iniciar el sistema, con algunos datos de prueba.
@@ -65,7 +59,7 @@ public final class Main {
 		classroomsDepartment.createClassroom("Aula 9", 30);
 		classroomsDepartment.createClassroom("Aula 10", 30);
 
-		//creacion de 10 aulas de capacidad 15
+		//creación de 10 aulas de capacidad 15
 		classroomsDepartment.createClassroom("Aula 11", 15);
 		classroomsDepartment.createClassroom("Aula 12", 15);
 		classroomsDepartment.createClassroom("Aula 13", 15);

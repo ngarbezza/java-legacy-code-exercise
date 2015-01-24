@@ -45,7 +45,7 @@ public class ClassroomsPanel extends AbstractDepartmentPanel<Classroom> {
     @Override
     protected void createDeleteButtonListeners() {
         deleteButton.addActionListener(anEvent ->
-                withConfirmation("Eliminar", "¿Desea eliminar el pedido seleccionado?", () ->
+                withConfirmation("Eliminar", "¿Desea eliminar el aula seleccionada?", () ->
                         department.deleteClassroom(selection)));
     }
 

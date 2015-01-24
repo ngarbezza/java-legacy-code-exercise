@@ -14,24 +14,21 @@ public class PeriodDetailWindow extends JFrame {
 
 	private static final long serialVersionUID = 265531544901039040L;
 
-	public PeriodDetailWindow(final Period p) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JTextArea area = new JTextArea();
-				area.setFont(new Font("Verdana", Font.PLAIN, 12));
-				area.setOpaque(true);
-				area.setBackground(new Color(0xD8E3D8));
-				area.setEditable(false);
-				area.setText(p.toString());
-				add(new JScrollPane(area));
+	public PeriodDetailWindow(final Period period) {
+		SwingUtilities.invokeLater(() -> {
+            JTextArea area = new JTextArea();
+            area.setFont(new Font("Verdana", Font.PLAIN, 12));
+            area.setOpaque(true);
+            area.setBackground(new Color(0xD8E3D8));
+            area.setEditable(false);
+            area.setText(period.toString());
+            add(new JScrollPane(area));
 
-				setTitle("Detalles de Período");
-				setSize(430, 200);
-				setLocationRelativeTo(null);
-				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				setVisible(true);
-			}
-		});
+            setTitle("Detalles de Período");
+            setSize(430, 200);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            setVisible(true);
+        });
 	}
 }

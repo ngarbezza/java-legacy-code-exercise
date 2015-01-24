@@ -1,16 +1,15 @@
 package ar.edu.unq.sasa.gui.util.tables;
 
-import static ar.edu.unq.sasa.gui.util.ReflectionUtils.invokeJavaBean;
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
+import java.util.List;
 
-import ar.edu.unq.sasa.gui.util.ToStringConverter;
+import static ar.edu.unq.sasa.gui.util.ReflectionUtils.invokeJavaBean;
 
 /**
  * Clase que facilita el uso de {@link JTable}, mediante una implementación
@@ -38,21 +37,21 @@ public class ReadOnlyTableModel<T> extends AbstractTableModel {
 	private final List<String> columnNames;
 
 	/**
-	 * Los convertidores de Object a String que usa para cada columna.
+	 * Los conversores de Object a String que usa para cada columna.
 	 */
 	@SuppressWarnings("rawtypes")
 	private final List<ToStringConverter> converters;
 
 	public ReadOnlyTableModel() {
-		this(new ArrayList<T>());
+		this(new ArrayList<>());
 	}
 
 	@SuppressWarnings("rawtypes")
 	public ReadOnlyTableModel(List<T> aModel) {
 		model = aModel;
-		attributes = new ArrayList<String>();
-		columnNames = new ArrayList<String>();
-		converters = new ArrayList<ToStringConverter>();
+		attributes = new ArrayList<>();
+		columnNames = new ArrayList<>();
+		converters = new ArrayList<>();
 	}
 
 	public List<T> getModel() {

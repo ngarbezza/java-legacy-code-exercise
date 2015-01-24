@@ -18,5 +18,5 @@ public abstract class PeriodTreeNode extends DefaultMutableTreeNode {
 
 	public abstract boolean matchPeriodType(Boolean simple, Boolean or, Boolean and, Boolean minus);
 
-	public abstract void updateChanges(NewPeriodWindow pw);
+	public abstract void updateChanges(NewPeriodWindow periodWindow);
 }

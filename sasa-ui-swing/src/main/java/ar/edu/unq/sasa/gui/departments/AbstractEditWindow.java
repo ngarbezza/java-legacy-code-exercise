@@ -71,8 +71,7 @@ public abstract class AbstractEditWindow<A> extends JFrame {
     }
 
     // configuraciones especiales de algunos widgets
-    protected void setAnotherConfigurations() {
-    }
+    protected void setAnotherConfigurations() {}
 
     protected abstract String getWindowTitle();
 

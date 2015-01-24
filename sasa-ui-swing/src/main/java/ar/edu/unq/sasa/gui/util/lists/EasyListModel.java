@@ -1,9 +1,8 @@
 package ar.edu.unq.sasa.gui.util.lists;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.AbstractListModel;
 
 public class EasyListModel<T> extends AbstractListModel<T> {
 

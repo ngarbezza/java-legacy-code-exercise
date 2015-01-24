@@ -1,10 +1,8 @@
 package ar.edu.unq.sasa.gui.util.combos;
 
-import java.awt.Component;
-
-import javax.swing.Icon;
-import javax.swing.JList;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import java.awt.*;
 
 /**
  * Renderer para ComboBox que da la posibilidad de especificar la forma en que

@@ -1,46 +1,22 @@
 package ar.edu.unq.sasa.gui.period;
 
-import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
-import static ar.edu.unq.sasa.gui.util.WidgetUtilities.toggleAll;
+import ar.edu.unq.sasa.gui.util.PeriodHolder;
+import ar.edu.unq.sasa.gui.util.WidgetUtilities;
+import ar.edu.unq.sasa.model.time.*;
+import ar.edu.unq.sasa.model.time.hour.HourInterval;
+import ar.edu.unq.sasa.model.time.hour.Timestamp;
+import ar.edu.unq.sasa.model.time.repetition.*;
+import uic.widgets.calendar.UICDateEdit;
 
-import java.awt.FlowLayout;
+import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.tree.DefaultTreeModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTree;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultTreeModel;
-
-import uic.widgets.calendar.UICDateEdit;
-import ar.edu.unq.sasa.gui.util.PeriodHolder;
-import ar.edu.unq.sasa.gui.util.WidgetUtilities;
-import ar.edu.unq.sasa.model.time.And;
-import ar.edu.unq.sasa.model.time.Minus;
-import ar.edu.unq.sasa.model.time.Or;
-import ar.edu.unq.sasa.model.time.Period;
-import ar.edu.unq.sasa.model.time.SimplePeriod;
-import ar.edu.unq.sasa.model.time.hour.HourInterval;
-import ar.edu.unq.sasa.model.time.hour.Timestamp;
-import ar.edu.unq.sasa.model.time.repetition.Daily;
-import ar.edu.unq.sasa.model.time.repetition.EndingRepetition;
-import ar.edu.unq.sasa.model.time.repetition.Monthly;
-import ar.edu.unq.sasa.model.time.repetition.None;
-import ar.edu.unq.sasa.model.time.repetition.Repetition;
-import ar.edu.unq.sasa.model.time.repetition.Weekly;
+import static ar.edu.unq.sasa.gui.util.Dialogs.withConfirmation;
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.toggleAll;
 
 public class NewPeriodWindow extends JFrame {
 
@@ -72,26 +48,23 @@ public class NewPeriodWindow extends JFrame {
 	protected PeriodHolder periodHolder;
 
 	public NewPeriodWindow(final PeriodHolder pHolder) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				periodHolder = pHolder;
+		SwingUtilities.invokeLater(() -> {
+            periodHolder = pHolder;
 
-				createPeriodsTree();
-				createChooseConditionWidgets();
-				createDateWidgets();
-				createRepetitionWidgets();
-				createHourWidgets();
-				createButtons();
-				addAllWidgets();
-				disableWidgets();
+            createPeriodsTree();
+            createChooseConditionWidgets();
+            createDateWidgets();
+            createRepetitionWidgets();
+            createHourWidgets();
+            createButtons();
+            addAllWidgets();
+            disableWidgets();
 
-				setSize(450, 480);
-				setLocationRelativeTo(null);
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				setVisible(true);
-			}
-		});
+            setSize(450, 480);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setVisible(true);
+        });
 	}
 
 	protected void disableWidgets() {
@@ -114,14 +87,14 @@ public class NewPeriodWindow extends JFrame {
 	protected void createHourWidgets() {
 		fromHourLabel = new JLabel("Inicio");
 		toHourLabel = new JLabel("Fin");
-		fromHoursCombo = new JComboBox<Integer>();
-		toHoursCombo = new JComboBox<Integer>();
+		fromHoursCombo = new JComboBox<>();
+		toHoursCombo = new JComboBox<>();
 		for (int i = 0; i < 24; i++) {
 			fromHoursCombo.addItem(i);
 			toHoursCombo.addItem(i);
 		}
-		fromMinutesCombo = new JComboBox<Integer>();
-		toMinutesCombo = new JComboBox<Integer>();
+		fromMinutesCombo = new JComboBox<>();
+		toMinutesCombo = new JComboBox<>();
 		fromMinutesCombo.addItem(0);
 		fromMinutesCombo.addItem(30);
 		toMinutesCombo.addItem(0);
@@ -207,7 +180,7 @@ public class NewPeriodWindow extends JFrame {
 	@SuppressWarnings("serial")
 	protected void createPeriodsTree() {
 		Period period = periodHolder.getPeriod();
-		PeriodTreeNode rootPeriod = null;
+		PeriodTreeNode rootPeriod;
 		if (period == null)
 			rootPeriod = new SimplePeriodTreeNode();
 		else
@@ -219,12 +192,7 @@ public class NewPeriodWindow extends JFrame {
 				return ((PeriodTreeNode) value).getDisplayText();
 			}
 		};
-		periodsTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
-			@Override
-			public void valueChanged(TreeSelectionEvent anEvent) {
-				whenSelectedPeriodChanged(anEvent);
-			}
-		});
+		periodsTree.getSelectionModel().addTreeSelectionListener(this::whenSelectedPeriodChanged);
 	}
 
 	// NOTA : podría haberlo resuelto con double dispatching para evitar
@@ -320,10 +288,10 @@ public class NewPeriodWindow extends JFrame {
 
 	protected void createButtons() {
 		saveButton = new JButton("Guardar");
-		saveButton.addActionListener(anEvent -> { saveChanges(); });
+		saveButton.addActionListener(anEvent -> saveChanges());
 		acceptButton = new JButton("Aceptar");
 		acceptButton.addActionListener(anEvent -> {
-			if ((PeriodTreeNode) periodsTree.getLastSelectedPathComponent() != null)
+			if (periodsTree.getLastSelectedPathComponent() != null)
 				saveChanges();
 			Period period = ((PeriodTreeNode)
 			periodsTree.getModel().getRoot()).makePeriod();
@@ -333,9 +301,8 @@ public class NewPeriodWindow extends JFrame {
 			}
 		});
 		cancelButton = new JButton("Cancelar");
-		cancelButton.addActionListener(anEvent -> {
-			withConfirmation("Salir", "¿Desea salir de la ventana y perder los cambios?", () -> { dispose(); });
-		});
+		cancelButton.addActionListener(anEvent ->
+				withConfirmation("Salir", "¿Desea salir de la ventana y perder los cambios?", this::dispose));
 	}
 
 	protected void saveChanges() {
@@ -345,14 +312,14 @@ public class NewPeriodWindow extends JFrame {
 			selectedNode.updateChanges(this);
 		else {
 			PeriodTreeNode newNode = null;
-			if (simpleRadioButton.isSelected())
-				newNode = new SimplePeriodTreeNode();
-			else if (orRadioButton.isSelected())
+			if (orRadioButton.isSelected())
 				newNode = new OrPeriodTreeNode(new SimplePeriodTreeNode(), new SimplePeriodTreeNode());
 			else if (andRadioButton.isSelected())
 				newNode = new AndPeriodTreeNode(new SimplePeriodTreeNode(), new SimplePeriodTreeNode());
 			else if (minusRadioButton.isSelected())
 				newNode = new MinusPeriodTreeNode(new SimplePeriodTreeNode(), new SimplePeriodTreeNode());
+			else
+				newNode = new SimplePeriodTreeNode(); // simpleRadioButton.isSelected()
 			if (selectedNode.getParent() == null)
 				((DefaultTreeModel) periodsTree.getModel()).setRoot(newNode);
 			else {
@@ -461,23 +428,23 @@ public class NewPeriodWindow extends JFrame {
 		buttonsPanel.add(cancelButton);
 	}
 
-	public void updateChangesFromSimple(SimplePeriodTreeNode sptn) {
-		sptn.setStartHour(new Timestamp((Integer) fromHoursCombo.getSelectedItem(),
+	public void updateChangesFromSimple(SimplePeriodTreeNode treeNode) {
+		treeNode.setStartHour(new Timestamp((Integer) fromHoursCombo.getSelectedItem(),
 				(Integer) fromMinutesCombo.getSelectedItem()));
-		sptn.setEndHour(new Timestamp((Integer) toHoursCombo.getSelectedItem(),
+		treeNode.setEndHour(new Timestamp((Integer) toHoursCombo.getSelectedItem(),
 				(Integer) toMinutesCombo.getSelectedItem()));
-		sptn.setMinutesInRange(Math.round((Float) minutesInRange.getValue() * 60));
-		sptn.setStartDate(fromDate.getSelectedCalendar());
+		treeNode.setMinutesInRange(Math.round((Float) minutesInRange.getValue() * 60));
+		treeNode.setStartDate(fromDate.getSelectedCalendar());
 		if (noneRadioButton.isSelected())
-			sptn.setRepetition(new None());
+			treeNode.setRepetition(new None());
 		else {
 			Calendar end = toDate.getSelectedCalendar();
 			if (dailyRadioButton.isSelected())
-				sptn.setRepetition(new Daily(end));
+				treeNode.setRepetition(new Daily(end));
 			else if (weeklyRadioButton.isSelected())
-				sptn.setRepetition(new Weekly(end));
+				treeNode.setRepetition(new Weekly(end));
 			else if (monthlyRadioButton.isSelected())
-				sptn.setRepetition(new Monthly(end));
+				treeNode.setRepetition(new Monthly(end));
 		}
 	}
 }

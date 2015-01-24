@@ -1,25 +1,15 @@
 package ar.edu.unq.sasa.gui.departments;
 
-import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
-import static ar.edu.unq.sasa.gui.util.WidgetUtilities.enableAll;
-
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import ar.edu.unq.sasa.gui.util.tables.ReadOnlyTableModel;
 import ar.edu.unq.sasa.util.Subscriber;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import java.awt.*;
+import java.util.List;
+
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.disableAll;
+import static ar.edu.unq.sasa.gui.util.WidgetUtilities.enableAll;
 
 public abstract class AbstractDepartmentPanel<T> extends JPanel implements Subscriber {
 

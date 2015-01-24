@@ -1,9 +1,9 @@
 package ar.edu.unq.sasa.gui.period;
 
-import javax.swing.JRadioButton;
-
 import ar.edu.unq.sasa.model.time.Minus;
 import ar.edu.unq.sasa.model.time.Period;
+
+import javax.swing.*;
 
 public class MinusPeriodTreeNode extends CompositePeriodTreeNode {
 

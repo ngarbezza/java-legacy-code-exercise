@@ -1,12 +1,10 @@
 package ar.edu.unq.sasa.gui.util.combos;
 
+import ar.edu.unq.sasa.gui.util.ToStringConverter;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.AbstractListModel;
-import javax.swing.ComboBoxModel;
-
-import ar.edu.unq.sasa.gui.util.ToStringConverter;
 
 public class EasyComboBoxModel<T> extends AbstractListModel<T> implements ComboBoxModel<T> {
 

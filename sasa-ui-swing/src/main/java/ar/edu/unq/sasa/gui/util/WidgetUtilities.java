@@ -1,6 +1,6 @@
 package ar.edu.unq.sasa.gui.util;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 public final class WidgetUtilities {
 

@@ -4,7 +4,7 @@ import ar.edu.unq.sasa.model.time.Period;
 
 /**
  * Representa aquellos objetos que puedan asignársele
- * y obtener un Periodo de tiempo.
+ * y obtener un Período de tiempo.
  */
 public interface PeriodHolder {
 	

@@ -8,8 +8,8 @@ public final class ReflectionUtils {
 
 	public static Object invokeMethod(Object object, String actionName) {
 		try {
-			Method method = object.getClass().getMethod(actionName, new Class[]{});
-			return method.invoke(object, new Object[]{});
+			Method method = object.getClass().getMethod(actionName);
+			return method.invoke(object);
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
 		}

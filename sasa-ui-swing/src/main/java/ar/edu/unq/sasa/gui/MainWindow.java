@@ -1,35 +1,25 @@
 package ar.edu.unq.sasa.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
-
-import ar.edu.unq.sasa.gui.departments.AssignmentsPanel;
-import ar.edu.unq.sasa.gui.departments.BookingsPanel;
-import ar.edu.unq.sasa.gui.departments.ClassroomsPanel;
-import ar.edu.unq.sasa.gui.departments.MobileResourcesPanel;
-import ar.edu.unq.sasa.gui.departments.ProfessorsPanel;
-import ar.edu.unq.sasa.gui.departments.RequestsPanel;
+import ar.edu.unq.sasa.gui.departments.*;
 import ar.edu.unq.sasa.model.academic.University;
+
+import javax.swing.*;
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = -1524127390983723901L;
 
 	public MainWindow(final University university) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+		SwingUtilities.invokeLater(() -> {
 
-				setTitle("Sistema de Asignación Sobre Aulas");
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				setSize(800, 600);
-				setLocationRelativeTo(null);
-				setVisible(true);
+            setTitle("Sistema de Asignación Sobre Aulas");
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            setSize(800, 600);
+            setLocationRelativeTo(null);
+            setVisible(true);
 
-				addTabs(university);
-			}
-		});
+            addTabs(university);
+        });
 	}
 
 	protected void addTabs(University university) {

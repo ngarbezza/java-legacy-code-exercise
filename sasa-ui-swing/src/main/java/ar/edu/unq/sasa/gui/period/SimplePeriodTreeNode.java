@@ -1,8 +1,5 @@
 package ar.edu.unq.sasa.gui.period;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import ar.edu.unq.sasa.model.exceptions.time.PeriodException;
 import ar.edu.unq.sasa.model.time.CalendarUtils;
 import ar.edu.unq.sasa.model.time.Period;
@@ -12,6 +9,9 @@ import ar.edu.unq.sasa.model.time.hour.Timestamp;
 import ar.edu.unq.sasa.model.time.repetition.EndingRepetition;
 import ar.edu.unq.sasa.model.time.repetition.None;
 import ar.edu.unq.sasa.model.time.repetition.Repetition;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class SimplePeriodTreeNode extends PeriodTreeNode {
 
@@ -100,7 +100,7 @@ public class SimplePeriodTreeNode extends PeriodTreeNode {
 	}
 
 	@Override
-	public void updateChanges(NewPeriodWindow pw) {
-		pw.updateChangesFromSimple(this);
+	public void updateChanges(NewPeriodWindow periodWindow) {
+		periodWindow.updateChangesFromSimple(this);
 	}
 }
