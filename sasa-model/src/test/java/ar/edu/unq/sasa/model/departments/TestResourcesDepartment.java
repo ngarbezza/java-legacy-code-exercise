@@ -21,11 +21,10 @@ public class TestResourcesDepartment {
     private ResourcesDepartment resourcesDepartment;
     private FixedResource fixedResource;
     private MobileResource mobileResource;
-    private University university;
 
     @Before
     public void setUp() {
-        university = new University();
+        University university = new University();
         resourcesDepartment = new ResourcesDepartment(university);
         fixedResource = createMock(FixedResource.class);
         mobileResource = createMock(MobileResource.class);
@@ -34,7 +33,7 @@ public class TestResourcesDepartment {
     @Test
     public void testCreateMobileResource() {
         MobileResource res2 = resourcesDepartment.createMobileResource("Luz");
-        assertTrue(university.getMobileResources().contains(res2));
+        assertTrue(resourcesDepartment.getMobileResources().contains(res2));
     }
 
     @Test
@@ -54,7 +53,7 @@ public class TestResourcesDepartment {
     @Test
     public void testDeleteMobileResource() {
         resourcesDepartment.deleteMobileResource(mobileResource);
-        assertFalse(university.getMobileResources().contains(mobileResource));
+        assertFalse(resourcesDepartment.getMobileResources().contains(mobileResource));
     }
 
     @Test

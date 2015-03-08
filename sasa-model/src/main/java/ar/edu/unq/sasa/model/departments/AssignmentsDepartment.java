@@ -1,7 +1,5 @@
 package ar.edu.unq.sasa.model.departments;
 
-import ar.edu.unq.sasa.model.requests.ClassroomRequest;
-import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.academic.University;
 import ar.edu.unq.sasa.model.assignments.Assignment;
 import ar.edu.unq.sasa.model.assignments.Booking;
@@ -11,6 +9,8 @@ import ar.edu.unq.sasa.model.items.AssignableItem;
 import ar.edu.unq.sasa.model.items.Classroom;
 import ar.edu.unq.sasa.model.items.MobileResource;
 import ar.edu.unq.sasa.model.items.Resource;
+import ar.edu.unq.sasa.model.requests.ClassroomRequest;
+import ar.edu.unq.sasa.model.requests.Request;
 import ar.edu.unq.sasa.model.time.Period;
 import ar.edu.unq.sasa.model.time.hour.LogicalHourFulfiller;
 
@@ -84,7 +84,7 @@ public class AssignmentsDepartment extends Department {
                                        List<ResourceAssignment> resourcesAssignmentsList, Period period) {
         for (Entry<Resource, Integer> entry : resources) {
             Integer resourceRequiredQuantity = entry.getValue();
-            for (MobileResource resource : getUniversity().getMobileResources())
+            for (MobileResource resource : getResourcesDepartment().getMobileResources())
                 if (resource.getName().equals(entry.getKey().getName()) && resourceRequiredQuantity > 0) {
                     Boolean isUsefulPeriod = true;
                     for (Period resourcePeriod : resource.getAssignments().keySet())
@@ -99,9 +99,8 @@ public class AssignmentsDepartment extends Department {
     }
 
     public ClassroomAssignment assignRequestInAClassroom(ClassroomRequest classroomRequest, Classroom classroom) {
-        Period freePeriod = (Period) getPercentageAndPeriod(classroomRequest, classroom).get(1);
-        ClassroomAssignment classroomAssignment = assignClassroomAssignment(classroomRequest, classroom, freePeriod);
-        return classroomAssignment;
+        return assignClassroomAssignment(classroomRequest, classroom,
+                (Period) getPercentageAndPeriod(classroomRequest, classroom).get(1));
     }
 
     public ClassroomAssignment assignRequestInMostSatisfactoryClassroom(ClassroomRequest classroomRequest) {
